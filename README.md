@@ -3,6 +3,8 @@
 
 * * *
 
+[![Travis-CI Build Status](https://travis-ci.org/thomasp85/ggforce.svg?branch=master)](https://travis-ci.org/thomasp85/ggforce)
+
 ## About
 ggforce is a package aimed at providing missing functionality to ggplot2 through
 the extension system introduced with ggplot2 v2.0.0. In general ggplot2 has been
