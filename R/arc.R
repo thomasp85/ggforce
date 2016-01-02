@@ -103,7 +103,7 @@ stat_arc  <- function(mapping = NULL, data = NULL, geom = "arc",
     )
 }
 #' @importFrom ggplot2 ggproto Geom draw_key_path .pt alpha
-#' @importFrom grid curveGrob  gList gpar alpha
+#' @importFrom grid curveGrob  gList gpar
 GeomArc <- ggproto('GeomArc', Geom,
                    required_aes = c('x0', 'y0', 'r', 'start', 'end'),
                    default_aes = list(colour = 'black', size = 0.5, linetype = 1, alpha = 1, lineend = 'butt'),
