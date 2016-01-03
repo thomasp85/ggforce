@@ -35,8 +35,8 @@
 #'  \item{curvature}{The curvature of the curveGrob to match a circle}
 #' }
 #'
-#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot]{aes}}
-#' or \code{\link[ggplot]{aes_}}. If specified and \code{inherit.aes = TRUE}
+#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
+#' or \code{\link[ggplot2]{aes_}}. If specified and \code{inherit.aes = TRUE}
 #' (the default), is combined with the default mapping at the top level of the
 #' plot. You only need to supply mapping if there isn't a mapping defined for
 #' the plot.
