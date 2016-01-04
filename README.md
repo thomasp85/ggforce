@@ -13,26 +13,44 @@ better description). The long term goal is to have a repository of geoms, stats
 etc that are as well documented and implemented as the official ones found in 
 ggplot2.
 
+#### Disclaimer
+The inclusion of any geom, stat, position etc in ggforce is not necessarily a 
+recommendation of their use. ggplot2 has been succesfull in being opinionated
+about what functionality should be available. This is good as it insulates the
+user from making bad decisions when analyzing their data, but it also makes it
+difficult to develop novel visualizations using the ggplot2 API. ggforce on the
+other hand positions itself closer to the "anything goes - the user is 
+responsible for the quality of the output". Despite this keep in mind that some
+things are always bad choices in data visualization: rainbow color scales, pie 
+charts, overplotting etc. Don't do these things except with very good reasons.
+
 ### Current extensions
 Following is a list of the functionality currently offered through ggforce
 
 #### Geoms
 - *geom_arc* Drawing of circle segments
+- *geom_edge_bundle* Drawing of edge bundles from control points
 
 #### Stats
 - *stat_arc* Companion to geom_arc
+- *stat_edge_bundle* Generate coordinates based on control points for use with
+geom_edge_bundle
 
 ### Pending extensions
 - scale_direction for symbolizing segment/path/line direction using a 
 color/alpha gradient without occupying the color scale
 - geom_spline for drawing xplines
-- geom_edge_bundles for drawing b-spline based edge bundles
 - geom_arc_bar for drawing fat circle segments/wedges
 - geom_circle for drawing circles based on coordinate system sizes
 - geom_pie_point for drawing scatterplots based on small pie charts
+- geom_wordcloud for drawing wordclouds
+- position_steam for drawing steamgraphs
 - stat_arc_stacked for automatically calculating data for pie/donut charts
 - stat_path_dir and stat_segment_dir for calculating path and segments 
 compatible with scale_direction
+- trans_power for power transformations
+- trans_radial for converting radial coordinates to cartesian
+- reverse_trans for making a reverse transformation from any trans object
 
 ### Contributions
 Pull and feature requests are very welcome. Obviously PR's will lead to faster

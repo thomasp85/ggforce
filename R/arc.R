@@ -47,6 +47,13 @@
 #' @param position Position adjustment, either as a string, or the result of a
 #' call to a position adjustment function.
 #'
+#' @param arrow specification for arrow heads, as created by arrow()
+#'
+#' @param lineend Line end style (round, butt, square)
+#'
+#' @param ncp The number of control points used to draw the curve. More control
+#' points creates a smoother curve.
+#'
 #' @param ... other arguments passed on to \code{\link[ggplot2]{layer}}. There
 #' are three types of arguments you can use here:
 #' \itemize{
@@ -72,12 +79,15 @@
 #' @param geom, stat Override the default connection between \code{geom_arc} and
 #' \code{stat_arc}.
 #'
+#' @author Thomas Lin Pedersen
+#'
 #' @name geom_arc
 #' @rdname geom_arc
 NULL
 
 #' @importFrom ggplot2 ggproto Stat
 #' @importFrom grid arcCurvature
+#' @export
 StatArc <- ggproto('StatArc', Stat,
                    compute_panel = function(data, scales) {
                        data$x <- data$x0 + data$r*sin(data$start)
@@ -93,6 +103,7 @@ StatArc <- ggproto('StatArc', Stat,
 )
 #' @rdname geom_arc
 #' @importFrom ggplot2 layer
+#' @export
 stat_arc  <- function(mapping = NULL, data = NULL, geom = "arc",
                       position = "identity", na.rm = FALSE, show.legend = NA,
                       inherit.aes = TRUE, ...) {
@@ -104,6 +115,7 @@ stat_arc  <- function(mapping = NULL, data = NULL, geom = "arc",
 }
 #' @importFrom ggplot2 ggproto Geom draw_key_path .pt alpha
 #' @importFrom grid curveGrob  gList gpar
+#' @export
 GeomArc <- ggproto('GeomArc', Geom,
                    required_aes = c('x0', 'y0', 'r', 'start', 'end'),
                    default_aes = list(colour = 'black', size = 0.5, linetype = 1, alpha = 1, lineend = 'butt'),
@@ -127,6 +139,7 @@ GeomArc <- ggproto('GeomArc', Geom,
 )
 #' @rdname geom_arc
 #' @importFrom ggplot2 layer
+#' @export
 geom_arc <- function(mapping = NULL, data = NULL, stat = "arc",
                      position = "identity", ncp = 5, arrow = NULL,
                      lineend = "butt", na.rm = FALSE, show.legend = NA,

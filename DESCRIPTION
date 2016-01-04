@@ -12,9 +12,10 @@ Description: The aim of ggplot2 is to aid in visual data investigations. This
     extension system so using ggforce should be a stable experience.
 License: GPL (>=2)
 LazyData: TRUE
-Imports:
+Imports: 
     Rcpp (>= 0.12.2),
     ggplot2 (>= 2.0.0),
-    grid
+    grid,
+    dplyr
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
