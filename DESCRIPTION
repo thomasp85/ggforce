@@ -16,6 +16,8 @@ Imports:
     Rcpp (>= 0.12.2),
     ggplot2 (>= 2.0.0),
     grid,
-    dplyr
+    dplyr,
+    scales,
+    MASS
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1

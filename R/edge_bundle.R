@@ -80,7 +80,7 @@
 #'
 #' @references Holten, D. (2006). \emph{Hierarchical edge bundles: visualization
 #' of adjacency relations in hierarchical data.} IEEE Transactions on
-#' Visualization and Computer Graphics, \strong{12}(5), 741–748.
+#' Visualization and Computer Graphics, \strong{12}(5), 741-748.
 #' http://doi.org/10.1109/TVCG.2006.147
 #'
 #' @name geom_edge_bundle
