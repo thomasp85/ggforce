@@ -28,13 +28,18 @@ charts, overplotting etc. Don't do these things except with very good reasons.
 Following is a list of the functionality currently offered through ggforce
 
 #### Geoms
-- *geom_arc* Drawing of circle segments
-- *geom_edge_bundle* Drawing of edge bundles from control points
+- ***geom_arc:*** Drawing of circle segments
+- ***geom_edge_bundle:*** Drawing of edge bundles from control points
 
 #### Stats
-- *stat_arc* Companion to geom_arc
-- *stat_edge_bundle* Generate coordinates based on control points for use with
+- ***stat_arc:*** Companion to geom_arc
+- ***stat_edge_bundle:*** Generate coordinates based on control points for use with
 geom_edge_bundle
+
+#### Transformations
+- ***power_trans:*** Create power transformations - somehow missing from scales
+- ***trans_reverser:*** Reverse any transformation
+- ***radial_trans:*** Transform between radial and cartesian coordinates
 
 ### Pending extensions
 - scale_direction for symbolizing segment/path/line direction using a 
@@ -48,9 +53,6 @@ color/alpha gradient without occupying the color scale
 - stat_arc_stacked for automatically calculating data for pie/donut charts
 - stat_path_dir and stat_segment_dir for calculating path and segments 
 compatible with scale_direction
-- trans_power for power transformations
-- trans_radial for converting radial coordinates to cartesian
-- reverse_trans for making a reverse transformation from any trans object
 
 ### Contributions
 Pull and feature requests are very welcome. Obviously PR's will lead to faster
