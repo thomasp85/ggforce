@@ -24,6 +24,18 @@ responsible for the quality of the output". Despite this keep in mind that some
 things are always bad choices in data visualization: rainbow color scales, pie 
 charts, overplotting etc. Don't do these things except with very good reasons.
 
+### Installation
+Until more features are available the package will remain solemnly on Github.
+Once I believe it offers a large enough set of extensions it will be submitted
+to CRAN. Installation of ggforce is currently as follows:
+
+```r
+if (!require(devtools)) {
+    install.packages('devtools')
+}
+devtools::install_github('thomasp85/ggforce')
+```
+
 ### Current extensions
 Following is a list of the functionality currently offered through ggforce
 
@@ -44,7 +56,8 @@ geom_edge_bundle
 ### Pending extensions
 - scale_direction for symbolizing segment/path/line direction using a 
 color/alpha gradient without occupying the color scale
-- geom_spline for drawing xplines
+- geom_spline for drawing xplines (low priority as already available through 
+[ggalt](https://github.com/hrbrmstr/ggalt))
 - geom_arc_bar for drawing fat circle segments/wedges
 - geom_circle for drawing circles based on coordinate system sizes
 - geom_pie_point for drawing scatterplots based on small pie charts
@@ -73,3 +86,18 @@ please file an issue. The feature request should provide a detailed description
 of the nature of the feature, with links to relevant litterature describing the
 visualization type, as well as possible use cases to guide in designing the use
 cases.
+
+### Related projects
+ggforce isn't nor should be the only package providing additional ggplot2 
+functionality. Following is a list in no particular order of kindred packages 
+that I know of:
+
+- [***ggplus:***](https://github.com/guiastrennec/ggplus) Based on pre-v2.0.0 
+ggplot2 some/most of this package might be unusable at this point. Only 
+available on Github.
+- [***ggalt:***](https://github.com/hrbrmstr/ggalt) Similar in scope to ggforce.
+Also available on 
+[CRAN](https://cran.r-project.org/web/packages/ggalt/index.html)
+- [***ggfortify:***](https://github.com/sinhrks/ggfortify) Defines ggplot2
+interfaces to common R packages using fortify and autoplot. Also available on 
+[CRAN](https://cran.r-project.org/web/packages/ggfortify/index.html)
