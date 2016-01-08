@@ -12,6 +12,19 @@
 #'
 #' @export
 #'
+#' @examples
+#' # Power of 5 transformations
+#' trans <- power_trans(2)
+#' trans$transform(1:10)
+#'
+#' # Cubic root transformation
+#' trans <- power_trans(1/3)
+#' trans$transform(1:10)
+#'
+#' # Use it in a plot
+#' ggplot() + geom_line(aes(x=1:10, y=1:10)) +
+#'   scale_x_continuous(trans = power_trans(2), expand=c(0,1))
+#'
 power_trans <- function(n) {
     trans_new(
         name = paste0("power of ", fractions(n)),
@@ -69,6 +82,20 @@ power_trans <- function(n) {
 #'
 #' @export
 #'
+#' @examples
+#' # Some data in radial form
+#' rad <- data.frame(r = seq(1, 10, by = 0.1), a = seq(1, 10, by = 0.1))
+#'
+#' # Create a transformation
+#' radial <- radial_trans(c(0,1), c(0,5))
+#'
+#' # Get data in x, y
+#' cart <- radial$transform(rad$r, rad$a)
+#'
+#' # Have a look
+#' ggplot() + geom_path(aes(x=x, y=y), data = cart, color='forestgreen') +
+#'   geom_path(aes(x=r, y=a), data = rad, color='firebrick')
+#'
 radial_trans <- function(r.range, a.range, offset = pi/2, pad = 0.5,
                          clip = FALSE) {
     trans_new(
@@ -120,6 +147,16 @@ radial_trans <- function(r.range, a.range, offset = pi/2, pad = 0.5,
 #' @importFrom scales as.trans trans_new asn_trans atanh_trans boxcox_trans date_trans exp_trans identity_trans log10_trans log1p_trans log2_trans logit_trans log_trans probability_trans probit_trans reciprocal_trans reverse_trans sqrt_trans time_trans
 #'
 #' @export
+#'
+#' @examples
+#' # Lets make a plot
+#' p <- ggplot() + geom_line(aes(x=1:10, y=1:10))
+#'
+#' # scales already have a reverse trans
+#' p + scale_x_continuous(trans='reverse')
+#'
+#' # But what if you wanted to reverse an already log transformed scale?
+#' p + scale_x_continuous(trans=trans_reverser('log'))
 #'
 trans_reverser <- function(trans) {
     transformOrig <- as.trans(trans)
