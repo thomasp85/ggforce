@@ -62,6 +62,10 @@ color/alpha gradient without occupying the color scale
 - geom_circle for drawing circles based on coordinate system sizes
 - geom_pie_point for drawing scatterplots based on small pie charts
 - geom_wordcloud for drawing wordclouds
+- geom_axis for drawing axes in the plotting region
+- geom_radial_axis as above but circular
+- linear_trans for doing linear coordinate transformations (rotation, shearing,
+reflection...)
 - position_steam for drawing steamgraphs
 - stat_arc_stacked for automatically calculating data for pie/donut charts
 - stat_path_dir and stat_segment_dir for calculating path and segments 
