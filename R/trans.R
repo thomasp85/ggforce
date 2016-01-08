@@ -48,6 +48,9 @@ power_trans <- function(n) {
 #' @param offset The offset in angles to apply. Determines that start position
 #' on the circle. pi/2 (the default) corresponds to 12 o'clock.
 #'
+#' @param pad Adds to the end points of the angle range in order to separate the
+#' start and end point. Defaults to 0.5
+#'
 #' @param clip Should input data be clipped to r.range and a.range or be allowed
 #' to extend beyond. Defaults to FALSE (no clipping)
 #'
@@ -66,7 +69,8 @@ power_trans <- function(n) {
 #'
 #' @export
 #'
-radial_trans <- function(r.range, a.range, offset = pi/2, clip = FALSE) {
+radial_trans <- function(r.range, a.range, offset = pi/2, pad = 0.5,
+                         clip = FALSE) {
     trans_new(
         name = paste0("radial-to-cartesian: ",
                       r.range[1], '-', r.range[2], ' -> 0-1; ',
