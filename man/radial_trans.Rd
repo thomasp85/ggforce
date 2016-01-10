@@ -4,7 +4,7 @@
 \alias{radial_trans}
 \title{Create radial data in a cartesian coordinate system}
 \usage{
-radial_trans(r.range, a.range, offset = pi/2, clip = FALSE)
+radial_trans(r.range, a.range, offset = pi/2, pad = 0.5, clip = FALSE)
 }
 \arguments{
 \item{r.range}{The range in radius that correspond to 0 - 1 in the unit
@@ -16,6 +16,9 @@ clockwise it's an inverse mapping}
 
 \item{offset}{The offset in angles to apply. Determines that start position
 on the circle. pi/2 (the default) corresponds to 12 o'clock.}
+
+\item{pad}{Adds to the end points of the angle range in order to separate the
+start and end point. Defaults to 0.5}
 
 \item{clip}{Should input data be clipped to r.range and a.range or be allowed
 to extend beyond. Defaults to FALSE (no clipping)}
@@ -37,5 +40,26 @@ radial representation is periodic. It is impossible to know how many
 revolutions around the unit circle a point has taken from reading its
 coordinates. The inverse function will always assume that coordinates are in
 their first revolution i.e. map them back within the range of a.range.
+}
+\note{
+While trans objects are often used to modify scales in ggplot2, radial
+transformation is different as it is a coordinate transformation and takes
+two arguments. Consider it a trans version of coord_polar and use it to
+transform your data prior to plotting.
+}
+\examples{
+# Some data in radial form
+rad <- data.frame(r = seq(1, 10, by = 0.1), a = seq(1, 10, by = 0.1))
+
+# Create a transformation
+radial <- radial_trans(c(0,1), c(0,5))
+
+# Get data in x, y
+cart <- radial$transform(rad$r, rad$a)
+
+# Have a look
+ggplot() + geom_path(aes(x=x, y=y), data = cart, color='forestgreen') +
+  geom_path(aes(x=r, y=a), data = rad, color='firebrick')
+
 }
 

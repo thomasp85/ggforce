@@ -41,12 +41,16 @@ Following is a list of the functionality currently offered through ggforce
 
 #### Geoms
 - ***geom_arc:*** Drawing of circle segments
+- ***geom_arc_bar:*** Drawing thick arcs and wedgets
 - ***geom_edge_bundle:*** Drawing of edge bundles from control points
 
 #### Stats
 - ***stat_arc:*** Companion to geom_arc
-- ***stat_edge_bundle:*** Generate coordinates based on control points for use with
-geom_edge_bundle
+- ***stat_arc_bar:*** Generate arc/wedge polygons based on center, radius start
+and end angle
+_ ***stat_pie:*** Generate arc/wedge polygons based on center, radius and value
+- ***stat_edge_bundle:*** Generate coordinates based on control points for use 
+with geom_edge_bundle
 
 #### Transformations
 - ***power_trans:*** Create power transformations - somehow missing from scales
@@ -58,7 +62,6 @@ geom_edge_bundle
 color/alpha gradient without occupying the color scale
 - geom_spline for drawing xplines (low priority as already available through 
 [ggalt](https://github.com/hrbrmstr/ggalt))
-- geom_arc_bar for drawing fat circle segments/wedges
 - geom_circle for drawing circles based on coordinate system sizes
 - geom_pie_point for drawing scatterplots based on small pie charts
 - geom_wordcloud for drawing wordclouds

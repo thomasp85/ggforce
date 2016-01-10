@@ -97,6 +97,8 @@
 #'                         linetype=factor(r)),
 #'                     data=arcs)
 #'
+#' @seealso \code{\link{geom_arc_bar}} for drawing arcs with fill
+#'
 NULL
 
 #' @importFrom ggplot2 ggproto Stat

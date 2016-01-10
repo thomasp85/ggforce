@@ -93,6 +93,31 @@ bold):
  the spline}
 }
 }
+\examples{
+# Define some control points
+cp <- data.frame(
+  x = c(0, -5, -5, 5, 5, 2.5, 5, 7.5, 5, 2.5, 5, 7.5, 5, -2.5, -5, -7.5, -5,
+        -2.5, -5, -7.5, -5),
+  y = c(0, -5, 5, -5, 5, 5, 7.5, 5, 2.5, -5, -7.5, -5, -2.5, 5, 7.5, 5, 2.5,
+        -5, -7.5, -5, -2.5)
+)
+
+# Now create some paths between them
+paths <- data.frame(
+  ind = c(7,5,8,8,5,9,9,5,6,6,5,7,7,5,1,3,15,8,5,1,3,17,9,5,1,2,19,6,5,1,4,
+          12,7,5,1,4,10,6,5,1,2,20),
+  group = c(1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,5,5,6,6,6,6,6,7,7,7,7,7,8,8,8,8,8,
+            9,9,9,9,9,10,10,10,10,10)
+)
+paths$x <- cp$x[paths$ind]
+paths$y <- cp$y[paths$ind]
+
+# Now lets plot this contrived example (see the vignette for a better one)
+ggplot() +
+  geom_point(aes(x=x, y=y), data=cp, color='steelblue') +
+  geom_edge_bundle(aes(x=x, y=y, group=group), data=paths)
+
+}
 \author{
 Thomas Lin Pedersen. The C++ code for De Boor's algorithm has been
 adapted from
@@ -101,7 +126,7 @@ adapted from
 \references{
 Holten, D. (2006). \emph{Hierarchical edge bundles: visualization
 of adjacency relations in hierarchical data.} IEEE Transactions on
-Visualization and Computer Graphics, \strong{12}(5), 741–748.
+Visualization and Computer Graphics, \strong{12}(5), 741-748.
 http://doi.org/10.1109/TVCG.2006.147
 }
 
