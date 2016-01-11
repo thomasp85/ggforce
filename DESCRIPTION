@@ -35,7 +35,5 @@ Collate:
     'circle.R'
     'edge_bundle.R'
     'ggforce_package.R'
-    'scale_direction.R'
-    'spline.R'
     'themes.R'
     'trans.R'

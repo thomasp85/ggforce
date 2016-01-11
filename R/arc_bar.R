@@ -200,7 +200,7 @@ geom_arc_bar <- function(mapping = NULL, data = NULL, stat = "arc_bar",
 arcPaths <- function(data, n) {
     trans <- radial_trans(c(0, 1), c(0, 2*pi), pad = 0)
     data <- data[data$start != data$end, ]
-    data$nControl <- ceiling(n/abs(data$end - data$start))
+    data$nControl <- ceiling(n/(2*pi) * abs(data$end - data$start))
     data$nControl[data$nControl < 3] <- 3
     extraData <- !names(data) %in% c('r0', 'r', 'start', 'end')
     paths <- lapply(seq_len(nrow(data)), function(i) {
@@ -229,7 +229,7 @@ arcPaths <- function(data, n) {
                    trans$transform(paths$r, paths$a))
     paths$x <- paths$x + paths$x0
     paths$y <- paths$y + paths$y0
-    if ('exploded' %in% names(data)) {
+    if ('explode' %in% names(data)) {
         exploded <- data$explode != 0
         if (any(exploded)) {
             exploder <- trans$transform(

@@ -85,12 +85,44 @@ p + geom_arc_bar(aes(x0 = 0, y0 = 0, r0 = 0, r = 1, amount = amount,
 p + geom_arc_bar(aes(x0 = 0, y0 = 0, r0 = 0.8, r = 1, amount = amount, 
                      fill = state, explode = focus),
                  data = pie, stat = 'pie')
-
 ```
 
 While the above produces some of the most hated plot types in the world it does
 showcase the use of arcs in plotting. Other examples will use geom_arc and 
-geom_arc_bar to produce more powerful plot types.
+geom_arc_bar to produce more powerful plot types. 
+
+Using arc is just like arc_bar except that it does not take an r0 argument and
+does not have any fill.
+
+## Circles
+Standard ggplot2 generally has you covered when it comes to drawing circles
+through the point geom, it does not make it possible to draw circles where the
+radius of the circles are related to the coordinate system. The geom_circle from
+ggforce are precisely for that. It generates a polygon resembling a circle based 
+on a center point and a radius, making the radius directly readable from the 
+axes. The geom are mainly intended to make it possible to draw circles with fine 
+grained control, but will often not have any utility in itself. An exception 
+would be in plotting trees as enclosure diagrams using circles. Here it will be
+necessary to have fine control over radius.
+
+```{r, echo=TRUE, eval=TRUE, fig.align='center'}
+# Here are some data describing some circles
+circles <- data.frame(
+    x0 = rep(1:3, 2),
+    y0 =  rep(1:2, each=3),
+    r = seq(0.1, 1, length.out = 6)
+)
+ggplot() + geom_circle(aes(x0=x0, y0=y0, r=r, fill=r), data=circles)
+
+# As it is related to the coordinate system, coord_fixed() is needed to ensure
+# true circularity
+ggplot() + geom_circle(aes(x0=x0, y0=y0, r=r, fill=r), data=circles) +
+    coord_fixed()
+
+# Use n to set the smoothness of the circle
+ggplot() + geom_circle(aes(x0=x0, y0=y0, r=r, fill=r), data=circles, n=10) +
+    coord_fixed()
+```
 
 ## Edge bundles
 When using edges to show connections you often end up with a lot of overploting,

@@ -105,7 +105,7 @@ StatCircle <- ggproto('StatCircle', Stat,
     compute_panel = function(data, scales, n = 360) {
         data$start <- 0
         data$end <- 2*pi
-        arcPaths(data, n)
+        arcPaths(data, n + 1)
     },
 
     required_aes = c('x0', 'y0', 'r')
