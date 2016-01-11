@@ -41,14 +41,14 @@ Following is a list of the functionality currently offered through ggforce
 
 #### Geoms
 - ***geom_arc:*** Drawing of circle segments
-- ***geom_arc_bar:*** Drawing thick arcs and wedgets
+- ***geom_arc_bar:*** Drawing thick arcs and wedges
 - ***geom_edge_bundle:*** Drawing of edge bundles from control points
 
 #### Stats
 - ***stat_arc:*** Companion to geom_arc
 - ***stat_arc_bar:*** Generate arc/wedge polygons based on center, radius start
 and end angle
-_ ***stat_pie:*** Generate arc/wedge polygons based on center, radius and value
+- ***stat_pie:*** Generate arc/wedge polygons based on center, radius and value
 - ***stat_edge_bundle:*** Generate coordinates based on control points for use 
 with geom_edge_bundle
 
@@ -57,12 +57,19 @@ with geom_edge_bundle
 - ***trans_reverser:*** Reverse any transformation
 - ***radial_trans:*** Transform between radial and cartesian coordinates
 
+#### Themes
+- ***theme_no_axes:*** A theme_bw() derived theme that removes axes and grids
+from the plot
+
 ### Pending extensions
 - scale_direction for symbolizing segment/path/line direction using a 
 color/alpha gradient without occupying the color scale
 - geom_spline for drawing xplines (low priority as already available through 
 [ggalt](https://github.com/hrbrmstr/ggalt))
 - geom_circle for drawing circles based on coordinate system sizes
+- geom_d for drawing complex shapes in the manner of svg's d specification
+- geom_chord for drawing chords (connections between circle segments)
+- geom_bezier for drawing curves defined by start, end and two control points
 - geom_pie_point for drawing scatterplots based on small pie charts
 - geom_wordcloud for drawing wordclouds
 - geom_axis for drawing axes in the plotting region
@@ -108,3 +115,7 @@ Also available on
 - [***ggfortify:***](https://github.com/sinhrks/ggfortify) Defines ggplot2
 interfaces to common R packages using fortify and autoplot. Also available on 
 [CRAN](https://cran.r-project.org/web/packages/ggfortify/index.html)
+- [***ggrepel:***](https://github.com/slowkow/ggrepel/index.html) Defines a
+nifty geom_text_repel that forces text to move away from their origin to avoid
+overlaps. Available on 
+[CRAN](https://cran.r-project.org/web/packages/ggrepel/index.html)
