@@ -11,8 +11,8 @@ stat_arc_bar(mapping = NULL, data = NULL, geom = "arc_bar",
   inherit.aes = TRUE, ...)
 
 stat_pie(mapping = NULL, data = NULL, geom = "arc_bar",
-  position = "identity", n = 360, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  position = "identity", n = 360, sep = 0, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_arc_bar(mapping = NULL, data = NULL, stat = "arc_bar",
   position = "identity", n = 360, na.rm = FALSE, show.legend = NA,

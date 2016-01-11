@@ -5,12 +5,12 @@
 \alias{stat_arc}
 \title{Arcs based on radius and radians}
 \usage{
-stat_arc(mapping = NULL, data = NULL, geom = "arc",
-  position = "identity", na.rm = FALSE, show.legend = NA,
+stat_arc(mapping = NULL, data = NULL, geom = "circle",
+  position = "identity", n = 360, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 
 geom_arc(mapping = NULL, data = NULL, stat = "arc",
-  position = "identity", ncp = 5, arrow = NULL, lineend = "butt",
+  position = "identity", n = 360, arrow = NULL, lineend = "butt",
   na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -51,12 +51,12 @@ are three types of arguments you can use here:
  \item{Other arguments passed on to the stat.}
 }}
 
-\item{ncp}{The number of control points used to draw the curve. More control
-points creates a smoother curve.}
-
 \item{arrow}{specification for arrow heads, as created by arrow()}
 
 \item{lineend}{Line end style (round, butt, square)}
+
+\item{ncp}{The number of control points used to draw the curve. More control
+points creates a smoother curve.}
 }
 \description{
 This set of stats and geoms makes it possible to draw circle segments based
