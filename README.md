@@ -42,6 +42,7 @@ Following is a list of the functionality currently offered through ggforce
 #### Geoms
 - ***geom_arc:*** Drawing of circle segments
 - ***geom_arc_bar:*** Drawing thick arcs and wedges
+- ***geom_circle:*** Drawing circles with radius relative to coordinate scales
 - ***geom_edge_bundle:*** Drawing of edge bundles from control points
 
 #### Stats
@@ -49,6 +50,7 @@ Following is a list of the functionality currently offered through ggforce
 - ***stat_arc_bar:*** Generate arc/wedge polygons based on center, radius start
 and end angle
 - ***stat_pie:*** Generate arc/wedge polygons based on center, radius and value
+- ***stat_circle:*** Generate circle polygon based on center and radius
 - ***stat_edge_bundle:*** Generate coordinates based on control points for use 
 with geom_edge_bundle
 
@@ -66,7 +68,6 @@ from the plot
 color/alpha gradient without occupying the color scale
 - geom_spline for drawing xplines (low priority as already available through 
 [ggalt](https://github.com/hrbrmstr/ggalt))
-- geom_circle for drawing circles based on coordinate system sizes
 - geom_d for drawing complex shapes in the manner of svg's d specification
 - geom_chord for drawing chords (connections between circle segments)
 - geom_bezier for drawing curves defined by start, end and two control points
