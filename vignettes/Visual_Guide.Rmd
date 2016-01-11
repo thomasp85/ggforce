@@ -34,6 +34,64 @@ Often the focus will be on the geoms, unless a new stat does not have an
 accompanying geom, in which case the stat will be discussed along with which
 geoms it should be used with.
 
+## Arcs
+Arcs are segments of a circle and defined by a centre point, a radius and a 
+start and end angle. In ggforce arcs come in two flavors: arc and arc_bar, where
+the former draws an arc with a single line and the latter draws it as a polygon
+that can have a fill and outline. A wedge is a special case of arc_bar where the 
+innermost radius is 0. The most well known use of arcs in plotting is with the
+much loathed pie chart (and its cousin the donut chart). The reason for all the
+hatred against pie charts are just and related to the fact that humans are much 
+better at comparing heights than angles. Because of this a bar chart will always
+communicate your data better than a pie chart. Donut charts are a little better
+as the hole in the middle forces the eye to compare arc spans rather than 
+angles, but it is still better to use a bar chart. Arcs, being a fundamental 
+visual element, can be used for other things though, such as sunburst plots or
+annotating radial visualizations.
+
+As pie charts are most well known, we'll start by upsetting all visualization
+expert and produce one:
+
+```{r, eval=TRUE, echo=TRUE, fig.align='center'}
+# We'll start by defining some dummy data
+pie <- data.frame(
+    state = c('eaten', 'eaten but said you didn\'t', 'cat took it', 
+              'for tonight', 'will decompose slowly'),
+    focus = c(0.2, 0, 0, 0, 0),
+    start = c(0, 1, 2, 3, 4),
+    end = c(1, 2, 3, 4, 2*pi),
+    amount = c(4,3, 1, 1.5, 6),
+    stringsAsFactors = FALSE
+)
+
+p <- ggplot() + theme_no_axes() + coord_fixed()
+
+# For low level control you define the start and end angles yourself
+p + geom_arc_bar(aes(x0 = 0, y0 = 0, r0 = 0, r = 1, start = start, end = end, 
+                     fill = state),
+                 data = pie)
+
+# But often you'll have values associated with each wedge. Use stat_pie then
+p + geom_arc_bar(aes(x0 = 0, y0 = 0, r0 = 0, r = 1, amount = amount, 
+                     fill = state),
+                 data = pie, stat = 'pie')
+
+# The wedges can be exploded away from the centre using the explode aesthetic
+p + geom_arc_bar(aes(x0 = 0, y0 = 0, r0 = 0, r = 1, amount = amount, 
+                     fill = state, explode = focus),
+                 data = pie, stat = 'pie')
+
+# And a donut can be made by setting r0 to something > 0
+p + geom_arc_bar(aes(x0 = 0, y0 = 0, r0 = 0.8, r = 1, amount = amount, 
+                     fill = state, explode = focus),
+                 data = pie, stat = 'pie')
+
+```
+
+While the above produces some of the most hated plot types in the world it does
+showcase the use of arcs in plotting. Other examples will use geom_arc and 
+geom_arc_bar to produce more powerful plot types.
+
 ## Edge bundles
 When using edges to show connections you often end up with a lot of overploting,
 effectively concealing the underlying structure of the connections. To combat 
@@ -206,9 +264,6 @@ ggplot() +
               data = layout[layout$leaf,], size = 1.5) + 
     scale_color_gradient(low='goldenrod', high='firebrick', guide='none')
 ```
-
-## Arcs
-TBD
 
 # Transformations
 Transformations are not really a part of ggplot2, but rather the scales package.
