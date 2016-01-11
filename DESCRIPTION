@@ -23,7 +23,19 @@ Imports:
     MASS
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
-Suggests: knitr,
+Suggests:
+    knitr,
     rmarkdown,
     igraph
 VignetteBuilder: knitr
+Collate:
+    'RcppExports.R'
+    'arc_bar.R'
+    'arc.R'
+    'circle.R'
+    'edge_bundle.R'
+    'ggforce_package.R'
+    'scale_direction.R'
+    'spline.R'
+    'themes.R'
+    'trans.R'
