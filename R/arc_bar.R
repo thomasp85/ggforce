@@ -116,11 +116,7 @@
 #'                         data=pie, stat='pie') +
 #'   facet_wrap(~type, ncol=1) +
 #'   coord_fixed() +
-#'   theme_bw() +
-#'   theme(axis.text=element_blank(),
-#'         axis.title=element_blank(),
-#'         axis.ticks=element_blank(),
-#'         panel.grid=element_blank()) +
+#'   theme_no_axes() +
 #'   scale_fill_brewer('', type='qual')
 #'
 #' @seealso \code{\link{geom_arc}} for drawing arcs as lines
@@ -152,15 +148,19 @@ stat_arc_bar  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
 #' @importFrom dplyr group_by_ do
 #' @export
 StatPie <- ggproto('StatPie', Stat,
-    compute_panel = function(data, scales, n = 360) {
+    compute_panel = function(data, scales, n = 360, sep = 0) {
         data <- data %>% group_by_(~x0, ~y0) %>%
             do({
                 angles <- cumsum(.$amount)
-                angles <- angles/max(angles) * 2*pi
+                seps <- cumsum(sep * seq_along(angles))
+                if (max(seps) >= 2*pi) {
+                    stop('Total separation exceeds circle circumference. Try lowering "sep"')
+                }
+                angles <- angles/max(angles) * (2*pi - max(seps))
                 data.frame(
                     as.data.frame(.),
-                    start = c(0, angles[-length(angles)]),
-                    end = angles,
+                    start = c(0, angles[-length(angles)]) + c(0, seps[-length(seps)]) + sep/2,
+                    end = angles + seps -sep/2,
                     stringsAsFactors = FALSE
                 )
             })
@@ -173,12 +173,12 @@ StatPie <- ggproto('StatPie', Stat,
 #' @importFrom ggplot2 layer
 #' @export
 stat_pie  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
-                          position = "identity", n = 360, na.rm = FALSE, show.legend = NA,
-                          inherit.aes = TRUE, ...) {
+                      position = "identity", n = 360, sep = 0, na.rm = FALSE,
+                      show.legend = NA, inherit.aes = TRUE, ...) {
     layer(
         stat = StatPie, data = data, mapping = mapping, geom = geom,
         position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-        params = list(na.rm = na.rm, n = n, ...)
+        params = list(na.rm = na.rm, n = n, sep = sep, ...)
     )
 }
 #' @importFrom ggplot2 ggproto GeomPolygon
