@@ -208,16 +208,18 @@ arcPaths <- function(data, n) {
             a = seq(data$start[i], data$end[i], length.out = data$nControl[i]),
             r = data$r[i]
         )
-        if (data$r0[i] != 0) {
-            path <- rbind(
-                path,
-                data.frame(a = rev(path$a), r = data$r0[i])
-            )
-        } else {
-            path <- rbind(
-                path,
-                data.frame(a = data$start[i], r = 0)
-            )
+        if ('r0' %in% names(data)) {
+            if (data$r0[i] != 0) {
+                path <- rbind(
+                    path,
+                    data.frame(a = rev(path$a), r = data$r0[i])
+                )
+            } else {
+                path <- rbind(
+                    path,
+                    data.frame(a = data$start[i], r = 0)
+                )
+            }
         }
         path$group <- i
         path <- cbind(path, data[rep(i, nrow(path)), extraData])
@@ -227,18 +229,20 @@ arcPaths <- function(data, n) {
                    trans$transform(paths$r, paths$a))
     paths$x <- paths$x + paths$x0
     paths$y <- paths$y + paths$y0
-    exploded <- data$explode != 0
-    if (any(exploded)) {
-        exploder <- trans$transform(
-            data$explode[exploded],
-            data$start[exploded] + (data$end[exploded] - data$start[exploded])/2
-        )
-        explodedPaths <- paths$group %in% which(exploded)
-        exploderInd <- as.integer(factor(paths$group[explodedPaths]))
-        paths$x[explodedPaths] <-
-            paths$x[explodedPaths] + exploder$x[exploderInd]
-        paths$y[explodedPaths] <-
-            paths$y[explodedPaths] + exploder$y[exploderInd]
+    if ('exploded' %in% names(data)) {
+        exploded <- data$explode != 0
+        if (any(exploded)) {
+            exploder <- trans$transform(
+                data$explode[exploded],
+                data$start[exploded] + (data$end[exploded] - data$start[exploded])/2
+            )
+            explodedPaths <- paths$group %in% which(exploded)
+            exploderInd <- as.integer(factor(paths$group[explodedPaths]))
+            paths$x[explodedPaths] <-
+                paths$x[explodedPaths] + exploder$x[exploderInd]
+            paths$y[explodedPaths] <-
+                paths$y[explodedPaths] + exploder$y[exploderInd]
+        }
     }
     paths[, !names(paths) %in% c('x0', 'y0', 'exploded')]
 }
