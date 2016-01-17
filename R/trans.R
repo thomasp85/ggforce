@@ -98,6 +98,8 @@ power_trans <- function(n) {
 #'
 radial_trans <- function(r.range, a.range, offset = pi/2, pad = 0.5,
                          clip = FALSE) {
+    a.range[which.min(a.range)] <- min(a.range) - pad
+    a.range[which.max(a.range)] <- max(a.range) + pad
     trans_new(
         name = paste0("radial-to-cartesian: ",
                       r.range[1], '-', r.range[2], ' -> 0-1; ',
