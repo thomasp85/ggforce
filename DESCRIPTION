@@ -35,5 +35,7 @@ Collate:
     'circle.R'
     'edge_bundle.R'
     'ggforce_package.R'
+    'interpolate.R'
+    'link.R'
     'themes.R'
     'trans.R'
