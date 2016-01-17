@@ -222,6 +222,7 @@ arcPaths <- function(data, n) {
             }
         }
         path$group <- i
+        path$index <- seq(0, 1, length.out = nrow(path))
         path <- cbind(path, data[rep(i, nrow(path)), extraData])
     })
     paths <- do.call(rbind, paths)
