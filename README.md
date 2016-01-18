@@ -120,3 +120,6 @@ interfaces to common R packages using fortify and autoplot. Also available on
 nifty geom_text_repel that forces text to move away from their origin to avoid
 overlaps. Available on 
 [CRAN](https://cran.r-project.org/web/packages/ggrepel/index.html)
+- [***ggtern:***](https://github.com/nicholasehamilton/ggtern) An extension for
+creating terniary plots in ggplot2. Also available on 
+[CRAN](https://cran.r-project.org/web/packages/ggtern/index.html)
