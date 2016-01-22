@@ -67,34 +67,37 @@ interpolateDataFrame <- function(data) {
     if (!any(is.na(data))) {
         return(data)
     }
-    fixedCols <- names(data) %in% c('x', 'y', '.interp') | apply(is.na(data), 2, all)
+    fixedCols <- names(data) %in% c('x', 'y', 'index') | apply(is.na(data), 2, all)
     interpCol <- data[!data$.interp, !fixedCols]
     colTypes <- guessTypes(interpCol)
     constantCols <- lengths(lapply(as.list(interpCol), unique)) == 1
-    cols <- seq_len(ncol(interpCol))
+    cols <- names(interpCol)[names(interpCol) != '.interp']
+    interpCol <- data[, !fixedCols]
 
     interpolated <- interpCol %>% group_by_(~group) %>%
         do({
-            n <- sum(data$group == .$group[1])
+            n <- nrow(.)
             interpolated <- lapply(cols, function(i) {
-                column <- if (constantCols[i]) {
-                    rep(.[1, i], n)
+                if (length(unique(.[[i]][.$.interp])) != 1) return(.[[i]])
+                base <- which(!.$.interp)
+                column <- if (constantCols[i] || length(unique(.[[i]][base])) != 1) {
+                    rep(.[base[1], i], n)
                 } else {
                     switch(
                         colTypes[i],
-                        numeric = interp_numeric(.[[i]], n),
-                        num_character = interp_num_character(.[[i]], n),
-                        colour = interp_colour(.[[i]], n),
-                        character = interp_unknown(.[[i]], n),
-                        date = interp_date(.[[i]], n),
-                        datetime = interp_datetime(.[[i]], n),
-                        interp_unknown(.[[i]], n)
+                        numeric = interp_numeric(.[[i]][base], n),
+                        num_character = interp_num_character(.[[i]][base], n),
+                        colour = interp_colour(.[[i]][base], n),
+                        character = interp_unknown(.[[i]][base], n),
+                        date = interp_date(.[[i]][base], n),
+                        datetime = interp_datetime(.[[i]][base], n),
+                        interp_unknown(.[[i]][base], n)
                     )
                 }
                 unlist(column)
             })
             interpolated <- as.data.frame(interpolated, stringsAsFactors = FALSE)
-            names(interpolated) <- names(.)
+            names(interpolated) <- cols
             interpolated
         }) %>%
         ungroup()
