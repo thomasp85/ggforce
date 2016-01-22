@@ -5,6 +5,33 @@
 
 using namespace Rcpp;
 
+// bezierPath
+NumericMatrix bezierPath(NumericVector x, NumericVector y, int detail);
+RcppExport SEXP ggforce_bezierPath(SEXP xSEXP, SEXP ySEXP, SEXP detailSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< int >::type detail(detailSEXP);
+    __result = Rcpp::wrap(bezierPath(x, y, detail));
+    return __result;
+END_RCPP
+}
+// getBeziers
+List getBeziers(NumericVector x, NumericVector y, IntegerVector id, int detail);
+RcppExport SEXP ggforce_getBeziers(SEXP xSEXP, SEXP ySEXP, SEXP idSEXP, SEXP detailSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type id(idSEXP);
+    Rcpp::traits::input_parameter< int >::type detail(detailSEXP);
+    __result = Rcpp::wrap(getBeziers(x, y, id, detail));
+    return __result;
+END_RCPP
+}
 // splinePath
 NumericMatrix splinePath(NumericVector x, NumericVector y, int degree, std::vector<double> knots, int detail);
 RcppExport SEXP ggforce_splinePath(SEXP xSEXP, SEXP ySEXP, SEXP degreeSEXP, SEXP knotsSEXP, SEXP detailSEXP) {

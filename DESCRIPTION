@@ -32,6 +32,7 @@ Collate:
     'RcppExports.R'
     'arc_bar.R'
     'arc.R'
+    'bezier.R'
     'circle.R'
     'edge_bundle.R'
     'ggforce_package.R'
