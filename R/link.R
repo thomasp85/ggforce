@@ -171,7 +171,7 @@ StatLink2 <- ggproto('StatLink2', Stat,
 #' @rdname geom_link
 #' @importFrom ggplot2 layer
 #' @export
-stat_link2  <- function(mapping = NULL, data = NULL, geom = "path_interpolate",
+stat_link2 <- function(mapping = NULL, data = NULL, geom = "path_interpolate",
                        position = "identity", na.rm = FALSE, show.legend = NA,
                        n = 100, inherit.aes = TRUE, ...) {
     layer(
