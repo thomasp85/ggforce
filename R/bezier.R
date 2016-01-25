@@ -180,6 +180,10 @@ StatBezier2 <- ggproto('StatBezier2', Stat,
         if (any(extraCols)) {
             for (i in names(data)[extraCols]) {
                 paths[[i]] <- NA
+                if (is.factor(data[[i]])) {
+                    paths[[i]] <- as.factor(paths[[i]])
+                    levels(paths[[i]]) <- levels(data[[i]])
+                }
                 paths[[i]][pathIndex] <- data[dataIndex, i]
             }
         }
@@ -216,7 +220,6 @@ geom_bezier2 <- function(mapping = NULL, data = NULL, stat = "bezier2",
 #' @export
 StatBezier0 <- ggproto('StatBezier0', Stat,
     compute_layer = function(self, data, params, panels) {
-        browser()
         data <- data[order(data$group),]
         nControls <- table(data$group)
         controlRange <- range(nControls)
