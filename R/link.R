@@ -156,11 +156,11 @@ StatLink2 <- ggproto('StatLink2', Stat,
                                      index = seq(0, 1, length.out = n),
                                      group = .$group[1],
                                      PANEL = .$PANEL[1])
-                n <- seq_len(nrow(interp))
+                nIndex <- seq_len(nrow(interp))
                 if (any(extraCols)) {
-                    cbind(interp, .[n, extraCols], .interp = n > nrow(.))
+                    cbind(interp, .[nIndex, extraCols], .interp = nIndex > nrow(.))
                 } else {
-                    cbind(interp, .interp = n > nrow(.))
+                    cbind(interp, .interp = nIndex > nrow(.))
                 }
             }) %>%
             ungroup()
