@@ -80,7 +80,7 @@ interpolateDataFrame <- function(data) {
             interpolated <- lapply(cols, function(i) {
                 if (length(unique(.[[i]][.$.interp])) != 1) return(.[[i]])
                 base <- which(!.$.interp)
-                column <- if (constantCols[i] || length(unique(.[[i]][base])) != 1) {
+                column <- if (constantCols[i] || length(unique(.[[i]][base])) == 1) {
                     rep(.[base[1], i], n)
                 } else {
                     switch(
