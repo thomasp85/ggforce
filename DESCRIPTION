@@ -1,8 +1,8 @@
 Package: ggforce
 Type: Package
 Title: Accelerating ggplot2
-Version: 0.0.1
-Date: 2016-01-02
+Version: 0.0.2
+Date: 2016-02-02
 Author: Thomas Lin Pedersen
 Maintainer: Thomas Lin Pedersen <thomasp85@gmail.com>
 Description: The aim of ggplot2 is to aid in visual data investigations. This
@@ -25,16 +25,15 @@ LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Suggests:
     knitr,
-    rmarkdown,
-    igraph
+    rmarkdown
 VignetteBuilder: knitr
 Collate:
     'RcppExports.R'
     'arc_bar.R'
     'arc.R'
     'bezier.R'
+    'bspline.R'
     'circle.R'
-    'edge_bundle.R'
     'ggforce_package.R'
     'interpolate.R'
     'link.R'
