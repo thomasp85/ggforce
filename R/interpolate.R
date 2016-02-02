@@ -64,9 +64,6 @@ interpolateDataFrame <- function(data) {
     if (is.null(data$group)) {
         stop('data must have a group column')
     }
-    if (!any(is.na(data))) {
-        return(data)
-    }
     fixedCols <- names(data) %in% c('x', 'y', 'index') | apply(is.na(data), 2, all)
     interpCol <- data[!data$.interp, !fixedCols]
     colTypes <- guessTypes(interpCol)
