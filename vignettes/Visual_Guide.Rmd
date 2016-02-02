@@ -27,6 +27,9 @@ We'll start by loading ggforce and then proceed to all the beautiful graphics...
 library(ggforce)
 ```
 
+## Geom versions
+TBD
+
 # Layers
 This section shows the extensions to ggplot2's geoms and stats. It rarely makes 
 sense to talk about one and not the other, so they are grouped together here. 
@@ -124,178 +127,14 @@ ggplot() + geom_circle(aes(x0=x0, y0=y0, r=r, fill=r), data=circles, n=10) +
     coord_fixed()
 ```
 
-## Edge bundles
-When using edges to show connections you often end up with a lot of overploting,
-effectively concealing the underlying structure of the connections. To combat 
-this Danny Holten invented a technique called 
-[*Hierarchical Edge Bundles*](http://www.aviz.fr/wiki/uploads/Teaching2014/bundles_infovis.pdf)
-applicable to situations where the connected nodes has an inherent hierarchy.
-The technique works by letting the connections follow the route defined by the
-hierarchy thus clearly showing main trends in the connections with regards to
-the node structure. While the technique was first proposed for hierarchical 
-data, it can just as well be applied to other situations where paths between 
-points can be mapped onto a common grid.
+## Links
+TBD
 
-In ggforce hierarchical edge bundles are implemented with the 
-geom_edge_bundle/stat_edge_bundle functions, that takes the control points for
-each connection and creates the bundles. As there is a lot going on prior to
-plotting (defining the hierarchical layout, getting the paths for each 
-connection etc.) the example is quite long - once you have the control points 
-though, it is as simple as using geom_path
+## Beziers
+TBD
 
-```{r, echo=TRUE, eval=TRUE, fig.align='center'}
-# Get the flare class hierarchy
-data('flare', package = 'ggforce')
-
-# Convert to an edgelist of dependencies
-flareH <- strsplit(flare$name, '.', fixed = TRUE)
-edges <- data.frame(
-    from = character(), 
-    to = character(), 
-    stringsAsFactors = FALSE
-)
-
-while (TRUE) {
-    flareH <- flareH[lengths(flareH) > 1]
-    if (length(flareH) == 0) break
-    connect <- unique(lapply(flareH, `[`, i = 1:2))
-    edges <- rbind(edges, data.frame(
-        from = sapply(connect, `[`, i = 1), 
-        to = sapply(connect, `[`, i = 2), 
-        stringsAsFactors = FALSE
-        )
-    )
-    flareH <- lapply(flareH, `[`, i = -1)
-}
-
-# Create graph and define layout function
-gr <- igraph::graph_from_edgelist(as.matrix(edges))
-layout_cluster <- function(gr) {
-    nodes <- data.frame(
-        x = rep(NA_real_, igraph::gorder(gr)), 
-        y = rep(NA_real_, igraph::gorder(gr)), 
-        leaf = igraph::degree(gr, mode = 'out') == 0, 
-        stringsAsFactors = FALSE
-    )
-    startnode <- which(igraph::degree(gr, mode = 'in') == 0)
-    recurse_layout <- function(gr, node, layout) {
-        children <- as.numeric(igraph::neighbors(gr, node, 'out'))
-        if (length(children) == 0) {
-            x <- if (all(is.na(layout$x[layout$leaf]))) {
-                1
-            } else {
-                max(layout$x[layout$leaf], na.rm = TRUE) + 1
-            }
-            layout$x[node] <- x
-            layout$y[node] <- 0
-            layout
-        } else {
-            childrenMissing <- children[is.na(layout$x[children])]
-            for (i in childrenMissing) {
-                layout <- recurse_layout(gr, i, layout)
-            }
-            layout$x[node] <- mean(layout$x[children])
-            layout$y[node] <- max(layout$y[children]) + 1
-            layout
-        }
-    }
-    recurse_layout(gr, startnode, nodes)
-}
-
-# Calculate and refine the layout, we'll use a radial layout
-layout <- layout_cluster(gr)
-layout$angle[layout$leaf] <- layout[layout$leaf,'x']/221 * -360 - 270 %% 360
-layout$label <- rownames(layout)
-radial <- radial_trans(rev(range(layout$y)), range(layout$x) + c(0, 1))
-layoutR <- radial$transform(layout$y, layout$x)
-layout$x <- layoutR$x
-layout$y <- layoutR$y
-layout$angle[layout$leaf & layout$x < 0] <- 
-    layout$angle[layout$leaf & layout$x < 0] + 180
-
-# Get the paths for all dependencies
-paths <- do.call(rbind, lapply(seq_len(nrow(flare)), function(i) {
-    imports <- sapply(
-        strsplit(flare$imports[[i]], '.', fixed = TRUE), 
-        tail, 
-        n = 1
-    )
-    do.call(rbind, lapply(imports, function(j) {
-        path <- igraph::all_simple_paths(gr, flare$shortName[i], j, mode = 'all')
-        path <- as.numeric(path[[which.min(lengths(path))]])
-        data.frame(
-            x = layout[path, 1], 
-            y = layout[path, 2], 
-            group = paste0(flare$shortName[i], '->', j)
-        )
-    }))
-}))
-
-# Now for the plotting
-ggplot() + 
-    coord_fixed() + theme_void() + # Setup plot
-    # Add edge bundles
-    geom_edge_bundle(aes(x = x, y = y, group = group, colour = ..index..), 
-                     data = paths, alpha = 0.2, tension = 0.9) + 
-    # Add labels to the leafs
-    geom_text(aes(x = x, y = y, label = label, angle = angle, vjust = 0.5, 
-                  hjust = ifelse(x < 0, 1, 0)), 
-              data = layout[layout$leaf,], size = 2.5) + 
-    # Format scales and make room for the labels
-    scale_color_gradient(low='goldenrod', high='firebrick', guide='none') + 
-    expand_limits(x=c(-1.3, 1.3), y=c(-1.3, 1.3))
-```
-
-Contrast this to not using edge bundles (equivalent to setting tension = 0) and
-the benefits becomes obvious.
-
-```{r, echo=TRUE, eval=TRUE, fig.align='center'}
-ggplot() + 
-    coord_fixed() + theme_void() + 
-    geom_edge_bundle(aes(x = x, y = y, group = group, colour = ..index..), 
-                     data = paths, alpha = 0.2, tension = 0) + 
-    geom_text(aes(x = x, y = y, label = label, angle = angle, vjust = 0.5, 
-                  hjust = ifelse(x < 0, 1, 0)), 
-              data = layout[layout$leaf,], size = 2.5) + 
-    scale_color_gradient(low='goldenrod', high='firebrick', guide='none') + 
-    expand_limits(x=c(-1.3, 1.3), y=c(-1.3, 1.3))
-```
-
-While hierarchical edge bundles are often used with radial layout, they are not
-confined to this. The radial layout has the benefit of minimizing the edge 
-overlaps though, as can be seen when we plot it without any radial 
-transformation:
-
-```{r, echo=TRUE, eval=TRUE, fig.align='center'}
-layout <- layout_cluster(gr)
-layout$label <- rownames(layout)
-
-paths <- do.call(rbind, lapply(seq_len(nrow(flare)), function(i) {
-    imports <- sapply(
-        strsplit(flare$imports[[i]], '.', fixed = TRUE), 
-        tail, 
-        n = 1
-    )
-    do.call(rbind, lapply(imports, function(j) {
-        path <- igraph::all_simple_paths(gr, flare$shortName[i], j, mode = 'all')
-        path <- as.numeric(path[[which.min(lengths(path))]])
-        data.frame(
-            x = layout[path, 1], 
-            y = layout[path, 2], 
-            group = paste0(flare$shortName[i], '->', j)
-        )
-    }))
-}))
-
-ggplot() + 
-    theme_void() + 
-    geom_edge_bundle(aes(x = x, y = y, group = group, colour = ..index..), 
-                     data = paths, alpha = 0.2, tension = 0.9) + 
-    geom_text(aes(x = x, y = y, label = label, angle = 45, vjust = 0.5, 
-                  hjust = 1), 
-              data = layout[layout$leaf,], size = 1.5) + 
-    scale_color_gradient(low='goldenrod', high='firebrick', guide='none')
-```
+## B-splines
+TBD
 
 # Transformations
 Transformations are not really a part of ggplot2, but rather the scales package.
