@@ -88,6 +88,17 @@ an index to each interpolated point and repeat the aesthetics for the start
 point, while geom_bezier2 interpolates the aesthetics between the start and
 end points.
 }
+\details{
+Input data is understood as a sequence of data points the first being the
+start point, then followed by one or two control points and then the end
+point. More than 4 and less than 3 points per group will throw an error.
+\code{\link[grid]{bezierGrob}} only takes cubic beziers so if three points are
+supplied the middle one as duplicated. This, along with the fact that
+\code{\link[grid]{bezierGrob}} estimates the curve using an x-spline means
+that the curves produced by geom_bezier and geom_bezier2 deviates from those
+produced by geom_bezier0. If you want true bezier paths use geom_bezier or
+geom_bezier2.
+}
 \section{Aesthetics}{
 
 geom_link, geom_link2 and geom_lin0 understand the following aesthetics

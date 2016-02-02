@@ -100,7 +100,7 @@
 #'                     data=arcs)
 #'
 #' # If you got values for a pie chart, use stat_pie
-#' states <- c('eaten', 'eaten but said you didn\'t', 'cat took it', 'for tonight', 'will decompose slowly')
+#' states <- c('eaten', "eaten but said you didn't", 'cat took it', 'for tonight', 'will decompose slowly')
 #' pie <- data.frame(
 #'   state = factor(rep(states, 2), levels = states),
 #'   type = rep(c('Pie', 'Donut'), each = 5),

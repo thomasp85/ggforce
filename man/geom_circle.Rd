@@ -53,6 +53,18 @@ are three types of arguments you can use here:
  \item{Other arguments passed on to the stat.}
 }}
 }
+\description{
+This set of stats and geoms makes it possible to draw circles based on a
+center point and a radius. In contrast to using
+\code{\link[ggplot2]{geom_point}}, the size of the circles are related to the
+coordinate system and not to a separate scale. These functions are intended
+for cartesian coordinate systems and will only produce a true circle if
+\code{\link[ggplot2]{coord_fixed}} is used.
+}
+\note{
+If the intend is to draw a bubble chart then use
+\code{\link[ggplot2]{geom_point}} and map a variable to the size scale
+}
 \section{Aesthetics}{
 
 geom_arc understand the following aesthetics (required aesthetics are in
