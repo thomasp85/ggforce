@@ -1,3 +1,6 @@
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto GeomPath coord_munch zeroGrob alpha .pt
 #' @importFrom grid segmentsGrob polylineGrob gpar
 #' @importFrom dplyr %>% group_by_ do ungroup
@@ -58,96 +61,18 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
         data
     }
 )
-#' @importFrom dplyr %>% group_by_ do ungroup
+#' @importFrom tweenr tween_t
 #' @export
 interpolateDataFrame <- function(data) {
     if (is.null(data$group)) {
         stop('data must have a group column')
     }
-    fixedCols <- names(data) %in% c('x', 'y', 'index') | apply(is.na(data), 2, all)
-    interpCol <- data[!data$.interp, !fixedCols]
-    colTypes <- guessTypes(interpCol)
-    constantCols <- lengths(lapply(as.list(interpCol), unique)) == 1
-    cols <- names(interpCol)[names(interpCol) != '.interp']
-    interpCol <- data[, !fixedCols]
-
-    interpolated <- interpCol %>% group_by_(~group) %>%
-        do({
-            n <- nrow(.)
-            interpolated <- lapply(cols, function(i) {
-                if (length(unique(.[[i]][.$.interp])) != 1) return(.[[i]])
-                base <- which(!.$.interp)
-                column <- if (constantCols[i] || length(unique(.[[i]][base])) == 1) {
-                    rep(.[base[1], i], n)
-                } else {
-                    switch(
-                        colTypes[i],
-                        numeric = interp_numeric(.[[i]][base], n),
-                        num_character = interp_num_character(.[[i]][base], n),
-                        colour = interp_colour(.[[i]][base], n),
-                        character = interp_unknown(.[[i]][base], n),
-                        date = interp_date(.[[i]][base], n),
-                        datetime = interp_datetime(.[[i]][base], n),
-                        interp_unknown(.[[i]][base], n)
-                    )
-                }
-                unlist(column)
-            })
-            interpolated <- as.data.frame(interpolated, stringsAsFactors = FALSE)
-            names(interpolated) <- cols
-            interpolated
-        }) %>%
-        ungroup()
-
-    cbind(data[, fixedCols], interpolated)
-}
-guessTypes <- function(data) {
-    unlist(lapply(as.list(data), function(column) {
-        if (is.numeric(column)) {
-            'numeric'
-        } else if (is.character(column)) {
-            if (!any(is.na(suppressWarnings(as.numeric(column))))) {
-                'num_character'
-            } else {
-                tryCatch(
-                    {
-                        suppressWarnings(col2rgb(column))
-                        'colour'
-                    },
-                    error = function(e) {
-                        'character'
-                    }
-                )
-            }
-        } else if (inherits(column, 'Date')) {
-            'date'
-        } else if (inherits(column, 'POSIXt')) {
-            'datetime'
-        } else {
-            'unknown'
-        }
-    }))
-}
-interp_numeric <- function(x, n) {
-    approx(x, n = n)$y
-}
-interp_num_character <- function(x, n) {
-    as.character(approx(as.numeric(x), n = n)$y)
-}
-interp_colour <- function(x, n) {
-    colorRampPalette(x)(n)
-}
-interp_date <- function(x, n) {
-    as.Date(approx(as.numeric(x), n = n)$y, origin = '1970-01-01')
-}
-interp_datetime <- function(x, n) {
-    switch(
-        class(x)[1],
-        POSIXct = as.POSIXct(approx(as.numeric(x), n = n)$y, origin = '1970-01-01 01:00:00 CET'),
-        POSIXlt = as.POSIXlt(approx(as.numeric(x), n = n)$y, origin = '1970-01-01 01:00:00 CET')
-    )
-}
-interp_unknown <- function(x, n) {
-    each <- round(n/length(x))
-    rep(x, each = each)[seq.int(each/2, length.out = n)]
+    interpLengths <- lengths(split(data$group, data$group))
+    for (i in seq_len(ncol(data))) {
+        if (names(data)[i] %in% c('x', 'y', 'index', 'group', '.interp') || all(is.na(data[[i]])))
+            next
+        interpValues <- split(data[[i]][!data$.interp], data$group[!data$.interp])
+        data[[i]] <- unlist(tween_t(interpValues, interpLengths))
+    }
+    data[, names(data) != '.interp']
 }
