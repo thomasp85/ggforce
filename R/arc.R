@@ -104,6 +104,9 @@ NULL
 #'
 NULL
 
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @importFrom grid arcCurvature
 #' @export
@@ -126,6 +129,9 @@ stat_arc  <- function(mapping = NULL, data = NULL, geom = "arc",
         params = list(na.rm = na.rm, n = n, ...)
     )
 }
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto GeomPath
 #' @importFrom grid curveGrob gList gpar
 #' @export

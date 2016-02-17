@@ -100,7 +100,8 @@
 #'                     data=arcs)
 #'
 #' # If you got values for a pie chart, use stat_pie
-#' states <- c('eaten', "eaten but said you didn't", 'cat took it', 'for tonight', 'will decompose slowly')
+#' states <- c('eaten', "eaten but said you didn't", 'cat took it', 'for tonight',
+#'             'will decompose slowly')
 #' pie <- data.frame(
 #'   state = factor(rep(states, 2), levels = states),
 #'   type = rep(c('Pie', 'Donut'), each = 5),
@@ -123,6 +124,9 @@
 #'
 NULL
 
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @export
 StatArcBar <- ggproto('StatArcBar', Stat,
@@ -144,6 +148,9 @@ stat_arc_bar  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
         params = list(na.rm = na.rm, n = n, ...)
     )
 }
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @importFrom dplyr group_by_ do
 #' @export
@@ -181,6 +188,9 @@ stat_pie  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
         params = list(na.rm = na.rm, n = n, sep = sep, ...)
     )
 }
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto GeomPolygon
 #' @export
 GeomArcBar <- ggproto('GeomArcBar', GeomPolygon,

@@ -7,7 +7,7 @@
 #' path. The *2 version does the same but in addition interpolates aesthetics
 #' between each control point. This makes the *2 version considerably slower
 #' so it shouldn't be used unless needed. The *0 version uses
-#' \code{\link[grid]{xplineGrob}} with \code{shape = 1} to approximate a
+#' \code{\link[grid]{xsplineGrob}} with \code{shape = 1} to approximate a
 #' b-spline for a high performant version.
 #'
 #' @section Aesthetics:
@@ -121,6 +121,9 @@
 NULL
 
 
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @importFrom dplyr %>% group_by_ do
 #' @export
@@ -160,6 +163,9 @@ geom_bspline <- function(mapping = NULL, data = NULL, stat = "bspline",
           position = position, show.legend = show.legend, inherit.aes = inherit.aes,
           params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, n=n, ...))
 }
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @importFrom dplyr %>% group_by_ do
 #' @export
@@ -216,6 +222,9 @@ geom_bspline2 <- function(mapping = NULL, data = NULL, stat = "bspline2",
           position = position, show.legend = show.legend, inherit.aes = inherit.aes,
           params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, n=n, ...))
 }
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom grid xsplineGrob gpar
 #' @importFrom ggplot2 ggproto GeomPath alpha
 #' @export

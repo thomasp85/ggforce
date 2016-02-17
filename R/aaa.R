@@ -1,0 +1,5 @@
+globalVariables(
+    c(
+        '.'
+    )
+)

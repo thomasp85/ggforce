@@ -114,6 +114,9 @@
 #'
 NULL
 
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @export
 StatLink <- ggproto('StatLink', Stat,
@@ -144,6 +147,9 @@ stat_link  <- function(mapping = NULL, data = NULL, geom = "path",
         params = list(na.rm = na.rm, n = n, ...)
     )
 }
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @export
 StatLink2 <- ggproto('StatLink2', Stat,

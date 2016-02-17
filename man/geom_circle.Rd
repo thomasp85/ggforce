@@ -2,10 +2,10 @@
 % Please edit documentation in R/circle.R
 \name{geom_circle}
 \alias{geom_circle}
-\alias{stat_arc}
+\alias{stat_circle}
 \title{Circles based on center and radius}
 \usage{
-stat_arc(mapping = NULL, data = NULL, geom = "circle",
+stat_circle(mapping = NULL, data = NULL, geom = "circle",
   position = "identity", n = 360, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 

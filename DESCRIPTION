@@ -20,7 +20,8 @@ Imports:
     grid,
     dplyr,
     scales,
-    MASS
+    MASS,
+    tweenr
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Suggests:
@@ -29,12 +30,14 @@ Suggests:
 VignetteBuilder: knitr
 Collate:
     'RcppExports.R'
+    'aaa.R'
     'arc_bar.R'
     'arc.R'
     'bezier.R'
     'bspline.R'
     'circle.R'
     'ggforce_package.R'
+    'ggproto-classes.R'
     'interpolate.R'
     'link.R'
     'themes.R'

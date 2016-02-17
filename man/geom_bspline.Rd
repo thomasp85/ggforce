@@ -85,7 +85,7 @@ b-spline as a number of points along the spline and connects these with a
 path. The *2 version does the same but in addition interpolates aesthetics
 between each control point. This makes the *2 version considerably slower
 so it shouldn't be used unless needed. The *0 version uses
-\code{\link[grid]{xplineGrob}} with \code{shape = 1} to approximate a
+\code{\link[grid]{xsplineGrob}} with \code{shape = 1} to approximate a
 b-spline for a high performant version.
 }
 \section{Aesthetics}{

@@ -111,6 +111,9 @@
 #'
 NULL
 
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBezier <- ggproto('StatBezier', Stat,
@@ -155,6 +158,9 @@ geom_bezier <- function(mapping = NULL, data = NULL, stat = "bezier",
           params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, n = n,
                         ...))
 }
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBezier2 <- ggproto('StatBezier2', Stat,
@@ -218,6 +224,9 @@ geom_bezier2 <- function(mapping = NULL, data = NULL, stat = "bezier2",
           params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, n = n,
                         ...))
 }
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBezier0 <- ggproto('StatBezier0', Stat,
@@ -240,6 +249,9 @@ StatBezier0 <- ggproto('StatBezier0', Stat,
     },
     required_aes = c('x', 'y')
 )
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom grid bezierGrob gpar
 #' @importFrom ggplot2 ggproto GeomPath alpha
 #' @export
