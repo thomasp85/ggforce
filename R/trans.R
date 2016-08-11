@@ -67,6 +67,7 @@ power_trans <- function(n) {
 #' @param clip Should input data be clipped to r.range and a.range or be allowed
 #' to extend beyond. Defaults to FALSE (no clipping)
 #'
+#' @param direction. Clockwise (1)/anticlockwise(-1) - default=1.
 #' @return A trans object. The transform method for the object takes an r
 #' (radius) and a (angle) argument and returns a data.frame with x and y columns
 #' with rows for each element in r/a. The inverse method takes an x and y
@@ -96,7 +97,7 @@ power_trans <- function(n) {
 #' ggplot() + geom_path(aes(x=x, y=y), data = cart, color='forestgreen') +
 #'   geom_path(aes(x=r, y=a), data = rad, color='firebrick')
 #'
-radial_trans <- function(r.range, a.range, offset = pi/2, pad = 0.5,
+radial_trans <- function(r.range, a.range, offset = pi/2, pad = 0.5, direction=1,
                          clip = FALSE) {
     a.range[which.min(a.range)] <- min(a.range) - pad
     a.range[which.max(a.range)] <- max(a.range) + pad
@@ -121,6 +122,7 @@ radial_trans <- function(r.range, a.range, offset = pi/2, pad = 0.5,
             } else {
                 a <- offset + (a - a.range[1])/diff(a.range) * -2*pi
             }
+            a <- sign(direction) * a
             data.frame(x = r*cos(a), y = r*sin(a))
         },
         inverse = function(x, y) {

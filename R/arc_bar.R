@@ -81,6 +81,10 @@
 #' @param geom, stat Override the default connection between \code{geom_arc_bar}
 #' and \code{stat_arc_bar}.
 #'
+#' @param offset - for pie geom. Default=pi/2. Modifies orientation of the chart. Use
+#' for switching between horizontal and vertical.
+#' 
+#' @param direction - for pie geom. Default = 1. Negative switches to anticlockwise.
 #' @author Thomas Lin Pedersen
 #'
 #' @name geom_arc_bar
@@ -155,7 +159,7 @@ stat_arc_bar  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
 #' @importFrom dplyr group_by_ do
 #' @export
 StatPie <- ggproto('StatPie', Stat,
-    compute_panel = function(data, scales, n = 360, sep = 0) {
+    compute_panel = function(data, scales, n = 360, sep = 0, offset=pi/2, direction=1) {
         data <- data %>% group_by_(~x0, ~y0) %>%
             do({
                 angles <- cumsum(.$amount)
@@ -171,7 +175,7 @@ StatPie <- ggproto('StatPie', Stat,
                     stringsAsFactors = FALSE
                 )
             })
-        arcPaths(as.data.frame(data), n)
+        arcPaths(as.data.frame(data), n, offset=offset, direction=direction)
     },
 
     required_aes = c('x0', 'y0', 'r0','r', 'amount')
@@ -180,12 +184,13 @@ StatPie <- ggproto('StatPie', Stat,
 #' @importFrom ggplot2 layer
 #' @export
 stat_pie  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
-                      position = "identity", n = 360, sep = 0, na.rm = FALSE,
+                      position = "identity", n = 360, sep = 0, offset=pi/2, 
+                      direction=1, na.rm = FALSE,
                       show.legend = NA, inherit.aes = TRUE, ...) {
     layer(
         stat = StatPie, data = data, mapping = mapping, geom = geom,
         position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-        params = list(na.rm = na.rm, n = n, sep = sep, ...)
+        params = list(na.rm = na.rm, n = n, sep = sep, offset=offset, direction=direction, ...)
     )
 }
 #' @rdname ggforce-extensions
@@ -207,8 +212,8 @@ geom_arc_bar <- function(mapping = NULL, data = NULL, stat = "arc_bar",
           params = list(na.rm = na.rm, n = n, ...))
 }
 
-arcPaths <- function(data, n) {
-    trans <- radial_trans(c(0, 1), c(0, 2*pi), pad = 0)
+arcPaths <- function(data, n, offset=pi/2, direction=1) {
+    trans <- radial_trans(c(0, 1), c(0, 2*pi), pad = 0, offset=offset, direction=direction)
     data <- data[data$start != data$end, ]
     data$nControl <- ceiling(n/(2*pi) * abs(data$end - data$start))
     data$nControl[data$nControl < 3] <- 3
