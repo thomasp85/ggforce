@@ -4,7 +4,8 @@
 \alias{radial_trans}
 \title{Create radial data in a cartesian coordinate system}
 \usage{
-radial_trans(r.range, a.range, offset = pi/2, pad = 0.5, clip = FALSE)
+radial_trans(r.range, a.range, offset = pi/2, pad = 0.5, direction = 1,
+  clip = FALSE)
 }
 \arguments{
 \item{r.range}{The range in radius that correspond to 0 - 1 in the unit
@@ -22,6 +23,8 @@ start and end point. Defaults to 0.5}
 
 \item{clip}{Should input data be clipped to r.range and a.range or be allowed
 to extend beyond. Defaults to FALSE (no clipping)}
+
+\item{direction.}{Clockwise (1)/anticlockwise(-1) - default=1.}
 }
 \value{
 A trans object. The transform method for the object takes an r

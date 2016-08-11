@@ -11,8 +11,9 @@ stat_arc_bar(mapping = NULL, data = NULL, geom = "arc_bar",
   inherit.aes = TRUE, ...)
 
 stat_pie(mapping = NULL, data = NULL, geom = "arc_bar",
-  position = "identity", n = 360, sep = 0, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", n = 360, sep = 0, offset = pi/2,
+  direction = 1, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+  ...)
 
 geom_arc_bar(mapping = NULL, data = NULL, stat = "arc_bar",
   position = "identity", n = 360, na.rm = FALSE, show.legend = NA,
@@ -58,6 +59,11 @@ are three types of arguments you can use here:
  \code{stat} associated with the layer.}
  \item{Other arguments passed on to the stat.}
 }}
+
+\item{offset}{- for pie geom. Default=pi/2. Modifies orientation of the chart. Use
+for switching between horizontal and vertical.}
+
+\item{direction}{- for pie geom. Default = 1. Negative switches to anticlockwise.}
 }
 \description{
 This set of stats and geoms makes it possible to draw arcs and wedges as
