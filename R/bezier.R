@@ -127,6 +127,7 @@ StatBezier <- ggproto('StatBezier', Stat,
         data <- data[order(data$group),]
         paths <- getBeziers(data$x, data$y, data$group, params$n)
         paths <- data.frame(x = paths$paths[,1], y = paths$paths[,2], group = paths$pathID)
+        
         paths$index <- rep(seq(0, 1, length.out = params$n), length(nControls))
         dataIndex <- rep(match(unique(data$group), data$group), each = params$n)
         cbind(paths, data[dataIndex, !names(data) %in% c('x', 'y', 'group'), drop = FALSE])
