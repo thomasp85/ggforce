@@ -25,7 +25,7 @@ stat_link_pie(mapping = NULL, data = NULL, geom = "arc_bar",
   direction = 1, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
   ...)
 
-stat_text_pie(mapping = NULL, data = NULL, geom = "arc_bar",
+stat_text_pie(mapping = NULL, data = NULL, geom = "text_pie",
   position = "identity", n = 360, sep = 0, offset = pi/2,
   direction = 1, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
   ...)

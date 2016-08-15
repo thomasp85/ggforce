@@ -34,13 +34,14 @@ ggplot() + geom_arc_bar(data=pp[1:5, ],aes(x0=0, y0=0, r0=r0, r=1, amount=amount
                             fill=state), sep=0.02,
                        stat='pie') +
   geom_bezier(data=pp, aes(x0=0, y0=0, r0=r0, r=r0, amount=amount, destinationnode=destination,
-                   fill=state, sourcenode=state), size=8, sep=0.02,
+                   fill=state, sourcenode=state), size=2, sep=0.02,
                 stat='link_pie') +
-  geom_text(data=pp, stat="text_pie", aes(x0=0, y0=0, r0=r0, r=1.2, group=state, amount=amount, label=state, angle=..textangle..,
-                                          sourcenode=state, hjust="outward", vjust="outward"), sep=0.02) +
-  geom_point(data=pp, stat="text_pie", aes(x0=0, y0=0, r0=r0, r=1.05, group=state, amount=amount,
-                                          sourcenode=state), sep=0.02) +
+  geom_text(data=pp, stat="text_pie", aes(x0=0, y0=0, r0=r0, r=1.05, group=state, amount=amount, label=state,
+                                          sourcenode=state, hjust=0, vjust=0), sep=0.02) +
+  #geom_point(data=pp, stat="text_pie", aes(x0=0, y0=0, r0=r0, r=1.05, group=state, amount=amount,
+  #                                        sourcenode=state), sep=0.02) +
 
   coord_fixed() +
   theme_no_axes() +
+  xlim(c(-2,2)) + ylim(c(-2,2)) +
   scale_fill_brewer('', type='qual')

@@ -261,7 +261,8 @@ StatTextPie <- ggproto('StatTextPie', Stat,
                          res <- arcText(as.data.frame(data), n, offset=offset, direction=direction)
                          return(res)
                        },
-                       required_aes = c('x0', 'y0', 'r0','r', 'amount')
+                       required_aes = c('x0', 'y0', 'r0','r', 'amount'),
+                       default_aes=aes(angle=..textangle..)
 )
 
 #' @rdname geom_arc_bar
@@ -281,7 +282,7 @@ stat_link_pie  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
 #' @rdname geom_arc_bar
 #' @importFrom ggplot2 layer
 #' @export
-stat_text_pie <- function(mapping = NULL, data = NULL, geom = "arc_bar",
+stat_text_pie <- function(mapping = NULL, data = NULL, geom = "text_pie",
                            position = "identity", n = 360, sep = 0, offset=pi/2,
                            direction=1, na.rm = FALSE,
                            show.legend = NA, inherit.aes = TRUE, ...) {
@@ -314,6 +315,8 @@ stat_pie  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
 GeomArcBar <- ggproto('GeomArcBar', GeomPolygon,
     default_aes = list(colour = 'black', fill = NA, size = 0.5, linetype = 1, alpha = NA)
 )
+
+
 #' @rdname geom_arc_bar
 #' @importFrom ggplot2 layer
 #' @export
