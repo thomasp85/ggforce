@@ -83,7 +83,7 @@
 #'
 #' @param offset - for pie geom. Default=pi/2. Modifies orientation of the chart. Use
 #' for switching between horizontal and vertical.
-#' 
+#'
 #' @param direction - for pie geom. Default = 1. Negative switches to anticlockwise.
 #' @author Thomas Lin Pedersen
 #'
@@ -184,7 +184,7 @@ StatPie <- ggproto('StatPie', Stat,
 #' @importFrom ggplot2 layer
 #' @export
 StatLinkPie <- ggproto('StatLinkPie', Stat,
-                   compute_panel = function(data, scales, n = 360, sep = 0, offset=pi/2, direction=1) {
+                   compute_panel = function(data, scales, n = 100, sep = 0, offset=pi/2, direction=1) {
                      data <- data %>% group_by_(~x0, ~y0) %>%
                        do({
                          ## Bit tricky - need to support multiple links
@@ -203,8 +203,8 @@ StatLinkPie <- ggproto('StatLinkPie', Stat,
                          start <- c(0, angles[-length(angles)]) + c(0, seps[-length(seps)])
                          end <- angles + seps -sep/2
                          middle <-  (start+end)/2
-                         ## Now we need to create a data fram suitable for links
-                         ## The curve expects a start, midpoint and end in 
+                         ## Now we need to create a data frame suitable for links
+                         ## The curve expects a start, midpoint and end in
                          ## consecutive rows.
                          linkframe <- .[!is.na(.$destinationnode),]
                          startangidx <- match(linkframe$sourcenode, dd$sourcenode)
@@ -228,8 +228,47 @@ StatLinkPie <- ggproto('StatLinkPie', Stat,
 #' @rdname geom_arc_bar
 #' @importFrom ggplot2 layer
 #' @export
+StatTextPie <- ggproto('StatTextPie', Stat,
+                       compute_panel = function(data, scales, n = 360, sep = 0, offset=pi/2, direction=1) {
+                         data <- data %>% group_by_(~x0, ~y0) %>%
+                           do({
+                             ## Bit tricky - need to support multiple links
+                             ## per node, but the calculation of middle
+                             ## can't repeat. Just have to ensure that there
+                             ## are as many "start" entries as necessary
+                             ## Make sure angles aren't duplicated
+                             dd <- .[!duplicated(.$sourcenode), ]
+                             angles <- cumsum(dd$amount)
+                             seps <- cumsum(sep * seq_along(angles))
+                             if (max(seps) >= 2*pi) {
+                               stop('Total separation exceeds circle circumference. Try lowering "sep"')
+                             }
+                             angles <- angles/max(angles) * (2*pi - max(seps))
+                             ## Set up source and destination for curves.
+                             start <- c(0, angles[-length(angles)]) + c(0, seps[-length(seps)])
+                             end <- angles + seps -sep/2
+                             middle <-  (start+end)/2
+                             ## Now we need to create a data frame suitable for text
+                             startang <- middle
+                             ## use start end here, but they refer to different ideas
+                             ## than the pie versions
+                             data.frame(
+                               as.data.frame(dd),
+                               start=startang,
+                               stringsAsFactors = FALSE
+                             )
+                           })
+                         res <- arcText(as.data.frame(data), n, offset=offset, direction=direction)
+                         return(res)
+                       },
+                       required_aes = c('x0', 'y0', 'r0','r', 'amount')
+)
+
+#' @rdname geom_arc_bar
+#' @importFrom ggplot2 layer
+#' @export
 stat_link_pie  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
-                      position = "identity", n = 360, sep = 0, offset=pi/2, 
+                      position = "identity", n = 100, sep = 0, offset=pi/2,
                       direction=1, na.rm = FALSE,
                       show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
@@ -242,8 +281,23 @@ stat_link_pie  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
 #' @rdname geom_arc_bar
 #' @importFrom ggplot2 layer
 #' @export
+stat_text_pie <- function(mapping = NULL, data = NULL, geom = "arc_bar",
+                           position = "identity", n = 360, sep = 0, offset=pi/2,
+                           direction=1, na.rm = FALSE,
+                           show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    stat = StatTextPie, data = data, mapping = mapping, geom = geom,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, n = n, sep = sep, offset=offset, direction=direction, ...)
+  )
+}
+
+
+#' @rdname geom_arc_bar
+#' @importFrom ggplot2 layer
+#' @export
 stat_pie  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
-                      position = "identity", n = 360, sep = 0, offset=pi/2, 
+                      position = "identity", n = 360, sep = 0, offset=pi/2,
                       direction=1, na.rm = FALSE,
                       show.legend = NA, inherit.aes = TRUE, ...) {
     layer(
@@ -331,14 +385,13 @@ arcLinks <- function(data, n=100, offset=pi/2, direction=1) {
   p2 <- trans$transform(data$r, data$end)
   ## merge them to go start/control/end
   ## and add centres
-  p3 <- 0*p1
   p1x <- p1[,"x"] + data$x0
   p1y <- p1[,"y"] + data$y0
   p2x <- p2[,"x"] + data$x0
   p2y <- p2[,"y"] + data$y0
   ppx <- c(rbind(p1x, data$x0, p2x))
   ppy <- c(rbind(p1y, data$y0, p2y))
- 
+
   ppall <- data.frame(x=ppx, y=ppy, id=rep(1:nrow(data), rep(3,nrow(data))))
   paths <- getBeziers(ppall$x, ppall$y, ppall$id, n)
   paths <- data.frame(x = paths$paths[,1], y = paths$paths[,2], group = paths$pathID)
@@ -346,4 +399,18 @@ arcLinks <- function(data, n=100, offset=pi/2, direction=1) {
   dataIndex <- rep(match(unique(data$group), data$group), each = n)
   paths2<-cbind(paths, data[dataIndex, !names(data) %in% c('x', 'y', 'group'), drop = FALSE])
   paths2[, !names(paths) %in% c('x0', 'y0', 'exploded')]
+}
+
+arcText <- function(data, n=360, offset=pi/2, direction=1) {
+  ## text angle in degrees
+  trans <- radial_trans(c(0, 1), c(0, 2*pi), pad = 0, offset=offset, direction=direction)
+  extraData <- !names(data) %in% c('r0', 'r', 'start')
+  ## transform the start and end angles
+  nControls <- table(data$group)
+  p1 <- trans$transform(data$r, data$start)
+  ## add centres
+  p1x <- p1[,"x"] + data$x0
+  p1y <- p1[,"y"] + data$y0
+  result <- data.frame(x=p1x, y=p1y, textangle=(-data$start+offset)*180/pi, data[ ,!names(data) %in% extraData ])
+  return(result)
 }

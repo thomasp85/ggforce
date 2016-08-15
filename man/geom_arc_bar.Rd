@@ -3,10 +3,12 @@
 \docType{data}
 \name{geom_arc_bar}
 \alias{StatLinkPie}
+\alias{StatTextPie}
 \alias{geom_arc_bar}
 \alias{stat_arc_bar}
 \alias{stat_link_pie}
 \alias{stat_pie}
+\alias{stat_text_pie}
 \title{Arcs and wedges as polygons}
 \format{An object of class \code{StatLinkPie} (inherits from \code{Stat}, \code{ggproto}) of length 3.}
 \usage{
@@ -16,7 +18,14 @@ stat_arc_bar(mapping = NULL, data = NULL, geom = "arc_bar",
 
 StatLinkPie
 
+StatTextPie
+
 stat_link_pie(mapping = NULL, data = NULL, geom = "arc_bar",
+  position = "identity", n = 100, sep = 0, offset = pi/2,
+  direction = 1, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+  ...)
+
+stat_text_pie(mapping = NULL, data = NULL, geom = "arc_bar",
   position = "identity", n = 360, sep = 0, offset = pi/2,
   direction = 1, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
   ...)

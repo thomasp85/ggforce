@@ -24,7 +24,7 @@ pie <- data.frame(
 pielinks <- pie
 pielinks$destination <- pielinks$state
 pielinks$destination[8] <- pielinks$state[2]
-pielinks$destination[-8] <- NA 
+pielinks$destination[-8] <- NA
 pp <- subset(pielinks, type=="Donut")
 pp <- rbind(pp, pp[1,])
 pp$state[6] <- "cat took it"
@@ -36,6 +36,11 @@ ggplot() + geom_arc_bar(data=pp[1:5, ],aes(x0=0, y0=0, r0=r0, r=1, amount=amount
   geom_bezier(data=pp, aes(x0=0, y0=0, r0=r0, r=r0, amount=amount, destinationnode=destination,
                    fill=state, sourcenode=state), size=8, sep=0.02,
                 stat='link_pie') +
+  geom_text(data=pp, stat="text_pie", aes(x0=0, y0=0, r0=r0, r=1.2, group=state, amount=amount, label=state, angle=..textangle..,
+                                          sourcenode=state, hjust="outward", vjust="outward"), sep=0.02) +
+  geom_point(data=pp, stat="text_pie", aes(x0=0, y0=0, r0=r0, r=1.05, group=state, amount=amount,
+                                          sourcenode=state), sep=0.02) +
+
   coord_fixed() +
   theme_no_axes() +
   scale_fill_brewer('', type='qual')
