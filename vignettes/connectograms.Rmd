@@ -1,0 +1,101 @@
+---
+title: 'ggforce: Connectogram extensions'
+author: "Richard Beare"
+date: "17 August 2016"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    fig_width: 6
+    fig_height: 6
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+read_chunk("fs_connect.R")
+```
+
+# Introduction
+
+This is an overview of some extensions that allow ggforce to plot connectograms, specifically for brain connectivity studies.
+
+These are inspired by _circos_ plots, and probably aren't as sophisticated, but aren't tied to genetic structures and use the ggplot2 grammar.
+
+The functions for setting up the data frames are in the support files
+
+# Data preparation
+
+Demos will use the data from subject "bert" distributed with Freesurfer.
+
+```{bash, eval=FALSE}
+# assuming SUBJECTS_DIR is pointing to the freesurfer default
+for hemi in lh rh ; do
+  for meas in area thickness volume ; do
+    for parc in aparc aparc.a2009s ; do
+      aparcstats2table --subjects bert --hemi=${hemi} --delimiter=comma --parc=${parc} --measure=${meas} --tablefile=bert_${hemi}_${parc}_${meas}.csv
+    done
+  done
+done
+```
+Load the freesurfer data and transform
+```{r FSLobeFunctions, echo=FALSE, message=FALSE}
+
+```
+```{r LoadFSData, message=FALSE}
+
+```
+Turn it into a table for plotting.
+```{r CreateFSFrame}
+
+```
+This table has a one row per region and additiona columns for hemisphere and lobe. There are also various forms of the region name.
+
+There are no links (connections) in the table at this point.
+# Plotting the circle part
+
+The _geom\_arc\_bar_ geom in ggforce is the main tool for creating the circular parts of the plot:
+
+```{r CircOne}
+
+```
+The amount aesthetic controls the segment size.
+
+Note that order of the data frame is important. I've arranged the region factor column to correspond to the usual lobe arrangement. 
+Clearly the legend isn't much help here.
+
+There is also a "sep" option for these geoms, but it doesn't work well with lots of classes.
+
+We can do multiple circles, but ggplot doesn't allow multiple colourmaps. It might be possible to combine them outside ggplot:
+```{r CircTwo}
+
+```
+The radius of each segment can also be mapped to radius. Needs some care with scaling:
+```{r CircThree}
+
+```
+# Labels
+Labels can be added as follows:
+```{r CircFour}
+
+```
+
+
+# Links
+
+Current support doesn't include directional links. A node may be associated with multiple links, leading to a more 
+complex data frame. The link frame needs to include the same data as the one used to construct the circles. 
+Only one link can be defined per row, but it is necessary to include all nodes, even if they don't have links.
+```{r LinkSetup}
+
+```
+Use geom\_bezier combined with the link\_pie stat to plot the links. In this example we used the thickness and 
+area of the source node to provide size and transparency.
+```{r PlotLinks}
+
+```
+
+
+
