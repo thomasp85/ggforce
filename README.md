@@ -116,7 +116,7 @@ Also available on
 - [***ggfortify:***](https://github.com/sinhrks/ggfortify) Defines ggplot2
 interfaces to common R packages using fortify and autoplot. Also available on 
 [CRAN](https://cran.r-project.org/web/packages/ggfortify/index.html)
-- [***ggrepel:***](https://github.com/slowkow/ggrepel/index.html) Defines a
+- [***ggrepel:***](https://github.com/slowkow/ggrepel) Defines a
 nifty geom_text_repel that forces text to move away from their origin to avoid
 overlaps. Available on 
 [CRAN](https://cran.r-project.org/web/packages/ggrepel/index.html)
