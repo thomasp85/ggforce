@@ -3,12 +3,15 @@
 \docType{data}
 \name{StatArcBar}
 \alias{GeomArc}
+\alias{GeomArc0}
 \alias{GeomArcBar}
 \alias{GeomBezier0}
 \alias{GeomBspline0}
 \alias{GeomCircle}
 \alias{GeomPathInterpolate}
 \alias{StatArc}
+\alias{StatArc0}
+\alias{StatArc2}
 \alias{StatArcBar}
 \alias{StatBezier}
 \alias{StatBezier0}

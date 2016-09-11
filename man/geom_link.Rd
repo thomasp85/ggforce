@@ -2,6 +2,7 @@
 % Please edit documentation in R/link.R
 \name{geom_link}
 \alias{geom_link}
+\alias{geom_link0}
 \alias{geom_link2}
 \alias{stat_link}
 \alias{stat_link2}
@@ -22,6 +23,10 @@ geom_link(mapping = NULL, data = NULL, stat = "link",
 geom_link2(mapping = NULL, data = NULL, stat = "link2",
   position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
   show.legend = NA, inherit.aes = TRUE, n = 100, ...)
+
+geom_link0(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", ..., arrow = NULL, lineend = "butt",
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
@@ -62,6 +67,9 @@ are three types of arguments you can use here:
  \code{stat} associated with the layer.}
  \item{Other arguments passed on to the stat.}
 }}
+
+\item{stat}{The statistical transformation to use on the data for this layer,
+as a string.}
 
 \item{arrow}{specification for arrow heads, as created by arrow()}
 

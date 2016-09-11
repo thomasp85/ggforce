@@ -52,6 +52,9 @@ are three types of arguments you can use here:
  \code{stat} associated with the layer.}
  \item{Other arguments passed on to the stat.}
 }}
+
+\item{stat}{The statistical transformation to use on the data for this layer,
+as a string.}
 }
 \description{
 This set of stats and geoms makes it possible to draw circles based on a

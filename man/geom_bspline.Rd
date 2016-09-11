@@ -73,6 +73,9 @@ are three types of arguments you can use here:
  \item{Other arguments passed on to the stat.}
 }}
 
+\item{stat}{The statistical transformation to use on the data for this layer,
+as a string.}
+
 \item{arrow}{specification for arrow heads, as created by arrow()}
 
 \item{lineend}{Line end style (round, butt, square)}

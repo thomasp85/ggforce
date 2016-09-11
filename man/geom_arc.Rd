@@ -2,7 +2,11 @@
 % Please edit documentation in R/arc.R
 \name{geom_arc}
 \alias{geom_arc}
+\alias{geom_arc0}
+\alias{geom_arc2}
 \alias{stat_arc}
+\alias{stat_arc0}
+\alias{stat_arc2}
 \title{Arcs based on radius and radians}
 \usage{
 stat_arc(mapping = NULL, data = NULL, geom = "arc",
@@ -11,6 +15,22 @@ stat_arc(mapping = NULL, data = NULL, geom = "arc",
 
 geom_arc(mapping = NULL, data = NULL, stat = "arc",
   position = "identity", n = 360, arrow = NULL, lineend = "butt",
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+
+stat_arc2(mapping = NULL, data = NULL, geom = "path_interpolate",
+  position = "identity", na.rm = FALSE, show.legend = NA, n = 360,
+  inherit.aes = TRUE, ...)
+
+geom_arc2(mapping = NULL, data = NULL, stat = "arc2",
+  position = "identity", n = 360, arrow = NULL, lineend = "butt",
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+
+stat_arc0(mapping = NULL, data = NULL, geom = "arc0",
+  position = "identity", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
+
+geom_arc0(mapping = NULL, data = NULL, stat = "arc0",
+  position = "identity", ncp = 5, arrow = NULL, lineend = "butt",
   na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -36,6 +56,9 @@ warning. If \code{TRUE} silently removes missing values.}
 \code{NA}, the default, includes if any aesthetics are mapped. \code{FALSE}
 never includes, and \code{TRUE} always includes.}
 
+\item{n}{the smoothness of the arc. Sets the number of points to use if the
+arc would cover a full circle}
+
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics, rather
 than combining with them. This is most useful for helper functions that
 define both data and aesthetics and shouldn't inherit behaviour from the
@@ -51,12 +74,15 @@ are three types of arguments you can use here:
  \item{Other arguments passed on to the stat.}
 }}
 
+\item{stat}{The statistical transformation to use on the data for this layer,
+as a string.}
+
 \item{arrow}{specification for arrow heads, as created by arrow()}
 
 \item{lineend}{Line end style (round, butt, square)}
 
-\item{ncp}{The number of control points used to draw the curve. More control
-points creates a smoother curve.}
+\item{ncp}{the number of control points used to draw the arc with curveGrob.
+Determines how well the arc approximates a circle section}
 }
 \description{
 This set of stats and geoms makes it possible to draw circle segments based
