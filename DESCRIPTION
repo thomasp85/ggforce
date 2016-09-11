@@ -1,13 +1,13 @@
 Package: ggforce
 Type: Package
 Title: Accelerating ggplot2
-Version: 0.0.2
-Date: 2016-02-02
+Version: 0.1.0
+Date: 2016-09-11
 Author: Thomas Lin Pedersen
 Maintainer: Thomas Lin Pedersen <thomasp85@gmail.com>
 Description: The aim of ggplot2 is to aid in visual data investigations. This
     focus has led to a lack of facilities for composing specialised plots.
-    ggforce Aims to be a collection of mainly new stats and geoms that fills
+    ggforce aims to be a collection of mainly new stats and geoms that fills
     this gap. All additional functionality is aimed to come through the official
     extension system so using ggforce should be a stable experience.
 License: GPL (>=2)
@@ -26,7 +26,8 @@ LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+    devtools
 VignetteBuilder: knitr
 Collate:
     'RcppExports.R'
