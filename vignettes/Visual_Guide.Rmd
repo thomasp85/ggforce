@@ -25,10 +25,32 @@ We'll start by loading ggforce and then proceed to all the beautiful graphics...
 
 ```{r, echo=TRUE, eval=TRUE}
 library(ggforce)
+set.seed(1)
 ```
 
 ## Geom versions
-TBD
+Some of the geom versions presented below, comes in two or more flavors, 
+potentially suffixed with 0 or 2, such as for `geom_bezier` which also comes in
+the versions `geom_bezier0` and `geom_bezier2`. This pattern is mainly used in 
+line drawings such as splines, arcs and bezier and has been adopted for edge 
+drawing in the ggraph package as well. In all cases the base version (no suffix)
+has been implemented efficiently in C++ and produces a set of points along the
+line, that can be traced using a path. The benefit of this is that the detail
+level can be chosen, thus giving the user control over the rendering time. On 
+top of that, an additional column is added to the data with the position along
+the path, which can be used to map e.g. an opacity gradient to. For the base 
+version each line is encoded in one row using `x`, `y`, `xend`, and `yend` in 
+the same manner as known as `geom_segment`. The same input format is used for 
+the 0-version, but this version maps directly to native grid grobs. While there
+is seldom a performance reason to use the native grobs, these version do ensure
+that the path is always smooth (For the base versions this is dependent on the
+number of points calculated). The 0-versions does not allow for mapping of 
+gradients to the path. The 2-version changes the input format into encoding the
+start and end points on different rows in the same manner as for `geom_path`. 
+The benefit of this is that different aesthetic variables can be defined for the 
+start and end, e.g. colour, and these versions will make sure to interpolate 
+that aesthetic along the path so you can get e.g. smooth transition of size, 
+colour, and opacity along a spline.
 
 # Layers
 This section shows the extensions to ggplot2's geoms and stats. It rarely makes 
@@ -91,11 +113,38 @@ p + geom_arc_bar(aes(x0 = 0, y0 = 0, r0 = 0.8, r = 1, amount = amount,
 ```
 
 While the above produces some of the most hated plot types in the world it does
-showcase the use of arcs in plotting. Other examples will use geom_arc and 
-geom_arc_bar to produce more powerful plot types. 
+showcase the use of arcs in plotting. Arcs can be used in many different
+visualization types to annotate radial position etc. as in e.g. choord diagrams.
 
 Using arc is just like arc_bar except that it does not take an r0 argument and
-does not have any fill.
+does not have any fill. Furthermore the arc geoms contains the 0 and 2 versions
+making gradients and interpolation possible.
+
+```{r, eval=TRUE, echo=TRUE, fig.align='center'}
+arcs <- data.frame(
+    start = 0,
+    end = runif(5) * 2*pi,
+    r = seq_len(5)
+)
+p <- ggplot() + theme_no_axes() + coord_fixed()
+
+p + geom_arc(aes(x0 = 0, y0 = 0, r = r, start = start, end = end, 
+                 alpha = ..index.., colour = factor(r)), data = arcs)
+
+# The 0 version will not properly expand the axes, as their extend is only
+# known at draw time
+p + geom_arc0(aes(x0 = 0, y0 = 0, r = r, start = start, end = end, 
+                 colour = factor(r)), data = arcs, ncp = 50)
+
+# The 2 version allow you to create gradients, but the input data format is
+# different
+arcs <- rbind(data.frame(end = 0, r = 1:5), arcs[, c('end', 'r')])
+arcs$col <- sample(5, 10, TRUE)
+p + geom_arc2(aes(x0 = 0, y0 = 0, r = r, group = r, end = end, 
+                  colour = factor(col)), data = arcs, size = 3)
+
+```
+
 
 ## Circles
 Standard ggplot2 generally has you covered when it comes to drawing circles
@@ -128,13 +177,84 @@ ggplot() + geom_circle(aes(x0=x0, y0=y0, r=r, fill=r), data=circles, n=10) +
 ```
 
 ## Links
-TBD
+Links are the ggforce equivalent of segments, i.e. connecting two points by a 
+straight line. While `geom_segment()` does a decent job of this, the link geoms
+expand the straight line into the base, 0, and 2 versions making it possible to
+interpolate aesthetics and add gradients to the segment. The 0 version is just
+a renamed `geom_segment` included for completeness.
+
+```{r, echo=TRUE, eval=TRUE, fig.align='center'}
+links <- data.frame(
+    x = 0, y = 0, xend = runif(10), yend = runif(10)
+)
+ggplot() + geom_link(aes(x = x, y = y, xend = xend, yend = yend, 
+                         alpha = ..index..), data = links)
+
+# The 2 version also allows for drawing paths
+links2 <- data.frame(
+    x = runif(10), y = runif(10), group = rep(c(1,2), each = 5), 
+    colour = sample(5, 10, TRUE)
+)
+ggplot() + geom_link2(aes(x = x, y = y, group = group, colour = factor(colour)), 
+                      data = links2)
+```
+
 
 ## Beziers
-TBD
+A bezier is a smooth curve defined by its end point and one or two control 
+points. It is well known in vector drawing software such as Adobe Illustrator,
+where the control points provide an intuitive way to manipulate the curve. In
+essence the control points define the direction and the force the curve exits
+the end point with - the more distant the control point is to the end point,
+the longer the curve travels in the direction of the control point before 
+beginning to move towards the other end point.
+
+There is no succinct way to describe a bezier in a single row, so all the 
+versions use multiple rows to describe the bezier, grouped by the group 
+aesthetic. The first row is the start point followed by one or two control 
+points and then the end point. As bezierGrob from grid only supports quadratics
+beziers (2 control points) the 0-version approximates a qubic bezier by placing 
+placing the two control points on top of each other.
+
+```{r, echo=TRUE, eval=TRUE, fig.align='center'}
+beziers <- data.frame(
+    x = c(1, 2, 3, 4, 4, 6, 6),
+    y = c(0, 2, 0, 0, 2, 2, 0),
+    type = rep(c('cubic', 'quadratic'), c(3, 4)),
+    point = c('end', 'control', 'end', 'end', 'control', 'control', 'end')
+)
+help_lines <- data.frame(
+    x = c(1, 3, 4, 6),
+    xend = c(2, 2, 4, 6),
+    y = 0,
+    yend = 2
+)
+ggplot() + geom_segment(aes(x = x, xend = xend, y = y, yend = yend), 
+                        data = help_lines, 
+                        arrow = arrow(length = unit(c(0, 0, 0.5, 0.5), 'cm')), 
+                        colour = 'grey') + 
+    geom_bezier(aes(x= x, y = y, group = type, linetype = type), 
+                data = beziers) + 
+    geom_point(aes(x = x, y = y, colour = point), data = beziers)
+```
+
 
 ## B-splines
-TBD
+Like beziers b-splines are smooth curves, but unlike beziers b-splines are 
+defined by a vector of control points along which the curve will flow, without
+necessarily passing through any of the control points. The 0-version is 
+impemented using xsplineGrob with `shape = 1`, which approximates a b-spline, 
+but a slight variation is expected due to this.
+
+```{r, echo=TRUE, eval=TRUE, fig.align='center'}
+spline <- data.frame(
+    x = runif(5), y = runif(5), group = 1
+)
+ggplot(spline) + geom_path(aes(x = x, y = y, group = group), colour = 'grey') + 
+    geom_bspline(aes(x = x, y = y, group = group)) + 
+    geom_point(aes(x = x, y = y))
+```
+
 
 # Transformations
 Transformations are not really a part of ggplot2, but rather the scales package.
@@ -148,10 +268,29 @@ manipulating scales. In general the scales package has you well covered but
 there are some missing pieces:
 
 ### Power transformations
-TBD
+Suspicously missing from the scales package is a generalized power 
+transformation that is, e.g. x^2^. This type of transformation is only 
+represented by the square root transformation which equals x^1/2^. ggforce 
+provides a constructor for power transformations that can be used on scales etc.
+
+```{r, echo=TRUE, eval=TRUE, fig.align='center'}
+p6 <- power_trans(3)
+p6
+p6$transform(1:5)
+ggplot(mtcars) + geom_point(aes(mpg, cyl)) + scale_y_continuous(trans = p6)
+```
 
 ### Reversing transformations
-TBD
+Scales provide `reverse_trans()` to create a reverse linear transformation. 
+Unfortunatly you're out of luck if you want a reverse log transformation etc.
+ggforce provides a transformation modifier that can reverse any transformation
+object passed into it:
+
+```{r, echo=TRUE, eval=TRUE, fig.align='center'}
+p6r <- trans_reverser(p6)
+p6r
+ggplot(mtcars) + geom_point(aes(mpg, cyl)) + scale_y_continuous(trans = p6r)
+```
 
 ## Coordinate transformations
 Coordinate transformation takes coordinates and does something to them. It can
@@ -163,4 +302,75 @@ using coord polar, but can be applied to your data upfront instead of on the
 whole plot.
 
 ### Radial transformations
-TBD
+`radial_trans()` converts radi and angle to x and y positions in a cartesian
+coordinate system. That means that if you have a point defined by its position
+on a circle you can easily get the x and y coordinates for it. The angle doesn't
+need to be provided in radians or degrees as both the angular range and the 
+radius range are defined when the transformation object is created. On top of
+that it can be defined where 0 starts (defaults to 12 o'clock) and which 
+direction is used among others - see the documentation for radial_trans for a
+more in-depth description
+
+```{r, echo=TRUE, eval=TRUE, fig.align='center'}
+line <- data.frame(
+    x = seq(0, 10, length.out = 100), 
+    y = seq(0, 10, length.out = 100)
+)
+r_trans <- radial_trans(r.range = c(0, 1), a.range = c(0, 2))
+spiral <- r_trans$transform(r = line$x, a = line$y)
+ggplot() + geom_path(aes(x, y), data = line, colour = 'red') + 
+    geom_path(aes(x, y), data = spiral, colour = 'green')
+```
+
+# A rocket
+We'll finish this of by drawing a rocket:
+
+```{r, echo=TRUE, eval=TRUE, fig.align='center'}
+rocketData <- data.frame(
+  x = c(1,1,2,2),
+  y = c(1,2,2,3)
+)
+rocketData <- do.call(rbind, lapply(seq_len(500)-1, function(i) {
+  rocketData$y <- rocketData$y - c(0,i/500);
+  rocketData$group <- i+1;
+  rocketData
+}))
+rocketData2 <- data.frame(
+  x = c(2, 2.25, 2),
+  y = c(2, 2.5, 3)
+)
+rocketData2 <- do.call(rbind, lapply(seq_len(500)-1, function(i) {
+  rocketData2$x[2] <- rocketData2$x[2] - i*0.25/500;
+  rocketData2$group <- i+1 + 500;
+  rocketData2
+}))
+ggplot() + geom_link(aes(x=2, y=2, xend=3, yend=3, alpha=..index..,
+                     size = ..index..), colour='goldenrod', n=500) +
+           geom_bezier(aes(x=x, y=y, group=group, colour=..index..),
+                       data=rocketData) +
+           geom_bezier(aes(x=y, y=x, group=group, colour=..index..),
+                       data=rocketData) +
+           geom_bezier(aes(x=x, y=y, group=group, colour=1),
+                       data=rocketData2) +
+           geom_bezier(aes(x=y, y=x, group=group, colour=1),
+                       data=rocketData2) +
+           geom_text(aes(x=1.65, y=1.65, label='ggplot2', angle=45),
+                     colour='white', size=15) +
+           coord_fixed() +
+           scale_x_reverse() +
+           scale_y_reverse() +
+           scale_alpha(range=c(1, 0), guide='none') +
+           scale_size_continuous(range=c(20, 0.1), trans='exp',
+                                 guide='none') +
+           scale_color_continuous(guide='none') +
+           xlab('') + ylab('') +
+           ggtitle('ggforce: Accelerating ggplot2') +
+           theme(plot.title = element_text(size = 20))
+```
+
+# Session info
+
+```{r, echo=FALSE}
+devtools::session_info()
+```
+
