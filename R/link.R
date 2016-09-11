@@ -217,3 +217,7 @@ geom_link2 <- function(mapping = NULL, data = NULL, stat = "link2",
           params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, n = n,
                         ...))
 }
+#' @rdname geom_link
+#' @importFrom ggplot2 geom_segment
+#' @export
+geom_link0 <- geom_segment
