@@ -50,6 +50,9 @@
 #' @param data A data frame. If specified, overrides the default data frame
 #' defined at the top level of the plot.
 #'
+#' @param stat The statistical transformation to use on the data for this layer,
+#' as a string.
+#'
 #' @param position Position adjustment, either as a string, or the result of a
 #' call to a position adjustment function.
 #'
@@ -90,24 +93,25 @@
 #' @rdname geom_bezier
 #'
 #' @examples
-#' # Lets make some data
-#' lines <- data.frame(
-#'   x = c(5, 12, 15, 9, 6),
-#'   y = c(17, 20, 4, 15, 5),
-#'   xend = c(19, 17, 2, 9, 5),
-#'   yend = c(10, 18, 7, 12, 1),
-#'   width = c(1, 10, 6, 2, 3),
-#'   colour = letters[1:5]
+#' beziers <- data.frame(
+#'     x = c(1, 2, 3, 4, 4, 6, 6),
+#'     y = c(0, 2, 0, 0, 2, 2, 0),
+#'     type = rep(c('cubic', 'quadratic'), c(3, 4)),
+#'     point = c('end', 'control', 'end', 'end', 'control', 'control', 'end')
 #' )
-#'
-#' ggplot() + geom_link(aes(x = x, y = y, xend = xend, yend = yend,
-#'                          colour = colour, alpha = ..index..,
-#'                          size = ..index..),
-#'                      data = lines)
-#'
-#' ggplot() + geom_link2(aes(x = x, y = y, colour = colour, size = width,
-#'                           group = 1),
-#'                       data = lines, lineend = 'round', n = 500)
+#' help_lines <- data.frame(
+#'     x = c(1, 3, 4, 6),
+#'     xend = c(2, 2, 4, 6),
+#'     y = 0,
+#'     yend = 2
+#' )
+#' ggplot() + geom_segment(aes(x = x, xend = xend, y = y, yend = yend),
+#'                         data = help_lines,
+#'                         arrow = arrow(length = unit(c(0, 0, 0.5, 0.5), 'cm')),
+#'                         colour = 'grey') +
+#'     geom_bezier(aes(x= x, y = y, group = type, linetype = type),
+#'                 data = beziers) +
+#'     geom_point(aes(x = x, y = y, colour = point), data = beziers)
 #'
 NULL
 

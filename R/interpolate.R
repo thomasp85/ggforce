@@ -61,7 +61,14 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
         data
     }
 )
+#' Interpolate layer data
+#'
+#' @param A data.frame with data for a layer
+#'
+#' @return A similar data.frame with NA values interpolated
+#'
 #' @importFrom tweenr tween_t
+#' @keywords internal
 #' @export
 interpolateDataFrame <- function(data) {
     if (is.null(data$group)) {

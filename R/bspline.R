@@ -39,6 +39,9 @@
 #' @param data A data frame. If specified, overrides the default data frame
 #' defined at the top level of the plot.
 #'
+#' @param stat The statistical transformation to use on the data for this layer,
+#' as a string.
+#'
 #' @param position Position adjustment, either as a string, or the result of a
 #' call to a position adjustment function.
 #'

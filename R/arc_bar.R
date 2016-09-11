@@ -50,11 +50,16 @@
 #' @param data A data frame. If specified, overrides the default data frame
 #' defined at the top level of the plot.
 #'
+#' @param stat The statistical transformation to use on the data for this layer,
+#' as a string.
+#'
 #' @param position Position adjustment, either as a string, or the result of a
 #' call to a position adjustment function.
 #'
 #' @param n The number of points used to draw a full circle. The number of
 #' points on each arc will then be calculated as n / span-of-arc
+#'
+#' @param sep The separation between arcs in pie/donut charts
 #'
 #' @param ... other arguments passed on to \code{\link[ggplot2]{layer}}. There
 #' are three types of arguments you can use here:
@@ -298,3 +303,4 @@ arcPaths2 <- function(data, n) {
     paths$x <- paths$x + paths$x0
     paths$y <- paths$y + paths$y0
     paths[, !names(paths) %in% c('x0', 'y0')]
+}
