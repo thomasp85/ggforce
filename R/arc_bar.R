@@ -257,3 +257,44 @@ arcPaths <- function(data, n) {
     }
     paths[, !names(paths) %in% c('x0', 'y0', 'exploded')]
 }
+arcPaths2 <- function(data, n) {
+    trans <- radial_trans(c(0, 1), c(0, 2*pi), pad = 0)
+    fullCirc <- n/(2*pi)
+    extraData <- setdiff(names(data), c('r', 'x0', 'y0', 'end', 'group', 'PANEL'))
+    hasExtra <- length(extraData) != 0
+    extraTemplate <-  data[NA, extraData, drop = FALSE][1, , drop = FALSE]
+    paths <- lapply(split(seq_len(nrow(data)), data$group), function(i) {
+        if (length(i) != 2) {
+            stop('Arcs must be defined by two end points', call. = FALSE)
+        }
+        if (data$r[i[1]] != data$r[i[2]] ||
+            data$x0[i[1]] != data$x0[i[2]] ||
+            data$y0[i[1]] != data$y0[i[2]]) {
+            stop('Both end points must be at same radius and with same center', call. = FALSE)
+        }
+        if (data$end[i[1]] == data$end[i[2]]) return()
+        nControl <- ceiling(fullCirc * abs(diff(data$end[i])))
+        if (nControl < 3) nControl <- 3
+        path <- data.frame(
+            a = seq(data$end[i[1]], data$end[i[2]], length.out = nControl),
+            r = data$r[i[1]],
+            x0 = data$x0[i[1]],
+            y0 = data$y0[i[1]],
+            group = data$group[i[1]],
+            index = seq(0, 1, length.out = nControl),
+            .interp = c(FALSE, rep(TRUE, nControl -2), FALSE),
+            PANEL = data$PANEL[i[1]]
+        )
+        if (hasExtra) {
+            path <- cbind(path, extraTemplate[rep(1, nControl), , drop = FALSE])
+            path[1, extraData] <- data[i[1], extraData]
+            path[nControl, extraData] <- data[i[2], extraData]
+        }
+        path
+    })
+    paths <- do.call(rbind, paths)
+    paths <- cbind(paths[, !names(paths) %in% c('r', 'a')],
+                   trans$transform(paths$r, paths$a))
+    paths$x <- paths$x + paths$x0
+    paths$y <- paths$y + paths$y0
+    paths[, !names(paths) %in% c('x0', 'y0')]
