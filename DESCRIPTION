@@ -37,6 +37,7 @@ Collate:
     'bezier.R'
     'bspline.R'
     'circle.R'
+    'facet_wrap_paginate.R'
     'ggforce_package.R'
     'ggproto-classes.R'
     'interpolate.R'
