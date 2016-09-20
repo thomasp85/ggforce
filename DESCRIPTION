@@ -41,5 +41,6 @@ Collate:
     'ggproto-classes.R'
     'interpolate.R'
     'link.R'
+    'sina.R'
     'themes.R'
     'trans.R'
