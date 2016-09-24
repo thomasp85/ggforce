@@ -15,6 +15,8 @@
 #' @note If either \code{ncol} or \code{nrow} is \code{NULL} this function will
 #' fall back to the standard \code{facet_grid} functionality.
 #'
+#' @family ggforce facets
+#'
 #' @export
 #'
 #' @examples

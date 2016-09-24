@@ -88,4 +88,8 @@ ggplot(diamonds) +
   facet_grid_paginate(color~cut:clarity, ncol = 3, nrow = 3, page = 4)
 
 }
+\seealso{
+Other ggforce.facets: \code{\link{facet_wrap_paginate}},
+  \code{\link{facet_zoom}}
+}
 
