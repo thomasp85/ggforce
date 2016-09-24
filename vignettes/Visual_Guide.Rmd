@@ -21,9 +21,7 @@ different visualization types in more detail - both for the benefit of the
 reader but also to give credit to the people who thought long and hard about how
 to best present your data.
 
-We'll start by loading ggforce and then proceed to all the beautiful graphics...
-
-```{r, echo=TRUE, eval=TRUE}
+```{r, include=FALSE}
 library(ggforce)
 set.seed(1)
 ```
