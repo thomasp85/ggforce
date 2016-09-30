@@ -127,16 +127,19 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
         axes <- render_axes(ranges, ranges, coord, theme, FALSE)
         panelGrobs <- create_panels(panels, axes$x, axes$y)
 
-        zoom_prop <- rescale(y_scales[[2]]$dimension(), from = y_scales[[1]]$dimension())
-        indicator <- polygonGrob(c(1, 1, 0, 0), c(zoom_prop, 1, 0), gp = gpar(col = NA, fill = alpha(theme$strip.background$fill, 0.5)))
-        lines <- segmentsGrob(y0 = c(0, 1), x0 = c(0, 0), y1 = zoom_prop, x1 = c(1, 1), gp = gpar(col = theme$strip.background$colour, lineend = 'round'))
-        indicator_h <- grobTree(indicator, lines)
+        if ('y' %in% layout$name) {
+            zoom_prop <- rescale(y_scales[[2]]$dimension(), from = y_scales[[1]]$dimension())
+            indicator <- polygonGrob(c(1, 1, 0, 0), c(zoom_prop, 1, 0), gp = gpar(col = NA, fill = alpha(theme$strip.background$fill, 0.5)))
+            lines <- segmentsGrob(y0 = c(0, 1), x0 = c(0, 0), y1 = zoom_prop, x1 = c(1, 1), gp = gpar(col = theme$strip.background$colour, lineend = 'round'))
+            indicator_h <- grobTree(indicator, lines)
+        }
+        if ('x' %in% layout$name) {
+            zoom_prop <- rescale(x_scales[[2]]$dimension(), from = x_scales[[1]]$dimension())
+            indicator <- polygonGrob(c(zoom_prop, 1, 0), c(1, 1, 0, 0), gp = gpar(col = NA, fill = alpha(theme$strip.background$fill, 0.5)))
+            lines <- segmentsGrob(x0 = c(0, 1), y0 = c(0, 0), x1 = zoom_prop, y1 = c(1, 1), gp = gpar(col = theme$strip.background$colour, lineend = 'round'))
+            indicator_v <- grobTree(indicator, lines)
+        }
 
-        zoom_prop <- rescale(x_scales[[2]]$dimension(), from = x_scales[[1]]$dimension())
-        indicator <- polygonGrob(c(zoom_prop, 1, 0), c(1, 1, 0, 0), gp = gpar(col = NA, fill = alpha(theme$strip.background$fill, 0.5)))
-        lines <- segmentsGrob(x0 = c(0, 1), y0 = c(0, 0), x1 = zoom_prop, y1 = c(1, 1), gp = gpar(col = theme$strip.background$colour, lineend = 'round'))
-        indicator_v <- grobTree(indicator, lines)
-#browser()
         if ('full' %in% layout$name && params$split) {
             space.x <- theme$panel.spacing.x
             if (is.null(space.x)) space.x <- theme$panel.spacing
