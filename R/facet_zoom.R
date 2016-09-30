@@ -123,20 +123,23 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
         } else if (is.null(params$y)) {
             params$horizontal <- FALSE
         }
+        if (is.null(theme$zoom)) {
+            theme$zoom <- theme$strip.background
+        }
         # Construct the panels
         axes <- render_axes(ranges, ranges, coord, theme, FALSE)
         panelGrobs <- create_panels(panels, axes$x, axes$y)
 
         if ('y' %in% layout$name) {
             zoom_prop <- rescale(y_scales[[2]]$dimension(), from = y_scales[[1]]$dimension())
-            indicator <- polygonGrob(c(1, 1, 0, 0), c(zoom_prop, 1, 0), gp = gpar(col = NA, fill = alpha(theme$strip.background$fill, 0.5)))
-            lines <- segmentsGrob(y0 = c(0, 1), x0 = c(0, 0), y1 = zoom_prop, x1 = c(1, 1), gp = gpar(col = theme$strip.background$colour, lineend = 'round'))
+            indicator <- polygonGrob(c(1, 1, 0, 0), c(zoom_prop, 1, 0), gp = gpar(col = NA, fill = alpha(theme$zoom$fill, 0.5)))
+            lines <- segmentsGrob(y0 = c(0, 1), x0 = c(0, 0), y1 = zoom_prop, x1 = c(1, 1), gp = gpar(col = theme$zoom$colour, lineend = 'round'))
             indicator_h <- grobTree(indicator, lines)
         }
         if ('x' %in% layout$name) {
             zoom_prop <- rescale(x_scales[[2]]$dimension(), from = x_scales[[1]]$dimension())
-            indicator <- polygonGrob(c(zoom_prop, 1, 0), c(1, 1, 0, 0), gp = gpar(col = NA, fill = alpha(theme$strip.background$fill, 0.5)))
-            lines <- segmentsGrob(x0 = c(0, 1), y0 = c(0, 0), x1 = zoom_prop, y1 = c(1, 1), gp = gpar(col = theme$strip.background$colour, lineend = 'round'))
+            indicator <- polygonGrob(c(zoom_prop, 1, 0), c(1, 1, 0, 0), gp = gpar(col = NA, fill = alpha(theme$zoom$fill, 0.5)))
+            lines <- segmentsGrob(x0 = c(0, 1), y0 = c(0, 0), x1 = zoom_prop, y1 = c(1, 1), gp = gpar(col = theme$zoom$colour, lineend = 'round'))
             indicator_v <- grobTree(indicator, lines)
         }
 
@@ -209,11 +212,14 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
         final
     },
     draw_back = function(data, layout, x_scales, y_scales, theme, params) {
+        if (is.null(theme$zoom)) {
+            theme$zoom <- theme$strip.background
+        }
         if (!is.null(params$x) && params$show.area) {
             zoom_prop <- rescale(x_scales[[2]]$dimension(), from = x_scales[[1]]$dimension())
             x_back <- grobTree(
-                rectGrob(x = mean(zoom_prop), y = 0.5, width = diff(zoom_prop), height = 1, gp = gpar(col = NA, fill = alpha(theme$strip.background$fill, 0.5))),
-                segmentsGrob(zoom_prop, c(0, 0), zoom_prop, c(1, 1), gp = gpar(col = theme$strip.background$colour))
+                rectGrob(x = mean(zoom_prop), y = 0.5, width = diff(zoom_prop), height = 1, gp = gpar(col = NA, fill = alpha(theme$zoom$fill, 0.5))),
+                segmentsGrob(zoom_prop, c(0, 0), zoom_prop, c(1, 1), gp = gpar(col = theme$zoom$colour))
             )
         } else {
             x_back <- zeroGrob()
@@ -221,8 +227,8 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
         if (!is.null(params$y) && params$show.area) {
             zoom_prop <- rescale(y_scales[[2]]$dimension(), from = y_scales[[1]]$dimension())
             y_back <- grobTree(
-                rectGrob(y = mean(zoom_prop), x = 0.5, height = diff(zoom_prop), width = 1, gp = gpar(col = NA, fill = alpha(theme$strip.background$fill, 0.5))),
-                segmentsGrob(y0 = zoom_prop, x0 = c(0, 0), y1 = zoom_prop, x1 = c(1, 1), gp = gpar(col = theme$strip.background$colour))
+                rectGrob(y = mean(zoom_prop), x = 0.5, height = diff(zoom_prop), width = 1, gp = gpar(col = NA, fill = alpha(theme$zoom$fill, 0.5))),
+                segmentsGrob(y0 = zoom_prop, x0 = c(0, 0), y1 = zoom_prop, x1 = c(1, 1), gp = gpar(col = theme$zoom$colour))
             )
         } else {
             y_back <- zeroGrob()
