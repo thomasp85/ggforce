@@ -1,5 +1,5 @@
 # ggforce
-*Accelarating ggplot2*
+*Accelerating ggplot2*
 
 [![Travis-CI Build Status](https://travis-ci.org/thomasp85/ggforce.svg?branch=master)](https://travis-ci.org/thomasp85/ggforce)
 
