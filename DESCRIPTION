@@ -38,6 +38,7 @@ Collate:
     'bspline.R'
     'circle.R'
     'facet_grid_paginate.R'
+    'facet_table.R'
     'facet_wrap_paginate.R'
     'facet_zoom.R'
     'ggforce_package.R'
