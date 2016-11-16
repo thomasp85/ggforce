@@ -21,7 +21,8 @@ Imports:
     dplyr,
     scales,
     MASS,
-    tweenr
+    tweenr,
+    units
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Suggests:
@@ -41,6 +42,7 @@ Collate:
     'ggproto-classes.R'
     'interpolate.R'
     'link.R'
+    'scale-unit.R'
     'sina.R'
     'themes.R'
     'trans.R'
