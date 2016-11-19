@@ -73,3 +73,34 @@ FacetWrapPaginate <- ggproto("FacetWrapPaginate", FacetWrap,
         FacetWrap$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params)
     }
 )
+
+#' Determine the number of pages in a paginated facet plot
+#'
+#' This is a simple helper that returns the number of pages it takes to plot all
+#' panels when using \code{\link{facet_wrap_paginate}} and
+#' \code{\link{facet_grid_paginate}}. It partially builds the plot so depending
+#' on the complexity of your plot it might take some time to calculate...
+#'
+#' @param plot A ggplot object using either facet_wrap_paginate or
+#' facet_grid_paginate
+#'
+#' @return If the plot uses  using either facet_wrap_paginate or
+#' facet_grid_paginate it returns the total number of pages. Otherwise it
+#' returns NULL
+#'
+#' @export
+#'
+#' @examples
+#' p <- ggplot(diamonds) +
+#'     geom_point(aes(carat, price), alpha = 0.1) +
+#'     facet_wrap_paginate(~cut:clarity, ncol = 3, nrow = 3, page = i)
+#' n_pages(p)
+#'
+n_pages <- function(plot) {
+    page <- ggplot_build(plot)$layout$panel_layout$page
+    if (!is.null(page)) {
+        max(page)
+    } else {
+        NULL
+    }
+}
