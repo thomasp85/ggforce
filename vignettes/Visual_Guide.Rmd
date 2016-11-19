@@ -351,6 +351,60 @@ ggplot() + geom_path(aes(x, y), data = line, colour = 'red') +
     geom_path(aes(x, y), data = spiral, colour = 'green')
 ```
 
+# Scales
+Currently only a single new scale is added to ggplot2 with ggforce, but it is a
+rather nifty little fellow. 
+
+## Units
+Often, when working with numeric data, there's a unit attached to the values, 
+but in R this unit is not attached to your data but rather lives in your head.
+The developers of the [units package](https://cran.r-project.org/package=units)
+has done something about this with the `units` class, which carries unit 
+information around with a numeric vector. It provides more than semantics 
+though. If you assign a new unit to the data it will check whether the new unit
+is compatible with the old one. If it is the values gets converted 
+automatically, and if not an error is thrown. Furthermore, units also gets 
+updated when making calculations with the values so units gets compounded during
+multiplication etc. Without ggforce units data would simply get converted to a
+numeric vector and work as normal. The `scale_[x|y]_unit()` scale from ggforce
+adds a couple of niceties though. When ggforce is loaded the scale is picked by
+default when plotting units data and you get all of the benefits for free.
+
+The unit scale adds the unit to the axis label making it clear what the values
+on the axis is meassured in:
+
+```{r}
+library(units)
+miles <- make_unit('miles')
+gallon <- make_unit('gallon')
+horsepower <- make_unit('horsepower')
+mtcars$consumption <- mtcars$mpg * (miles/gallon)
+mtcars$power <- mtcars$hp * horsepower
+
+ggplot(mtcars) +
+    geom_point(aes(power, consumption))
+```
+
+If data is transformed as part of an aesthetic assignment the unit will update
+automatically:
+
+```{r}
+ggplot(mtcars) +
+    geom_point(aes(power, 1/consumption))
+```
+
+Lastly it is possible to change the units used for the axes on the fly without
+touching the underlying data through the `unit` argument in the scale 
+constructor. When doing this the data is automatically converted to the new 
+unit.
+
+```{r}
+ggplot(mtcars) +
+    geom_point(aes(power, consumption)) +
+    scale_x_unit(unit = 'W') +
+    scale_y_unit(unit = 'km/l')
+```
+
 # A rocket
 We'll finish this of by drawing a rocket:
 
