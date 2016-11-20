@@ -1,5 +1,7 @@
-# Sample .travis.yml for R projects
-
 language: r
-warnings_are_errors: false
-sudo: required
+sudo: true
+cache: packages
+apt_packages:
+  - libudunits2-dev
+r_github_packages:
+  - edzer/units
