@@ -18,6 +18,7 @@
 #' @family ggforce facets
 #'
 #' @export
+#' @importFrom ggplot2 facet_grid ggproto
 #'
 #' @examples
 #' # Draw a small section of the grid

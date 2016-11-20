@@ -11,6 +11,8 @@
 #' the specified unit is incompatible with the unit of the data.
 #'
 #' @examples
+#' library(units)
+#' gallon <- make_unit('gallon')
 #' mtcars$consumption <- mtcars$mpg * with(ud_units, mi/gallon)
 #' mtcars$power <- mtcars$hp * with(ud_units, hp)
 #'
@@ -36,6 +38,7 @@ NULL
 #' @export
 #' @importFrom scales censor
 #' @importFrom units make_unit
+#' @importFrom ggplot2 waiver continuous_scale sec_axis
 scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
                           minor_breaks = waiver(), labels = waiver(),
                           limits = NULL, expand = waiver(), oob = censor,
@@ -57,8 +60,8 @@ scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
         stop('unit must either be NULL or of class `units` or `symbolic_units`', call. = FALSE)
     )
     if (!inherits(sec.axis, 'waiver')) {
-        if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
-        if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
+        if (inherits(sec.axis, 'formula')) sec.axis <- sec_axis(sec.axis)
+        if (!inherits(sec.axis, 'AxisSecondary')) stop("Secondary axes must be specified using 'sec_axis()'")
         sc$secondary.axis <- sec.axis
     }
     sc
@@ -67,6 +70,7 @@ scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
 #' @export
 #' @importFrom scales censor
 #' @importFrom units make_unit
+#' @importFrom ggplot2 waiver continuous_scale sec_axis
 scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
                           minor_breaks = waiver(), labels = waiver(),
                           limits = NULL, expand = waiver(), oob = censor,
@@ -88,8 +92,8 @@ scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
         stop('unit must either be NULL or of class `units` or `symbolic_units`', call. = FALSE)
     )
     if (!inherits(sec.axis, 'waiver')) {
-        if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
-        if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
+        if (inherits(sec.axis, 'formula')) sec.axis <- sec_axis(sec.axis)
+        if (!inherits(sec.axis, 'AxisSecondary')) stop("Secondary axes must be specified using 'sec_axis()'")
         sc$secondary.axis <- sec.axis
     }
     sc
@@ -98,6 +102,7 @@ scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
 #' @format NULL
 #' @usage NULL
 #' @importFrom units as.units make_unit_label
+#' @importFrom ggplot2 ScaleContinuousPosition ggproto_parent
 #' @export
 ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleContinuousPosition,
     unit = NULL,

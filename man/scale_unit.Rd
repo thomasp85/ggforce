@@ -87,6 +87,8 @@ usually be added automatically. To override manually, use
 \code{scale_*_unit}.
 }
 \examples{
+library(units)
+gallon <- make_unit('gallon')
 mtcars$consumption <- mtcars$mpg * with(ud_units, mi/gallon)
 mtcars$power <- mtcars$hp * with(ud_units, hp)
 

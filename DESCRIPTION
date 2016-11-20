@@ -2,7 +2,7 @@ Package: ggforce
 Type: Package
 Title: Accelerating ggplot2
 Version: 0.1.0
-Date: 2016-09-11
+Date: 2016-11-20
 Author: Thomas Lin Pedersen
 Maintainer: Thomas Lin Pedersen <thomasp85@gmail.com>
 Description: The aim of ggplot2 is to aid in visual data investigations. This

@@ -1,3 +1,17 @@
+# ggforce 0.1.0
+
+## Major changes
+- geom_edge_bundle has been renamed geom_bspline and lost the tension argument.
+True edge bundle functionality has been moved to ggraph
+
+## New features
+- geom_bezier for drawing quadratic and cubic beziers
+- geom_link for augmented segment/path drawing
+- geom_sina as an alternative to geom_violin and geom_beeswarm
+- scale_[x|y]_unit for using units vectors
+- facet_[wrap|grid]_paginate to split facetting into multiple pages
+- facet_zoom for contextual zooming
+
 # ggforce 0.0.1
 
 ## Major changes

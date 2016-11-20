@@ -15,6 +15,8 @@ one sided formula, \code{~a + b}, or a character vector, \code{c("a", "b")}.}
 
 \item{nrow}{Number of rows and columns.}
 
+\item{ncol}{Number of rows and columns}
+
 \item{scales}{should Scales be fixed (\code{"fixed"}, the default),
 free (\code{"free"}), or free in one dimension (\code{"free_x"},
 \code{"free_y"}).}
