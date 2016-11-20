@@ -22,7 +22,9 @@ Imports:
     scales,
     MASS,
     tweenr,
-    units
+    units,
+    gtable,
+    lazyeval
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Suggests:
