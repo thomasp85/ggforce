@@ -283,6 +283,101 @@ p + geom_violin(aes(fill = Distribution))
 p + geom_sina(aes(color = Distribution), size = 1)
 ```
 
+# Facets
+Facets has been an integral part of the success of ggplot2. With v2.2 facets
+extensions finally became a possibility. While the idea of facets is to create
+small multiples of your plots based on a set of given variables in your data, 
+extensions are not bound by this and they can be used for any type of layout
+work.
+
+## Pagination
+When using `facet_wrap()` and `facet_grid()` with many-levelled variables you 
+often end up with too small plots for any meaningful insight to be gained. 
+ggforce provides a simple extension to both of the base facetting functions by
+allowing the plots to be split out into multiple pages. This is done by 
+specifying the number of rows and columns on each page as well as which page to
+plot:
+
+```{r}
+# Standard facetting
+ggplot(diamonds) +
+  geom_point(aes(carat, price), alpha = 0.1) +
+  facet_wrap(~cut:clarity, ncol = 3)
+
+# Pagination
+ggplot(diamonds) +
+  geom_point(aes(carat, price), alpha = 0.1) +
+  facet_wrap_paginate(~cut:clarity, ncol = 3, nrow = 3, page = 1)
+
+# Works with grid as well
+ggplot(diamonds) +
+  geom_point(aes(carat, price), alpha = 0.1) +
+  facet_grid_paginate(color~cut:clarity, ncol = 3, nrow = 3, page = 4)
+```
+
+A simple helper is provided to calculate the number of pages in a paginated plot
+
+```{r}
+p <- ggplot(diamonds) +
+  geom_point(aes(carat, price), alpha = 0.1) +
+  facet_wrap_paginate(~cut:clarity, ncol = 3, nrow = 3, page = 1)
+n_pages(p)
+```
+
+## Contextual zoom
+Zooming in ggplot2 has always been done in one of two ways: By limiting the 
+positional scale or by limiting the coordinate system. In the former actual data
+values are removed leading to a potential change in derived calculations (e.g.
+a fitted line had different parameters) while the later behaves more as you 
+would expect. ggforce provides a third option in the form of a new facetting
+function: `facet_zoom()`. Instead of describing it lets see how it works:
+
+```{r}
+ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+    geom_point() +
+    facet_zoom(x = Species == "versicolor")
+```
+
+As can be seen the main plot is now zoomed in on the data points that satisfies
+the condition given in the constructor, but an overview plot is retained along 
+with an indication of the position of the zoomed in area. The example above is 
+zooming in on the x-axis, but y-axis zoom is supported as well:
+
+```{r}
+ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+    geom_point() +
+    facet_zoom(y = Species == "versicolor")
+```
+
+Both axes can be zoomed in as well. If the same condition is used for both axes
+the `xy` shorthand can be used:
+
+```{r}
+# Zoom in on versicolor on both axes
+ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+    geom_point() +
+    facet_zoom(xy = Species == "versicolor")
+# Use different zoom criteria on each axis
+ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+    geom_point() +
+    facet_zoom(x = Species != 'setosa', y = Species == 'versicolor')
+```
+
+For a truly fanzy representation each axis zoom can be shown individually as 
+well:
+
+```{r}
+ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+    geom_point() +
+    facet_zoom(x = Species != 'setosa', y = Species == 'versicolor', 
+               split = TRUE)
+```
+
+The relative size of the zoom area can be controlled with the `zoom.size` 
+argument, while the appearance of the indicator can be controlled by modifying
+the `strip.background` theme setting or potentially be removed completely by 
+setting `show.area = FALSE` in `facet_zoom()`.
+
 # Transformations
 Transformations are not really a part of ggplot2, but rather the scales package.
 Nevertheless it is an integral part of working with ggplot2 through its use in
