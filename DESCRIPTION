@@ -31,6 +31,8 @@ Suggests:
     knitr,
     rmarkdown,
     devtools
+Remotes: 
+    edzer/units
 VignetteBuilder: knitr
 Collate:
     'RcppExports.R'
