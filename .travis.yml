@@ -3,3 +3,5 @@ sudo: true
 cache: packages
 apt_packages:
   - libudunits2-dev
+r_github_packages:
+  - edzer/units
