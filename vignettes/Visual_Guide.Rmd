@@ -396,10 +396,10 @@ represented by the square root transformation which equals x^1/2^. ggforce
 provides a constructor for power transformations that can be used on scales etc.
 
 ```{r, echo=TRUE, eval=TRUE, fig.align='center'}
-p6 <- power_trans(3)
-p6
-p6$transform(1:5)
-ggplot(mtcars) + geom_point(aes(mpg, cyl)) + scale_y_continuous(trans = p6)
+p3 <- power_trans(3)
+p3
+p3$transform(1:5)
+ggplot(mtcars) + geom_point(aes(mpg, cyl)) + scale_y_continuous(trans = p3)
 ```
 
 ### Reversing transformations
@@ -409,9 +409,9 @@ ggforce provides a transformation modifier that can reverse any transformation
 object passed into it:
 
 ```{r, echo=TRUE, eval=TRUE, fig.align='center'}
-p6r <- trans_reverser(p6)
-p6r
-ggplot(mtcars) + geom_point(aes(mpg, cyl)) + scale_y_continuous(trans = p6r)
+p3r <- trans_reverser(p3)
+p3r
+ggplot(mtcars) + geom_point(aes(mpg, cyl)) + scale_y_continuous(trans = p3r)
 ```
 
 ## Coordinate transformations

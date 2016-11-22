@@ -3,6 +3,10 @@
 
 [![Travis-CI Build Status](https://travis-ci.org/thomasp85/ggforce.svg?branch=master)](https://travis-ci.org/thomasp85/ggforce)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/thomasp85/ggforce?branch=master&svg=true)](https://ci.appveyor.com/project/thomasp85/ggforce)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ggforce)](https://CRAN.R-project.org/package=ggforce)
+[![CRAN_Release_Badge](http://www.r-pkg.org/badges/ago/ggforce)](https://CRAN.R-project.org/package=ggforce)
+[![CRAN_Download_Badge](http://cranlogs.r-pkg.org/badges/ggforce)](https://CRAN.R-project.org/package=ggforce)
+
 
 ### About
 ggforce is a package aimed at providing missing functionality to ggplot2 through
@@ -112,15 +116,14 @@ that I know of:
 ggplot2 some/most of this package might be unusable at this point. Only 
 available on Github.
 - [***ggalt:***](https://github.com/hrbrmstr/ggalt) Similar in scope to ggforce.
-Also available on 
-[CRAN](https://cran.r-project.org/web/packages/ggalt/index.html)
+Also available on [CRAN](https://CRAN.R-project.org/package=ggalt)
 - [***ggfortify:***](https://github.com/sinhrks/ggfortify) Defines ggplot2
 interfaces to common R packages using fortify and autoplot. Also available on 
-[CRAN](https://cran.r-project.org/web/packages/ggfortify/index.html)
+[CRAN](https://cran.r-project.org/package=ggfortify)
 - [***ggrepel:***](https://github.com/slowkow/ggrepel) Defines a
 nifty geom_text_repel that forces text to move away from their origin to avoid
 overlaps. Available on 
-[CRAN](https://cran.r-project.org/web/packages/ggrepel/index.html)
+[CRAN](https://CRAN.R-project.org/package=ggrepel)
 - [***ggtern:***](https://github.com/nicholasehamilton/ggtern) An extension for
 creating terniary plots in ggplot2. Also available on 
-[CRAN](https://cran.r-project.org/web/packages/ggtern/index.html)
+[CRAN](https://CRAN.R-project.org/package=ggtern)
