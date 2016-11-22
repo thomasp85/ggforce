@@ -30,7 +30,7 @@ things are always bad choices in data visualization: rainbow color scales, pie
 charts, overplotting etc. Don't do these things except with very good reasons.
 
 ### Installation
-Until more features are available the package will remain solemnly on Github.
+Until more features are available the package will remain solely on Github.
 Once I believe it offers a large enough set of extensions it will be submitted
 to CRAN. Installation of ggforce is currently as follows:
 
