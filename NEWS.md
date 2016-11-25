@@ -1,3 +1,7 @@
+# ggforce 0.1.0.99
+- Fix bug in facet_wrap_paginate that threw errors when using it with free 
+scales (#19)
+
 # ggforce 0.1.0
 
 ## Major changes
