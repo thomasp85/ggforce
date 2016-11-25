@@ -3,6 +3,8 @@
 scales (#19)
 - Fixes bug in facet_zoom where y-axis would be incorrectly displayed when 
 zooming on both axes without splitting the view (#23)
+- Fixes bug in facet_zoom where scale expansion where not taken into account
+when drawing the indicator area (#22)
 
 # ggforce 0.1.0
 

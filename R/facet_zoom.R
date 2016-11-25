@@ -132,7 +132,8 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
         }
 
         if ('y' %in% layout$name) {
-            zoom_prop <- rescale(y_scales[[2]]$dimension(), from = y_scales[[1]]$dimension())
+            zoom_prop <- rescale(y_scales[[2]]$dimension(expansion(y_scales[[2]])),
+                                 from = y_scales[[1]]$dimension(expansion(y_scales[[1]])))
             indicator <- polygonGrob(c(1, 1, 0, 0), c(zoom_prop, 1, 0), gp = gpar(col = NA, fill = alpha(theme$zoom$fill, 0.5)))
             lines <- segmentsGrob(y0 = c(0, 1), x0 = c(0, 0), y1 = zoom_prop, x1 = c(1, 1), gp = gpar(col = theme$zoom$colour,
                                                                                                       lty = theme$zoom$linetype,
@@ -141,7 +142,8 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
             indicator_h <- grobTree(indicator, lines)
         }
         if ('x' %in% layout$name) {
-            zoom_prop <- rescale(x_scales[[2]]$dimension(), from = x_scales[[1]]$dimension())
+            zoom_prop <- rescale(x_scales[[2]]$dimension(expansion(x_scales[[2]])),
+                                 from = x_scales[[1]]$dimension(expansion(x_scales[[1]])))
             indicator <- polygonGrob(c(zoom_prop, 1, 0), c(1, 1, 0, 0), gp = gpar(col = NA, fill = alpha(theme$zoom$fill, 0.5)))
             lines <- segmentsGrob(x0 = c(0, 1), y0 = c(0, 0), x1 = zoom_prop, y1 = c(1, 1), gp = gpar(col = theme$zoom$colour,
                                                                                                       lty = theme$zoom$linetype,
@@ -223,7 +225,8 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
             theme$zoom <- theme$strip.background
         }
         if (!is.null(params$x) && params$show.area) {
-            zoom_prop <- rescale(x_scales[[2]]$dimension(), from = x_scales[[1]]$dimension())
+            zoom_prop <- rescale(x_scales[[2]]$dimension(expansion(x_scales[[2]])),
+                                 from = x_scales[[1]]$dimension(expansion(x_scales[[1]])))
             x_back <- grobTree(
                 rectGrob(x = mean(zoom_prop), y = 0.5, width = diff(zoom_prop), height = 1, gp = gpar(col = NA, fill = alpha(theme$zoom$fill, 0.5))),
                 segmentsGrob(zoom_prop, c(0, 0), zoom_prop, c(1, 1), gp = gpar(col = theme$zoom$colour))
@@ -232,7 +235,8 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
             x_back <- zeroGrob()
         }
         if (!is.null(params$y) && params$show.area) {
-            zoom_prop <- rescale(y_scales[[2]]$dimension(), from = y_scales[[1]]$dimension())
+            zoom_prop <- rescale(y_scales[[2]]$dimension(expansion(y_scales[[2]])),
+                                 from = y_scales[[1]]$dimension(expansion(y_scales[[1]])))
             y_back <- grobTree(
                 rectGrob(y = mean(zoom_prop), x = 0.5, height = diff(zoom_prop), width = 1, gp = gpar(col = NA, fill = alpha(theme$zoom$fill, 0.5))),
                 segmentsGrob(y0 = zoom_prop, x0 = c(0, 0), y1 = zoom_prop, x1 = c(1, 1), gp = gpar(col = theme$zoom$colour))
@@ -258,4 +262,12 @@ create_panels <- function(panels, x.axis, y.axis) {
         table <- gtable_add_grob(table, x, t = c(1, 3), l = 2, z = 20, clip = 'off', name = c('axis-t', 'axis-b'))
         table <- gtable_add_grob(table, y, t = 2, l = c(1,3), z = 20, clip = 'off', name = c('axis-l', 'axis-r'))
     }, panel = panels, x = x.axis, y = y.axis)
+}
+
+expansion <- function (scale, discrete = c(0, 0.6), continuous = c(0.05, 0)) {
+    if (inherits(scale$expand, 'waiver')) {
+        if (scale$is_discrete())
+            discrete
+        else continuous
+    } else scale$expand
 }
