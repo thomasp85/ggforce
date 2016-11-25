@@ -1,6 +1,8 @@
 # ggforce 0.1.0.99
 - Fix bug in facet_wrap_paginate that threw errors when using it with free 
 scales (#19)
+- Fixes bug in facet_zoom where y-axis would be incorrectly displayed when 
+zooming on both axes without splitting the view (#23)
 
 # ggforce 0.1.0
 

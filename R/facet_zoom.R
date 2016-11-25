@@ -111,9 +111,6 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
             d$PANEL <- panel
             d
         }))
-        if ('full' %in% layout$name && !params$split) {
-            data <- data[!data$PANEL %in% c(2L, 3L), ]
-        }
         data
     },
     draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord,
@@ -129,6 +126,10 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
         # Construct the panels
         axes <- render_axes(ranges, ranges, coord, theme, FALSE)
         panelGrobs <- create_panels(panels, axes$x, axes$y)
+
+        if ('full' %in% layout$name && !params$split) {
+            panelGrobs <- panelGrobs[c(1, 4)]
+        }
 
         if ('y' %in% layout$name) {
             zoom_prop <- rescale(y_scales[[2]]$dimension(), from = y_scales[[1]]$dimension())
