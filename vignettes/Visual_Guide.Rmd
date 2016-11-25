@@ -8,7 +8,7 @@ output:
     fig_width: 6
     fig_height: 6
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{ggforce - Visual Guide}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
