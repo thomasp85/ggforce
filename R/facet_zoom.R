@@ -97,11 +97,15 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
             cbind(data, PANEL = 1L),
             if ('x' %in% layout$name) {
                 index_x <- tryCatch(lazy_eval(params$x, data), error = function(e) FALSE)
-                cbind(data[index_x, ], PANEL = layout$PANEL[layout$name == "x"])
+                if (sum(index_x) != 0) {
+                    cbind(data[index_x, ], PANEL = layout$PANEL[layout$name == "x"])
+                }
             },
             if ('y' %in% layout$name) {
                 index_y <- tryCatch(lazy_eval(params$y, data), error = function(e) FALSE)
-                cbind(data[index_y, ], PANEL = layout$PANEL[layout$name == "y"])
+                if (sum(index_y) != 0) {
+                    cbind(data[index_y, ], PANEL = layout$PANEL[layout$name == "y"])
+                }
             }
         )
     },
