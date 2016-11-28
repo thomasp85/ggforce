@@ -1,4 +1,11 @@
-# ggforce 0.1.0.99
+# ggforce 0.1.1
+
+## New features
+- Zoom indicator styling can now be specified separetely for x and y zoom using 
+`zoom.x` and `zoom.y` in theme (inherits from `zoom` that inherits from 
+`strip.background`)
+
+## Bug fixes
 - Fix bug in `facet_wrap_paginate` that threw errors when using it with free 
 scales (#19)
 - Fixes bug in `facet_zoom` where y-axis would be incorrectly displayed when 
