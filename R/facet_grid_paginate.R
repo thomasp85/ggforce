@@ -72,6 +72,13 @@ FacetGridPaginate <- ggproto("FacetGridPaginate", FacetGrid,
         y_scale_ind <- unique(layout$SCALE_Y)
         y_scales <- y_scales[y_scale_ind]
         layout$SCALE_Y <- match(layout$SCALE_Y, y_scale_ind)
-        FacetGrid$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params)
+        table <- FacetGrid$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params)
+        if (max(layout$ROW) != params$nrow) {
+            table <- gtable_add_rows(table, unit(params$nrow - max(layout$ROW), 'null'))
+        }
+        if (max(layout$COL) != params$ncol) {
+            table <- gtable_add_cols(table, unit(params$ncol - max(layout$COL), 'null'))
+        }
+        table
     }
 )

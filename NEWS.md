@@ -1,3 +1,7 @@
+# ggforce 0.1.1.99
+- `facet_[wrap|grid]_paginate` will now try to make panels on the last page the
+same size as on full pages (#7)
+
 # ggforce 0.1.1
 
 ## New features

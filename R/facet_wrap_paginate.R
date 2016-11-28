@@ -78,7 +78,11 @@ FacetWrapPaginate <- ggproto("FacetWrapPaginate", FacetWrap,
         y_scale_ind <- unique(layout$SCALE_Y)
         y_scales <- y_scales[y_scale_ind]
         layout$SCALE_Y <- match(layout$SCALE_Y, y_scale_ind)
-        FacetWrap$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params)
+        table <- FacetWrap$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params)
+        if (max(layout$ROW) != params$max_rows) {
+            table <- gtable_add_rows(table, unit(params$max_rows - max(layout$ROW), 'null'))
+        }
+        table
     }
 )
 
