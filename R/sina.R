@@ -36,32 +36,32 @@
 #'
 #' @param stat The statistical transformation to use on the data for this layer,
 #' as a string.
-#' 
-#' 
+#'
+#'
 #' @param position Position adjustment, either as a string, or the result of a
 #' call to a position adjustment function.
-#' 
+#'
 #' @param binwidth The width of the bins. The default is to use \code{bins}
 #'   bins that cover the range of the data. You should always override
 #'   this value, exploring multiple widths to find the best to illustrate the
 #'   stories in your data.
-#'   
+#'
 #' @param bins Number of bins. Overridden by binwidth. Defaults to 50.
-#' 
+#'
 #' @param scale Logical. When set to \code{TRUE} x-coordinate widths across all
 #' groups are scaled based on the densiest area in the plot.
 #' Default: \code{TRUE}
-#' 
+#'
 #' @param method Choose the method to spread the samples within the same
 #' bin along the x-axis. Available methods: "density", "counts" (can be
 #' abbreviated, e.g. "d"). See \code{Details}.
-#' 
+#'
 #' @param maxwidth Control the maximum width the points can spread into. Values
-#' between 0 and 1. 
-#' 
+#' between 0 and 1.
+#'
 #' @param adjust Adjusts the bandwidth of the density kernel when
 #' \code{method == "density"} (see \code{\link[stats]{density}}).
-#' 
+#'
 #' @param bin_limit If the samples within the same y-axis bin are more
 #' than \code{bin_limit}, the samples's X coordinates will be adjusted.
 #'
@@ -94,15 +94,15 @@
 #'
 #' @name geom_sina
 #' @rdname geom_sina
-#' 
+#'
 #' @section Computed variables:
-#' 
+#'
 #' \describe{
 #'   \item{bin_counts}{sample counts per bin per group}
 #'   \item{scaled}{adjusted x-coordinates}
 #' }
 #'
-#' 
+#'
 #' @examples
 #' ggplot(midwest, aes(state, area)) + geom_point()
 #'
@@ -168,32 +168,32 @@ NULL
 StatSina <- ggproto("StatSina", Stat,
 
   required_aes = c("x", "y"),
-                    
+
   default_aes = aes(xend = ..scaled..),
-                    
+
   setup_data = function(data, params) {
-    if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
+    if (is.double(data$x) && !.has_groups(data) && any(data$x != data$x[1L])) {
       stop("Continuous x aesthetic -- did you forget aes(group=...)?",
            call. = FALSE)
     }
-    
+
     data
   },
-  
+
   setup_params = function(data, params) {
     #Limit maxwidth to 0.96 to leave some space between groups
     if (!is.null(params$maxwidth))
       params$maxwidth <- (min(abs(params$maxwidth), .96))
     else
       params$maxwidth <- 0.96
-    
-    if (is.null(params$binwidth) && is.null(params$bins)) {                       
+
+    if (is.null(params$binwidth) && is.null(params$bins)) {
       params$bins <- 50
     }
-    
+
     params
     },
-  
+
   compute_panel = function(self, data, scales, binwidth = NULL, bins = NULL,
                            scale = TRUE, method = "density", maxwidth = NULL,
                            adjust = 1, bin_limit = 1, na.rm = FALSE) {
@@ -201,52 +201,52 @@ StatSina <- ggproto("StatSina", Stat,
       bins <- bin_breaks_width(scales$y$dimension(), binwidth)
     else
       bins <- bin_breaks_bins(scales$y$dimension(), bins)
-    
+
     data <- ggproto_parent(Stat, self)$compute_panel(data, scales,
       scale = scale, method = method, maxwidth = maxwidth, adjust = adjust,
       bin_limit = bin_limit, bins = bins$breaks, na.rm = na.rm)
-    
+
     #scale all bins based on their density relative to the densiest bin
     if (scale) {
-      group_scaling_factor <- 
+      group_scaling_factor <-
         plyr::ddply(data, "group", plyr::mutate,
                     group_max = max(bin_counts))$group_max / max(data$bin_counts)
     } else {
       group_scaling_factor <- 1
     }
-    
+
     data$scaled <- data$x + data$x_translation * group_scaling_factor
     data$x_translation <- NULL
     data
   },
-  
+
   compute_group = function(data, scales, scale = TRUE, method = "density",
                            maxwidth = NULL, adjust = 1, bin_limit = 1,
                            bins = NULL, na.rm = FALSE) {
-    
+
     #initialize x_translation and bin_counts to 0
     data$x_translation <- data$bin_counts <- rep(0, nrow(data))
-    
+
     #if group has less than 2 points return as is
     if (nrow(data) < 2) {
       data$max_bin_counts <- 1
       return(data)
     }
-    
+
     #per bin sample count
     bin_counts <- table(findInterval(data$y, bins))
-    
+
     #per bin sample density
     if (method == "density") {
       densities <- stats::density(data$y, adjust = adjust)
-      
+
       #confine the samples in a (-maxwidth/2, -maxwidth/2) area around the
       #group's center
       if (max(densities$y) > 0.5 * maxwidth)
         intra_scaling_factor <- 0.5 * maxwidth / max(densities$y)
       else
         intra_scaling_factor <- 1
-                        
+
     } else {
       #allow up to 50 samples in a bin without scaling
       if (max(bin_counts) > 50 * maxwidth) {
@@ -254,24 +254,24 @@ StatSina <- ggproto("StatSina", Stat,
       } else
         intra_scaling_factor <- 1
       }
-    
+
     for (i in names(bin_counts)) {
       #examine bins with more than 'bin_limit' samples
       if (bin_counts[i] > bin_limit){
         cur_bin <- bins[ as.integer(i) : (as.integer(i) + 1)]
-        
+
         #find samples in the current bin and translate their X coord.
         points <- findInterval(data$y, cur_bin) == 1
-        
+
         #compute the border margin for the current bin.
         if (method == "density")
           xmax <- mean(densities$y[findInterval(densities$x, cur_bin) == 1])
         else
           xmax <- bin_counts[i] / 100
-        
+
         #assign the samples uniformely within the specified range
         x_translation <- stats::runif(bin_counts[i], - xmax, xmax)
-        
+
         #scale and store new x coordinates
         data$x_translation[points] <- x_translation * intra_scaling_factor
         #store bin counts. Used for group-wise scaling.
@@ -299,7 +299,7 @@ stat_sina <-function(mapping = NULL, data = NULL,
                      show.legend = NA,
                      inherit.aes = TRUE) {
   method <- match.arg(method, c("density", "counts"))
-  
+
   layer(
     data = data,
     mapping = mapping,
@@ -328,7 +328,7 @@ stat_sina <-function(mapping = NULL, data = NULL,
 #' @importFrom ggplot2 ggproto GeomPoint
 #' @export
 GeomSina <- ggproto("GeomSina", GeomPoint,
-                    
+
                     setup_data = function(data, params) {
                       transform(data, x = xend)
                     }
@@ -357,7 +357,7 @@ geom_sina <- function(mapping = NULL, data = NULL,
       ...
     )
   )
-  
+
 }
 
 
@@ -368,7 +368,7 @@ bins <- function(breaks, closed = c("right", "left"),
                  fuzz = 1e-08 * stats::median(diff(breaks))) {
   stopifnot(is.numeric(breaks))
   closed <- match.arg(closed)
-  
+
   breaks <- sort(breaks)
   # Adapted base::hist - this protects from floating point rounding errors
   if (closed == "right") {
@@ -376,7 +376,7 @@ bins <- function(breaks, closed = c("right", "left"),
   } else {
     fuzzes <- c(rep.int(-fuzz, length(breaks) - 1), fuzz)
   }
-  
+
   structure(
     list(
       breaks = breaks,
@@ -396,7 +396,7 @@ bin_breaks <- function(breaks, closed = c("right", "left")) {
 bin_breaks_width <- function(x_range, width = NULL, center = NULL,
                              boundary = NULL, closed = c("right", "left")) {
   stopifnot(length(x_range) == 2)
-  
+
   # if (length(x_range) == 0) {
   #   return(bin_params(numeric()))
   # }
@@ -404,7 +404,7 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
   if (width <= 0) {
     stop("`binwidth` must be positive", call. = FALSE)
   }
-  
+
   if (!is.null(boundary) && !is.null(center)) {
     stop("Only one of 'boundary' and 'center' may be specified.")
   } else if (is.null(boundary)) {
@@ -412,13 +412,13 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
       # If neither edge nor center given, compute both using tile layer's
       # algorithm. This puts min and max of data in outer half of their bins.
       boundary <- width / 2
-      
+
     } else {
       # If center given but not boundary, compute boundary.
       boundary <- center - width / 2
     }
   }
-  
+
   # Find the left side of left-most bin: inputs could be Dates or POSIXct, so
   # coerce to numeric first.
   x_range <- as.numeric(x_range)
@@ -426,19 +426,19 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
   boundary <- as.numeric(boundary)
   shift <- floor((x_range[1] - boundary) / width)
   origin <- boundary + shift * width
-  
+
   # Small correction factor so that we don't get an extra bin when, for
   # example, origin = 0, max(x) = 20, width = 10.
   max_x <- x_range[2] + (1 - 1e-08) * width
   breaks <- seq(origin, max_x, width)
-  
+
   bin_breaks(breaks, closed = closed)
 }
 
 bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
                             boundary = NULL, closed = c("right", "left")) {
   stopifnot(length(x_range) == 2)
-  
+
   bins <- as.integer(bins)
   if (bins < 1) {
     stop("Need at least one bin.", call. = FALSE)
@@ -448,7 +448,15 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
   } else {
     width <- (x_range[2] - x_range[1]) / (bins - 1)
   }
-  
+
   bin_breaks_width(x_range, width, boundary = boundary, center = center,
                    closed = closed)
+}
+
+.has_groups <- function(data) {
+    # If no group aesthetic is specified, all values of the group column equal to
+    # -1L. On the other hand, if a group aesthetic is specified, all values
+    # are different from -1L (since they are a result of plyr::id()). NA is
+    # returned for 0-row data frames.
+    data$group[1L] != -1L
 }
