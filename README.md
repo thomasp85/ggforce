@@ -51,7 +51,7 @@ devtools::install_github('thomasp85/ggforce')
 `ggforce` is by design a collection of features with the only commonality being
 their tie to the `ggplot2` API. Because of this an overview of all features 
 would get too long for a README. The package does contain a
-[vignette](https://cran.r-project.org/web/packages/ggforce/vignettes/Visual_Guide.html) 
+[vignette](https://CRAN.R-project.org/package=ggforce/vignettes/Visual_Guide.html) 
 where every feature is described and justified with examples and plots. There
 should be a plot in the README of a visualization package though, so without 
 further ado:
