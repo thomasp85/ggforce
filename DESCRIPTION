@@ -1,27 +1,30 @@
 Package: ggforce
 Type: Package
-Title: Accelerating ggplot2
-Version: 0.1.0
-Date: 2016-09-11
+Title: Accelerating 'ggplot2'
+Version: 0.1.1
+Date: 2016-11-27
 Author: Thomas Lin Pedersen
 Maintainer: Thomas Lin Pedersen <thomasp85@gmail.com>
-Description: The aim of ggplot2 is to aid in visual data investigations. This
+Description: The aim of 'ggplot2' is to aid in visual data investigations. This
     focus has led to a lack of facilities for composing specialised plots.
-    ggforce aims to be a collection of mainly new stats and geoms that fills
+    'ggforce' aims to be a collection of mainly new stats and geoms that fills
     this gap. All additional functionality is aimed to come through the official
-    extension system so using ggforce should be a stable experience.
+    extension system so using 'ggforce' should be a stable experience.
 License: GPL (>=2)
 LazyData: TRUE
 Depends:
-    ggplot2 (>= 2.0.0),
-    R (>= 2.10)
+    ggplot2 (>= 2.2.0),
+    R (>= 3.3.0)
 Imports:
     Rcpp (>= 0.12.2),
     grid,
     dplyr,
     scales,
     MASS,
-    tweenr
+    tweenr (>= 0.1.5),
+    units (>= 0.4),
+    gtable,
+    lazyeval
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Suggests:
@@ -37,10 +40,14 @@ Collate:
     'bezier.R'
     'bspline.R'
     'circle.R'
+    'facet_grid_paginate.R'
+    'facet_wrap_paginate.R'
+    'facet_zoom.R'
     'ggforce_package.R'
     'ggproto-classes.R'
     'interpolate.R'
     'link.R'
+    'scale-unit.R'
     'sina.R'
     'themes.R'
     'trans.R'

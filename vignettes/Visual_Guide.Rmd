@@ -8,7 +8,7 @@ output:
     fig_width: 6
     fig_height: 6
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{ggforce - Visual Guide}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -21,9 +21,7 @@ different visualization types in more detail - both for the benefit of the
 reader but also to give credit to the people who thought long and hard about how
 to best present your data.
 
-We'll start by loading ggforce and then proceed to all the beautiful graphics...
-
-```{r, echo=TRUE, eval=TRUE}
+```{r, include=FALSE}
 library(ggforce)
 set.seed(1)
 ```
@@ -285,6 +283,101 @@ p + geom_violin(aes(fill = Distribution))
 p + geom_sina(aes(color = Distribution), size = 1)
 ```
 
+# Facets
+Facets has been an integral part of the success of ggplot2. With v2.2 facets
+extensions finally became a possibility. While the idea of facets is to create
+small multiples of your plots based on a set of given variables in your data, 
+extensions are not bound by this and they can be used for any type of layout
+work.
+
+## Pagination
+When using `facet_wrap()` and `facet_grid()` with many-levelled variables you 
+often end up with too small plots for any meaningful insight to be gained. 
+ggforce provides a simple extension to both of the base facetting functions by
+allowing the plots to be split out into multiple pages. This is done by 
+specifying the number of rows and columns on each page as well as which page to
+plot:
+
+```{r}
+# Standard facetting
+ggplot(diamonds) +
+  geom_point(aes(carat, price), alpha = 0.1) +
+  facet_wrap(~cut:clarity, ncol = 3)
+
+# Pagination
+ggplot(diamonds) +
+  geom_point(aes(carat, price), alpha = 0.1) +
+  facet_wrap_paginate(~cut:clarity, ncol = 3, nrow = 3, page = 1)
+
+# Works with grid as well
+ggplot(diamonds) +
+  geom_point(aes(carat, price), alpha = 0.1) +
+  facet_grid_paginate(color~cut:clarity, ncol = 3, nrow = 3, page = 4)
+```
+
+A simple helper is provided to calculate the number of pages in a paginated plot
+
+```{r}
+p <- ggplot(diamonds) +
+  geom_point(aes(carat, price), alpha = 0.1) +
+  facet_wrap_paginate(~cut:clarity, ncol = 3, nrow = 3, page = 1)
+n_pages(p)
+```
+
+## Contextual zoom
+Zooming in ggplot2 has always been done in one of two ways: By limiting the 
+positional scale or by limiting the coordinate system. In the former actual data
+values are removed leading to a potential change in derived calculations (e.g.
+a fitted line had different parameters) while the later behaves more as you 
+would expect. ggforce provides a third option in the form of a new facetting
+function: `facet_zoom()`. Instead of describing it lets see how it works:
+
+```{r}
+ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+    geom_point() +
+    facet_zoom(x = Species == "versicolor")
+```
+
+As can be seen the main plot is now zoomed in on the data points that satisfies
+the condition given in the constructor, but an overview plot is retained along 
+with an indication of the position of the zoomed in area. The example above is 
+zooming in on the x-axis, but y-axis zoom is supported as well:
+
+```{r}
+ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+    geom_point() +
+    facet_zoom(y = Species == "versicolor")
+```
+
+Both axes can be zoomed in as well. If the same condition is used for both axes
+the `xy` shorthand can be used:
+
+```{r}
+# Zoom in on versicolor on both axes
+ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+    geom_point() +
+    facet_zoom(xy = Species == "versicolor")
+# Use different zoom criteria on each axis
+ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+    geom_point() +
+    facet_zoom(x = Species != 'setosa', y = Species == 'versicolor')
+```
+
+For a truly fanzy representation each axis zoom can be shown individually as 
+well:
+
+```{r}
+ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+    geom_point() +
+    facet_zoom(x = Species != 'setosa', y = Species == 'versicolor', 
+               split = TRUE)
+```
+
+The relative size of the zoom area can be controlled with the `zoom.size` 
+argument, while the appearance of the indicator can be controlled by modifying
+the `strip.background` theme setting or potentially be removed completely by 
+setting `show.area = FALSE` in `facet_zoom()`.
+
 # Transformations
 Transformations are not really a part of ggplot2, but rather the scales package.
 Nevertheless it is an integral part of working with ggplot2 through its use in
@@ -303,10 +396,10 @@ represented by the square root transformation which equals x^1/2^. ggforce
 provides a constructor for power transformations that can be used on scales etc.
 
 ```{r, echo=TRUE, eval=TRUE, fig.align='center'}
-p6 <- power_trans(3)
-p6
-p6$transform(1:5)
-ggplot(mtcars) + geom_point(aes(mpg, cyl)) + scale_y_continuous(trans = p6)
+p3 <- power_trans(3)
+p3
+p3$transform(1:5)
+ggplot(mtcars) + geom_point(aes(mpg, cyl)) + scale_y_continuous(trans = p3)
 ```
 
 ### Reversing transformations
@@ -316,9 +409,9 @@ ggforce provides a transformation modifier that can reverse any transformation
 object passed into it:
 
 ```{r, echo=TRUE, eval=TRUE, fig.align='center'}
-p6r <- trans_reverser(p6)
-p6r
-ggplot(mtcars) + geom_point(aes(mpg, cyl)) + scale_y_continuous(trans = p6r)
+p3r <- trans_reverser(p3)
+p3r
+ggplot(mtcars) + geom_point(aes(mpg, cyl)) + scale_y_continuous(trans = p3r)
 ```
 
 ## Coordinate transformations
@@ -349,6 +442,60 @@ r_trans <- radial_trans(r.range = c(0, 1), a.range = c(0, 2))
 spiral <- r_trans$transform(r = line$x, a = line$y)
 ggplot() + geom_path(aes(x, y), data = line, colour = 'red') + 
     geom_path(aes(x, y), data = spiral, colour = 'green')
+```
+
+# Scales
+Currently only a single new scale is added to ggplot2 with ggforce, but it is a
+rather nifty little fellow. 
+
+## Units
+Often, when working with numeric data, there's a unit attached to the values, 
+but in R this unit is not attached to your data but rather lives in your head.
+The developers of the [units package](https://cran.r-project.org/package=units)
+has done something about this with the `units` class, which carries unit 
+information around with a numeric vector. It provides more than semantics 
+though. If you assign a new unit to the data it will check whether the new unit
+is compatible with the old one. If it is the values gets converted 
+automatically, and if not an error is thrown. Furthermore, units also gets 
+updated when making calculations with the values so units gets compounded during
+multiplication etc. Without ggforce units data would simply get converted to a
+numeric vector and work as normal. The `scale_[x|y]_unit()` scale from ggforce
+adds a couple of niceties though. When ggforce is loaded the scale is picked by
+default when plotting units data and you get all of the benefits for free.
+
+The unit scale adds the unit to the axis label making it clear what the values
+on the axis is meassured in:
+
+```{r}
+library(units)
+miles <- make_unit('miles')
+gallon <- make_unit('gallon')
+horsepower <- make_unit('horsepower')
+mtcars$consumption <- mtcars$mpg * (miles/gallon)
+mtcars$power <- mtcars$hp * horsepower
+
+ggplot(mtcars) +
+    geom_point(aes(power, consumption))
+```
+
+If data is transformed as part of an aesthetic assignment the unit will update
+automatically:
+
+```{r}
+ggplot(mtcars) +
+    geom_point(aes(power, 1/consumption))
+```
+
+Lastly it is possible to change the units used for the axes on the fly without
+touching the underlying data through the `unit` argument in the scale 
+constructor. When doing this the data is automatically converted to the new 
+unit.
+
+```{r}
+ggplot(mtcars) +
+    geom_point(aes(power, consumption)) +
+    scale_x_unit(unit = 'W') +
+    scale_y_unit(unit = 'km/l')
 ```
 
 # A rocket
