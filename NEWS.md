@@ -1,6 +1,10 @@
 # ggforce 0.1.1.99
 - `facet_[wrap|grid]_paginate` will now try to make panels on the last page the
 same size as on full pages (#7)
+- `facet_zoom` now gains `xlim` and `ylim` arguments to control zoom range 
+directly
+- `facet_zoom` now gains `zoom.data` to control which data gets plotted in which 
+panel
 
 # ggforce 0.1.1
 
