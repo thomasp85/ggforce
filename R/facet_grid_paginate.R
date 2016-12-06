@@ -48,6 +48,7 @@ facet_grid_paginate <- function(facets, margins = FALSE, scales = "fixed",
 #' @format NULL
 #' @usage NULL
 #' @importFrom ggplot2 ggproto FacetWrap
+#' @importFrom gtable gtable_add_rows gtable_add_cols
 #' @export
 FacetGridPaginate <- ggproto("FacetGridPaginate", FacetGrid,
     compute_layout = function(data, params) {

@@ -50,6 +50,7 @@ facet_wrap_paginate <- function(facets, nrow = NULL, ncol = NULL, scales = "fixe
 #' @format NULL
 #' @usage NULL
 #' @importFrom ggplot2 ggproto FacetWrap
+#' @importFrom gtable gtable_add_rows gtable_add_cols
 #' @export
 FacetWrapPaginate <- ggproto("FacetWrapPaginate", FacetWrap,
     setup_params = function(data, params) {
@@ -86,7 +87,7 @@ FacetWrapPaginate <- ggproto("FacetWrapPaginate", FacetWrap,
             strip_rows <- strip_rows[as.numeric(table$heights[strip_rows]) != 0]
             axis_b_rows <- unique(table$layout$t[grepl('axis-b', table$layout$name)])
             axis_b_rows <- axis_b_rows[as.numeric(table$heights[axis_b_rows]) != 0]
-            axis_t_rows <- unique(table$layout$t[grepl('axis-b', table$layout$name)])
+            axis_t_rows <- unique(table$layout$t[grepl('axis-t', table$layout$name)])
             axis_t_rows <- axis_t_rows[as.numeric(table$heights[axis_t_rows]) != 0]
             table <- gtable_add_rows(table, unit(missing_rows, 'null'))
             table <- gtable_add_rows(table, spacing * missing_rows)
@@ -99,6 +100,29 @@ FacetWrapPaginate <- ggproto("FacetWrapPaginate", FacetWrap,
                 }
                 if (length(axis_t_rows) != 0) {
                     table <- gtable_add_rows(table, min(table$heights[axis_t_rows]) * missing_rows)
+                }
+            }
+        }
+        if (max(layout$COL) != params$ncol) {
+            spacing <- theme$panel.spacing.x %||% theme$panel.spacing
+            missing_cols <- params$ncol - max(layout$COL)
+            strip_cols <- unique(table$layout$t[grepl('strip', table$layout$name) & table$layout$t %in% panel_rows(table)$t])
+            strip_cols <- strip_cols[as.numeric(table$widths[strip_cols]) != 0]
+            axis_l_cols <- unique(table$layout$l[grepl('axis-l', table$layout$name)])
+            axis_l_cols <- axis_l_cols[as.numeric(table$widths[axis_l_cols]) != 0]
+            axis_r_cols <- unique(table$layout$l[grepl('axis-r', table$layout$name)])
+            axis_r_cols <- axis_r_cols[as.numeric(table$widths[axis_r_cols]) != 0]
+            table <- gtable_add_cols(table, unit(missing_cols, 'null'))
+            table <- gtable_add_cols(table, spacing * missing_cols)
+            if (length(strip_cols) != 0) {
+                table <- gtable_add_cols(table, min(table$widths[strip_cols]) * missing_cols)
+            }
+            if (params$free$y) {
+                if (length(axis_l_cols) != 0) {
+                    table <- gtable_add_cols(table, min(table$widths[axis_l_cols]) * missing_cols)
+                }
+                if (length(axis_r_cols) != 0) {
+                    table <- gtable_add_cols(table, min(table$widths[axis_r_cols]) * missing_cols)
                 }
             }
         }
