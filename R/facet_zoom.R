@@ -9,6 +9,13 @@
 #' @param x,y,xy An expression evaluating to a logical vector that determines
 #' the subset of data to zoom in on
 #'
+#' @param zoom.data An expression evaluating to a logical vector. If \code{TRUE}
+#' the data only shows in the zoom panels. If \code{FALSE} the data only show in
+#' the context panel. If \code{NA} the data will show in all panels.
+#'
+#' @param xlim,ylim Specific zoom ranges for each axis. If present they will
+#' override \code{x}, \code{y}, and/or \code{xy}.
+#'
 #' @param split If both \code{x} and \code{y} is given, should each axis zoom
 #' be shown separately as well? Defaults to \code{FALSE}
 #'
@@ -51,16 +58,30 @@
 #'     geom_point() +
 #'     facet_zoom(xy = Species == "versicolor", split = TRUE)
 #'
-facet_zoom <- function(x, y, xy, split = FALSE, horizontal = TRUE, zoom.size = 2, show.area = TRUE, shrink = TRUE) {
+#' # Define the zoom area directly
+#' ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+#'   geom_point() +
+#'   facet_zoom(xlim = c(2, 4))
+#'
+#' # Selectively show data in the zoom panel
+#' ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+#'     geom_point() +
+#'     facet_zoom(x = Species == "versicolor", zoom.data = Species == 'versicolor')
+#'
+facet_zoom <- function(x, y, xy, zoom.data, xlim = NULL, ylim = NULL, split = FALSE, horizontal = TRUE, zoom.size = 2, show.area = TRUE, shrink = TRUE) {
     x <- if (missing(x)) if (missing(xy)) NULL else lazy(xy) else lazy(x)
     y <- if (missing(y)) if (missing(xy)) NULL else lazy(xy) else lazy(y)
-    if (is.null(x) && is.null(y)) {
+    zoom.data <- if (missing(zoom.data)) NULL else lazy(zoom.data)
+    if (is.null(x) && is.null(y) && is.null(xlim) && is.null(ylim)) {
         stop("Either x- or y-zoom must be given", call. = FALSE)
     }
+    if (!is.null(xlim)) x <- NULL
+    if (!is.null(ylim)) y <- NULL
     ggproto(NULL, FacetZoom,
         shrink = shrink,
         params = list(
-            x = x, y = y, split = split, zoom.size = zoom.size, show.area = show.area,
+            x = x, y = y, xlim = xlim, ylim = ylim, split = split, zoom.data = zoom.data,
+            zoom.size = zoom.size, show.area = show.area,
             horizontal = horizontal
         )
     )
@@ -72,56 +93,114 @@ facet_zoom <- function(x, y, xy, split = FALSE, horizontal = TRUE, zoom.size = 2
 #' @importFrom gtable gtable_add_cols gtable_add_rows gtable_add_grob
 #' @importFrom scales rescale
 #' @importFrom lazyeval lazy_eval
+#' @importFrom plyr split_indices empty
 #' @export
-FacetZoom <- ggproto("FacetDuplicate", Facet,
+FacetZoom <- ggproto("FacetZoom", Facet,
     compute_layout = function(data, params) {
         layout <- rbind(
             data.frame(name = 'orig', SCALE_X = 1L, SCALE_Y = 1L),
             data.frame(name = 'x', SCALE_X = 2L, SCALE_Y = 1L),
             data.frame(name = 'y', SCALE_X = 1L, SCALE_Y = 2L),
-            data.frame(name = 'full', SCALE_X = 2L, SCALE_Y = 2L)
+            data.frame(name = 'full', SCALE_X = 2L, SCALE_Y = 2L),
+            data.frame(name = 'orig_true', SCALE_X = 1L, SCALE_Y = 1L),
+            data.frame(name = 'zoom_true', SCALE_X = 1L, SCALE_Y = 1L)
         )
-        if (is.null(params$y)) {
-            layout <- layout[c(1,2),]
-        } else if (is.null(params$x)) {
-            layout <- layout[c(1,3),]
+        if (is.null(params$y) && is.null(params$ylim)) {
+            layout <- layout[c(1,2, 5:6),]
+        } else if (is.null(params$x) && is.null(params$xlim)) {
+            layout <- layout[c(1,3, 5:6),]
         }
         layout$PANEL <- seq_len(nrow(layout))
         layout
     },
     map_data = function(data, layout, params) {
-        if (plyr::empty(data)) {
+        if (empty(data)) {
             return(cbind(data, PANEL = integer(0)))
         }
         rbind(
             cbind(data, PANEL = 1L),
-            if ('x' %in% layout$name) {
+            if (!is.null(params$x)) {
                 index_x <- tryCatch(lazy_eval(params$x, data), error = function(e) FALSE)
                 if (sum(index_x, na.rm = TRUE) != 0) {
                     cbind(data[index_x, ], PANEL = layout$PANEL[layout$name == "x"])
                 }
             },
-            if ('y' %in% layout$name) {
+            if (!is.null(params$y)) {
                 index_y <- tryCatch(lazy_eval(params$y, data), error = function(e) FALSE)
                 if (sum(index_y, na.rm = TRUE) != 0) {
                     cbind(data[index_y, ], PANEL = layout$PANEL[layout$name == "y"])
                 }
+            },
+            if (!is.null(params$zoom.data)) {
+                zoom_data <- tryCatch(lazy_eval(params$zoom.data, data), error = function(e) NA)
+                zoom_data <- rep(zoom_data, length.out = nrow(data))
+                zoom_ind <- zoom_data | is.na(zoom_data)
+                orig_ind <- !zoom_data | is.na(zoom_data)
+                rbind(
+                    cbind(data[zoom_ind, ], PANEL = if (any(zoom_ind)) layout$PANEL[layout$name == "zoom_true"] else integer(0)),
+                    cbind(data[orig_ind, ], PANEL = if (any(orig_ind)) layout$PANEL[layout$name == "orig_true"] else integer(0))
+                )
             }
         )
     },
+    train_scales = function(self, x_scales, y_scales, layout, data, params) {
+        # loop over each layer, training x and y scales in turn
+        for (layer_data in data) {
+            match_id <- match(layer_data$PANEL, layout$PANEL)
+
+            if (!is.null(x_scales)) {
+                x_vars <- intersect(x_scales[[1]]$aesthetics, names(layer_data))
+                SCALE_X <- layout$SCALE_X[match_id]
+
+                if (!is.null(params$xlim)) {
+                    x_scales[[2]]$train(params$xlim)
+                    scale_apply(layer_data, x_vars, "train", SCALE_X, x_scales[-2])
+                } else {
+                    scale_apply(layer_data, x_vars, "train", SCALE_X, x_scales)
+                }
+            }
+
+            if (!is.null(y_scales)) {
+                y_vars <- intersect(y_scales[[1]]$aesthetics, names(layer_data))
+                SCALE_Y <- layout$SCALE_Y[match_id]
+
+                if (!is.null(params$ylim)) {
+                    y_scales[[2]]$train(params$ylim)
+                    scale_apply(layer_data, y_vars, "train", SCALE_Y, y_scales[-2])
+                } else {
+                    scale_apply(layer_data, y_vars, "train", SCALE_Y, y_scales)
+                }
+            }
+        }
+    },
     finish_data = function(data, layout, x_scales, y_scales, params) {
-        data <- do.call(rbind, lapply(unique(layout$PANEL), function(panel) {
-            d <- data[data$PANEL == 1, ]
-            d$PANEL <- panel
-            d
-        }))
+        plot_panels <- which(!grepl('_true', layout$name))
+        data <- if (is.null(params$zoom.data)) {
+            do.call(rbind, lapply(layout$PANEL[plot_panels], function(panel) {
+                d <- data[data$PANEL == 1, ]
+                d$PANEL <- panel
+                d
+            }))
+        } else {
+            orig_pan <- layout$PANEL[layout$name == "orig_true"]
+            zoom_pan <- layout$PANEL[layout$name == "zoom_true"]
+            orig_data <- data[data$PANEL == orig_pan, ]
+            orig_data$PANEL <- if (nrow(orig_data) != 0) 1L else integer(0)
+            zoom_data <- data[data$PANEL == zoom_pan, ]
+            rbind(orig_data, do.call(rbind, lapply(plot_panels[-1], function(panel) {
+                zoom_data$PANEL <- if (nrow(zoom_data) != 0) panel else integer(0)
+                zoom_data
+            })))
+        }
+        data$PANEL <- factor(data$PANEL, layout$PANEL)
         data
     },
     draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord,
                            data, theme, params) {
-        if (is.null(params$x)) {
+
+        if (is.null(params$x) && is.null(params$xlim)) {
             params$horizontal <- TRUE
-        } else if (is.null(params$y)) {
+        } else if (is.null(params$y) && is.null(params$ylim)) {
             params$horizontal <- FALSE
         }
         if (is.null(theme[['zoom']])) {
@@ -136,6 +215,7 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
         # Construct the panels
         axes <- render_axes(ranges, ranges, coord, theme, FALSE)
         panelGrobs <- create_panels(panels, axes$x, axes$y)
+        panelGrobs <- panelGrobs[seq_len(length(panelGrobs) - 2)]
 
         if ('full' %in% layout$name && !params$split) {
             panelGrobs <- panelGrobs[c(1, 4)]
@@ -248,7 +328,7 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
         if (is.null(theme$zoom.y)) {
             theme$zoom.y <- theme$zoom
         }
-        if (!is.null(params$x) && params$show.area && !inherits(theme$zoom.x, 'element_blank')) {
+        if (!(is.null(params$x) && is.null(params$xlim)) && params$show.area && !inherits(theme$zoom.x, 'element_blank')) {
             zoom_prop <- rescale(x_scales[[2]]$dimension(expansion(x_scales[[2]])),
                                  from = x_scales[[1]]$dimension(expansion(x_scales[[1]])))
             x_back <- grobTree(
@@ -261,7 +341,7 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
         } else {
             x_back <- zeroGrob()
         }
-        if (!is.null(params$y) && params$show.area && !inherits(theme$zoom.y, 'element_blank')) {
+        if (!(is.null(params$y) && is.null(params$ylim)) && params$show.area && !inherits(theme$zoom.y, 'element_blank')) {
             zoom_prop <- rescale(y_scales[[2]]$dimension(expansion(y_scales[[2]])),
                                  from = y_scales[[1]]$dimension(expansion(y_scales[[1]])))
             y_back <- grobTree(
@@ -275,9 +355,9 @@ FacetZoom <- ggproto("FacetDuplicate", Facet,
             y_back <- zeroGrob()
         }
         if ('full' %in% layout$name && params$split) {
-            list(grobTree(x_back, y_back), y_back, x_back, zeroGrob())
+            list(grobTree(x_back, y_back), y_back, x_back, zeroGrob(), zeroGrob(), zeroGrob())
         } else {
-            list(grobTree(x_back, y_back), zeroGrob())
+            list(grobTree(x_back, y_back), zeroGrob(), zeroGrob(), zeroGrob())
         }
     }
 )
@@ -300,4 +380,29 @@ expansion <- function (scale, discrete = c(0, 0.6), continuous = c(0.05, 0)) {
             discrete
         else continuous
     } else scale$expand
+}
+
+# Helpers -----------------------------------------------------------------
+
+# Function for applying scale method to multiple variables in a given
+# data set.  Implement in such a way to minimize copying and hence maximise
+# speed
+scale_apply <- function(data, vars, method, scale_id, scales) {
+    if (length(vars) == 0) return()
+    if (nrow(data) == 0) return()
+
+    n <- length(scales)
+    if (any(is.na(scale_id))) stop()
+
+    scale_index <- split_indices(scale_id, n)
+
+    lapply(vars, function(var) {
+        pieces <- lapply(seq_along(scales), function(i) {
+            scales[[i]][[method]](data[[var]][scale_index[[i]]])
+        })
+        # Join pieces back together, if necessary
+        if (!is.null(pieces)) {
+            unlist(pieces)[order(unlist(scale_index))]
+        }
+    })
 }

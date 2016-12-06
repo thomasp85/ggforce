@@ -24,13 +24,15 @@ Imports:
     tweenr (>= 0.1.5),
     units (>= 0.4),
     gtable,
-    lazyeval
+    lazyeval,
+    plyr
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Suggests:
     knitr,
     rmarkdown,
-    devtools
+    devtools,
+    reshape2
 VignetteBuilder: knitr
 Collate:
     'RcppExports.R'

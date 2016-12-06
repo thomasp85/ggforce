@@ -4,12 +4,19 @@
 \alias{facet_zoom}
 \title{Facet data for zoom with context}
 \usage{
-facet_zoom(x, y, xy, split = FALSE, horizontal = TRUE, zoom.size = 2,
-  show.area = TRUE, shrink = TRUE)
+facet_zoom(x, y, xy, zoom.data, xlim = NULL, ylim = NULL, split = FALSE,
+  horizontal = TRUE, zoom.size = 2, show.area = TRUE, shrink = TRUE)
 }
 \arguments{
 \item{x, y, xy}{An expression evaluating to a logical vector that determines
 the subset of data to zoom in on}
+
+\item{zoom.data}{An expression evaluating to a logical vector. If \code{TRUE}
+the data only shows in the zoom panels. If \code{FALSE} the data only show in
+the context panel. If \code{NA} the data will show in all panels.}
+
+\item{xlim, ylim}{Specific zoom ranges for each axis. If present they will
+override \code{x}, \code{y}, and/or \code{xy}.}
 
 \item{split}{If both \code{x} and \code{y} is given, should each axis zoom
 be shown separately as well? Defaults to \code{FALSE}}
@@ -56,6 +63,16 @@ ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
 ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
     geom_point() +
     facet_zoom(xy = Species == "versicolor", split = TRUE)
+
+# Define the zoom area directly
+ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+  geom_point() +
+  facet_zoom(xlim = c(2, 4))
+
+# Selectively show data in the zoom panel
+ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
+    geom_point() +
+    facet_zoom(x = Species == "versicolor", zoom.data = Species == 'versicolor')
 
 }
 \seealso{

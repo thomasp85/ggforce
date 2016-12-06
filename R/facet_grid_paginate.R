@@ -48,6 +48,7 @@ facet_grid_paginate <- function(facets, margins = FALSE, scales = "fixed",
 #' @format NULL
 #' @usage NULL
 #' @importFrom ggplot2 ggproto FacetWrap
+#' @importFrom gtable gtable_add_rows gtable_add_cols
 #' @export
 FacetGridPaginate <- ggproto("FacetGridPaginate", FacetGrid,
     compute_layout = function(data, params) {
@@ -72,6 +73,19 @@ FacetGridPaginate <- ggproto("FacetGridPaginate", FacetGrid,
         y_scale_ind <- unique(layout$SCALE_Y)
         y_scales <- y_scales[y_scale_ind]
         layout$SCALE_Y <- match(layout$SCALE_Y, y_scale_ind)
-        FacetGrid$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params)
+        table <- FacetGrid$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params)
+        if (max(layout$ROW) != params$nrow) {
+            spacing <- theme$panel.spacing.y %||% theme$panel.spacing
+            missing_rows <- params$nrow - max(layout$ROW)
+            table <- gtable_add_rows(table, unit(missing_rows, 'null'))
+            table <- gtable_add_rows(table, spacing * missing_rows)
+        }
+        if (max(layout$COL) != params$ncol) {
+            spacing <- theme$panel.spacing.x %||% theme$panel.spacing
+            missing_cols <- params$ncol - max(layout$COL)
+            table <- gtable_add_cols(table, unit(missing_cols, 'null'))
+            table <- gtable_add_cols(table, spacing * missing_cols)
+        }
+        table
     }
 )
