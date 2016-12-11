@@ -230,7 +230,7 @@ StatSina <- ggproto("StatSina", Stat,
 
     #if group has less than 2 points return as is
     if (nrow(data) < 2) {
-      data$max_bin_counts <- 1
+      data$bin_counts <- 1
       return(data)
     }
 
