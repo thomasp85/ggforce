@@ -199,9 +199,9 @@ StatSina <- ggproto("StatSina", Stat,
                            scale = TRUE, method = "density", maxwidth = NULL,
                            adjust = 1, bin_limit = 1, na.rm = FALSE) {
     if (!is.null(binwidth))
-      bins <- bin_breaks_width(scales$y$dimension(), binwidth)
+      bins <- bin_breaks_width(scales$y$dimension() + 1e-8, binwidth)
     else
-      bins <- bin_breaks_bins(scales$y$dimension(), bins)
+      bins <- bin_breaks_bins(scales$y$dimension() + 1e-8, bins)
 
     data <- ggproto_parent(Stat, self)$compute_panel(data, scales,
       scale = scale, method = method, maxwidth = maxwidth, adjust = adjust,
@@ -253,7 +253,7 @@ StatSina <- ggproto("StatSina", Stat,
       if (max(bin_counts) > 50 * maxwidth) {
         intra_scaling_factor <- 50 * maxwidth / max(bin_counts)
       } else
-        intra_scaling_factor <- (0.5 * maxwidth) / max(bin_counts)
+        intra_scaling_factor <- (50 * maxwidth) / max(bin_counts)
       }
 
     for (i in names(bin_counts)) {
