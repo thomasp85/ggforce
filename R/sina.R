@@ -246,14 +246,14 @@ StatSina <- ggproto("StatSina", Stat,
       if (max(densities$y) > 0.5 * maxwidth)
         intra_scaling_factor <- 0.5 * maxwidth / max(densities$y)
       else
-        intra_scaling_factor <- 1
+        intra_scaling_factor <- (0.5 * maxwidth) / max(densities$y)
 
     } else {
       #allow up to 50 samples in a bin without scaling
       if (max(bin_counts) > 50 * maxwidth) {
         intra_scaling_factor <- 50 * maxwidth / max(bin_counts)
       } else
-        intra_scaling_factor <- 1
+        intra_scaling_factor <- (0.5 * maxwidth) / max(bin_counts)
       }
 
     for (i in names(bin_counts)) {
