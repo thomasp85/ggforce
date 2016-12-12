@@ -5,6 +5,9 @@ same size as on full pages (#7)
 directly
 - `facet_zoom` now gains `zoom.data` to control which data gets plotted in which 
 panel
+- `linear_trans` for composing linear transformation using `rotate`, `stretch`, 
+`shear`, `reflect`, and `translate`
+- `facet_stereo` for creating stereographic projections
 
 # ggforce 0.1.1
 

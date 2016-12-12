@@ -89,7 +89,8 @@ ggplot(diamonds) +
 
 }
 \seealso{
-Other ggforce.facets: \code{\link{facet_wrap_paginate}},
+Other ggforce.facets: \code{\link{facet_stereo}},
+  \code{\link{facet_wrap_paginate}},
   \code{\link{facet_zoom}}
 }
 

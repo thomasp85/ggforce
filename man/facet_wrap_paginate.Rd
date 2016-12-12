@@ -86,6 +86,6 @@ for (i in seq_len(n_pages)) {
 }
 \seealso{
 Other ggforce.facets: \code{\link{facet_grid_paginate}},
-  \code{\link{facet_zoom}}
+  \code{\link{facet_stereo}}, \code{\link{facet_zoom}}
 }
 

@@ -158,7 +158,7 @@ stat_link  <- function(mapping = NULL, data = NULL, geom = "path",
 #' @export
 StatLink2 <- ggproto('StatLink2', Stat,
     compute_panel = function(data, scales, n = 100) {
-        extraCols <- !names(data) %in% c('x', 'y', 'group', 'PANEL')
+        extraCols <- !names(data) %in% c('x', 'y', 'group', 'PANEL', 'frame')
         data <- data %>% group_by_(~group) %>%
             do({
                 interp <- tween_states(split(.[c('x', 'y')], seq_len(nrow(.))),
@@ -169,6 +169,7 @@ StatLink2 <- ggproto('StatLink2', Stat,
                                 index = seq(0, 1, length.out = n),
                                 group = .$group[1],
                                 PANEL = .$PANEL[1])
+                if ('frame' %in% names(.)) interp$frame <- .$frame[1]
                 nIndex <- seq_len(nrow(interp))
                 if (any(extraCols)) {
                     cbind(interp, .[nIndex, extraCols], .interp = nIndex > nrow(.))

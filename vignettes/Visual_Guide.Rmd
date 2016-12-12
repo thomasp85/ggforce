@@ -400,6 +400,43 @@ ggplot() +
     theme(zoom = element_rect(fill = 'grey75', colour = NA), validate = FALSE)
 ```
 
+## Stereographic projection
+One of the more "fun and useless" additions to ggforce is `facet_stereo` which
+allows the user to create a stereographic projection of the plot in order to
+make a faux 3D plot. `facet_stereo` shifts features sligtly to the left and
+right based on the provided `depth`-aesthetic to simulate how each eye will see
+a sligtly different picture when looking at a 3D scenery. In order to experience
+the 3D effect, either look at the plot with 3D hardware such as Google Cardboard
+or by using relaxed focusing where the eyes focus on the far distance while 
+looking at the plot (the same technique used when looking at stereograms such as 
+Magic Eye).
+
+In order to use `facet_stereo` provide a depth aesthetic to the layers (will
+generate a warning) and modify the depth perception with `scale_depth`:
+
+```{r, fig.asp=1/2}
+ggplot(mtcars) + 
+    geom_point(aes(mpg, disp, depth = wt)) + 
+    scale_depth(range = c(0, 0.2)) + 
+    facet_stereo()
+```
+
+To improve the effect you can scale the size of the features as well as the 
+colour to enhance the 3D feeling
+
+```{r, fig.asp=1/2}
+ggplot(mtcars) + 
+    geom_point(aes(mpg, disp, depth = wt, colour = wt, size = wt)) + 
+    scale_size(range = c(1.5, 3)) + 
+    scale_color_gradient(low = 'grey70', high = 'black') + 
+    facet_stereo()
+```
+
+Note that due to the design of ggplot2 there are some limitations to this, most
+notably that layers will always be placed on top of each other no matter their
+depth values. This means that you can end up with features occluding other 
+features in front of them. Also, even though grid lines are placed at 
+`depth = 0` they will always be behind all features.
 
 # Transformations
 Transformations are not really a part of ggplot2, but rather the scales package.
@@ -467,6 +504,29 @@ ggplot() + geom_path(aes(x, y), data = line, colour = 'red') +
     geom_path(aes(x, y), data = spiral, colour = 'green')
 ```
 
+### Linear transformation
+The family of linear transformations cover scaling/stretching, rotation, 
+shearing, reflection, and translation. All of these are implemented in the 
+`linear_trans` constructor that lets you compose a sequence of transformation
+steps, either fixed or parameterized. To avoid dealing with transformation 
+matrices and ease parameterisation each transformation is encapsulated into a
+function that creates a transformation matrix. All transformations are done
+relative to the origin so shapes needs to be translated into the origin if e.g.
+rotation around their own center (rather than [0, 0]) is required.
+
+```{r}
+# parameterized rotation and translation, fixed shearing
+trans <- linear_trans(rotate(a), shear(1, 0), translate(x1, y1))
+square <- data.frame(x = c(0, 0, 1, 1), y = c(0, 1, 1, 0))
+square2 <- trans$transform(square$x, square$y, a = pi/3, x1 = 4, y1 = 8)
+square3 <- trans$transform(square$x, square$y, a = pi/1.5, x1 = 2, y1 = -6)
+square_all <- rbind(square, square2, square3)
+square_all$group <- rep(1:3, each = 4)
+ggplot(square_all, aes(x, y, group = group)) +
+    geom_polygon(aes(fill = factor(group)), colour = 'black')
+```
+
+
 # Scales
 Currently only a single new scale is added to ggplot2 with ggforce, but it is a
 rather nifty little fellow. 
@@ -520,6 +580,9 @@ ggplot(mtcars) +
     scale_x_unit(unit = 'W') +
     scale_y_unit(unit = 'km/l')
 ```
+
+## Depth
+See [facet_stereo](#stereographic-projection)...
 
 # A rocket
 We'll finish this of by drawing a rocket:
