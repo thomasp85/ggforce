@@ -13,6 +13,8 @@ scale_depth_continuous(..., range = c(0, 0.3))
 scale_depth_discrete(..., range = c(0, 0.3))
 }
 \arguments{
+\item{...}{arguments passed on to continuous_scale or discrete_scale}
+
 \item{range}{The relative range as related to the distance between the eyes
 and the paper plane.}
 }

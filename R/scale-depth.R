@@ -9,6 +9,8 @@
 #' exceed ~0.3 as it would get hard for the eyes to consolidate the two
 #' pictures.
 #'
+#' @param ... arguments passed on to continuous_scale or discrete_scale
+#'
 #' @param range The relative range as related to the distance between the eyes
 #' and the paper plane.
 #'
