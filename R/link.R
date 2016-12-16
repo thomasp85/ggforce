@@ -154,17 +154,15 @@ stat_link  <- function(mapping = NULL, data = NULL, geom = "path",
 #' @format NULL
 #' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
-#' @importFrom tweenr tween_states
+#' @importFrom tweenr tween_t
 #' @export
 StatLink2 <- ggproto('StatLink2', Stat,
     compute_panel = function(data, scales, n = 100) {
         extraCols <- !names(data) %in% c('x', 'y', 'group', 'PANEL', 'frame')
         data <- data %>% group_by_(~group) %>%
             do({
-                interp <- tween_states(split(.[c('x', 'y')], seq_len(nrow(.))),
-                                       tweenlength = 1, statelength = 0,
-                                       ease = 'linear', nframes = n)
-                interp$.frame <- NULL
+                interp <- tween_t(list(.$x, .$y), n)
+                interp <- data.frame(x = interp[[1]], y = interp[[2]])
                 interp <- cbind(interp,
                                 index = seq(0, 1, length.out = n),
                                 group = .$group[1],
