@@ -8,6 +8,8 @@ panel
 - `linear_trans` for composing linear transformation using `rotate`, `stretch`, 
 `shear`, `reflect`, and `translate`
 - `facet_stereo` for creating stereographic projections
+- `geom_voronoi_[tile|segment]`, `geom_delaunay_[tile|segment|segment2]`, and
+`stat_delvor_summary` has been added for tesselation and triangulation.
 
 # ggforce 0.1.1
 

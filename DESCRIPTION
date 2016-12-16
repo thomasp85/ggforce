@@ -25,7 +25,8 @@ Imports:
     units (>= 0.4),
     gtable,
     lazyeval,
-    plyr
+    plyr,
+    deldir
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Suggests:
@@ -56,3 +57,4 @@ Collate:
     'themes.R'
     'trans.R'
     'trans_linear.R'
+    'voronoi.R'
