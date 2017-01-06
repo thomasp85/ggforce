@@ -54,6 +54,7 @@ Collate:
     'scale-depth.R'
     'scale-unit.R'
     'sina.R'
+    'textbox.R'
     'themes.R'
     'trans.R'
     'trans_linear.R'
