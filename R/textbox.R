@@ -26,6 +26,7 @@ element_textbox <- function(family = NULL, face = NULL, colour = NULL,
 #' @export
 #' @importFrom grid valid.just gpar
 #' @importFrom utils modifyList
+#' @importFrom ggplot2 element_grob
 element_grob.element_textbox <- function(element, label = "", x = NULL, y = NULL,
                                          family = NULL, face = NULL, colour = NULL,
                                          size = NULL, hjust = NULL, vjust = NULL,
