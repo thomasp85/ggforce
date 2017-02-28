@@ -25,4 +25,3 @@ p + theme_no_axes()
 p + theme_no_axes(theme_grey())
 
 }
-

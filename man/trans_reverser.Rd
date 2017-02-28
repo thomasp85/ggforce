@@ -30,4 +30,3 @@ p + scale_x_continuous(trans='reverse')
 p + scale_x_continuous(trans=trans_reverser('log'))
 
 }
-

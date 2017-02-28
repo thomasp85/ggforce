@@ -62,4 +62,3 @@ ggplot() + geom_path(aes(x=x, y=y), data = cart, color='forestgreen') +
   geom_path(aes(x=r, y=a), data = rad, color='firebrick')
 
 }
-
