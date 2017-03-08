@@ -51,6 +51,7 @@ Collate:
     'ggproto-classes.R'
     'interpolate.R'
     'link.R'
+    'position-jitternormal.R'
     'scale-depth.R'
     'scale-unit.R'
     'sina.R'
