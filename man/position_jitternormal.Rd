@@ -8,7 +8,7 @@ position_jitternormal(sd_x = NULL, sd_y = NULL)
 }
 \arguments{
 \item{sd_x, sd_y}{Standard deviation to add along the x and y axes. The 
-  function uses \code{\link[base]{rnorm}} with \code{mean = 0} behind 
+  function uses \code{\link[stats]{rnorm}} with \code{mean = 0} behind 
   the scenes. 
 
   If omitted, defaults to 0.15. As with \code{\link[ggplot2]{geom_jitter}}, 
