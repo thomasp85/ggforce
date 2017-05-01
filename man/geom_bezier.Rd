@@ -2,11 +2,12 @@
 % Please edit documentation in R/bezier.R
 \name{geom_bezier}
 \alias{geom_bezier}
-\alias{geom_bezier0}
-\alias{geom_bezier2}
 \alias{stat_bezier}
-\alias{stat_bezier0}
+\alias{geom_bezier}
 \alias{stat_bezier2}
+\alias{geom_bezier2}
+\alias{stat_bezier0}
+\alias{geom_bezier0}
 \title{Create quadratic or cubic bezier curves}
 \usage{
 stat_bezier(mapping = NULL, data = NULL, geom = "path",
@@ -125,6 +126,7 @@ geom_link, geom_link2 and geom_lin0 understand the following aesthetics
  \item{index}{The progression along the interpolation mapped between 0 and 1}
 }
 }
+
 \examples{
 beziers <- data.frame(
     x = c(1, 2, 3, 4, 4, 6, 6),
@@ -150,4 +152,3 @@ ggplot() + geom_segment(aes(x = x, xend = xend, y = y, yend = yend),
 \author{
 Thomas Lin Pedersen
 }
-

@@ -28,4 +28,3 @@ p <- ggplot(diamonds) +
 n_pages(p)
 
 }
-

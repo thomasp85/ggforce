@@ -132,5 +132,6 @@ ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleConti
 #' @rdname scale_unit
 #' @format NULL
 #' @usage NULL
+#' @importFrom ggplot2 scale_type
 #' @export
 scale_type.units <- function(x) c('unit', 'continuous')
