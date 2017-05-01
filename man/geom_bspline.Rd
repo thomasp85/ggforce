@@ -94,7 +94,7 @@ b-spline for a high performant version.
 }
 \section{Aesthetics}{
 
-geom_edge_bundle understand the following aesthetics (required aesthetics are in
+geom_bspline understand the following aesthetics (required aesthetics are in
 bold):
 \itemize{
  \item{\strong{x}}
