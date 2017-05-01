@@ -2,11 +2,11 @@
 % Please edit documentation in R/trans_linear.R
 \name{linear_trans}
 \alias{linear_trans}
-\alias{reflect}
 \alias{rotate}
-\alias{shear}
 \alias{stretch}
+\alias{shear}
 \alias{translate}
+\alias{reflect}
 \title{Create a custom linear transformation}
 \usage{
 linear_trans(...)
@@ -52,4 +52,3 @@ ggplot(square, aes(x, y, group = group)) +
   geom_polygon(aes(fill = factor(group)), colour = 'black')
 
 }
-

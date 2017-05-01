@@ -58,4 +58,3 @@ ggplot() + geom_link(aes(x=2, y=2, xend=3, yend=3, alpha=..index..,
 \author{
 Thomas Lin Pedersen
 }
-

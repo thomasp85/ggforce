@@ -3,6 +3,7 @@
 \name{geom_sina}
 \alias{geom_sina}
 \alias{stat_sina}
+\alias{geom_sina}
 \title{Sina plot}
 \usage{
 stat_sina(mapping = NULL, data = NULL, geom = "sina",
@@ -116,6 +117,7 @@ samples to spread within:
   \item{scaled}{adjusted x-coordinates}
 }
 }
+
 \examples{
 ggplot(midwest, aes(state, area)) + geom_point()
 
@@ -175,4 +177,3 @@ p + geom_violin() + geom_sina(scale = FALSE)
 \author{
 Nikos Sidiropoulos
 }
-

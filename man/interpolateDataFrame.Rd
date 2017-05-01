@@ -16,4 +16,3 @@ A similar data.frame with NA values interpolated
 Interpolate layer data
 }
 \keyword{internal}
-

@@ -28,14 +28,14 @@ Imports:
     plyr,
     deldir
 LinkingTo: Rcpp
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Suggests:
     knitr,
     rmarkdown,
     devtools,
     reshape2
 VignetteBuilder: knitr
-Collate:
+Collate: 
     'RcppExports.R'
     'aaa.R'
     'arc_bar.R'
@@ -43,6 +43,7 @@ Collate:
     'bezier.R'
     'bspline.R'
     'circle.R'
+    'ellipse.R'
     'facet_grid_paginate.R'
     'facet_stereo.R'
     'facet_wrap_paginate.R'
