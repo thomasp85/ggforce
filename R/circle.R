@@ -139,9 +139,10 @@ GeomCircle <- ggproto('GeomCircle', GeomShape,
 )
 #' @rdname geom_circle
 #' @importFrom ggplot2 layer
+#' @inheritParams geom_shape
 #' @export
 geom_circle <- function(mapping = NULL, data = NULL, stat = "circle",
-                        position = "identity", n = 360, na.rm = FALSE,
+                        position = "identity", n = 360, expand = 0, radius = 0, na.rm = FALSE,
                         show.legend = NA, inherit.aes = TRUE, ...) {
     layer(data = data, mapping = mapping, stat = stat, geom = GeomCircle,
           position = position, show.legend = show.legend, inherit.aes = inherit.aes,

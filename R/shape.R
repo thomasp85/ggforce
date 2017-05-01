@@ -1,3 +1,69 @@
+#' Draw polygons with expansion/contraction and/or rounded corners
+#'
+#' This geom is a cousin of \code{\link[ggplot2]{geom_polygon}} with the added
+#' possibility of expanding or contracting the polygon by an absolute amount
+#' (e.g. 1 cm). Furthermore, it is possible to round the corners of the polygon,
+#' again by an absolute amount. The resulting geom reacts to resizing of the
+#' plot, so the expansion/contraction and corner radius will not get distorted.
+#' If no expansion/contraction or corner radius is specified, the geom falls
+#' back to \code{geom_polygon} so there is no performance penality in using this
+#' instead of \code{geom_polygon}.
+#'
+#' @note Some settings can result in the dissappearance of polygons,
+#' specifically when contracting or rounding corners with a relatively large
+#' amount. Also note that x and y scale limits does not take expansion into
+#' account and the resulting polygon might thus not fit into the plot.
+#'
+#' @section Aesthetics:
+#' geom_link, geom_link2 and geom_lin0 understand the following aesthetics
+#' (required aesthetics are in bold):
+#' \itemize{
+#'  \item{\strong{x}}
+#'  \item{\strong{y}}
+#'  \item{color}
+#'  \item{fill}
+#'  \item{group}
+#'  \item{size}
+#'  \item{linetype}
+#'  \item{alpha}
+#' }
+#'
+#' @inheritParams ggplot2::geom_polygon
+#'
+#' @param expand A numeric or unit vector of length one, specifying the
+#' expansion amount. Negative values will result in contraction instead. If the
+#' value is given as a numeric it will be understood as a proportion of the
+#' plot area width.
+#'
+#' @param radius As \code{expand} but specifying the corner radius.
+#'
+#' @author Thomas Lin Pedersen
+#'
+#' @name geom_shape
+#' @rdname geom_shape
+#'
+#' @examples
+#' shape <- data.frame(
+#'   x = c(0.5, 1, 0.75, 0.25, 0),
+#'   y = c(0, 0.5, 1, 0.75, 0.25)
+#' )
+#' # Expand and round
+#' ggplot(shape, aes(x = x, y = y)) +
+#'   geom_shape(expand = unit(1, 'cm'), radius = unit(0.5, 'cm')) +
+#'   geom_polygon(fill = 'red')
+#'
+#' # Contract
+#' ggplot(shape, aes(x = x, y = y)) +
+#'   geom_polygon(fill = 'red') +
+#'   geom_shape(expand = unit(-1, 'cm'))
+#'
+#' # Only round corners
+#' ggplot(shape, aes(x = x, y = y)) +
+#'   geom_polygon(fill = 'red') +
+#'   geom_shape(radius = unit(1, 'cm'))
+#'
+NULL
+
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
@@ -5,16 +71,20 @@
 #' @export
 GeomShape <- ggproto('GeomShape', GeomPolygon,
     draw_panel = function(data, panel_params, coord, expand = 0, radius = 0) {
-        data <- coord$transform(data, panel_params)
+        n <- nrow(data)
+        if (n == 1)
+            return(zeroGrob())
+        munched <- coord_munch(coord, data, panel_params)
+        munched <- munched[order(munched$group), ]
 
         # For gpar(), there is one entry per polygon (not one entry per point).
         # We'll pull the first value from each group, and assume all these values
         # are the same within each group.
-        first_idx <- !duplicated(data$group)
-        first_rows <- data[first_idx, ]
+        first_idx <- !duplicated(munched$group)
+        first_rows <- munched[first_idx, ]
 
-        shapeGrob(data$x, data$y, default.units = "native",
-                  id = data$group, expand = expand, radius = radius,
+        shapeGrob(munched$x, munched$y, default.units = "native",
+                  id = munched$group, expand = expand, radius = radius,
                   gp = gpar(
                       col = first_rows$colour,
                       fill = alpha(first_rows$fill, first_rows$alpha),
@@ -24,6 +94,8 @@ GeomShape <- ggproto('GeomShape', GeomPolygon,
                 )
     }
 )
+
+#' @rdname geom_shape
 #' @export
 geom_shape <- function(mapping = NULL, data = NULL, stat = "identity",
                        position = "identity", expand = 0, radius = 0, ...,
@@ -118,7 +190,9 @@ makeContent.shape <- function(x) {
             if (!is.null(poly$line)) {
                 poly$line <- unlist(lapply(poly$line, polyoffset, delta = radius, jointype = 'round'), recursive = FALSE)
             }
-            poly$point <- polyoffset(poly$point, radius, jointype = 'round')
+            if (!is.null(poly$point)) {
+                poly$point <- unlist(lapply(poly$point, polyoffset, delta = radius, jointype = 'round'), recursive = FALSE)
+            }
         } else {
             if (!is.null(poly$line)) {
                 poly$line <- unlist(lapply(poly$line, polylineoffset, delta = radius, jointype = 'round', endtype = 'openround'), recursive = FALSE)

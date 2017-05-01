@@ -44,7 +44,7 @@ the plot.}
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
 
-\item{geom, }{stat Override the default connection between \code{geom_arc} and
+\item{geom, stat}{Override the default connection between \code{geom_arc} and
 \code{stat_arc}.}
 
 \item{position}{Position adjustment, either as a string, or the result of a

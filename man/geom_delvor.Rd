@@ -13,7 +13,8 @@
 \usage{
 geom_voronoi_tile(mapping = NULL, data = NULL, stat = "voronoi_tile",
   position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-09,
-  normalize = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+  normalize = FALSE, expand = 0, radius = 0, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 geom_voronoi_segment(mapping = NULL, data = NULL,
   stat = "voronoi_segment", position = "identity", na.rm = FALSE,
@@ -22,7 +23,8 @@ geom_voronoi_segment(mapping = NULL, data = NULL,
 
 geom_delaunay_tile(mapping = NULL, data = NULL, stat = "delaunay_tile",
   position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-09,
-  normalize = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+  normalize = FALSE, expand = 0, radius = 0, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 geom_delaunay_segment(mapping = NULL, data = NULL,
   stat = "delaunay_segment", position = "identity", na.rm = FALSE,
@@ -82,6 +84,13 @@ upward or downward.}
 tesselation and triangulation that seems off when plotted without
 \code{\link[ggplot2]{coord_fixed}}. Normalization of coordinates solves this.
 The coordinates are transformed back after calculations.}
+
+\item{expand}{A numeric or unit vector of length one, specifying the
+expansion amount. Negative values will result in contraction instead. If the
+value is given as a numeric it will be understood as a proportion of the
+plot area width.}
+
+\item{radius}{As \code{expand} but specifying the corner radius.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

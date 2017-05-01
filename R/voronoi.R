@@ -139,10 +139,11 @@ StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
 
 #' @rdname geom_delvor
 #' @importFrom ggplot2 layer
+#' @inheritParams geom_shape
 #' @export
 geom_voronoi_tile <- function(mapping = NULL, data = NULL, stat = "voronoi_tile",
                         position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-9, normalize = FALSE,
-                        show.legend = NA, inherit.aes = TRUE, ...) {
+                        expand = 0, radius = 0, show.legend = NA, inherit.aes = TRUE, ...) {
     layer(data = data, mapping = mapping, stat = stat, geom = GeomShape,
           position = position, show.legend = show.legend, inherit.aes = inherit.aes,
           params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm, ...))
@@ -239,10 +240,11 @@ StatDelaunayTile <- ggproto('StatDelaunayTile', Stat,
 
 #' @rdname geom_delvor
 #' @importFrom ggplot2 layer
+#' @inheritParams geom_shape
 #' @export
 geom_delaunay_tile <- function(mapping = NULL, data = NULL, stat = "delaunay_tile",
                               position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-9, normalize = FALSE,
-                              show.legend = NA, inherit.aes = TRUE, ...) {
+                              expand = 0, radius = 0, show.legend = NA, inherit.aes = TRUE, ...) {
     layer(data = data, mapping = mapping, stat = stat, geom = GeomShape,
           position = position, show.legend = show.legend, inherit.aes = inherit.aes,
           params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm, ...))
