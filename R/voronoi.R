@@ -1,3 +1,6 @@
+#' @include shape.R
+NULL
+
 #' Voronoi tesselation and delaunay triangulation
 #'
 #' This set of geoms and stats allows you to display voronoi tesselation and
@@ -135,12 +138,12 @@ StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
 )
 
 #' @rdname geom_delvor
-#' @importFrom ggplot2 layer GeomPolygon
+#' @importFrom ggplot2 layer
 #' @export
 geom_voronoi_tile <- function(mapping = NULL, data = NULL, stat = "voronoi_tile",
                         position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-9, normalize = FALSE,
                         show.legend = NA, inherit.aes = TRUE, ...) {
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomPolygon,
+    layer(data = data, mapping = mapping, stat = stat, geom = GeomShape,
           position = position, show.legend = show.legend, inherit.aes = inherit.aes,
           params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm, ...))
 }
@@ -235,12 +238,12 @@ StatDelaunayTile <- ggproto('StatDelaunayTile', Stat,
 )
 
 #' @rdname geom_delvor
-#' @importFrom ggplot2 layer GeomPolygon
+#' @importFrom ggplot2 layer
 #' @export
 geom_delaunay_tile <- function(mapping = NULL, data = NULL, stat = "delaunay_tile",
                               position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-9, normalize = FALSE,
                               show.legend = NA, inherit.aes = TRUE, ...) {
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomPolygon,
+    layer(data = data, mapping = mapping, stat = stat, geom = GeomShape,
           position = position, show.legend = show.legend, inherit.aes = inherit.aes,
           params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm, ...))
 }

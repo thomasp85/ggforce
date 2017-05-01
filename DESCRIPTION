@@ -26,18 +26,20 @@ Imports:
     gtable,
     lazyeval,
     plyr,
-    deldir
+    deldir,
+    polyclip
 LinkingTo: Rcpp
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Suggests:
     knitr,
     rmarkdown,
     devtools,
     reshape2
 VignetteBuilder: knitr
-Collate:
+Collate: 
     'RcppExports.R'
     'aaa.R'
+    'shape.R'
     'arc_bar.R'
     'arc.R'
     'bezier.R'

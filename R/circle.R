@@ -1,4 +1,5 @@
 #' @include arc_bar.R
+#' @include shape.R
 NULL
 
 #' Circles based on center and radius
@@ -131,9 +132,9 @@ stat_circle  <- function(mapping = NULL, data = NULL, geom = "circle",
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto GeomPolygon
+#' @importFrom ggplot2 ggproto
 #' @export
-GeomCircle <- ggproto('GeomCircle', GeomPolygon,
+GeomCircle <- ggproto('GeomCircle', GeomShape,
     default_aes = list(colour = 'black', fill = NA, size = 0.5, linetype = 1, alpha = NA)
 )
 #' @rdname geom_circle
