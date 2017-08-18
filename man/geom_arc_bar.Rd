@@ -4,6 +4,7 @@
 \alias{geom_arc_bar}
 \alias{stat_arc_bar}
 \alias{stat_pie}
+\alias{geom_arc_bar}
 \title{Arcs and wedges as polygons}
 \usage{
 stat_arc_bar(mapping = NULL, data = NULL, geom = "arc_bar",
@@ -110,6 +111,7 @@ bold):
  \item{x, y}{The start coordinates for the segment}
 }
 }
+
 \examples{
 # If you know the angle spans to plot it is easy
 arcs <- data.frame(
@@ -145,10 +147,9 @@ ggplot() + geom_arc_bar(aes(x0=0, y0=0, r0=r0, r=1, amount=amount,
   scale_fill_brewer('', type='qual')
 
 }
-\author{
-Thomas Lin Pedersen
-}
 \seealso{
 \code{\link{geom_arc}} for drawing arcs as lines
 }
-
+\author{
+Thomas Lin Pedersen
+}

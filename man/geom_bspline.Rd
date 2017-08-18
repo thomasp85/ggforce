@@ -2,11 +2,12 @@
 % Please edit documentation in R/bspline.R
 \name{geom_bspline}
 \alias{geom_bspline}
-\alias{geom_bspline0}
-\alias{geom_bspline2}
 \alias{stat_bspline}
-\alias{stat_bspline0}
+\alias{geom_bspline}
 \alias{stat_bspline2}
+\alias{geom_bspline2}
+\alias{stat_bspline0}
+\alias{geom_bspline0}
 \title{B-splines based on control points}
 \usage{
 stat_bspline(mapping = NULL, data = NULL, geom = "path",
@@ -93,7 +94,7 @@ b-spline for a high performant version.
 }
 \section{Aesthetics}{
 
-geom_edge_bundle understand the following aesthetics (required aesthetics are in
+geom_bspline understand the following aesthetics (required aesthetics are in
 bold):
 \itemize{
  \item{\strong{x}}
@@ -114,6 +115,7 @@ bold):
  \item{index}{The progression along the interpolation mapped between 0 and 1}
 }
 }
+
 \examples{
 # Define some control points
 cp <- data.frame(
@@ -148,15 +150,14 @@ ggplot() +
   geom_point(aes(x=x, y=y), data=cp, color='steelblue')
 
 }
-\author{
-Thomas Lin Pedersen. The C++ code for De Boor's algorithm has been
-adapted from
-\href{https://chi3x10.wordpress.com/2009/10/18/de-boor-algorithm-in-c/}{Jason Yu-Tseh Chi implementation}
-}
 \references{
 Holten, D. (2006). \emph{Hierarchical edge bundles: visualization
 of adjacency relations in hierarchical data.} IEEE Transactions on
 Visualization and Computer Graphics, \strong{12}(5), 741-748.
 http://doi.org/10.1109/TVCG.2006.147
 }
-
+\author{
+Thomas Lin Pedersen. The C++ code for De Boor's algorithm has been
+adapted from
+\href{https://chi3x10.wordpress.com/2009/10/18/de-boor-algorithm-in-c/}{Jason Yu-Tseh Chi implementation}
+}

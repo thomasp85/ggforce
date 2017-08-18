@@ -2,10 +2,11 @@
 % Please edit documentation in R/link.R
 \name{geom_link}
 \alias{geom_link}
-\alias{geom_link0}
-\alias{geom_link2}
 \alias{stat_link}
 \alias{stat_link2}
+\alias{geom_link}
+\alias{geom_link2}
+\alias{geom_link0}
 \title{Link points with paths}
 \usage{
 stat_link(mapping = NULL, data = NULL, geom = "path",
@@ -123,6 +124,7 @@ bold):
  \item{index}{The progression along the interpolation mapped between 0 and 1}
 }
 }
+
 \examples{
 # Lets make some data
 lines <- data.frame(
@@ -147,4 +149,3 @@ ggplot() + geom_link2(aes(x = x, y = y, colour = colour, size = width,
 \author{
 Thomas Lin Pedersen
 }
-

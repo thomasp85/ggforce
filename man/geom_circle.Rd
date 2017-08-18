@@ -3,6 +3,7 @@
 \name{geom_circle}
 \alias{geom_circle}
 \alias{stat_circle}
+\alias{geom_circle}
 \title{Circles based on center and radius}
 \usage{
 stat_circle(mapping = NULL, data = NULL, geom = "circle",
@@ -92,6 +93,7 @@ bold):
  \item{x, y}{The start coordinates for the segment}
 }
 }
+
 \examples{
 # Lets make some data
 circles <- data.frame(
@@ -109,10 +111,9 @@ ggplot() + geom_circle(aes(x0=x0, y0=y0, r=r, fill=r), data=circles) +
 
 
 }
-\author{
-Thomas Lin Pedersen
-}
 \seealso{
 \code{\link{geom_arc_bar}} for drawing arcs with fill
 }
-
+\author{
+Thomas Lin Pedersen
+}

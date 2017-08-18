@@ -35,4 +35,3 @@ ggplot(mtcars) +
   facet_stereo()
 
 }
-

@@ -10,6 +10,7 @@ panel
 - `facet_stereo` for creating stereographic projections
 - `geom_voronoi_[tile|segment]`, `geom_delaunay_[tile|segment|segment2]`, and
 `stat_delvor_summary` has been added for tesselation and triangulation.
+- `geom_spiro` has been added for drawing spirographs
 
 # ggforce 0.1.1
 
