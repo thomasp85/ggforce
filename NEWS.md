@@ -11,6 +11,7 @@ panel
 - `geom_voronoi_[tile|segment]`, `geom_delaunay_[tile|segment|segment2]`, and
 `stat_delvor_summary` has been added for tesselation and triangulation.
 - `geom_spiro` has been added for drawing spirographs
+- Add `geom_ellipse`
 
 # ggforce 0.1.1
 

@@ -45,6 +45,7 @@ Collate:
     'bezier.R'
     'bspline.R'
     'circle.R'
+    'ellipse.R'
     'facet_grid_paginate.R'
     'facet_stereo.R'
     'facet_wrap_paginate.R'
