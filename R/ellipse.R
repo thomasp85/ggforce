@@ -27,6 +27,7 @@
 #' }
 #'
 #' @inheritParams ggplot2::geom_path
+#' @inheritParams ggplot2::stat_identity
 #'
 #' @param n The number of points to sample along the ellipse.
 #'
@@ -67,7 +68,7 @@ StatEllipse<- ggproto('StatEllipse', Stat,
     required_aes = c('x0', 'y0', 'a', 'b', 'angle'),
     extra_params = c('n', 'na.rm')
 )
-#' @rdname geom_circle
+#' @rdname geom_ellipse
 #' @importFrom ggplot2 layer
 #' @export
 stat_ellipse  <- function(mapping = NULL, data = NULL, geom = "circle",
@@ -80,7 +81,7 @@ stat_ellipse  <- function(mapping = NULL, data = NULL, geom = "circle",
     )
 }
 
-#' @rdname geom_circle
+#' @rdname geom_ellipse
 #' @importFrom ggplot2 layer
 #' @export
 geom_ellipse <- function(mapping = NULL, data = NULL, stat = "ellipse",
