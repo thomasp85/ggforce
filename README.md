@@ -13,20 +13,20 @@ through the extension system introduced with `ggplot2` v2.0.0. Broadly speaking
 `ggplot2` has been aimed primarily at explorative data visualization in order to 
 investigate the data at hand, and less at providing utilities for composing 
 custom plots a la [D3.js](https://d3js.org). `ggforce` is mainly an attempt to 
-address these "shortcomming" (design choices might be a better description). The 
+address these "shortcoming" (design choices might be a better description). The 
 goal is to provide a repository of geoms, stats, etc. that are as well 
 documented and implemented as the official ones found in `ggplot2`.
 
 #### Disclaimer
 The inclusion of any geom, stat, position etc in `ggforce` is not necessarily a 
-recommendation of their use. `ggplot2` has been succesfull in being opinionated
+recommendation of their use. `ggplot2` has been successful in being opinionated
 about what functionality should be available. This is good as it insulates the
 user from making bad decisions when analyzing their data (to a certain degree), 
 but it also makes it difficult to develop novel visualizations using the 
 `ggplot2` API. `ggforce` on the other hand positions itself closer to the 
 "anything goes - the user is responsible for the quality of the output". Be very
 aware of this responsibility! Bad visualizations lie about, distorts, and 
-obscurify the data behind them, both to you and the ones you share your 
+obscure the data behind them, both to you and the ones you share your 
 visualizations with.
 
 ### Installation
@@ -62,7 +62,7 @@ ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
     facet_zoom(x = Species == "versicolor")
 ```
 
-![facet_zoom](https://dl.dropboxusercontent.com/u/2323585/ggforce/facet_zoom.png)
+![facet_zoom](https://www.dropbox.com/s/dpz91x0wp0tkp5t/facet_zoom.png?raw=1)
 
 ### Contributions
 Pull and feature requests are very welcome. Obviously PR's will lead to faster
@@ -74,13 +74,13 @@ If a PR is for a new feature, it should be self contained, possibly using
 already implemented functionality if applicable. All exported functions should
 be documented following the style from ggplot2 using roxygen2 comment. You can
 credit yourself with the implementation in the documentation. If the feature 
-concerns a visualization appraoch invented by others, please link to the article
+concerns a visualization approach invented by others, please link to the article
 describing the approach.
 
 #### Feature requests
 If a feature is wished, but skill, time or other is lacking to create a full PR,
 please file an issue. The feature request should provide a detailed description
-of the nature of the feature, with links to relevant litterature describing the
+of the nature of the feature, with links to relevant literature describing the
 visualization type, as well as possible use cases to guide in designing the use
 cases.
 
