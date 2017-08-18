@@ -184,7 +184,7 @@ StatSina <- ggproto("StatSina", Stat,
   setup_params = function(data, params) {
     #Limit maxwidth to 0.96 to leave some space between groups
     if (!is.null(params$maxwidth))
-      params$maxwidth <- (min(abs(params$maxwidth), .96))
+      params$maxwidth <- abs(params$maxwidth) # needs to be positive
     else
       params$maxwidth <- 0.96
 
@@ -243,18 +243,10 @@ StatSina <- ggproto("StatSina", Stat,
 
       #confine the samples in a (-maxwidth/2, -maxwidth/2) area around the
       #group's center
-      if (max(densities$y) > 0.5 * maxwidth)
-        intra_scaling_factor <- 0.5 * maxwidth / max(densities$y)
-      else
-        intra_scaling_factor <- (0.5 * maxwidth) / max(densities$y)
-
+      intra_scaling_factor <- 0.5 * maxwidth / max(densities$y)
     } else {
-      #allow up to 50 samples in a bin without scaling
-      if (max(bin_counts) > 50 * maxwidth) {
-        intra_scaling_factor <- 50 * maxwidth / max(bin_counts)
-      } else
-        intra_scaling_factor <- (50 * maxwidth) / max(bin_counts)
-      }
+      intra_scaling_factor <- 0.5 * maxwidth / max(bin_counts)
+    }
 
     for (i in names(bin_counts)) {
       #examine bins with more than 'bin_limit' samples
@@ -268,7 +260,7 @@ StatSina <- ggproto("StatSina", Stat,
         if (method == "density")
           xmax <- mean(densities$y[findInterval(densities$x, cur_bin) == 1])
         else
-          xmax <- bin_counts[i] / 100
+          xmax <- bin_counts[i]
 
         #assign the samples uniformely within the specified range
         x_translation <- stats::runif(bin_counts[i], - xmax, xmax)
