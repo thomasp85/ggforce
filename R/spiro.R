@@ -30,6 +30,7 @@
 #' }
 #'
 #' @inheritParams ggplot2::geom_path
+#' @inheritParams ggplot2::stat_identity
 #'
 #' @param n The number of points that should be used to draw a fully closed
 #' spirogram. If \code{revolutions < 1} the actual number of points will be less

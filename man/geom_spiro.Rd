@@ -34,6 +34,8 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
    the plot data. The return value must be a \code{data.frame.}, and
    will be used as the layer data.}
 
+\item{geom}{The geometric object to use display the data}
+
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 

@@ -283,6 +283,26 @@ p + geom_violin(aes(fill = Distribution))
 p + geom_sina(aes(color = Distribution), size = 1)
 ```
 
+# Spirographs
+Spirographs are most well known for the plastic toys consisting of interlocking
+gears that can be used to create circular patterns. There's math behind it 
+though, so it's not a problem to provide a parameterized version where the gear
+dimensions define the resulting pattern. One nice benefit of doing the drawing
+on a computer is that you are not limited by physical boundaries, and it is thus
+possible to create pattern not possible wih the standard toy set (e.g. the 
+pencil does not have to be positioned inside the revolving gear).
+
+```{r}
+ggplot() +
+  geom_spiro(aes(R = 10, r = 3, d = 5))
+# Only draw a portion
+ggplot() +
+  geom_spiro(aes(R = 10, r = 3, d = 5), revolutions = 1.2)
+# Let the inner gear circle the outside of the outer gear
+ggplot() +
+  geom_spiro(aes(R = 10, r = 3, d = 5, outer = TRUE))
+```
+
 # Facets
 Facets has been an integral part of the success of ggplot2. With v2.2 facets
 extensions finally became a possibility. While the idea of facets is to create
