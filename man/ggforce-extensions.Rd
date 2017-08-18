@@ -34,6 +34,7 @@
 \alias{ScaleContinuousPositionUnit}
 \alias{StatSina}
 \alias{GeomSina}
+\alias{StatSpiro}
 \alias{StatVoronoiTile}
 \alias{StatVoronoiSegment}
 \alias{StatDelaunayTile}

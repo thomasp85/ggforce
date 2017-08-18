@@ -10,6 +10,8 @@ Description: The aim of 'ggplot2' is to aid in visual data investigations. This
     'ggforce' aims to be a collection of mainly new stats and geoms that fills
     this gap. All additional functionality is aimed to come through the official
     extension system so using 'ggforce' should be a stable experience.
+URL: https://github.com/thomasp85/ggforce
+BugReports: https://github.com/thomasp85/ggforce/issues
 License: GPL (>=2)
 LazyData: TRUE
 Depends:
@@ -52,9 +54,11 @@ Collate:
     'ggproto-classes.R'
     'interpolate.R'
     'link.R'
+    'position-jitternormal.R'
     'scale-depth.R'
     'scale-unit.R'
     'sina.R'
+    'spiro.R'
     'themes.R'
     'trans.R'
     'trans_linear.R'
