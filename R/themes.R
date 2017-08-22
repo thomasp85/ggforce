@@ -5,7 +5,7 @@
 #' have little meaning.
 #'
 #' @param base.theme The theme to use as a base for the new theme. Defaults to
-#' \code{\link[ggplot2]{theme_bw}()}.
+#' [ggplot2::theme_bw()].
 #'
 #' @return A modified version of base.theme
 #'

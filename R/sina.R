@@ -8,14 +8,14 @@
 #' @details There are two available ways to define the x-axis borders for the
 #' samples to spread within:
 #' \itemize{
-#'  \item{\code{method == "density"}
+#'  \item{`method == "density"`
 #'
 #'    A density kernel is estimated along the y-axis for every sample group. The
 #'    borders are then defined by the density curve. Tuning parameter
-#'    \code{adjust} can be used to control the density bandwidth in the same way
-#'    it is used in \code{\link[stats]{density}}. }
+#'    `adjust` can be used to control the density bandwidth in the same way
+#'    it is used in [stats::density()]. }
 #'
-#'  \item{\code{method == "counts"}:
+#'  \item{`method == "counts"`:
 #'
 #'    The borders are defined by the number of samples that occupy the same bin.
 #'
@@ -23,72 +23,42 @@
 #' }
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
+#' geom_sina understand the following aesthetics (required aesthetics are in
+#' bold):
 #'
-#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-#' or \code{\link[ggplot2]{aes_}}. If specified and \code{inherit.aes = TRUE}
-#' (the default), is combined with the default mapping at the top level of the
-#' plot. You only need to supply mapping if there isn't a mapping defined for
-#' the plot.
+#' - **x**
+#' - **y**
+#' - color
+#' - group
+#' - size
+#' - alpha
 #'
-#' @param data A data frame. If specified, overrides the default data frame
-#' defined at the top level of the plot.
+#' @inheritParams ggplot2::geom_path
+#' @inheritParams ggplot2::stat_identity
 #'
-#' @param stat The statistical transformation to use on the data for this layer,
-#' as a string.
-#'
-#'
-#' @param position Position adjustment, either as a string, or the result of a
-#' call to a position adjustment function.
-#'
-#' @param binwidth The width of the bins. The default is to use \code{bins}
+#' @param binwidth The width of the bins. The default is to use `bins`
 #'   bins that cover the range of the data. You should always override
 #'   this value, exploring multiple widths to find the best to illustrate the
 #'   stories in your data.
 #'
 #' @param bins Number of bins. Overridden by binwidth. Defaults to 50.
 #'
-#' @param scale Logical. When set to \code{TRUE} x-coordinate widths across all
+#' @param scale Logical. When set to `TRUE` x-coordinate widths across all
 #' groups are scaled based on the densiest area in the plot.
-#' Default: \code{TRUE}
+#' Default: `TRUE`
 #'
 #' @param method Choose the method to spread the samples within the same
 #' bin along the x-axis. Available methods: "density", "counts" (can be
-#' abbreviated, e.g. "d"). See \code{Details}.
+#' abbreviated, e.g. "d"). See `Details`.
 #'
 #' @param maxwidth Control the maximum width the points can spread into. Values
 #' between 0 and 1.
 #'
 #' @param adjust Adjusts the bandwidth of the density kernel when
-#' \code{method == "density"} (see \code{\link[stats]{density}}).
+#' `method == "density"` (see [stats::density()]).
 #'
 #' @param bin_limit If the samples within the same y-axis bin are more
-#' than \code{bin_limit}, the samples's X coordinates will be adjusted.
-#'
-#' @param ... other arguments passed on to \code{\link[ggplot2]{layer}}. There
-#' are three types of arguments you can use here:
-#' \itemize{
-#'  \item{Aesthetics: to set an aesthetic to a fixed value, like
-#'  \code{color = "red"} or \code{size = 3.}}
-#'  \item{Other arguments to the layer, for example you override the default
-#'  \code{stat} associated with the layer.}
-#'  \item{Other arguments passed on to the stat.}
-#' }
-#'
-#' @param na.rm If \code{FALSE} (the default), removes missing values with a
-#' warning. If \code{TRUE} silently removes missing values.
-#'
-#' @param show.legend logical. Should this layer be included in the legends?
-#' \code{NA}, the default, includes if any aesthetics are mapped. \code{FALSE}
-#' never includes, and \code{TRUE} always includes.
-#'
-#' @param inherit.aes If \code{FALSE}, overrides the default aesthetics, rather
-#' than combining with them. This is most useful for helper functions that
-#' define both data and aesthetics and shouldn't inherit behaviour from the
-#' default plot specification, e.g. borders.
-#'
-#' @param geom, stat Override the default connection between \code{geom_sina}
-#' and \code{stat_sina}.
+#' than `bin_limit`, the samples's X coordinates will be adjusted.
 #'
 #' @author Nikos Sidiropoulos
 #'

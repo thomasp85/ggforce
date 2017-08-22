@@ -31,8 +31,8 @@ column corresponds to one factor. Thus there will be more than
 one with formulae of the type \code{~cyl + am}. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
-for compatibility with \code{\link{labeller}()}. See
-\code{\link{label_value}} for more details and pointers to other
+for compatibility with \code{\link[=labeller]{labeller()}}. See
+\code{\link[=label_value]{label_value()}} for more details and pointers to other
 options.}
 
 \item{as.table}{If \code{TRUE}, the default, the facets are laid out like
@@ -55,12 +55,12 @@ vertical.}
 \item{strip.position}{By default, the labels are displayed on the top of
 the plot. Using \code{strip.position} it is possible to place the labels on
 either of the four sides by setting \code{strip.position = c("top",
-"bottom", "left", "right")}}
+  "bottom", "left", "right")}}
 
 \item{page}{The page to draw}
 }
 \description{
-This extension to \code{\link[ggplot2]{facet_wrap}} will allow you to split
+This extension to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}} will allow you to split
 a facetted plot over multiple pages. You define a number of rows and columns
 per page as well as the page number to plot, and the function will
 automatically only plot the correct panels. Usually this will be put in a

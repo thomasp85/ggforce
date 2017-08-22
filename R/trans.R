@@ -142,7 +142,7 @@ radial_trans <- function(r.range, a.range, offset = pi/2, pad = 0.5,
 #' to one and creates a reverse version of it.
 #'
 #' @param trans A trans object or an object that can be converted to one using
-#' \code{\link[scales]{as.trans}}
+#' [scales::as.trans()]
 #'
 #' @return A trans object
 #'

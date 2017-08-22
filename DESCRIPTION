@@ -65,3 +65,5 @@ Collate:
     'trans.R'
     'trans_linear.R'
     'voronoi.R'
+Roxygen: list(markdown = TRUE)
+Remotes: tidyverse/ggplot2

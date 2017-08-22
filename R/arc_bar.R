@@ -19,21 +19,21 @@ NULL
 #' @section Aesthetics:
 #' geom_arc_bar understand the following aesthetics (required aesthetics are in
 #' bold):
-#' \itemize{
-#'  \item{\strong{x0}}
-#'  \item{\strong{y0}}
-#'  \item{\strong{r0}}
-#'  \item{\strong{r}}
-#'  \item{\strong{start} - when using stat_arc_bar}
-#'  \item{\strong{end} - when using stat_arc_bar}
-#'  \item{\strong{amount} - when using stat_pie}
-#'  \item{explode}
-#'  \item{color}
-#'  \item{fill}
-#'  \item{size}
-#'  \item{linetype}
-#'  \item{alpha}
-#' }
+#'
+#' - **x0**
+#' - **y0**
+#' - **r0**
+#' - **r**
+#' - **start** - when using stat_arc_bar
+#' - **end** - when using stat_arc_bar
+#' - **amount** - when using stat_pie
+#' - explode
+#' - color
+#' - fill
+#' - size
+#' - linetype
+#' - alpha
+#'
 #'
 #' @section Computed variables:
 #' \describe{
@@ -44,50 +44,13 @@ NULL
 #'  \item{x, y}{The start coordinates for the segment}
 #' }
 #'
-#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-#' or \code{\link[ggplot2]{aes_}}. If specified and \code{inherit.aes = TRUE}
-#' (the default), is combined with the default mapping at the top level of the
-#' plot. You only need to supply mapping if there isn't a mapping defined for
-#' the plot.
-#'
-#' @param data A data frame. If specified, overrides the default data frame
-#' defined at the top level of the plot.
-#'
-#' @param stat The statistical transformation to use on the data for this layer,
-#' as a string.
-#'
-#' @param position Position adjustment, either as a string, or the result of a
-#' call to a position adjustment function.
+#' @inheritParams ggplot2::geom_polygon
+#' @inheritParams ggplot2::stat_identity
 #'
 #' @param n The number of points used to draw a full circle. The number of
 #' points on each arc will then be calculated as n / span-of-arc
 #'
 #' @param sep The separation between arcs in pie/donut charts
-#'
-#' @param ... other arguments passed on to \code{\link[ggplot2]{layer}}. There
-#' are three types of arguments you can use here:
-#' \itemize{
-#'  \item{Aesthetics: to set an aesthetic to a fixed value, like
-#'  \code{color = "red"} or \code{size = 3.}}
-#'  \item{Other arguments to the layer, for example you override the default
-#'  \code{stat} associated with the layer.}
-#'  \item{Other arguments passed on to the stat.}
-#' }
-#'
-#' @param na.rm If \code{FALSE} (the default), removes missing values with a
-#' warning. If \code{TRUE} silently removes missing values.
-#'
-#' @param show.legend logical. Should this layer be included in the legends?
-#' \code{NA}, the default, includes if any aesthetics are mapped. \code{FALSE}
-#' never includes, and \code{TRUE} always includes.
-#'
-#' @param inherit.aes If \code{FALSE}, overrides the default aesthetics, rather
-#' than combining with them. This is most useful for helper functions that
-#' define both data and aesthetics and shouldn't inherit behaviour from the
-#' default plot specification, e.g. borders.
-#'
-#' @param geom, stat Override the default connection between \code{geom_arc_bar}
-#' and \code{stat_arc_bar}.
 #'
 #' @author Thomas Lin Pedersen
 #'
@@ -128,7 +91,7 @@ NULL
 #'   theme_no_axes() +
 #'   scale_fill_brewer('', type='qual')
 #'
-#' @seealso \code{\link{geom_arc}} for drawing arcs as lines
+#' @seealso [geom_arc()] for drawing arcs as lines
 #'
 NULL
 

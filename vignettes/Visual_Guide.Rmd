@@ -221,15 +221,18 @@ and an angle:
 ```{r}
 # Basic usage
 ggplot() +
-  geom_ellipse(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = 0)) +
+  geom_ellipsis(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = 0)) +
   coord_fixed()
 
 # Rotation
 # Note that it expects radians and rotates the ellipse counter-clockwise
 ggplot() +
-  geom_ellipse(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = pi/4)) +
+  geom_ellipsis(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = pi/4)) +
   coord_fixed()
 ```
+
+Be aware that `ggplot2` contains a `stat_ellipse` which estimates uncertainty
+ellipses to points.
 
 ## Links
 Links are the ggforce equivalent of segments, i.e. connecting two points by a 

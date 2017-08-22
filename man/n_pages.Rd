@@ -17,8 +17,8 @@ returns NULL
 }
 \description{
 This is a simple helper that returns the number of pages it takes to plot all
-panels when using \code{\link{facet_wrap_paginate}} and
-\code{\link{facet_grid_paginate}}. It partially builds the plot so depending
+panels when using \code{\link[=facet_wrap_paginate]{facet_wrap_paginate()}} and
+\code{\link[=facet_grid_paginate]{facet_grid_paginate()}}. It partially builds the plot so depending
 on the complexity of your plot it might take some time to calculate...
 }
 \examples{

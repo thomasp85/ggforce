@@ -1,27 +1,27 @@
 #' B-splines based on control points
 #'
 #' This set of stats and geoms makes it possible to draw b-splines based on a
-#' set of control points. As with \code{\link{geom_bezier}} there exists several
+#' set of control points. As with [geom_bezier()] there exists several
 #' versions each having there own strengths. The base version calculates the
 #' b-spline as a number of points along the spline and connects these with a
 #' path. The *2 version does the same but in addition interpolates aesthetics
 #' between each control point. This makes the *2 version considerably slower
 #' so it shouldn't be used unless needed. The *0 version uses
-#' \code{\link[grid]{xsplineGrob}} with \code{shape = 1} to approximate a
+#' [grid::xsplineGrob()] with `shape = 1` to approximate a
 #' b-spline for a high performant version.
 #'
 #' @section Aesthetics:
 #' geom_bspline understand the following aesthetics (required aesthetics are in
 #' bold):
-#' \itemize{
-#'  \item{\strong{x}}
-#'  \item{\strong{y}}
-#'  \item{color}
-#'  \item{size}
-#'  \item{linetype}
-#'  \item{alpha}
-#'  \item{lineend}
-#' }
+#'
+#'  - **x**
+#'  - **y**
+#'  - color
+#'  - size
+#'  - linetype
+#'  - alpha
+#'  - lineend
+#'
 #'
 #' @section Computed variables:
 #'
@@ -30,60 +30,14 @@
 #'  \item{index}{The progression along the interpolation mapped between 0 and 1}
 #' }
 #'
-#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-#' or \code{\link[ggplot2]{aes_}}. If specified and \code{inherit.aes = TRUE}
-#' (the default), is combined with the default mapping at the top level of the
-#' plot. You only need to supply mapping if there isn't a mapping defined for
-#' the plot.
-#'
-#' @param data A data frame. If specified, overrides the default data frame
-#' defined at the top level of the plot.
-#'
-#' @param stat The statistical transformation to use on the data for this layer,
-#' as a string.
-#'
-#' @param position Position adjustment, either as a string, or the result of a
-#' call to a position adjustment function.
-#'
-#' @param arrow specification for arrow heads, as created by arrow()
-#'
-#' @param lineend Line end style (round, butt, square)
+#' @inheritParams ggplot2::geom_path
+#' @inheritParams ggplot2::stat_identity
 #'
 #' @param n The number of points generated for each spline
-#'
-#' @param ... other arguments passed on to \code{\link[ggplot2]{layer}}. There
-#' are three types of arguments you can use here:
-#' \itemize{
-#'  \item{Aesthetics: to set an aesthetic to a fixed value, like
-#'  \code{color = "red"} or \code{size = 3.}}
-#'  \item{Other arguments to the layer, for example you override the default
-#'  \code{stat} associated with the layer.}
-#'  \item{Other arguments passed on to the stat.}
-#' }
-#'
-#' @param na.rm If \code{FALSE} (the default), removes missing values with a
-#' warning. If \code{TRUE} silently removes missing values.
-#'
-#' @param show.legend logical. Should this layer be included in the legends?
-#' \code{NA}, the default, includes if any aesthetics are mapped. \code{FALSE}
-#' never includes, and \code{TRUE} always includes.
-#'
-#' @param inherit.aes If \code{FALSE}, overrides the default aesthetics, rather
-#' than combining with them. This is most useful for helper functions that
-#' define both data and aesthetics and shouldn't inherit behaviour from the
-#' default plot specification, e.g. borders.
-#'
-#' @param geom, stat Override the default connection between \code{geom_arc} and
-#' \code{stat_arc}.
 #'
 #' @author Thomas Lin Pedersen. The C++ code for De Boor's algorithm has been
 #' adapted from
 #' \href{https://chi3x10.wordpress.com/2009/10/18/de-boor-algorithm-in-c/}{Jason Yu-Tseh Chi implementation}
-#'
-#' @references Holten, D. (2006). \emph{Hierarchical edge bundles: visualization
-#' of adjacency relations in hierarchical data.} IEEE Transactions on
-#' Visualization and Computer Graphics, \strong{12}(5), 741-748.
-#' http://doi.org/10.1109/TVCG.2006.147
 #'
 #' @name geom_bspline
 #' @rdname geom_bspline

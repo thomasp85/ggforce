@@ -8,7 +8,7 @@ trans_reverser(trans)
 }
 \arguments{
 \item{trans}{A trans object or an object that can be converted to one using
-\code{\link[scales]{as.trans}}}
+\code{\link[scales:as.trans]{scales::as.trans()}}}
 }
 \value{
 A trans object

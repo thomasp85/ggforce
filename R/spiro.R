@@ -9,18 +9,17 @@
 #' @section Aesthetics:
 #' stat_spiro and geom_spiro understand the following aesthetics (required
 #' aesthetics are in bold):
-#' \itemize{
-#'  \item{\strong{R}}
-#'  \item{\strong{r}}
-#'  \item{\strong{d}}
-#'  \item{x0}
-#'  \item{y0}
-#'  \item{outer}
-#'  \item{color}
-#'  \item{size}
-#'  \item{linetype}
-#'  \item{alpha}
-#' }
+#'
+#' - **R**
+#' - **r**
+#' - **d**
+#' - x0
+#' - y0
+#' - outer
+#' - color
+#' - size
+#' - linetype
+#' - alpha
 #'
 #' @section Computed variables:
 #'
@@ -33,11 +32,11 @@
 #' @inheritParams ggplot2::stat_identity
 #'
 #' @param n The number of points that should be used to draw a fully closed
-#' spirogram. If \code{revolutions < 1} the actual number of points will be less
+#' spirogram. If `revolutions < 1` the actual number of points will be less
 #' than this.
 #'
 #' @param revolutions The number of times the inner gear should revolve around
-#' inside the outer gear. If \code{NULL} the number of revolutions to reach the
+#' inside the outer gear. If `NULL` the number of revolutions to reach the
 #' starting position is calculated and used.
 #'
 #' @author Thomas Lin Pedersen

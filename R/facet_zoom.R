@@ -9,26 +9,26 @@
 #' @param x,y,xy An expression evaluating to a logical vector that determines
 #' the subset of data to zoom in on
 #'
-#' @param zoom.data An expression evaluating to a logical vector. If \code{TRUE}
-#' the data only shows in the zoom panels. If \code{FALSE} the data only show in
-#' the context panel. If \code{NA} the data will show in all panels.
+#' @param zoom.data An expression evaluating to a logical vector. If `TRUE`
+#' the data only shows in the zoom panels. If `FALSE` the data only show in
+#' the context panel. If `NA` the data will show in all panels.
 #'
 #' @param xlim,ylim Specific zoom ranges for each axis. If present they will
-#' override \code{x}, \code{y}, and/or \code{xy}.
+#' override `x`, `y`, and/or `xy`.
 #'
-#' @param split If both \code{x} and \code{y} is given, should each axis zoom
-#' be shown separately as well? Defaults to \code{FALSE}
+#' @param split If both `x` and `y` is given, should each axis zoom
+#' be shown separately as well? Defaults to `FALSE`
 #'
-#' @param horizontal If both \code{x} and \code{y} is given and
-#' \code{split = FALSE} How should the zoom panel be positioned relative to the
-#' full data panel? Defaults to \code{TRUE}
+#' @param horizontal If both `x` and `y` is given and
+#' `split = FALSE` How should the zoom panel be positioned relative to the
+#' full data panel? Defaults to `TRUE`
 #'
 #' @param zoom.size Sets the relative size of the zoom panel to the full data
-#' panel. The default (\code{2}) makes the zoom panel twice the size of the full
+#' panel. The default (`2`) makes the zoom panel twice the size of the full
 #' data panel.
 #'
 #' @param show.area Should the zoom area be drawn below the data points on the
-#' full data panel? Defaults to \code{TRUE}.
+#' full data panel? Defaults to `TRUE`.
 #'
 #' @inheritParams ggplot2::facet_wrap
 #'

@@ -1,13 +1,13 @@
 #' Draw polygons with expansion/contraction and/or rounded corners
 #'
-#' This geom is a cousin of \code{\link[ggplot2]{geom_polygon}} with the added
+#' This geom is a cousin of [ggplot2::geom_polygon()] with the added
 #' possibility of expanding or contracting the polygon by an absolute amount
 #' (e.g. 1 cm). Furthermore, it is possible to round the corners of the polygon,
 #' again by an absolute amount. The resulting geom reacts to resizing of the
 #' plot, so the expansion/contraction and corner radius will not get distorted.
 #' If no expansion/contraction or corner radius is specified, the geom falls
-#' back to \code{geom_polygon} so there is no performance penality in using this
-#' instead of \code{geom_polygon}.
+#' back to `geom_polygon` so there is no performance penality in using this
+#' instead of `geom_polygon`.
 #'
 #' @note Some settings can result in the dissappearance of polygons,
 #' specifically when contracting or rounding corners with a relatively large
@@ -15,18 +15,17 @@
 #' account and the resulting polygon might thus not fit into the plot.
 #'
 #' @section Aesthetics:
-#' geom_link, geom_link2 and geom_lin0 understand the following aesthetics
-#' (required aesthetics are in bold):
-#' \itemize{
-#'  \item{\strong{x}}
-#'  \item{\strong{y}}
-#'  \item{color}
-#'  \item{fill}
-#'  \item{group}
-#'  \item{size}
-#'  \item{linetype}
-#'  \item{alpha}
-#' }
+#' geom_shape understand the following aesthetics (required aesthetics are in
+#' bold):
+#'
+#' - **x**
+#' - **y**
+#' - color
+#' - fill
+#' - group
+#' - size
+#' - linetype
+#' - alpha
 #'
 #' @inheritParams ggplot2::geom_polygon
 #'
@@ -35,7 +34,7 @@
 #' value is given as a numeric it will be understood as a proportion of the
 #' plot area width.
 #'
-#' @param radius As \code{expand} but specifying the corner radius.
+#' @param radius As `expand` but specifying the corner radius.
 #'
 #' @author Thomas Lin Pedersen
 #'

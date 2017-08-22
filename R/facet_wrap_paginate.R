@@ -1,6 +1,6 @@
 #' Split facet_wrap over multiple plots
 #'
-#' This extension to \code{\link[ggplot2]{facet_wrap}} will allow you to split
+#' This extension to [ggplot2::facet_wrap()] will allow you to split
 #' a facetted plot over multiple pages. You define a number of rows and columns
 #' per page as well as the page number to plot, and the function will
 #' automatically only plot the correct panels. Usually this will be put in a
@@ -10,8 +10,8 @@
 #' @param ncol Number of rows and columns
 #' @param page The page to draw
 #'
-#' @note If either \code{ncol} or \code{nrow} is \code{NULL} this function will
-#' fall back to the standard \code{facet_wrap} functionality.
+#' @note If either `ncol` or `nrow` is `NULL` this function will
+#' fall back to the standard `facet_wrap` functionality.
 #'
 #' @family ggforce facets
 #'
@@ -133,8 +133,8 @@ FacetWrapPaginate <- ggproto("FacetWrapPaginate", FacetWrap,
 #' Determine the number of pages in a paginated facet plot
 #'
 #' This is a simple helper that returns the number of pages it takes to plot all
-#' panels when using \code{\link{facet_wrap_paginate}} and
-#' \code{\link{facet_grid_paginate}}. It partially builds the plot so depending
+#' panels when using [facet_wrap_paginate()] and
+#' [facet_grid_paginate()]. It partially builds the plot so depending
 #' on the complexity of your plot it might take some time to calculate...
 #'
 #' @param plot A ggplot object using either facet_wrap_paginate or
