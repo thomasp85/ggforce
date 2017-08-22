@@ -57,6 +57,45 @@ Often the focus will be on the geoms, unless a new stat does not have an
 accompanying geom, in which case the stat will be discussed along with which
 geoms it should be used with.
 
+## Shapes
+Most area based geoms in `ggplot2` is using `geom_polygon()` underneath in order
+to draw the shapes. `ggforce` offers a more powerful version of this 
+functionality in the form of `geom_shape` which is used in all the area based 
+geoms in ggforce, and can be dropped in everywhere `geom_polygon()` is being 
+used in `ggplot2` and elsewhere. The difference between `geom_shape()` and 
+`geom_polygon()` lies in the ability of `geom_shape()` to round its corners as
+well as expand and contract itself by absolute amounts (i.e. not relative to
+the plot dimensions). All of these ability is automatically transferred to all
+the other geoms that depends on `geom_shape()`
+
+```{r}
+# Adapted from geom_polygon documentation
+ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
+
+values <- data.frame(
+  id = ids,
+  value = c(3, 3.1, 3.1, 3.2, 3.15, 3.5)
+)
+
+positions <- data.frame(
+  id = rep(ids, each = 4),
+  x = c(2, 1, 1.1, 2.2, 1, 0, 0.3, 1.1, 2.2, 1.1, 1.2, 2.5, 1.1, 0.3,
+  0.5, 1.2, 2.5, 1.2, 1.3, 2.7, 1.2, 0.5, 0.6, 1.3),
+  y = c(-0.5, 0, 1, 0.5, 0, 0.5, 1.5, 1, 0.5, 1, 2.1, 1.7, 1, 1.5,
+  2.2, 2.1, 1.7, 2.1, 3.2, 2.8, 2.1, 2.2, 3.3, 3.2)
+)
+
+datapoly <- merge(values, positions, by = c("id"))
+
+ggplot(datapoly, aes(x = x, y = y)) +
+  geom_shape(aes(fill = value, group = id), expand = unit(-3, 'mm'))
+ggplot(datapoly, aes(x = x, y = y)) +
+  geom_shape(aes(fill = value, group = id), radius = unit(3, 'mm'))
+ggplot(datapoly, aes(x = x, y = y)) +
+  geom_shape(aes(fill = value, group = id), expand = unit(3, 'mm'), radius = unit(2, 'mm'), alpha = 0.5)
+```
+
+
 ## Arcs
 Arcs are segments of a circle and defined by a centre point, a radius and a 
 start and end angle. In ggforce arcs come in two flavors: arc and arc_bar, where
