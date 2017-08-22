@@ -2,7 +2,7 @@
 #'
 #' These are the default scales for the units class. These will
 #' usually be added automatically. To override manually, use
-#' \code{scale_*_unit}.
+#' `scale_*_unit`.
 #'
 #' @inheritParams ggplot2::continuous_scale
 #' @inheritParams ggplot2::scale_x_continuous
@@ -132,5 +132,6 @@ ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleConti
 #' @rdname scale_unit
 #' @format NULL
 #' @usage NULL
+#' @importFrom ggplot2 scale_type
 #' @export
 scale_type.units <- function(x) c('unit', 'continuous')

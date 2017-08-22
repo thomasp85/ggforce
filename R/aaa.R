@@ -1,6 +1,8 @@
 globalVariables(
     c(
-        '.'
+        '.',
+        'x',
+        'y'
     )
 )
 

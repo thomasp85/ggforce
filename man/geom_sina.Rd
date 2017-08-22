@@ -3,6 +3,7 @@
 \name{geom_sina}
 \alias{geom_sina}
 \alias{stat_sina}
+\alias{geom_sina}
 \title{Sina plot}
 \usage{
 stat_sina(mapping = NULL, data = NULL, geom = "sina",
@@ -15,30 +16,34 @@ geom_sina(mapping = NULL, data = NULL, stat = "sina",
   inherit.aes = TRUE)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-or \code{\link[ggplot2]{aes_}}. If specified and \code{inherit.aes = TRUE}
-(the default), is combined with the default mapping at the top level of the
-plot. You only need to supply mapping if there isn't a mapping defined for
-the plot.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
+\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
+default), it is combined with the default mapping at the top level of the
+plot. You must supply \code{mapping} if there is no plot mapping.}
 
-\item{data}{A data frame. If specified, overrides the default data frame
-defined at the top level of the plot.}
+\item{data}{The data to be displayed in this layer. There are three
+options:
 
-\item{geom, }{stat Override the default connection between \code{geom_sina}
-and \code{stat_sina}.}
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
 
-\item{position}{Position adjustment, either as a string, or the result of a
-call to a position adjustment function.}
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[=fortify]{fortify()}} for which variables will be created.
 
-\item{...}{other arguments passed on to \code{\link[ggplot2]{layer}}. There
-are three types of arguments you can use here:
-\itemize{
- \item{Aesthetics: to set an aesthetic to a fixed value, like
- \code{color = "red"} or \code{size = 3.}}
- \item{Other arguments to the layer, for example you override the default
- \code{stat} associated with the layer.}
- \item{Other arguments passed on to the stat.}
-}}
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame.}, and
+will be used as the layer data.}
+
+\item{geom}{The geometric object to use display the data}
+
+\item{position}{Position adjustment, either as a string, or the result of
+a call to a position adjustment function.}
+
+\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{color = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
 
 \item{binwidth}{The width of the bins. The default is to use \code{bins}
 bins that cover the range of the data. You should always override
@@ -59,25 +64,27 @@ abbreviated, e.g. "d"). See \code{Details}.}
 between 0 and 1.}
 
 \item{adjust}{Adjusts the bandwidth of the density kernel when
-\code{method == "density"} (see \code{\link[stats]{density}}).}
+\code{method == "density"} (see \code{\link[stats:density]{stats::density()}}).}
 
 \item{bin_limit}{If the samples within the same y-axis bin are more
 than \code{bin_limit}, the samples's X coordinates will be adjusted.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with a
-warning. If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
-\code{NA}, the default, includes if any aesthetics are mapped. \code{FALSE}
-never includes, and \code{TRUE} always includes.}
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
 
-\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics, rather
-than combining with them. This is most useful for helper functions that
-define both data and aesthetics and shouldn't inherit behaviour from the
-default plot specification, e.g. borders.}
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{stat}{The statistical transformation to use on the data for this layer,
-as a string.}
+\item{stat}{The statistical transformation to use on the data for this
+layer, as a string.}
 }
 \description{
 The sina plot is a data visualization chart suitable for plotting any single
@@ -89,33 +96,43 @@ the data within each class.
 There are two available ways to define the x-axis borders for the
 samples to spread within:
 \itemize{
- \item{\code{method == "density"}
+\item{\code{method == "density"}
 
-   A density kernel is estimated along the y-axis for every sample group. The
-   borders are then defined by the density curve. Tuning parameter
-   \code{adjust} can be used to control the density bandwidth in the same way
-   it is used in \code{\link[stats]{density}}. }
+A density kernel is estimated along the y-axis for every sample group. The
+borders are then defined by the density curve. Tuning parameter
+\code{adjust} can be used to control the density bandwidth in the same way
+it is used in \code{\link[stats:density]{stats::density()}}. }
 
- \item{\code{method == "counts"}:
+\item{\code{method == "counts"}:
 
-   The borders are defined by the number of samples that occupy the same bin.
+The borders are defined by the number of samples that occupy the same bin.
 
-  }
+}
 }
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
+geom_sina understand the following aesthetics (required aesthetics are in
+bold):
+\itemize{
+\item \strong{x}
+\item \strong{y}
+\item color
+\item group
+\item size
+\item alpha
+}
 }
 
 \section{Computed variables}{
 
 
 \describe{
-  \item{bin_counts}{sample counts per bin per group}
-  \item{scaled}{adjusted x-coordinates}
+\item{bin_counts}{sample counts per bin per group}
+\item{scaled}{adjusted x-coordinates}
 }
 }
+
 \examples{
 ggplot(midwest, aes(state, area)) + geom_point()
 
@@ -175,4 +192,3 @@ p + geom_violin() + geom_sina(scale = FALSE)
 \author{
 Nikos Sidiropoulos
 }
-

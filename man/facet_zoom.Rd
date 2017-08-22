@@ -76,8 +76,7 @@ ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
 
 }
 \seealso{
-Other ggforce.facets: \code{\link{facet_grid_paginate}},
+Other ggforce facets: \code{\link{facet_grid_paginate}},
   \code{\link{facet_stereo}},
   \code{\link{facet_wrap_paginate}}
 }
-

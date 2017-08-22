@@ -1,6 +1,6 @@
 #' Split facet_grid over multiple plots
 #'
-#' This extension to \code{\link[ggplot2]{facet_grid}} will allow you to split
+#' This extension to [ggplot2::facet_grid()] will allow you to split
 #' a facetted plot over multiple pages. You define a number of rows and columns
 #' per page as well as the page number to plot, and the function will
 #' automatically only plot the correct panels. Usually this will be put in a
@@ -12,8 +12,8 @@
 #' @param page The page to draw
 #' @param byrow Should the pages be created row-wise or column wise
 #'
-#' @note If either \code{ncol} or \code{nrow} is \code{NULL} this function will
-#' fall back to the standard \code{facet_grid} functionality.
+#' @note If either `ncol` or `nrow` is `NULL` this function will
+#' fall back to the standard `facet_grid` functionality.
 #'
 #' @family ggforce facets
 #'

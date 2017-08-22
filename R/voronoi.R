@@ -1,60 +1,63 @@
+#' @include shape.R
+NULL
+
 #' Voronoi tesselation and delaunay triangulation
 #'
 #' This set of geoms and stats allows you to display voronoi tesselation and
 #' delaunay triangulation, both as polygons and as line segments. Furthermore
 #' it lets you augment your point data with related summary statistics. The
-#' computations are based on the \code{\link[deldir]{deldir}} package.
+#' computations are based on the [deldir::deldir()] package.
 #'
 #' @section Aesthetics:
 #' geom_voronoi_tile and geom_delaunay_tile understand the following aesthetics
 #' (required aesthetics are in bold):
-#' \itemize{
-#'  \item{\strong{x}}
-#'  \item{\strong{y}}
-#'  \item{alpha}
-#'  \item{color}
-#'  \item{fill}
-#'  \item{linetype}
-#'  \item{size}
-#' }
+#'
+#' - **x**
+#' - **y**
+#' - alpha
+#' - color
+#' - fill
+#' - linetype
+#' - size
+#'
 #' geom_voronoi_segment, geom_delaunay_segment, and geom_delaunay_segment2
 #' understand the following aesthetics (required aesthetics are in bold):
-#' \itemize{
-#'  \item{\strong{x}}
-#'  \item{\strong{y}}
-#'  \item{alpha}
-#'  \item{color}
-#'  \item{linetype}
-#'  \item{size}
-#' }
+#'
+#' - **x**
+#' - **y**
+#' - alpha
+#' - color
+#' - linetype
+#' - size
 #'
 #' @section Computed variables:
 #' stat_delvor_summary computes the following variables:
 #' \describe{
-#'  \item{x, y}{If \code{switch.centroid = TRUE} this will be the coordinates for
+#'  \item{x, y}{If `switch.centroid = TRUE` this will be the coordinates for
 #'  the voronoi tile centroid, otherwise it is the original point}
-#'  \item{xcent, ycent}{If \code{switch.centroid = FALSE} this will be the
-#'  coordinates for the voronoi tile centroid, otherwise it will be \code{NULL}}
-#'  \item{xorig, yorig}{If \code{switch.centroid = TRUE} this will be the
-#'  coordinates for the original point, otherwise it will be \code{NULL}}
+#'  \item{xcent, ycent}{If `switch.centroid = FALSE` this will be the
+#'  coordinates for the voronoi tile centroid, otherwise it will be `NULL`}
+#'  \item{xorig, yorig}{If `switch.centroid = TRUE` this will be the
+#'  coordinates for the original point, otherwise it will be `NULL`}
 #'  \item{ntri}{Number of triangles emanating from the point}
 #'  \item{triarea}{The total area of triangles emanating from the point divided
 #'  by 3}
-#'  \item{triprop}{\code{triarea} divided by the sum of the area of all
+#'  \item{triprop}{`triarea` divided by the sum of the area of all
 #'  triangles}
 #'  \item{nsides}{Number of sides on the voronoi tile associated with the point}
 #'  \item{nedges}{Number of sides of the associated voronoi tile that is part of
 #'  the bounding box}
 #'  \item{vorarea}{The area of the voronoi tile associated with the point}
-#'  \item{vorprop}{\code{vorarea} divided by the sum of all voronoi tiles}
+#'  \item{vorprop}{`vorarea` divided by the sum of all voronoi tiles}
 #' }
 #'
 #' @inheritParams ggplot2::geom_polygon
 #' @inheritParams ggplot2::geom_segment
+#' @inheritParams ggplot2::stat_identity
 #' @inheritParams geom_link
 #'
 #' @param bound The bounding rectangle for the tesselation. Defaults to
-#' \code{NULL} which creates a rectangle expanded 10\% in all directions. If
+#' `NULL` which creates a rectangle expanded 10\% in all directions. If
 #' supplied it should be a vector giving the bounds in the following order:
 #' xmin, xmax, ymin, ymax.
 #'
@@ -64,9 +67,9 @@
 #' upward or downward.
 #'
 #' @param normalize Should coordinates be normalized prior to calculations. If
-#' \code{x} and \code{y} are in wildly different ranges it can lead to
+#' `x` and `y` are in wildly different ranges it can lead to
 #' tesselation and triangulation that seems off when plotted without
-#' \code{\link[ggplot2]{coord_fixed}}. Normalization of coordinates solves this.
+#' [ggplot2::coord_fixed()]. Normalization of coordinates solves this.
 #' The coordinates are transformed back after calculations.
 #'
 #' @author Thomas Lin Pedersen
@@ -135,12 +138,13 @@ StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
 )
 
 #' @rdname geom_delvor
-#' @importFrom ggplot2 layer GeomPolygon
+#' @importFrom ggplot2 layer
+#' @inheritParams geom_shape
 #' @export
 geom_voronoi_tile <- function(mapping = NULL, data = NULL, stat = "voronoi_tile",
                         position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-9, normalize = FALSE,
-                        show.legend = NA, inherit.aes = TRUE, ...) {
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomPolygon,
+                        expand = 0, radius = 0, show.legend = NA, inherit.aes = TRUE, ...) {
+    layer(data = data, mapping = mapping, stat = stat, geom = GeomShape,
           position = position, show.legend = show.legend, inherit.aes = inherit.aes,
           params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm, ...))
 }
@@ -235,12 +239,13 @@ StatDelaunayTile <- ggproto('StatDelaunayTile', Stat,
 )
 
 #' @rdname geom_delvor
-#' @importFrom ggplot2 layer GeomPolygon
+#' @importFrom ggplot2 layer
+#' @inheritParams geom_shape
 #' @export
 geom_delaunay_tile <- function(mapping = NULL, data = NULL, stat = "delaunay_tile",
                               position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-9, normalize = FALSE,
-                              show.legend = NA, inherit.aes = TRUE, ...) {
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomPolygon,
+                              expand = 0, radius = 0, show.legend = NA, inherit.aes = TRUE, ...) {
+    layer(data = data, mapping = mapping, stat = stat, geom = GeomShape,
           position = position, show.legend = show.legend, inherit.aes = inherit.aes,
           params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm, ...))
 }

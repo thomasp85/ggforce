@@ -10,6 +10,8 @@ Description: The aim of 'ggplot2' is to aid in visual data investigations. This
     'ggforce' aims to be a collection of mainly new stats and geoms that fills
     this gap. All additional functionality is aimed to come through the official
     extension system so using 'ggforce' should be a stable experience.
+URL: https://github.com/thomasp85/ggforce
+BugReports: https://github.com/thomasp85/ggforce/issues
 License: GPL (>=2)
 LazyData: TRUE
 Depends:
@@ -26,23 +28,26 @@ Imports:
     gtable,
     lazyeval,
     plyr,
-    deldir
+    deldir,
+    polyclip
 LinkingTo: Rcpp
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Suggests:
     knitr,
     rmarkdown,
     devtools,
     reshape2
 VignetteBuilder: knitr
-Collate:
+Collate: 
     'RcppExports.R'
     'aaa.R'
+    'shape.R'
     'arc_bar.R'
     'arc.R'
     'bezier.R'
     'bspline.R'
     'circle.R'
+    'ellipse.R'
     'facet_grid_paginate.R'
     'facet_stereo.R'
     'facet_wrap_paginate.R'
@@ -51,10 +56,14 @@ Collate:
     'ggproto-classes.R'
     'interpolate.R'
     'link.R'
+    'position-jitternormal.R'
     'scale-depth.R'
     'scale-unit.R'
     'sina.R'
+    'spiro.R'
     'themes.R'
     'trans.R'
     'trans_linear.R'
     'voronoi.R'
+Roxygen: list(markdown = TRUE)
+Remotes: tidyverse/ggplot2

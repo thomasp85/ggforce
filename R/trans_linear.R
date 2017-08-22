@@ -3,12 +3,12 @@
 #' This function lets you compose transformations based on a sequence of linear
 #' transformations. If the transformations are parameterised the parameters will
 #' become arguments in the transformation function. The transformations are
-#' one of \code{rotate}, \code{shear}, \code{stretch}, \code{translate}, and
-#' \code{reflect}.
+#' one of `rotate`, `shear`, `stretch`, `translate`, and
+#' `reflect`.
 #'
 #' @param ... A number of transformation functions.
 #'
-#' @return \code{linear_trans} creates a trans object. The other functions
+#' @return `linear_trans` creates a trans object. The other functions
 #' return a 3x3 transformation matrix.
 #'
 #' @export

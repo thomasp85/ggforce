@@ -6,7 +6,7 @@
 #' experience the effect look at the plots through 3D hardware such as Google
 #' Cardboard or by relaxing the eyes and focusing into the distance. The
 #' depth of a point is calculated for layers having a depth aesthetic supplied.
-#' The scaling of the depth can be controlled with \code{\link{scale_depth}} as
+#' The scaling of the depth can be controlled with [scale_depth()] as
 #' you would control any aesthetic. Negative values will result in features
 #' placed behind the paper plane, while positive values will result in
 #' features hovering in front of the paper. While features within each layer is

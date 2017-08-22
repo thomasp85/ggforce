@@ -7,7 +7,7 @@ NULL
 #' on a centre point, a radius and a start and end angle (in radians). These
 #' functions are intended for cartesian coordinate systems and makes it possible
 #' to create circular plot types without using the
-#' \code{\link[ggplot2]{coord_polar}} coordinate system.
+#' [ggplot2::coord_polar()] coordinate system.
 #'
 #' @details An arc is a segment of a line describing a circle. It is the
 #' fundamental visual element in donut charts where the length of the segment
@@ -17,18 +17,17 @@ NULL
 #' @section Aesthetics:
 #' geom_arc understand the following aesthetics (required aesthetics are in
 #' bold):
-#' \itemize{
-#'  \item{\strong{x0}}
-#'  \item{\strong{y0}}
-#'  \item{\strong{r}}
-#'  \item{\strong{start}}
-#'  \item{\strong{end}}
-#'  \item{color}
-#'  \item{size}
-#'  \item{linetype}
-#'  \item{alpha}
-#'  \item{lineend}
-#' }
+#'
+#' - **x0**
+#' - **y0**
+#' - **r**
+#' - **start**
+#' - **end**
+#' - color
+#' - size
+#' - linetype
+#' - alpha
+#' - lineend
 #'
 #' @section Computed variables:
 #'
@@ -38,55 +37,14 @@ NULL
 #'  \item{curvature}{The curvature of the curveGrob to match a circle}
 #' }
 #'
-#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-#' or \code{\link[ggplot2]{aes_}}. If specified and \code{inherit.aes = TRUE}
-#' (the default), is combined with the default mapping at the top level of the
-#' plot. You only need to supply mapping if there isn't a mapping defined for
-#' the plot.
-#'
-#' @param data A data frame. If specified, overrides the default data frame
-#' defined at the top level of the plot.
-#'
-#' @param stat The statistical transformation to use on the data for this layer,
-#' as a string.
-#'
-#' @param position Position adjustment, either as a string, or the result of a
-#' call to a position adjustment function.
-#'
-#' @param arrow specification for arrow heads, as created by arrow()
-#'
-#' @param lineend Line end style (round, butt, square)
+#' @inheritParams ggplot2::geom_path
+#' @inheritParams ggplot2::stat_identity
 #'
 #' @param n the smoothness of the arc. Sets the number of points to use if the
 #' arc would cover a full circle
 #'
 #' @param ncp the number of control points used to draw the arc with curveGrob.
 #' Determines how well the arc approximates a circle section
-#'
-#' @param ... other arguments passed on to \code{\link[ggplot2]{layer}}. There
-#' are three types of arguments you can use here:
-#' \itemize{
-#'  \item{Aesthetics: to set an aesthetic to a fixed value, like
-#'  \code{color = "red"} or \code{size = 3.}}
-#'  \item{Other arguments to the layer, for example you override the default
-#'  \code{stat} associated with the layer.}
-#'  \item{Other arguments passed on to the stat.}
-#' }
-#'
-#' @param na.rm If \code{FALSE} (the default), removes missing values with a
-#' warning. If \code{TRUE} silently removes missing values.
-#'
-#' @param show.legend logical. Should this layer be included in the legends?
-#' \code{NA}, the default, includes if any aesthetics are mapped. \code{FALSE}
-#' never includes, and \code{TRUE} always includes.
-#'
-#' @param inherit.aes If \code{FALSE}, overrides the default aesthetics, rather
-#' than combining with them. This is most useful for helper functions that
-#' define both data and aesthetics and shouldn't inherit behaviour from the
-#' default plot specification, e.g. borders.
-#'
-#' @param geom, stat Override the default connection between \code{geom_arc} and
-#' \code{stat_arc}.
 #'
 #' @author Thomas Lin Pedersen
 #'
@@ -106,7 +64,7 @@ NULL
 #'                         linetype=factor(r)),
 #'                     data=arcs)
 #'
-#' @seealso \code{\link{geom_arc_bar}} for drawing arcs with fill
+#' @seealso [geom_arc_bar()] for drawing arcs with fill
 #'
 NULL
 
