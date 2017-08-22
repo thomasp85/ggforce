@@ -16,8 +16,8 @@ stat_pie(mapping = NULL, data = NULL, geom = "arc_bar",
   show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_arc_bar(mapping = NULL, data = NULL, stat = "arc_bar",
-  position = "identity", n = 360, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  position = "identity", n = 360, expand = 0, radius = 0,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
@@ -64,6 +64,13 @@ are three types of arguments you can use here:
 
 \item{stat}{The statistical transformation to use on the data for this layer,
 as a string.}
+
+\item{expand}{A numeric or unit vector of length one, specifying the
+expansion amount. Negative values will result in contraction instead. If the
+value is given as a numeric it will be understood as a proportion of the
+plot area width.}
+
+\item{radius}{As \code{expand} but specifying the corner radius.}
 }
 \description{
 This set of stats and geoms makes it possible to draw arcs and wedges as

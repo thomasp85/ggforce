@@ -1,3 +1,6 @@
+#' @include shape.R
+NULL
+
 #' Arcs and wedges as polygons
 #'
 #' This set of stats and geoms makes it possible to draw arcs and wedges as
@@ -196,16 +199,17 @@ stat_pie  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto GeomPolygon
+#' @importFrom ggplot2 ggproto
 #' @export
-GeomArcBar <- ggproto('GeomArcBar', GeomPolygon,
+GeomArcBar <- ggproto('GeomArcBar', GeomShape,
     default_aes = list(colour = 'black', fill = NA, size = 0.5, linetype = 1, alpha = NA)
 )
 #' @rdname geom_arc_bar
 #' @importFrom ggplot2 layer
+#' @inheritParams geom_shape
 #' @export
 geom_arc_bar <- function(mapping = NULL, data = NULL, stat = "arc_bar",
-                     position = "identity", n = 360, na.rm = FALSE,
+                     position = "identity", n = 360, expand = 0, radius = 0, na.rm = FALSE,
                      show.legend = NA, inherit.aes = TRUE, ...) {
     layer(data = data, mapping = mapping, stat = stat, geom = GeomArcBar,
           position = position, show.legend = show.legend, inherit.aes = inherit.aes,

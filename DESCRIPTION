@@ -28,7 +28,8 @@ Imports:
     gtable,
     lazyeval,
     plyr,
-    deldir
+    deldir,
+    polyclip
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1
 Suggests:
@@ -40,6 +41,7 @@ VignetteBuilder: knitr
 Collate: 
     'RcppExports.R'
     'aaa.R'
+    'shape.R'
     'arc_bar.R'
     'arc.R'
     'bezier.R'

@@ -84,7 +84,7 @@
 #' define both data and aesthetics and shouldn't inherit behaviour from the
 #' default plot specification, e.g. borders.
 #'
-#' @param geom, stat Override the default connection between \code{geom_arc} and
+#' @param geom,stat Override the default connection between \code{geom_arc} and
 #' \code{stat_arc}.
 #'
 #' @author Thomas Lin Pedersen
