@@ -3,9 +3,9 @@
 %   R/bspline.R, R/circle.R, R/facet_grid_paginate.R, R/facet_stereo.R,
 %   R/facet_wrap_paginate.R, R/facet_zoom.R, R/ggproto-classes.R,
 %   R/interpolate.R, R/link.R, R/scale-unit.R, R/sina.R, R/voronoi.R
-\docType{data}
 \name{GeomShape}
 \alias{GeomShape}
+\docType{data}
 \alias{StatArcBar}
 \alias{StatPie}
 \alias{GeomArcBar}
@@ -23,6 +23,7 @@
 \alias{GeomBspline0}
 \alias{StatCircle}
 \alias{GeomCircle}
+\alias{StatEllipse}
 \alias{FacetGridPaginate}
 \alias{FacetStereo}
 \alias{FacetWrapPaginate}
@@ -34,6 +35,7 @@
 \alias{ScaleContinuousPositionUnit}
 \alias{StatSina}
 \alias{GeomSina}
+\alias{StatSpiro}
 \alias{StatVoronoiTile}
 \alias{StatVoronoiSegment}
 \alias{StatDelaunayTile}

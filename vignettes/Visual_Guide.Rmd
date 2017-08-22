@@ -174,6 +174,24 @@ ggplot() + geom_circle(aes(x0=x0, y0=y0, r=r, fill=r), data=circles, n=10) +
     coord_fixed()
 ```
 
+## Ellipsis
+As with circles it is possible to draw ellipses according to the coordinate 
+system. It requires some more parameters than `geom_circle`, namely two radii 
+and an angle:
+
+```{r}
+# Basic usage
+ggplot() +
+  geom_ellipse(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = 0)) +
+  coord_fixed()
+
+# Rotation
+# Note that it expects radians and rotates the ellipse counter-clockwise
+ggplot() +
+  geom_ellipse(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = pi/4)) +
+  coord_fixed()
+```
+
 ## Links
 Links are the ggforce equivalent of segments, i.e. connecting two points by a 
 straight line. While `geom_segment()` does a decent job of this, the link geoms
@@ -281,6 +299,26 @@ df$Distribution <- factor(df$Distribution,
 p <- ggplot(df, aes(Distribution, Value))
 p + geom_violin(aes(fill = Distribution))
 p + geom_sina(aes(color = Distribution), size = 1)
+```
+
+## Spirographs
+Spirographs are most well known for the plastic toys consisting of interlocking
+gears that can be used to create circular patterns. There's math behind it 
+though, so it's not a problem to provide a parameterized version where the gear
+dimensions define the resulting pattern. One nice benefit of doing the drawing
+on a computer is that you are not limited by physical boundaries, and it is thus
+possible to create pattern not possible wih the standard toy set (e.g. the 
+pencil does not have to be positioned inside the revolving gear).
+
+```{r}
+ggplot() +
+  geom_spiro(aes(R = 10, r = 3, d = 5))
+# Only draw a portion
+ggplot() +
+  geom_spiro(aes(R = 10, r = 3, d = 5), revolutions = 1.2)
+# Let the inner gear circle the outside of the outer gear
+ggplot() +
+  geom_spiro(aes(R = 10, r = 3, d = 5, outer = TRUE))
 ```
 
 # Facets

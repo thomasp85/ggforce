@@ -161,10 +161,11 @@ StatLink2 <- ggproto('StatLink2', Stat,
         extraCols <- !names(data) %in% c('x', 'y', 'group', 'PANEL', 'frame')
         data <- data %>% group_by_(~group) %>%
             do({
-                interp <- tween_t(list(.$x, .$y), n)
+                n_group <- n * (nrow(.)-1) + 1
+                interp <- tween_t(list(.$x, .$y), n_group)
                 interp <- data.frame(x = interp[[1]], y = interp[[2]])
                 interp <- cbind(interp,
-                                index = seq(0, 1, length.out = n),
+                                index = seq(0, 1, length.out = n_group),
                                 group = .$group[1],
                                 PANEL = .$PANEL[1])
                 if ('frame' %in% names(.)) interp$frame <- .$frame[1]

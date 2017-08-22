@@ -62,7 +62,7 @@ ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
     facet_zoom(x = Species == "versicolor")
 ```
 
-![facet_zoom](https://dl.dropboxusercontent.com/u/2323585/ggforce/facet_zoom.png)
+![facet_zoom](https://www.dropbox.com/s/dpz91x0wp0tkp5t/facet_zoom.png?raw=1)
 
 ### Contributions
 Pull and feature requests are very welcome. Obviously PR's will lead to faster

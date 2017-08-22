@@ -2,18 +2,18 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 bezierPath <- function(x, y, detail) {
-    .Call('ggforce_bezierPath', PACKAGE = 'ggforce', x, y, detail)
+    .Call('_ggforce_bezierPath', PACKAGE = 'ggforce', x, y, detail)
 }
 
 getBeziers <- function(x, y, id, detail) {
-    .Call('ggforce_getBeziers', PACKAGE = 'ggforce', x, y, id, detail)
+    .Call('_ggforce_getBeziers', PACKAGE = 'ggforce', x, y, id, detail)
 }
 
 splinePath <- function(x, y, degree, knots, detail) {
-    .Call('ggforce_splinePath', PACKAGE = 'ggforce', x, y, degree, knots, detail)
+    .Call('_ggforce_splinePath', PACKAGE = 'ggforce', x, y, degree, knots, detail)
 }
 
 getSplines <- function(x, y, id, detail) {
-    .Call('ggforce_getSplines', PACKAGE = 'ggforce', x, y, id, detail)
+    .Call('_ggforce_getSplines', PACKAGE = 'ggforce', x, y, id, detail)
 }
 
