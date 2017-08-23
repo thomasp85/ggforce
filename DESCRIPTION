@@ -29,7 +29,8 @@ Imports:
     lazyeval,
     plyr,
     deldir,
-    polyclip
+    polyclip,
+    stats
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1
 Suggests:
@@ -47,6 +48,8 @@ Collate:
     'bezier.R'
     'bspline.R'
     'circle.R'
+    'diagonal.R'
+    'diagonal_wide.R'
     'ellipse.R'
     'facet_grid_paginate.R'
     'facet_stereo.R'
@@ -56,6 +59,7 @@ Collate:
     'ggproto-classes.R'
     'interpolate.R'
     'link.R'
+    'parallel_sets.R'
     'position-jitternormal.R'
     'scale-depth.R'
     'scale-unit.R'
