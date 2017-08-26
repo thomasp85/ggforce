@@ -296,6 +296,66 @@ ggplot() + geom_segment(aes(x = x, xend = xend, y = y, yend = yend),
     geom_point(aes(x = x, y = y, colour = point), data = beziers)
 ```
 
+## Diagonals
+In visualization parlance a diagonal is a path connecting two points through a
+smooth curve that starts perpendicular to either the x or y axis and gradually
+bends to meet the other end. It is often implemented as cubic bezier curves with
+the control points of each end extending perpendicular from the end points. 
+Diagonals are often used in visualising trees (see `geom_edge_diagonal()` in
+`ggraph`) but is provided here as a general construct.
+
+```{r}
+data <- data.frame(
+  x = rep(0, 10),
+  y = 1:10,
+  xend = 1:10,
+  yend = 2:11
+)
+ggplot(data) +
+  geom_diagonal(aes(x, y, xend = xend, yend = yend))
+```
+
+## Wide Diagonals
+As arcs have `arc_bar` diagonals have `diagonal_wide` for drawing diagonals as
+polygons, potentially with changing thickness. It requires four points per 
+diagonal, and as with the standard diagonal it will expect the flow to be in the
+x-direction. As `geom_diagonal_wide()` uses `geom_shape()` you get all the 
+controls of that, such as corner rounding and expansion.
+
+```{r}
+data <- data.frame(
+  x = c(1, 2, 2, 1, 2, 3, 3, 2),
+  y = c(1, 2, 3, 2, 3, 1, 2, 5),
+  group = c(1, 1, 1, 1, 2, 2, 2, 2)
+)
+ggplot(data) +
+  geom_diagonal_wide(aes(x, y, group = group), 
+                     colour = 'black', fill = 'steelblue', radius = 0.01)
+```
+
+## Parallel sets
+A parallel sets diagram is a way to show multidimensional categorical data. It
+will show the overlaps between levels in multiple categories by drawing thick
+diagonals between levels in parallel categorical axes. A classic way of 
+exemplifying this is with the titanic survival data set.
+
+A small note is that the way to normally represent this type of data is by
+encoding each categorical level in its own column, but this does not work in
+`ggplot2`, as it requires all values for the same axis to be in the same column.
+`ggforce` facilitates this by providing a helper function for transforming data
+in its natural representation into one understood by `ggplot2`.
+
+```{r}
+data <- reshape2::melt(Titanic)
+head(data)
+data <- gather_set_data(data, 1:4)
+head(data)
+ggplot(data, aes(x, id = id, split = y, value = value)) +
+  geom_parallel_sets(aes(fill = Sex), alpha = 0.3, axis.width = 0.1) +
+  geom_parallel_sets_axes(axis.width = 0.1) +
+  geom_parallel_sets_labels(colour = 'white')
+```
+
 
 ## B-splines
 Like beziers b-splines are smooth curves, but unlike beziers b-splines are 

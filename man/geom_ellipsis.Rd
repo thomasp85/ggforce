@@ -4,7 +4,7 @@
 \alias{geom_ellipsis}
 \alias{stat_ellipsis}
 \alias{geom_ellipsis}
-\title{Draw ellipses based on the coordinate system scale}
+\title{Draw (super)ellipses based on the coordinate system scale}
 \usage{
 stat_ellipsis(mapping = NULL, data = NULL, geom = "circle",
   position = "identity", n = 360, na.rm = FALSE, show.legend = NA,
@@ -66,6 +66,10 @@ layer, as a string.}
 \description{
 This is a generalisation of \code{\link[=geom_circle]{geom_circle()}} that allows you to draw
 ellipses at a specified angle and center relative to the coordinate system.
+Apart from letting you draw regular ellipsis, the stat is using the
+generalised formula for superellipses which can be utilised by setting the
+\code{m1} and \code{m2} aesthetics. If you only set the m1 the m2 value will follow
+that to ensure a symmetric appearance.
 }
 \section{Aesthetics}{
 
@@ -77,6 +81,8 @@ bold):
 \item \strong{a}
 \item \strong{b}
 \item \strong{angle}
+\item m1
+\item m2
 \item color
 \item fill
 \item size
@@ -104,6 +110,11 @@ ggplot() +
 # Note that it expects radians and rotates the ellipse counter-clockwise
 ggplot() +
   geom_ellipsis(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = pi/4)) +
+  coord_fixed()
+
+# Draw a super ellipse
+ggplot() +
+  geom_ellipsis(aes(x0 = 0, y0 = 0, a = 6, b = 3, angle = 75, m1 = 3)) +
   coord_fixed()
 
 }

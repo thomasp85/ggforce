@@ -137,7 +137,7 @@ StatParallelSetsAxes <- ggproto('StatParallelSetsAxes', Stat,
         }
         data_axes$split <- factor(as.character(data_axes$split), levels = split_levels)
         aes$split <- factor(as.character(aes$split), levels = split_levels)
-        data <- left_join(data_axes, aes, by = c('x' = 'x', 'split' = 'split'))
+        data <- merge(data_axes, aes, by = c('x', 'split'), all.x = TRUE, sort = FALSE)
         names(data)[names(data) == 'split'] <- 'label'
         data$y <- data$ymin + data$value/2
         data$xmin <- data$x - axis.width/2
