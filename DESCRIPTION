@@ -24,7 +24,7 @@ Imports:
     scales,
     MASS,
     tweenr (>= 0.1.5),
-    units (>= 0.4),
+    units (>= 0.4-6),
     gtable,
     lazyeval,
     plyr,

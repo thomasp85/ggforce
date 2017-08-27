@@ -101,7 +101,7 @@ scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom units as.units make_unit_label
+#' @importFrom units as_units make_unit_label
 #' @importFrom ggplot2 ScaleContinuousPosition ggproto_parent
 #' @export
 ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleContinuousPosition,
@@ -110,7 +110,7 @@ ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleConti
     train = function(self, x) {
         if (length(x) == 0) return()
         if (!is.null(self$unit)) {
-            units(x) <- as.units(1, self$unit)
+            units(x) <- as_units(1, self$unit)
         }
         self$range$train(x)
     },
@@ -119,14 +119,14 @@ ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleConti
             if (is.null(self$unit)) {
                 self$unit <- units(x)
             } else {
-                units(x) <- as.units(1, self$unit)
+                units(x) <- as_units(1, self$unit)
             }
         }
         x <- as.numeric(x)
         ggproto_parent(ScaleContinuousPosition, self)$map(x, limits)
     },
     make_title = function(self, title) {
-        make_unit_label(title, as.units(1, self$unit))
+        make_unit_label(title, as_units(1, self$unit))
     }
 )
 #' @rdname scale_unit
