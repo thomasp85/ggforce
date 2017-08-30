@@ -37,10 +37,21 @@
 #' @inheritParams ggplot2::geom_polygon
 #' @inheritParams ggplot2::stat_identity
 #'
+#' @param n The number of points to calculate around the path
+#'
 #' @author Thomas Lin Pedersen
 #'
 #' @name geom_superformula
 #' @rdname geom_superformula
+#'
+#' @examples
+#' pars <- expand.grid(m1 = 3:5, n1 = c(0.5, 1, 2, 4))
+#'
+#' ggplot(pars) +
+#'     geom_superformula(aes(x0 = 0, y0 = 0, m1 = m1, n1 = n1), n = 1000) +
+#'     facet_grid(m1 ~ n1, labeller = label_both) +
+#'     coord_fixed()
+#'
 #'
 NULL
 

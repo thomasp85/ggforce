@@ -53,6 +53,8 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
+\item{n}{The number of points to calculate around the path}
+
 \item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
@@ -81,6 +83,7 @@ bold):
 \item n1
 \item n2
 \item n3
+\item revolutions
 \item color
 \item fill
 \item size
@@ -98,6 +101,16 @@ bold):
 }
 }
 
+\examples{
+pars <- expand.grid(m1 = 3:5, n1 = c(0.5, 1, 2, 4))
+
+ggplot(pars) +
+    geom_superformula(aes(x0 = 0, y0 = 0, m1 = m1, n1 = n1), n = 1000) +
+    facet_grid(m1 ~ n1, labeller = label_both) +
+    coord_fixed()
+
+
+}
 \references{
 Gielis, J. \emph{A generic geometric transformation that unifies a wide range of natural and abstract shapes.} American Journal of Botany, 90, 333 - 338, (2003).
 }

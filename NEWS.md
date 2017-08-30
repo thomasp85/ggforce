@@ -17,6 +17,7 @@ panel
   parallel sets diagrams and other visualizations based on diagonals.
 - Add `geom_shape` for drawing polygons with rounded corners and 
   expanded/contracted sides. `geom_shape` replaces all `geom_polygon` internally.
+- Add `geom_superformula` to create shapes and lines based on the superformula
 
 # ggforce 0.1.1
 
