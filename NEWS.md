@@ -11,7 +11,12 @@ panel
 - `geom_voronoi_[tile|segment]`, `geom_delaunay_[tile|segment|segment2]`, and
 `stat_delvor_summary` has been added for tesselation and triangulation.
 - `geom_spiro` has been added for drawing spirographs
-- Add `geom_ellipse`
+- Add `geom_ellipse` for drawing regular and superellipses
+- Add `geom_regon` for drawing regular polygons
+- Add `geom_diagonal`, `geom_diagonal_wide` and `geom_parallel_sets` for drawing
+  parallel sets diagrams and other visualizations based on diagonals.
+- Add `geom_shape` for drawing polygons with rounded corners and 
+  expanded/contracted sides. `geom_shape` replaces all `geom_polygon` internally.
 
 # ggforce 0.1.1
 
