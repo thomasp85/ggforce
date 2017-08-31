@@ -93,6 +93,7 @@ List getSplines(NumericVector x, NumericVector y, IntegerVector id,
         } else if (type == "open") {
             knots = createOpenKnots(nControls[i], degree);
         } else if (type == "closed") {
+            if (nControls[i] < 3) stop("At least 3 control points must be provided for closed b-splines");
             degree = 3;
             knots = createOpenKnots(nControls[i] + 3, degree);
         } else {

@@ -157,7 +157,7 @@ StatBspline2 <- ggproto('StatBspline2', Stat,
         paths
     },
     required_aes = c('x', 'y'),
-    extra_params = c('na.rm', 'n')
+    extra_params = c('na.rm', 'n', 'type')
 )
 #' @rdname geom_bspline
 #' @importFrom ggplot2 layer
