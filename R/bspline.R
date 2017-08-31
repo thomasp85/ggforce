@@ -98,7 +98,7 @@ StatBspline <- ggproto('StatBspline', Stat,
         cbind(paths, data[dataIndex, !names(data) %in% c('x', 'y', 'group'), drop = FALSE])
     },
     required_aes = c('x', 'y'),
-    extra_params = c('na.rm', 'n')
+    extra_params = c('na.rm', 'n', 'type')
 )
 #' @rdname geom_bspline
 #' @importFrom ggplot2 layer
