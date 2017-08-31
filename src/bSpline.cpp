@@ -17,6 +17,16 @@ std::vector<double> createKnots(int nControl, int degree) {
     }
     return knots;
 }
+std::vector<double> createOpenKnots(int nControl, int degree) {
+    int nKnots = nControl + degree + 1;
+
+    std::vector<double> knots (nKnots, 0);
+    for (int i = 0; i < nKnots; i++) {
+        if (i < 1) knots[i] = 0;
+        else knots[i] = knots[i-1] + 1;
+    }
+    return knots;
+}
 std::vector<Point> createControls(NumericVector x, NumericVector y) {
     int nControls = x.size();
     std::vector<Point> controls(nControls, Point());
@@ -26,17 +36,22 @@ std::vector<Point> createControls(NumericVector x, NumericVector y) {
     return controls;
 }
 // [[Rcpp::export]]
-NumericMatrix splinePath(NumericVector x, NumericVector y, int degree, std::vector<double> knots, int detail) {
+NumericMatrix splinePath(NumericVector x, NumericVector y, int degree, std::vector<double> knots, int detail, std::string type) {
     std::vector<Point> controls = createControls(x, y);
+    if (type == "closed") {
+        controls.push_back(controls[0]);
+        controls.push_back(controls[1]);
+        controls.push_back(controls[2]);
+    }
     NumericMatrix res(detail, 2);
-    double zJump = knots[knots.size()-1] / double(detail-1);
+    double zJump = (knots[knots.size()-1-degree] - knots[degree]) / double(detail-1);
     double z;
     Point point;
     for (int i = 0; i < detail; i++) {
-        if (i == detail-1) {
+        if (i == detail-1 && type == "clamped") {
             point = controls[controls.size()-1];
         } else {
-            z = i * zJump;
+            z = knots[degree] + i * zJump;
             int zInt = whichInterval(z, knots);
             point = deBoor(degree, degree, zInt, z, knots, controls);
         }
@@ -47,7 +62,7 @@ NumericMatrix splinePath(NumericVector x, NumericVector y, int degree, std::vect
 }
 // [[Rcpp::export]]
 List getSplines(NumericVector x, NumericVector y, IntegerVector id,
-                         int detail) {
+                         int detail, std::string type) {
     std::vector<int> nControls;
     std::vector<int> pathID;
     nControls.push_back(1);
@@ -73,10 +88,19 @@ List getSplines(NumericVector x, NumericVector y, IntegerVector id,
     NumericMatrix path;
     for (int i = 0; i < nPaths; i++) {
         degree = nControls[i] <= 3 ? nControls[i] - 1 : 3;
-        knots = createKnots(nControls[i], degree);
+        if (type == "clamped") {
+            knots = createKnots(nControls[i], degree);
+        } else if (type == "open") {
+            knots = createOpenKnots(nControls[i], degree);
+        } else if (type == "closed") {
+            degree = 3;
+            knots = createOpenKnots(nControls[i] + 3, degree);
+        } else {
+            stop("type must be either \"open\", \"closed\", or \"clamped\"");
+        }
         controlInd = Range(controlsStart, controlsStart + nControls[i] - 1);
         pathInd = Range(pathStart, pathStart + detail - 1);
-        path = splinePath(x[controlInd], y[controlInd], degree, knots, detail);
+        path = splinePath(x[controlInd], y[controlInd], degree, knots, detail, type);
         int j = 0;
         for (pathIter = pathInd.begin(); pathIter != pathInd.end(); pathIter++) {
             pathsID[*pathIter] = pathID[i];

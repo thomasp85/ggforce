@@ -11,28 +11,30 @@
 \title{B-splines based on control points}
 \usage{
 stat_bspline(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", na.rm = FALSE, n = 100, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  position = "identity", na.rm = FALSE, n = 100, type = "clamped",
+  show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_bspline(mapping = NULL, data = NULL, stat = "bspline",
-  position = "identity", arrow = NULL, n = 100, lineend = "butt",
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", arrow = NULL, n = 100, type = "clamped",
+  lineend = "butt", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+  ...)
 
 stat_bspline2(mapping = NULL, data = NULL, geom = "path_interpolate",
-  position = "identity", na.rm = FALSE, n = 100, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  position = "identity", na.rm = FALSE, n = 100, type = "clamped",
+  show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_bspline2(mapping = NULL, data = NULL, stat = "bspline2",
-  position = "identity", arrow = NULL, n = 100, lineend = "butt",
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", arrow = NULL, n = 100, type = "clamped",
+  lineend = "butt", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+  ...)
 
 stat_bspline0(mapping = NULL, data = NULL, geom = "bspline0",
   position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  inherit.aes = TRUE, type = "clamped", ...)
 
 geom_bspline0(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, ...)
+  show.legend = NA, inherit.aes = TRUE, type = "clamped", ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -63,6 +65,10 @@ a call to a position adjustment function.}
 a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{n}{The number of points generated for each spline}
+
+\item{type}{Either \code{'clamped'} (default) or \code{'open'}. The former creates a
+knot sequence that ensures the splines starts and ends a the terminal control
+points.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
