@@ -71,7 +71,7 @@ layer, as a string.}
 \description{
 This geom creates closed b-spline curves and draws them as shapes. The
 closed b-spline is achieved by wrapping the control points rather than the
-knots. The *0 version uses the \code{\link[grid:xplineGrob]{grid::xplineGrob()}} function with
+knots. The *0 version uses the \code{\link[grid:xsplineGrob]{grid::xsplineGrob()}} function with
 \code{open = FALSE} and can thus not be manipulated as a shape geom in the same
 way as the base version (expand, contract, etc).
 }
