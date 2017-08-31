@@ -4,7 +4,7 @@
 \alias{makeContent.shape}
 \title{Reactive behaviour for shapeGrob}
 \usage{
-makeContent.shape(x)
+\method{makeContent}{shape}(x)
 }
 \arguments{
 \item{x}{A shape grob}
