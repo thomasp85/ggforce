@@ -47,6 +47,7 @@ Collate:
     'arc.R'
     'bezier.R'
     'bspline.R'
+    'bspline_closed.R'
     'circle.R'
     'diagonal.R'
     'diagonal_wide.R'
