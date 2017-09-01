@@ -105,7 +105,7 @@ hullGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
 #' Calculate the hull of points and draw it as a shapeGrob
 #'
 #' This function takes care of calculating the hull (concave or convex) of sets
-#' of points and forwards these to [shapeGrob()]. The calculations happens at
+#' of points and forwards these to `shapeGrob()`. The calculations happens at
 #' draw time and is thus sensitive to the aspect ratio of the plot in order to
 #' ensure the most pleasing result. This can affect performance though.
 #'

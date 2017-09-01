@@ -14,7 +14,7 @@ A shape grob
 }
 \description{
 This function takes care of calculating the hull (concave or convex) of sets
-of points and forwards these to \code{\link[=shapeGrob]{shapeGrob()}}. The calculations happens at
+of points and forwards these to \code{shapeGrob()}. The calculations happens at
 draw time and is thus sensitive to the aspect ratio of the plot in order to
 ensure the most pleasing result. This can affect performance though.
 }
