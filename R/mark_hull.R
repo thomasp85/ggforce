@@ -9,12 +9,13 @@
 #' is expanded 5mm and rounded on the corners. This can be adjusted with the
 #' `expand` and `radius` parameters.
 #'
-#' #' @section Aesthetics:
-#' geom_shape understand the following aesthetics (required aesthetics are in
+#' @section Aesthetics:
+#' geom_mark_hull understand the following aesthetics (required aesthetics are in
 #' bold):
 #'
 #' - **x**
 #' - **y**
+#' - filter
 #' - color
 #' - fill
 #' - group
@@ -31,15 +32,38 @@
 #'
 #' @name geom_mark_hull
 #' @rdname geom_mark_hull
+#'
+#' @examples
+#' ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'   geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor')) +
+#'   geom_point()
+#'
+#' # Adjusting the concavity lets you change the shape of the hull
+#' ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'   geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor'),
+#'                  concavity = 1) +
+#'   geom_point()
+#'
+#' ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'   geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor'),
+#'                  concavity = 10) +
+#'   geom_point()
+#'
 NULL
 
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
+#' @importFrom ggplot2 ggproto zeroGrob
 #' @export
 GeomMarkHull <- ggproto('GeomMarkHull', GeomShape,
+    setup_data = function(data, params) {
+        if (!is.null(data$filter)) data <- data[data$filter, ]
+        data
+    },
     draw_panel = function(data, panel_params, coord, expand = unit(5, 'mm'), radius = unit(2.5, 'mm'), concavity = 2) {
+        if (nrow(data) == 0) return(zeroGrob())
+
         coords <- coord$transform(data, panel_params)
 
         coords <- coords[order(coords$group), ]
@@ -61,7 +85,7 @@ GeomMarkHull <- ggproto('GeomMarkHull', GeomShape,
                  )
         )
     },
-    default_aes = aes(fill = NA, colour = 'black', alpha = 0.3, size = 0.5, linetype = 1)
+    default_aes = aes(fill = NA, colour = 'black', alpha = 0.3, size = 0.5, linetype = 1, filter = TRUE)
 )
 
 #' @rdname geom_mark_hull
