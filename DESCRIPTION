@@ -62,6 +62,7 @@ Collate:
     'interpolate.R'
     'link.R'
     'mark_hull.R'
+    'mark_rect.R'
     'parallel_sets.R'
     'position-jitternormal.R'
     'regon.R'
