@@ -63,3 +63,30 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// enclose_points
+DataFrame enclose_points(NumericVector x, NumericVector y, IntegerVector id);
+RcppExport SEXP _ggforce_enclose_points(SEXP xSEXP, SEXP ySEXP, SEXP idSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type id(idSEXP);
+    rcpp_result_gen = Rcpp::wrap(enclose_points(x, y, id));
+    return rcpp_result_gen;
+END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_ggforce_bezierPath", (DL_FUNC) &_ggforce_bezierPath, 3},
+    {"_ggforce_getBeziers", (DL_FUNC) &_ggforce_getBeziers, 4},
+    {"_ggforce_splinePath", (DL_FUNC) &_ggforce_splinePath, 6},
+    {"_ggforce_getSplines", (DL_FUNC) &_ggforce_getSplines, 5},
+    {"_ggforce_enclose_points", (DL_FUNC) &_ggforce_enclose_points, 3},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_ggforce(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}

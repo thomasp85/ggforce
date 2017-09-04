@@ -61,6 +61,7 @@ Collate:
     'ggproto-classes.R'
     'interpolate.R'
     'link.R'
+    'mark_circle.R'
     'mark_hull.R'
     'mark_rect.R'
     'parallel_sets.R'
