@@ -17,6 +17,10 @@ getSplines <- function(x, y, id, detail, type) {
     .Call('_ggforce_getSplines', PACKAGE = 'ggforce', x, y, id, detail, type)
 }
 
+enclose_ellip_points <- function(x, y, id, tol) {
+    .Call('_ggforce_enclose_ellip_points', PACKAGE = 'ggforce', x, y, id, tol)
+}
+
 enclose_points <- function(x, y, id) {
     .Call('_ggforce_enclose_points', PACKAGE = 'ggforce', x, y, id)
 }

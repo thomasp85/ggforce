@@ -31,8 +31,9 @@ Imports:
     deldir,
     polyclip,
     stats,
-    concaveman
-LinkingTo: Rcpp
+    concaveman,
+    grDevices
+LinkingTo: Rcpp, RcppEigen
 RoxygenNote: 6.0.1
 Suggests:
     knitr,
@@ -40,7 +41,7 @@ Suggests:
     devtools,
     reshape2
 VignetteBuilder: knitr
-Collate: 
+Collate:
     'RcppExports.R'
     'aaa.R'
     'shape.R'
@@ -62,6 +63,7 @@ Collate:
     'interpolate.R'
     'link.R'
     'mark_circle.R'
+    'mark_ellipsis.R'
     'mark_hull.R'
     'mark_rect.R'
     'parallel_sets.R'
