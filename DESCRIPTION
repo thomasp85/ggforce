@@ -32,7 +32,9 @@ Imports:
     polyclip,
     stats,
     concaveman,
-    grDevices
+    grDevices,
+    mgcv,
+    ggrepel
 LinkingTo: Rcpp, RcppEigen
 RoxygenNote: 6.0.1
 Suggests:
@@ -41,7 +43,7 @@ Suggests:
     devtools,
     reshape2
 VignetteBuilder: knitr
-Collate:
+Collate: 
     'RcppExports.R'
     'aaa.R'
     'shape.R'
@@ -65,6 +67,7 @@ Collate:
     'mark_circle.R'
     'mark_ellipsis.R'
     'mark_hull.R'
+    'mark_label.R'
     'mark_rect.R'
     'parallel_sets.R'
     'position-jitternormal.R'
