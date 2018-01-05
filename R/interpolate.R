@@ -78,6 +78,7 @@ interpolateDataFrame <- function(data) {
     for (i in seq_len(ncol(data))) {
         if (names(data)[i] %in% c('x', 'y', 'index', 'group', '.interp') || all(is.na(data[[i]])))
             next
+        if (any(!is.na(data[[i]][data$.interp])) && length(unique(data[[i]][data$.interp])) > 1) next
         interpValues <- split(data[[i]][!data$.interp], data$group[!data$.interp])
         data[[i]] <- unlist(tween_t(interpValues, interpLengths))
     }
