@@ -41,7 +41,7 @@ Suggests:
     devtools,
     reshape2
 VignetteBuilder: knitr
-Collate:
+Collate: 
     'RcppExports.R'
     'aaa.R'
     'shape.R'
@@ -58,6 +58,7 @@ Collate:
     'facet_stereo.R'
     'facet_wrap_paginate.R'
     'facet_zoom.R'
+    'gen_all_pages_fwp.R'
     'ggforce_package.R'
     'ggproto-classes.R'
     'interpolate.R'
