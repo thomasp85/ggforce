@@ -45,5 +45,5 @@ ggplot(mtcars) +
 \seealso{
 Other ggforce facets: \code{\link{facet_grid_paginate}},
   \code{\link{facet_wrap_paginate}},
-  \code{\link{facet_zoom}}
+  \code{\link{facet_zoom}}, \code{\link{gen_all_pages_fwp}}
 }
