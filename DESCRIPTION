@@ -15,7 +15,7 @@ BugReports: https://github.com/thomasp85/ggforce/issues
 License: GPL (>=2)
 LazyData: TRUE
 Depends:
-    ggplot2 (>= 2.2.0),
+    ggplot2 (>= 2.2.1.9000),
     R (>= 3.3.0)
 Imports:
     Rcpp (>= 0.12.2),
