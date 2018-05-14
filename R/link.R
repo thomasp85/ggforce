@@ -82,7 +82,7 @@ NULL
 #' @export
 StatLink <- ggproto('StatLink', Stat,
     compute_panel = function(data, scales, n = 100) {
-        extraCols <- !names(data) %in% c('x', 'y', 'xend', 'yend')
+        extraCols <- !names(data) %in% c('x', 'y', 'xend', 'yend', 'group', 'PANEL')
         data <- lapply(seq_len(nrow(data)), function(i) {
             path <- data.frame(
                 x = seq(data$x[i], data$xend[i], length.out = n),
