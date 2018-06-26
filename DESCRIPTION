@@ -24,7 +24,6 @@ Imports:
     scales,
     MASS,
     tweenr (>= 0.1.5),
-    units (>= 0.4),
     gtable,
     lazyeval,
     plyr,
@@ -39,7 +38,8 @@ Suggests:
     knitr,
     rmarkdown,
     devtools,
-    reshape2
+    reshape2,
+    units (>= 0.4-6)
 VignetteBuilder: knitr
 Collate:
     'RcppExports.R'

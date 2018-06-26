@@ -37,13 +37,15 @@ NULL
 #' @rdname scale_unit
 #' @export
 #' @importFrom scales censor
-#' @importFrom units make_unit
 #' @importFrom ggplot2 waiver continuous_scale sec_axis
 scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
                           minor_breaks = waiver(), labels = waiver(),
                           limits = NULL, expand = waiver(), oob = censor,
                           na.value = NA_real_, trans = "identity",
                           position = "bottom", sec.axis = waiver()) {
+    if (!requireNamespace('units', quietly = TRUE)) {
+        stop('The units package is required for this functionality', call. = FALSE)
+    }
     sc <- continuous_scale(
         c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper"),
         "position_c", identity, name = name, breaks = breaks,
@@ -55,13 +57,13 @@ scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
         class(unit),
         symbolic_units = ,
         'NULL' = unit,
-        character = make_unit(unit),
+        character = units::make_unit(unit),
         units = units(unit),
         stop('unit must either be NULL or of class `units` or `symbolic_units`', call. = FALSE)
     )
     if (!inherits(sec.axis, 'waiver')) {
         if (inherits(sec.axis, 'formula')) sec.axis <- sec_axis(sec.axis)
-        if (!inherits(sec.axis, 'AxisSecondary')) stop("Secondary axes must be specified using 'sec_axis()'")
+        if (!inherits(sec.axis, 'AxisSecondary')) stop("Secondary axes must be specified using 'sec_axis()'", call. = FALSE)
         sc$secondary.axis <- sec.axis
     }
     sc
@@ -69,13 +71,15 @@ scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
 #' @rdname scale_unit
 #' @export
 #' @importFrom scales censor
-#' @importFrom units make_unit
 #' @importFrom ggplot2 waiver continuous_scale sec_axis
 scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
                           minor_breaks = waiver(), labels = waiver(),
                           limits = NULL, expand = waiver(), oob = censor,
                           na.value = NA_real_, trans = "identity",
                           position = "left", sec.axis = waiver()) {
+    if (!requireNamespace('units', quietly = TRUE)) {
+        stop('The units package is required for this functionality', call. = FALSE)
+    }
     sc <- continuous_scale(
         c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper"),
         "position_c", identity, name = name, breaks = breaks,
@@ -87,13 +91,13 @@ scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
         class(unit),
         symbolic_units = ,
         'NULL' = unit,
-        character = make_unit(unit),
+        character = units::make_unit(unit),
         units = units(unit),
         stop('unit must either be NULL or of class `units` or `symbolic_units`', call. = FALSE)
     )
     if (!inherits(sec.axis, 'waiver')) {
         if (inherits(sec.axis, 'formula')) sec.axis <- sec_axis(sec.axis)
-        if (!inherits(sec.axis, 'AxisSecondary')) stop("Secondary axes must be specified using 'sec_axis()'")
+        if (!inherits(sec.axis, 'AxisSecondary')) stop("Secondary axes must be specified using 'sec_axis()'", call. = FALSE)
         sc$secondary.axis <- sec.axis
     }
     sc
@@ -101,16 +105,18 @@ scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom units as.units make_unit_label
 #' @importFrom ggplot2 ScaleContinuousPosition ggproto_parent
 #' @export
 ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleContinuousPosition,
     unit = NULL,
 
     train = function(self, x) {
+        if (!requireNamespace('units', quietly = TRUE)) {
+            stop('The units package is required for this functionality', call. = FALSE)
+        }
         if (length(x) == 0) return()
         if (!is.null(self$unit)) {
-            units(x) <- as.units(1, self$unit)
+            units(x) <- units::as_units(1, self$unit)
         }
         self$range$train(x)
     },
@@ -119,14 +125,17 @@ ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleConti
             if (is.null(self$unit)) {
                 self$unit <- units(x)
             } else {
-                units(x) <- as.units(1, self$unit)
+                units(x) <- units::as_units(1, self$unit)
             }
         }
         x <- as.numeric(x)
         ggproto_parent(ScaleContinuousPosition, self)$map(x, limits)
     },
     make_title = function(self, title) {
-        make_unit_label(title, as.units(1, self$unit))
+        if (!requireNamespace('units', quietly = TRUE)) {
+            stop('The units package is required for this functionality', call. = FALSE)
+        }
+        units::make_unit_label(title, units::as_units(1, self$unit))
     }
 )
 #' @rdname scale_unit
