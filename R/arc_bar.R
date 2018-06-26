@@ -205,7 +205,7 @@ arcPaths <- function(data, n) {
         }
         path$group <- i
         path$index <- seq(0, 1, length.out = nrow(path))
-        path <- cbind(path, data[rep(i, nrow(path)), extraData])
+        path <- cbind(path, data[rep(i, nrow(path)), extraData, drop = FALSE])
     })
     paths <- do.call(rbind, paths)
     paths <- cbind(paths[, !names(paths) %in% c('r', 'a')],
@@ -259,8 +259,8 @@ arcPaths2 <- function(data, n) {
         )
         if (hasExtra) {
             path <- cbind(path, extraTemplate[rep(1, nControl), , drop = FALSE])
-            path[1, extraData] <- data[i[1], extraData]
-            path[nControl, extraData] <- data[i[2], extraData]
+            path[1, extraData] <- data[i[1], extraData, drop = FALSE]
+            path[nControl, extraData] <- data[i[2], extraData, drop = FALSE]
         }
         path
     })
