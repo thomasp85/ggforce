@@ -44,6 +44,7 @@
 #' }
 #'
 #' @inheritParams ggplot2::geom_path
+#' @inheritParams ggplot2::geom_segment
 #' @inheritParams ggplot2::stat_identity
 #'
 #' @param n The number of points to create for each segment

@@ -47,7 +47,7 @@ plot area width.}
 \item{tol}{The tolerance cutoff. Lower values will result in ellipses closer
 to the optimal solution. Defaults to \code{0.01}}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}

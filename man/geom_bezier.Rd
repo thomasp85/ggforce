@@ -75,7 +75,7 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -83,9 +83,9 @@ to the paired geom/stat.}
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
-\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}}
+\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
 
-\item{lineend}{Line end style (round, butt, square)}
+\item{lineend}{Line end style (round, butt, square).}
 }
 \description{
 This set of geoms makes it possible to connect points creating either

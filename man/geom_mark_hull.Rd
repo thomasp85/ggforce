@@ -46,7 +46,7 @@ plot area width.}
 \item{concavity}{A meassure of the concavity of the hull. \code{1} is very concave
 while it approaches convex as it grows. Defaults to \code{2}}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
