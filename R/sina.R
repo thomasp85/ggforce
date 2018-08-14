@@ -188,6 +188,11 @@ StatSina <- ggproto("StatSina", Stat,
 
     data$scaled <- data$x + data$x_translation * group_scaling_factor
     data$x_translation <- NULL
+
+    #jitter y values if the input is input is integer
+    if (all(data$y == floor(data$y)))
+      data$y <- jitter(data$y)
+
     data
   },
 
