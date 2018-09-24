@@ -75,6 +75,7 @@ GeomShape <- ggproto('GeomShape', GeomPolygon,
             return(zeroGrob())
         munched <- coord_munch(coord, data, panel_params)
         munched <- munched[order(munched$group), ]
+        if (!is.integer(munched$group)) munched$group <- match(munched$group, unique(munched$group))
 
         # For gpar(), there is one entry per polygon (not one entry per point).
         # We'll pull the first value from each group, and assume all these values
