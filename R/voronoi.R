@@ -72,6 +72,9 @@ NULL
 #' [ggplot2::coord_fixed()]. Normalization of coordinates solves this.
 #' The coordinates are transformed back after calculations.
 #'
+#' @param by.group Should the tesselation be calculated based on the data
+#' grouping, or for all points in the panel (default to `FALSE`)
+#'
 #' @author Thomas Lin Pedersen
 #'
 #' @name geom_voronoi
@@ -107,8 +110,15 @@ NULL
 #' @importFrom deldir deldir
 #' @importFrom ggplot2 ggproto Stat
 StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
-    compute_panel = function(data, scales, bound = NULL, eps = 1e-9, normalize = FALSE) {
-        data$group <- seq_len(nrow(data))
+    compute_panel = function(self, data, scales, bound = NULL, eps = 1e-9, normalize = FALSE, by.group = FALSE) {
+        if (by.group) {
+            data <- ggproto_parent(Stat, self)$compute_panel(
+                data = data, scales = scales, bound, eps = eps, normalize = normalize,
+                by.group = by.group
+            )
+            return(data)
+        }
+        data$group <- paste0(seq_len(nrow(data)), ':', data$group)
         if (any(duplicated(data[, c('x', 'y')]))) {
             warning('stat_voronoi_tile: dropping duplicated points', call. = FALSE)
         }
@@ -124,7 +134,7 @@ StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
         }
         vor <- deldir(data$x, data$y, rw = bound, eps = eps, suppressMsge = TRUE)
         tiles <- to_tile(vor)
-        tiles$group <- vor$ind.orig[tiles$group]
+        tiles$group <- data$group[vor$ind.orig[tiles$group]]
         data$x <- NULL
         data$y <- NULL
         data <- merge(data, tiles, all = TRUE)
@@ -133,6 +143,12 @@ StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
             data$y <- rescale(data$y, to = y_range, from = c(0, 1))
         }
         data
+    },
+    compute_group = function(self, data, scales, bound = NULL, eps = 1e-9, normalize = FALSE, by.group = FALSE) {
+        self$compute_panel(
+            data = data, scales = scales, bound, eps = eps, normalize = normalize,
+            by.group = FALSE
+        )
     },
     required_aes = c('x', 'y')
 )
@@ -143,10 +159,10 @@ StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
 #' @export
 geom_voronoi_tile <- function(mapping = NULL, data = NULL, stat = "voronoi_tile",
                         position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-9, normalize = FALSE,
-                        expand = 0, radius = 0, show.legend = NA, inherit.aes = TRUE, ...) {
+                        by.group = FALSE, expand = 0, radius = 0, show.legend = NA, inherit.aes = TRUE, ...) {
     layer(data = data, mapping = mapping, stat = stat, geom = GeomShape,
           position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm, ...))
+          params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm, by.group = by.group, ...))
 }
 
 #' @rdname ggforce-extensions
@@ -156,7 +172,14 @@ geom_voronoi_tile <- function(mapping = NULL, data = NULL, stat = "voronoi_tile"
 #' @importFrom deldir deldir
 #' @importFrom ggplot2 ggproto Stat
 StatVoronoiSegment <- ggproto('StatVoronoiSegment', Stat,
-    compute_panel = function(data, scales, bound = NULL, eps = 1e-9, normalize = FALSE) {
+    compute_panel = function(data, scales, bound = NULL, eps = 1e-9, normalize = FALSE, by.group = FALSE) {
+        if (by.group) {
+            data <- ggproto_parent(Stat, self)$compute_panel(
+                data = data, scales = scales, bound, eps = eps, normalize = normalize,
+                by.group = by.group
+            )
+            return(data)
+        }
         if (any(duplicated(data[, c('x', 'y')]))) {
             warning('stat_voronoi_segment: dropping duplicated points', call. = FALSE)
         }
@@ -183,6 +206,12 @@ StatVoronoiSegment <- ggproto('StatVoronoiSegment', Stat,
         }
         data
     },
+    compute_group = function(self, data, scales, bound = NULL, eps = 1e-9, normalize = FALSE, by.group = FALSE) {
+        self$compute_panel(
+            data = data, scales = scales, bound, eps = eps, normalize = normalize,
+            by.group = FALSE
+        )
+    },
     required_aes = c('x', 'y')
 )
 
@@ -191,10 +220,10 @@ StatVoronoiSegment <- ggproto('StatVoronoiSegment', Stat,
 #' @export
 geom_voronoi_segment <- function(mapping = NULL, data = NULL, stat = "voronoi_segment",
                               position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-9, normalize = FALSE,
-                              show.legend = NA, inherit.aes = TRUE, ...) {
+                              by.group = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
     layer(data = data, mapping = mapping, stat = stat, geom = GeomSegment,
           position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm, ...))
+          params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm, by.group = by.group, ...))
 }
 
 #' @rdname ggforce-extensions
