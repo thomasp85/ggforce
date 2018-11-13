@@ -60,9 +60,6 @@
 #' @param bin_limit If the samples within the same y-axis bin are more
 #' than `bin_limit`, the samples's X coordinates will be adjusted.
 #'
-#' @param seed a single value that controls the random sample jittering. Set to
-#' an integer to enable plot reproducibility. Default NULL.
-#'
 #' @author Nikos Sidiropoulos
 #'
 #' @name geom_sina
@@ -161,11 +158,6 @@ StatSina <- ggproto("StatSina", Stat,
     else
       params$maxwidth <- 0.96
 
-
-    if (!is.null(params$seed)) {
-      set.seed(params$seed)
-    }
-
     if (is.null(params$binwidth) && is.null(params$bins)) {
       params$bins <- 50
     }
@@ -175,7 +167,7 @@ StatSina <- ggproto("StatSina", Stat,
 
   compute_panel = function(self, data, scales, binwidth = NULL, bins = NULL,
                            scale = TRUE, method = "density", maxwidth = NULL,
-                           adjust = 1, bin_limit = 1, seed = NULL, na.rm = FALSE) {
+                           adjust = 1, bin_limit = 1, na.rm = FALSE) {
     if (!is.null(binwidth))
       bins <- bin_breaks_width(scales$y$dimension() + 1e-8, binwidth)
     else
@@ -183,7 +175,7 @@ StatSina <- ggproto("StatSina", Stat,
 
     data <- ggproto_parent(Stat, self)$compute_panel(data, scales,
       scale = scale, method = method, maxwidth = maxwidth, adjust = adjust,
-      bin_limit = bin_limit, seed = seed, bins = bins$breaks, na.rm = na.rm)
+      bin_limit = bin_limit, bins = bins$breaks, na.rm = na.rm)
 
     #scale all bins based on their density relative to the densiest bin
     if (scale) {
@@ -206,7 +198,7 @@ StatSina <- ggproto("StatSina", Stat,
 
   compute_group = function(data, scales, scale = TRUE, method = "density",
                            maxwidth = NULL, adjust = 1, bin_limit = 1,
-                           seed = NULL, bins = NULL, na.rm = FALSE) {
+                           bins = NULL, na.rm = FALSE) {
 
     #initialize x_translation and bin_counts to 0
     data$x_translation <- data$bin_counts <- rep(0, nrow(data))
@@ -280,7 +272,6 @@ stat_sina <-function(mapping = NULL, data = NULL,
                      maxwidth = NULL,
                      adjust = 1,
                      bin_limit = 1,
-                     seed = NULL,
                      na.rm = FALSE,
                      show.legend = NA,
                      inherit.aes = TRUE) {
@@ -302,7 +293,6 @@ stat_sina <-function(mapping = NULL, data = NULL,
       maxwidth = maxwidth,
       adjust = adjust,
       bin_limit = bin_limit,
-      seed = seed,
       na.rm = na.rm,
       ...
     )
