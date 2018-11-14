@@ -163,7 +163,7 @@ StatSina <- ggproto("StatSina", Stat,
     }
 
     params
-    },
+  },
 
   compute_panel = function(self, data, scales, binwidth = NULL, bins = NULL,
                            scale = TRUE, method = "density", maxwidth = NULL,
@@ -181,13 +181,18 @@ StatSina <- ggproto("StatSina", Stat,
     if (scale) {
       group_scaling_factor <-
         ddply(data, "group", plyr::mutate,
-                    group_max = max(bin_counts))$group_max / max(data$bin_counts)
+              group_max = max(bin_counts))$group_max / max(data$bin_counts)
     } else {
       group_scaling_factor <- 1
     }
 
     data$scaled <- data$x + data$x_translation * group_scaling_factor
     data$x_translation <- NULL
+
+    #jitter y values if the input is input is integer
+    if (all(data$y == floor(data$y)))
+      data$y <- jitter(data$y)
+
     data
   },
 
@@ -214,31 +219,40 @@ StatSina <- ggproto("StatSina", Stat,
       #confine the samples in a (-maxwidth/2, -maxwidth/2) area around the
       #group's center
       intra_scaling_factor <- 0.5 * maxwidth / max(densities$y)
+
+      data$bin <- findInterval(data$y, densities$x)
+
+      data$bin_counts <- as.numeric(bin_counts[match(findInterval(data$y, bins),
+                                                     names(bin_counts))])
+
+      x_translation <- sapply(densities$y[data$bin], jitter, x = 0, factor = 1)
+      data$x_translation <- x_translation * intra_scaling_factor
+
+      data$bin <- NULL
+
     } else {
-      intra_scaling_factor <- 0.5 * maxwidth / max(bin_counts)
-    }
+      #allow up to 50 samples in a bin without scaling
+      intra_scaling_factor <- 50 * maxwidth / max(bin_counts)
 
-    for (i in names(bin_counts)) {
-      #examine bins with more than 'bin_limit' samples
-      if (bin_counts[i] > bin_limit){
-        cur_bin <- bins[ as.integer(i) : (as.integer(i) + 1)]
+      for (i in names(bin_counts)) {
+        #examine bins with more than 'bin_limit' samples
+        if (bin_counts[i] > bin_limit) {
+          cur_bin <- bins[ as.integer(i) : (as.integer(i) + 1)]
 
-        #find samples in the current bin and translate their X coord.
-        points <- findInterval(data$y, cur_bin) == 1
+          #find samples in the current bin and translate their X coord.
+          points <- findInterval(data$y, cur_bin) == 1
 
-        #compute the border margin for the current bin.
-        if (method == "density")
-          xmax <- mean(densities$y[findInterval(densities$x, cur_bin) == 1])
-        else
-          xmax <- bin_counts[i]
+          #compute the border margin for the current bin.
+          xmax <- bin_counts[i] / 100
 
-        #assign the samples uniformely within the specified range
-        x_translation <- stats::runif(bin_counts[i], - xmax, xmax)
+          #assign the samples uniformely within the specified range
+          x_translation <- stats::runif(bin_counts[i], - xmax, xmax)
 
-        #scale and store new x coordinates
-        data$x_translation[points] <- x_translation * intra_scaling_factor
-        #store bin counts. Used for group-wise scaling.
-        data$bin_counts[points] <- bin_counts[i]
+          #scale and store new x coordinates
+          data$x_translation[points] <- x_translation * intra_scaling_factor
+          #store bin counts. Used for group-wise scaling.
+          data$bin_counts[points] <- bin_counts[i]
+        }
       }
     }
     data
@@ -417,9 +431,9 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
 }
 
 .has_groups <- function(data) {
-    # If no group aesthetic is specified, all values of the group column equal to
-    # -1L. On the other hand, if a group aesthetic is specified, all values
-    # are different from -1L (since they are a result of plyr::id()). NA is
-    # returned for 0-row data frames.
-    data$group[1L] != -1L
+  # If no group aesthetic is specified, all values of the group column equal to
+  # -1L. On the other hand, if a group aesthetic is specified, all values
+  # are different from -1L (since they are a result of plyr::id()). NA is
+  # returned for 0-row data frames.
+  data$group[1L] != -1L
 }
