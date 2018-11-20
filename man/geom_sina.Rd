@@ -9,7 +9,7 @@
 stat_sina(mapping = NULL, data = NULL, geom = "sina",
   position = "identity", ..., binwidth = NULL, bins = NULL,
   scale = TRUE, method = "density", maxwidth = NULL, adjust = 1,
-  bin_limit = 1, seed = NULL, na.rm = FALSE, show.legend = NA,
+  bin_limit = 1, one_sided = "off", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 
 geom_sina(mapping = NULL, data = NULL, stat = "sina",
@@ -70,8 +70,8 @@ between 0 and 1.}
 \item{bin_limit}{If the samples within the same y-axis bin are more
 than \code{bin_limit}, the samples's X coordinates will be adjusted.}
 
-\item{seed}{a single value that controls the random sample jittering. Set to
-an integer to enable plot reproducibility. Default NULL.}
+\item{one_sided}{Draw the data points on the \code{"left"} or \code{"right"}
+side of the respective x-axis label. Default: \code{"off"}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

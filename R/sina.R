@@ -60,6 +60,9 @@
 #' @param bin_limit If the samples within the same y-axis bin are more
 #' than `bin_limit`, the samples's X coordinates will be adjusted.
 #'
+#' @param one_sided Draw the data points on the `"left"` or `"right"`
+#' side of the respective x-axis label. Default: `"off"`.
+#'
 #' @author Nikos Sidiropoulos
 #'
 #' @name geom_sina
@@ -162,12 +165,16 @@ StatSina <- ggproto("StatSina", Stat,
       params$bins <- 50
     }
 
+    params$method <- match.arg(params$method, c("density", "counts"))
+    params$one_sided <- match.arg(params$one_sided, c("off", "left", "right"))
+
     params
   },
 
   compute_panel = function(self, data, scales, binwidth = NULL, bins = NULL,
                            scale = TRUE, method = "density", maxwidth = NULL,
-                           adjust = 1, bin_limit = 1, na.rm = FALSE) {
+                           adjust = 1, bin_limit = 1, one_sided = "off",
+                           na.rm = FALSE) {
     if (!is.null(binwidth))
       bins <- bin_breaks_width(scales$y$dimension() + 1e-8, binwidth)
     else
@@ -175,7 +182,8 @@ StatSina <- ggproto("StatSina", Stat,
 
     data <- ggproto_parent(Stat, self)$compute_panel(data, scales,
       scale = scale, method = method, maxwidth = maxwidth, adjust = adjust,
-      bin_limit = bin_limit, bins = bins$breaks, na.rm = na.rm)
+      bin_limit = bin_limit, one_sided = one_sided, bins = bins$breaks,
+      na.rm = na.rm)
 
     #scale all bins based on their density relative to the densiest bin
     if (scale) {
@@ -198,7 +206,7 @@ StatSina <- ggproto("StatSina", Stat,
 
   compute_group = function(data, scales, scale = TRUE, method = "density",
                            maxwidth = NULL, adjust = 1, bin_limit = 1,
-                           bins = NULL, na.rm = FALSE) {
+                           one_sided = "off", bins = NULL, na.rm = FALSE) {
 
     #initialize x_translation and bin_counts to 0
     data$x_translation <- data$bin_counts <- rep(0, nrow(data))
@@ -226,6 +234,13 @@ StatSina <- ggproto("StatSina", Stat,
                                                      names(bin_counts))])
 
       x_translation <- sapply(densities$y[data$bin], jitter, x = 0, factor = 1)
+
+      if (one_sided == "left") {
+        x_translation <- - abs(x_translation)
+      } else if (one_sided == "right") {
+        x_translation <- abs(x_translation)
+      }
+
       data$x_translation <- x_translation * intra_scaling_factor
 
       data$bin <- NULL
@@ -246,7 +261,13 @@ StatSina <- ggproto("StatSina", Stat,
           xmax <- bin_counts[i] / 100
 
           #assign the samples uniformely within the specified range
-          x_translation <- stats::runif(bin_counts[i], - xmax, xmax)
+          if (one_sided == "left") {
+            x_translation <- stats::runif(bin_counts[i], - xmax, 0)
+          } else if (one_sided == "right") {
+            x_translation <- stats::runif(bin_counts[i], 0, xmax)
+          } else {
+            x_translation <- stats::runif(bin_counts[i], - xmax, xmax)
+          }
 
           #scale and store new x coordinates
           data$x_translation[points] <- x_translation * intra_scaling_factor
@@ -272,10 +293,10 @@ stat_sina <-function(mapping = NULL, data = NULL,
                      maxwidth = NULL,
                      adjust = 1,
                      bin_limit = 1,
+                     one_sided = "off",
                      na.rm = FALSE,
                      show.legend = NA,
                      inherit.aes = TRUE) {
-  method <- match.arg(method, c("density", "counts"))
 
   layer(
     data = data,
@@ -293,6 +314,7 @@ stat_sina <-function(mapping = NULL, data = NULL,
       maxwidth = maxwidth,
       adjust = adjust,
       bin_limit = bin_limit,
+      one_sided = one_sided,
       na.rm = na.rm,
       ...
     )
