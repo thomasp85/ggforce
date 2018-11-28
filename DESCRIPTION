@@ -15,7 +15,7 @@ BugReports: https://github.com/thomasp85/ggforce/issues
 License: GPL (>=2)
 LazyData: TRUE
 Depends:
-    ggplot2 (>= 2.2.0),
+    ggplot2 (>= 2.2.1.9000),
     R (>= 3.3.0)
 Imports:
     Rcpp (>= 0.12.2),
@@ -41,7 +41,7 @@ Suggests:
     reshape2,
     units (>= 0.4-6)
 VignetteBuilder: knitr
-Collate:
+Collate: 
     'RcppExports.R'
     'aaa.R'
     'shape.R'
@@ -58,6 +58,7 @@ Collate:
     'facet_stereo.R'
     'facet_wrap_paginate.R'
     'facet_zoom.R'
+    'gen_all_pages_fwp.R'
     'ggforce_package.R'
     'ggproto-classes.R'
     'interpolate.R'
