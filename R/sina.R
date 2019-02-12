@@ -51,9 +51,6 @@
 #' bin along the x-axis. Available methods: "density", "counts" (can be
 #' abbreviated, e.g. "d"). See `Details`.
 #'
-#' @param maxwidth Control the maximum width the points can spread into. Values
-#' between 0 and 1.
-#'
 #' @param adjust Adjusts the bandwidth of the density kernel when
 #' `method == "density"` (see [stats::density()]).
 #'
@@ -148,15 +145,19 @@ StatSina <- ggproto("StatSina", Stat,
            call. = FALSE)
     }
 
+    data$width <- data$width %||%
+      params$width %||% (resolution(data$x, FALSE) * 0.9)
+
+    data <- ddply(data, "group", transform,
+        xmin = x - width / 2,
+        xmax = x + width / 2
+    )
+
     data
   },
 
   setup_params = function(data, params) {
-    #Limit maxwidth to 0.96 to leave some space between groups
-    if (!is.null(params$maxwidth))
-      params$maxwidth <- abs(params$maxwidth) # needs to be positive
-    else
-      params$maxwidth <- 0.96
+    params$width <- params$width %||% (resolution(data$x %||% 0) * 0.9)
 
     if (is.null(params$binwidth) && is.null(params$bins)) {
       params$bins <- 50
@@ -166,7 +167,7 @@ StatSina <- ggproto("StatSina", Stat,
   },
 
   compute_panel = function(self, data, scales, binwidth = NULL, bins = NULL,
-                           scale = TRUE, method = "density", maxwidth = NULL,
+                           scale = TRUE, method = "density", width = NULL,
                            adjust = 1, bin_limit = 1, na.rm = FALSE) {
     if (!is.null(binwidth))
       bins <- bin_breaks_width(scales$y$dimension() + 1e-8, binwidth)
@@ -174,7 +175,7 @@ StatSina <- ggproto("StatSina", Stat,
       bins <- bin_breaks_bins(scales$y$dimension() + 1e-8, bins)
 
     data <- ggproto_parent(Stat, self)$compute_panel(data, scales,
-      scale = scale, method = method, maxwidth = maxwidth, adjust = adjust,
+      scale = scale, method = method, width = width, adjust = adjust,
       bin_limit = bin_limit, bins = bins$breaks, na.rm = na.rm)
 
     #scale all bins based on their density relative to the densiest bin
@@ -197,7 +198,7 @@ StatSina <- ggproto("StatSina", Stat,
   },
 
   compute_group = function(data, scales, scale = TRUE, method = "density",
-                           maxwidth = NULL, adjust = 1, bin_limit = 1,
+                           width = NULL, adjust = 1, bin_limit = 1,
                            bins = NULL, na.rm = FALSE) {
 
     #initialize x_translation and bin_counts to 0
@@ -218,7 +219,7 @@ StatSina <- ggproto("StatSina", Stat,
 
       #confine the samples in a (-maxwidth/2, -maxwidth/2) area around the
       #group's center
-      intra_scaling_factor <- 0.5 * maxwidth / max(densities$y)
+      intra_scaling_factor <- 0.5 * width / max(densities$y)
 
       data$bin <- findInterval(data$y, densities$x)
 
@@ -232,7 +233,7 @@ StatSina <- ggproto("StatSina", Stat,
 
     } else {
       #allow up to 50 samples in a bin without scaling
-      intra_scaling_factor <- 50 * maxwidth / max(bin_counts)
+      intra_scaling_factor <- 50 * width / max(bin_counts)
 
       for (i in names(bin_counts)) {
         #examine bins with more than 'bin_limit' samples
@@ -263,13 +264,12 @@ StatSina <- ggproto("StatSina", Stat,
 #' @importFrom ggplot2 layer
 #' @export
 stat_sina <-function(mapping = NULL, data = NULL,
-                     geom = "sina", position = "identity",
+                     geom = "sina", position = "dodge",
                      ...,
                      binwidth = NULL,
                      bins = NULL,
                      scale = TRUE,
                      method = "density",
-                     maxwidth = NULL,
                      adjust = 1,
                      bin_limit = 1,
                      na.rm = FALSE,
@@ -290,7 +290,6 @@ stat_sina <-function(mapping = NULL, data = NULL,
       bins = bins,
       scale = scale,
       method = method,
-      maxwidth = maxwidth,
       adjust = adjust,
       bin_limit = bin_limit,
       na.rm = na.rm,
@@ -316,7 +315,7 @@ GeomSina <- ggproto("GeomSina", GeomPoint,
 #' @importFrom ggplot2 layer
 #' @export
 geom_sina <- function(mapping = NULL, data = NULL,
-                      stat = "sina", position = "identity",
+                      stat = "sina", position = "dodge",
                       ...,
                       na.rm = FALSE,
                       show.legend = NA,
