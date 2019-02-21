@@ -1,9 +1,13 @@
-#' Annotate areas with circles
+#' Annotate areas with ellipses
 #'
-#' This geom lets you annotate sets of points via circles. The enclosing circles
-#' are calculated at draw time and the most optimal enclosure at the given
-#' aspect ratio is thus guaranteed. As with the other `geom_mark_*` geoms the
-#' enclosure is expanded sligtly to fully contain the enclosed points.
+#' This geom lets you annotate sets of points via ellipses. The enclosing
+#' ellipses are estimated using the Khachiyan algorithm which guarantees and
+#' optimal solution within the given tolerance level. As this geom is often
+#' expanded it is of lesser concern that some points are slightly outside the
+#' ellipsis. The Khachiyan algorithm has polynomial complexity and can thus
+#' suffer from scaling issues. Still, it is only calculated on the convex hull
+#' of the groups, so performance issues should be rare (it can easily handle a
+#' hull consisting of 1000 points).
 #'
 #' @section Aesthetics:
 #' geom_mark_hull understand the following aesthetics (required aesthetics are in
@@ -22,15 +26,17 @@
 #' @inheritParams geom_shape
 #'
 #' @param n The number of points used to draw each circle. Defaults to `100`
+#' @param tol The tolerance cutoff. Lower values will result in ellipses closer
+#' to the optimal solution. Defaults to `0.01`
 #'
 #' @author Thomas Lin Pedersen
 #'
-#' @name geom_mark_circle
-#' @rdname geom_mark_circle
+#' @name geom_mark_ellipse
+#' @rdname geom_mark_ellipse
 #'
 #' @examples
 #' ggplot(iris, aes(Petal.Length, Petal.Width)) +
-#'   geom_mark_circle(aes(fill = Species, filter = Species != 'versicolor')) +
+#'   geom_mark_ellipsis(aes(fill = Species, filter = Species != 'versicolor')) +
 #'   geom_point()
 #'
 NULL
@@ -40,7 +46,7 @@ NULL
 #' @usage NULL
 #' @importFrom ggplot2 ggproto zeroGrob
 #' @export
-GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
+GeomMarkEllipse <- ggproto('GeomMarkEllipse', GeomShape,
     setup_data = function(self, data, params) {
         if (!is.null(data$filter)) {
             self$removed <- data[!data$filter, c('x', 'y', 'PANEL')]
@@ -48,8 +54,8 @@ GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
         }
         data
     },
-    draw_panel = function(self, data, panel_params, coord, expand = unit(5, 'mm'),
-                          radius = 0, n = 100, label.margin = margin(2, 2, 2, 2, 'mm'),
+    draw_panel = function(self, data, panel_params, coord, expand = unit(5, 'mm'), radius = 0,
+                          n = 100, tol = 0.01, label.margin = margin(2, 2, 2, 2, 'mm'),
                           label.width = NULL, label.minwidth = unit(50, 'mm'),
                           label.hjust = 0,
                           label.fontsize = 12, label.family = '',
@@ -81,56 +87,56 @@ GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
             }
         }
 
-        circEncGrob(coords$x, coords$y, default.units = "native",
-                 id = coords$group, expand = expand, radius = radius, n = n,
-                 label = label, ghosts = ghosts,
-                 mark.gp = gpar(
-                     col = first_rows$colour,
-                     fill = alpha(first_rows$fill, first_rows$alpha),
-                     lwd = first_rows$size * .pt,
-                     lty = first_rows$linetype
-                 ),
-                 label.gp = gpar(
-                     col = label.colour,
-                     fill = label.fill,
-                     fontface = label.fontface,
-                     fontfamily = label.family,
-                     fontsize = label.fontsize
-                 ),
-                 con.gp = gpar(
-                     col = con.colour,
-                     lwd = con.size * .pt,
-                     lty = con.linetype
-                 ),
-                 label.margin = label.margin,
-                 label.width = label.width,
-                 label.minwidth = label.minwidth,
-                 label.hjust = label.hjust,
-                 con.type = con.type,
-                 con.border = con.border,
-                 con.cap = con.cap
+        ellipEncGrob(coords$x, coords$y, default.units = "native",
+                    id = coords$group, expand = expand, radius = radius, n = n,
+                    tol = tol, label = label, ghosts = ghosts,
+                    mark.gp = gpar(
+                        col = first_rows$colour,
+                        fill = alpha(first_rows$fill, first_rows$alpha),
+                        lwd = first_rows$size * .pt,
+                        lty = first_rows$linetype
+                    ),
+                    label.gp = gpar(
+                        col = label.colour,
+                        fill = label.fill,
+                        fontface = label.fontface,
+                        fontfamily = label.family,
+                        fontsize = label.fontsize
+                    ),
+                    con.gp = gpar(
+                        col = con.colour,
+                        lwd = con.size * .pt,
+                        lty = con.linetype
+                    ),
+                    label.margin = label.margin,
+                    label.width = label.width,
+                    label.minwidth = label.minwidth,
+                    label.hjust = label.hjust,
+                    con.type = con.type,
+                    con.border = con.border,
+                    con.cap = con.cap
         )
     },
-    default_aes = aes(fill = NA, colour = 'black', alpha = 0.3, size = 0.5, linetype = 1, filter = NULL, label = NULL, description = NULL)
+    default_aes = GeomMarkCircle$default_aes
 )
 
-#' @rdname geom_mark_circle
+#' @rdname geom_mark_ellipse
 #' @export
-geom_mark_circle <- function(mapping = NULL, data = NULL, stat = "identity",
-                           position = "identity", expand = unit(5, 'mm'),
-                           radius = 0, n = 100, label.margin = margin(2, 2, 2, 2, 'mm'),
-                           label.width = NULL, label.minwidth = unit(50, 'mm'),
-                           label.hjust = 0, label.fontsize = 12, label.family = '',
-                           label.fontface = c('bold', 'plain'), label.fill = 'white',
-                           label.colour = 'black', con.colour = 'black', con.size = 0.5,
-                           con.type = 'elbow', con.linetype = 1, con.border = 'one',
-                           con.cap = unit(3, 'mm'), ...,
-                           na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) {
+geom_mark_ellipse <- function(mapping = NULL, data = NULL, stat = "identity",
+                             position = "identity", expand = unit(5, 'mm'),
+                             radius = 0, n = 100, tol = 0.01, label.margin = margin(2, 2, 2, 2, 'mm'),
+                             label.width = NULL, label.minwidth = unit(50, 'mm'),
+                             label.hjust = 0, label.fontsize = 12, label.family = '',
+                             label.fontface = c('bold', 'plain'), label.fill = 'white',
+                             label.colour = 'black', con.colour = 'black', con.size = 0.5,
+                             con.type = 'elbow', con.linetype = 1, con.border = 'one',
+                             con.cap = unit(3, 'mm'), ...,
+                             na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) {
     layer(
         data = data,
         mapping = mapping,
         stat = stat,
-        geom = GeomMarkCircle,
+        geom = GeomMarkEllipse,
         position = position,
         show.legend = show.legend,
         inherit.aes = inherit.aes,
@@ -139,6 +145,7 @@ geom_mark_circle <- function(mapping = NULL, data = NULL, stat = "identity",
             expand = expand,
             radius = radius,
             n = n,
+            tol = tol,
             label.margin = label.margin,
             label.width = label.width,
             label.minwidth = label.minwidth,
@@ -162,14 +169,14 @@ geom_mark_circle <- function(mapping = NULL, data = NULL, stat = "identity",
 # Helpers -----------------------------------------------------------------
 
 #' @importFrom grDevices chull
-circEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
-                     id.lengths = NULL, expand = 0, radius = 0, n = 100,
-                     label = NULL, ghosts = NULL, default.units = "npc",
-                     name = NULL, mark.gp = gpar(), label.gp = gpar(),
-                     con.gp = gpar(), label.margin = margin(), label.width = NULL,
-                     label.minwidth = unit(50, 'mm'), label.hjust = 0,
-                     con.type = 'elbow', con.border = 'one',
-                     con.cap = unit(3, 'mm'), vp = NULL) {
+ellipEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
+                        id.lengths = NULL, expand = 0, radius = 0, n = 100, tol = 0.01,
+                        label = NULL, ghosts = NULL, default.units = "npc",
+                        name = NULL, mark.gp = gpar(), label.gp = gpar(),
+                        con.gp = gpar(), label.margin = margin(), label.width = NULL,
+                        label.minwidth = unit(50, 'mm'), label.hjust = 0,
+                        con.type = 'elbow', con.border = 'one',
+                        con.cap = unit(3, 'mm'), vp = NULL) {
     if (is.null(id)) {
         if (is.null(id.lengths)) {
             id <- rep(1, length(x))
@@ -208,10 +215,10 @@ circEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
     } else {
         labeldim <- NULL
     }
-    gTree(mark = mark, n = n, label = label, labeldim = labeldim,
+    gTree(mark = mark, n = n, tol = tol, label = label, labeldim = labeldim,
           ghosts = ghosts, con.gp = con.gp, con.type = con.type,
           con.cap = as_mm(con.cap, default.units), con.border = con.border,
-          name = name, vp = vp, cl = 'circ_enc')
+          name = name, vp = vp, cl = 'ellip_enc')
 }
 #' Calculate the enclosing circle and draw it as a shapeGrob
 #'
@@ -222,24 +229,26 @@ circEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
 #'
 #' @return A shape grob
 #'
-#' @importFrom grid convertX convertY unit makeContent
+#' @importFrom grid convertX convertY unit makeContent childNames addGrob
 #' @export
 #' @keywords internal
 #'
-makeContent.circ_enc <- function(x) {
+makeContent.ellip_enc <- function(x) {
     mark <- x$mark
     x_new <- convertX(mark$x, 'mm', TRUE)
     y_new <- convertY(mark$y, 'mm', TRUE)
-    circles <- enclose_points(round(x_new, 2), round(y_new, 2), mark$id)
-    circles$id <- seq_len(nrow(circles))
-    circles <- circles[rep(circles$id, each = x$n), ]
+    ellipses <- enclose_ellip_points(round(x_new, 2), round(y_new, 2), mark$id, x$tol)
+    ellipses$id <- seq_len(nrow(ellipses))
+    ellipses <- ellipses[rep(ellipses$id, each = x$n), ]
     points <- 2*pi*(seq_len(x$n) - 1)/x$n
-    circles$x <- circles$x0 + cos(points)*circles$r
-    circles$y <- circles$y0 + sin(points)*circles$r
-    circles <- unique(circles)
-    mark$x <- unit(circles$x, 'mm')
-    mark$y <- unit(circles$y, 'mm')
-    mark$id <- circles$id
+    x_tmp <- cos(points)*ellipses$a
+    y_tmp <- sin(points)*ellipses$b
+    ellipses$x <- ellipses$x0 + x_tmp*cos(ellipses$angle) - y_tmp*sin(ellipses$angle)
+    ellipses$y <- ellipses$y0 + x_tmp*sin(ellipses$angle) + y_tmp*cos(ellipses$angle)
+    ellipses <- unique(ellipses)
+    mark$x <- unit(ellipses$x, 'mm')
+    mark$y <- unit(ellipses$y, 'mm')
+    mark$id <- ellipses$id
     mark <- makeContent(mark)
     if (!is.null(x$label)) {
         polygons <- Map(function(x, y) list(x = x, y = y),

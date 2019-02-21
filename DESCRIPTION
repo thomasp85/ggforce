@@ -31,7 +31,6 @@ Imports:
     deldir,
     polyclip,
     stats,
-    concaveman,
     grDevices,
     mgcv,
     ggrepel
@@ -41,6 +40,7 @@ Suggests:
     knitr,
     rmarkdown,
     devtools,
+    concaveman,
     reshape2
 VignetteBuilder: knitr
 Collate: 
@@ -65,7 +65,7 @@ Collate:
     'interpolate.R'
     'link.R'
     'mark_circle.R'
-    'mark_ellipsis.R'
+    'mark_ellipse.R'
     'mark_hull.R'
     'mark_label.R'
     'mark_rect.R'
