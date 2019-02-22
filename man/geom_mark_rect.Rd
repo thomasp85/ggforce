@@ -2,12 +2,18 @@
 % Please edit documentation in R/mark_rect.R
 \name{geom_mark_rect}
 \alias{geom_mark_rect}
-\alias{geom_mark_rect}
 \title{Annotate areas with rectangles}
 \usage{
 geom_mark_rect(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", expand = unit(5, "mm"), radius = unit(2.5, "mm"),
-  ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  position = "identity", expand = unit(5, "mm"), radius = unit(2.5,
+  "mm"), label.margin = margin(2, 2, 2, 2, "mm"), label.width = NULL,
+  label.minwidth = unit(50, "mm"), label.hjust = 0,
+  label.fontsize = 12, label.family = "", label.fontface = c("bold",
+  "plain"), label.fill = "white", label.colour = "black",
+  label.buffer = unit(10, "mm"), con.colour = "black",
+  con.size = 0.5, con.type = "elbow", con.linetype = 1,
+  con.border = "one", con.cap = unit(3, "mm"), con.arrow = NULL, ...,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -26,7 +32,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{stat}{The statistical transformation to use on the data for this
@@ -42,9 +48,63 @@ plot area width.}
 
 \item{radius}{As \code{expand} but specifying the corner radius.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{label.margin}{The margin around the annotation boxes, given by a call
+to \code{\link[ggplot2:margin]{ggplot2::margin()}}}
+
+\item{label.width}{A fixed width for the label. Set to \code{NULL} to let the text
+or \code{label.minwidth} decide}
+
+\item{label.minwidth}{The minimum width to provide for the description. If
+the size of the label exceeds this, the the description is allowed to fill as
+much as the label}
+
+\item{label.hjust}{The horizontal justification for the annotation. If it contains
+two elements the first will be used for the label and the second for the
+description.}
+
+\item{label.fontsize}{The size of the text for the annotation. If it contains
+two elements the first will be used for the label and the second for the
+description.}
+
+\item{label.family}{The font family used for the annotation. If it contains
+two elements the first will be used for the label and the second for the
+description.}
+
+\item{label.fontface}{The font face used for the annotation. If it contains
+two elements the first will be used for the label and the second for the
+description.}
+
+\item{label.fill}{The fill colour for the annotation box.}
+
+\item{label.colour}{The text colour for the annotation. If it contains
+two elements the first will be used for the label and the second for the
+description.}
+
+\item{label.buffer}{The size of the region around the mark where labels
+cannot be placed.}
+
+\item{con.colour}{The colour for the line connecting the annotation to the
+mark}
+
+\item{con.size}{The width of the connector}
+
+\item{con.type}{The type of the connector. Either \code{"elbow"}, \code{"straight"}, or
+\code{"none"}.}
+
+\item{con.linetype}{The linetype of the connector}
+
+\item{con.border}{The bordertype of the connector. Either \code{"one"} (to draw a
+line on the horizontal side closest to the mark), \code{"all"} (to draw a border
+on all sides), or \code{"none"} (not going to explain that one)}
+
+\item{con.cap}{The distance before the mark that the line should stop at.}
+
+\item{con.arrow}{An arrow specification for the connection using
+\code{\link[grid:arrow]{grid::arrow()}} for the end pointing towards the mark}
+
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
@@ -74,6 +134,8 @@ in bold):
 \item \strong{x}
 \item \strong{y}
 \item filter
+\item label
+\item description
 \item color
 \item fill
 \item group
@@ -83,11 +145,44 @@ in bold):
 }
 }
 
+\section{Annotation}{
+
+All \code{geom_mark_*} allows you to put descriptive textboxes connected to the
+mark on the plot, using the \code{label} and \code{description} aesthetics. The
+textboxes are automatically placed close to the mark, but without obscuring
+any of the datapoints in the layer. The placement is dynamic so if you resize
+the plot you'll see that the annotation might move around as areas become big
+enough or too small to fit the annotation. If there's not enough space for
+the annotation without overlapping data it will not get drawn. In these cases
+try resizing the plot, change the size of the annotation, or decrease the
+buffer region around the marks.
+}
+
+\section{Filtering}{
+
+Often marks are used to draw attention to, or annotate specific features of
+the plot and it is thus not desirable to have marks around everything. While
+it is possible to simply pre-filter the data used for the mark layer, the
+\code{geom_mark_*} geoms also comes with a dedicated \code{filter} aesthetic that, if
+set, will remove all rows where it evalutates to \code{FALSE}. There are
+multiple benefits of using this instead of prefiltering. First, you don't
+have to change your data source, making your code more adaptable for
+exploration. Second, the data removed by the filter aesthetic is remembered
+by the geom, and any annotation will take care not to overlap with the
+removed data.
+}
+
 \examples{
 ggplot(iris, aes(Petal.Length, Petal.Width)) +
   geom_mark_rect(aes(fill = Species, filter = Species != 'versicolor')) +
   geom_point()
 }
+\seealso{
+Other mark geoms: \code{\link{geom_mark_circle}},
+  \code{\link{geom_mark_ellipse}},
+  \code{\link{geom_mark_hull}}
+}
 \author{
 Thomas Lin Pedersen
 }
+\concept{mark geoms}

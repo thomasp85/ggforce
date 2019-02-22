@@ -4,6 +4,8 @@
 #' simply scaled to the range of the data and as with the the other
 #' `geom_mark_*()` geoms expanded and have rounded corners.
 #'
+#' @inheritSection geom_mark_circle Annotation
+#' @inheritSection geom_mark_circle Filtering
 #' @section Aesthetics:
 #' geom_mark_rect understand the following aesthetics (required aesthetics are
 #' in bold):
@@ -11,6 +13,8 @@
 #' - **x**
 #' - **y**
 #' - filter
+#' - label
+#' - description
 #' - color
 #' - fill
 #' - group
@@ -18,9 +22,10 @@
 #' - linetype
 #' - alpha
 #'
-#' @inheritParams geom_shape
+#' @inheritParams geom_mark_circle
 #'
 #' @author Thomas Lin Pedersen
+#' @family mark geoms
 #'
 #' @name geom_mark_rect
 #' @rdname geom_mark_rect
@@ -57,12 +62,12 @@ GeomMarkRect <- ggproto('GeomMarkRect', GeomShape,
                           radius = unit(2.5, 'mm'),
                           label.margin = margin(2, 2, 2, 2, 'mm'),
                           label.width = NULL, label.minwidth = unit(50, 'mm'),
-                          label.hjust = 0,
+                          label.hjust = 0, label.buffer = unit(10, 'mm'),
                           label.fontsize = 12, label.family = '',
                           label.fontface = c('bold', 'plain'), label.fill = 'white',
                           label.colour = 'black', con.colour = 'black', con.size = 0.5,
                           con.type = 'elbow', con.linetype = 1, con.border = 'one',
-                          con.cap = unit(3, 'mm')) {
+                          con.cap = unit(3, 'mm'), con.arrow = NULL) {
         if (nrow(data) == 0) return(zeroGrob())
 
         coords <- coord$transform(data, panel_params)
@@ -106,6 +111,7 @@ GeomMarkRect <- ggproto('GeomMarkRect', GeomShape,
                  ),
                  con.gp = gpar(
                      col = con.colour,
+                     fill = con.colour,
                      lwd = con.size * .pt,
                      lty = con.linetype
                  ),
@@ -113,9 +119,11 @@ GeomMarkRect <- ggproto('GeomMarkRect', GeomShape,
                  label.width = label.width,
                  label.minwidth = label.minwidth,
                  label.hjust = label.hjust,
+                 label.buffer = label.buffer,
                  con.type = con.type,
                  con.border = con.border,
-                 con.cap = con.cap
+                 con.cap = con.cap,
+                 con.arrow = con.arrow
         )
     },
     default_aes = GeomMarkCircle$default_aes
@@ -129,9 +137,10 @@ geom_mark_rect <- function(mapping = NULL, data = NULL, stat = "identity",
                            label.width = NULL, label.minwidth = unit(50, 'mm'),
                            label.hjust = 0, label.fontsize = 12, label.family = '',
                            label.fontface = c('bold', 'plain'), label.fill = 'white',
-                           label.colour = 'black', con.colour = 'black', con.size = 0.5,
+                           label.colour = 'black', label.buffer = unit(10, 'mm'),
+                           con.colour = 'black', con.size = 0.5,
                            con.type = 'elbow', con.linetype = 1, con.border = 'one',
-                           con.cap = unit(3, 'mm'), ...,
+                           con.cap = unit(3, 'mm'), con.arrow = NULL, ...,
                            na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) {
     layer(
         data = data,
@@ -154,12 +163,14 @@ geom_mark_rect <- function(mapping = NULL, data = NULL, stat = "identity",
             label.hjust = label.hjust,
             label.fill = label.fill,
             label.colour = label.colour,
+            label.buffer = label.buffer,
             con.colour = con.colour,
             con.size = con.size,
             con.type = con.type,
             con.linetype = con.linetype,
             con.border = con.border,
             con.cap = con.cap,
+            con.arrow = con.arrow,
             ...
         )
     )
@@ -173,8 +184,8 @@ rectEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
                         name = NULL, mark.gp = gpar(), label.gp = gpar(),
                         con.gp = gpar(), label.margin = margin(), label.width = NULL,
                         label.minwidth = unit(50, 'mm'), label.hjust = 0,
-                        con.type = 'elbow', con.border = 'one',
-                        con.cap = unit(3, 'mm'), vp = NULL) {
+                        label.buffer = unit(10, 'mm'), con.type = 'elbow', con.border = 'one',
+                        con.cap = unit(3, 'mm'), con.arrow = NULL, vp = NULL) {
     mark <- shapeGrob(x = x, y = y, id = id, id.lengths = id.lengths,
                       expand = expand, radius = radius,
                       default.units = default.units, name = name, gp = mark.gp,
@@ -183,7 +194,7 @@ rectEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
         label <- lapply(seq_len(nrow(label)), function(i) {
             grob <- labelboxGrob(label$label[i], 0, 0, label$description[i],
                                  gp = label.gp, pad = label.margin, width = label.width,
-                                 min.width = label.minwidth)
+                                 min.width = label.minwidth, hjust = label.hjust)
             if (con.border == 'all') {
                 grob$children[[1]]$gp$col = con.gp$col
                 grob$children[[1]]$gp$lwd = con.gp$lwd
@@ -202,8 +213,9 @@ rectEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
     gTree(mark = mark, label = label, labeldim = labeldim,
           ghosts = ghosts, con.gp = con.gp, con.type = con.type,
           con.cap = as_mm(con.cap, default.units), con.border = con.border,
-          name = name, vp = vp, cl = 'rect_enc')
+          con.arrow = con.arrow, name = name, vp = vp, cl = 'rect_enc')
 }
+#' @importFrom grid makeContent setChildren gList
 #' @export
 makeContent.rect_enc <- function(x) {
     mark <- makeContent(x$mark)
@@ -212,11 +224,11 @@ makeContent.rect_enc <- function(x) {
                         x = split(as.numeric(mark$x), mark$id),
                         y = split(as.numeric(mark$y), mark$id))
         labels <- make_label(labels = x$label, dims = x$labeldim, polygons = polygons,
-                             ghosts = x$ghosts, con_type = x$con.type,
+                             ghosts = x$ghosts, buffer = x$buffer, con_type = x$con.type,
                              con_border = x$con.border, con_cap = x$con.cap,
-                             con_gp = x$con.gp, anchor_mod = 3)
-        grid::setChildren(x, do.call(gList, c(list(mark), labels)))
+                             con_gp = x$con.gp, anchor_mod = 3, arrow = x$con.arrow)
+        setChildren(x, do.call(gList, c(list(mark), labels)))
     } else {
-        grid::setChildren(x, gList(mark))
+        setChildren(x, gList(mark))
     }
 }

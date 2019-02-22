@@ -9,6 +9,8 @@
 #' of the groups, so performance issues should be rare (it can easily handle a
 #' hull consisting of 1000 points).
 #'
+#' @inheritSection geom_mark_circle Annotation
+#' @inheritSection geom_mark_circle Filtering
 #' @section Aesthetics:
 #' geom_mark_hull understand the following aesthetics (required aesthetics are in
 #' bold):
@@ -16,6 +18,8 @@
 #' - **x**
 #' - **y**
 #' - filter
+#' - label
+#' - description
 #' - color
 #' - fill
 #' - group
@@ -23,13 +27,14 @@
 #' - linetype
 #' - alpha
 #'
-#' @inheritParams geom_shape
+#' @inheritParams geom_mark_circle
 #'
 #' @param n The number of points used to draw each circle. Defaults to `100`
 #' @param tol The tolerance cutoff. Lower values will result in ellipses closer
 #' to the optimal solution. Defaults to `0.01`
 #'
 #' @author Thomas Lin Pedersen
+#' @family mark geoms
 #'
 #' @name geom_mark_ellipse
 #' @rdname geom_mark_ellipse
@@ -57,12 +62,12 @@ GeomMarkEllipse <- ggproto('GeomMarkEllipse', GeomShape,
     draw_panel = function(self, data, panel_params, coord, expand = unit(5, 'mm'), radius = 0,
                           n = 100, tol = 0.01, label.margin = margin(2, 2, 2, 2, 'mm'),
                           label.width = NULL, label.minwidth = unit(50, 'mm'),
-                          label.hjust = 0,
+                          label.hjust = 0, label.buffer = unit(10, 'mm'),
                           label.fontsize = 12, label.family = '',
                           label.fontface = c('bold', 'plain'), label.fill = 'white',
                           label.colour = 'black', con.colour = 'black', con.size = 0.5,
                           con.type = 'elbow', con.linetype = 1, con.border = 'one',
-                          con.cap = unit(3, 'mm')) {
+                          con.cap = unit(3, 'mm'), con.arrow = NULL) {
         if (nrow(data) == 0) return(zeroGrob())
 
         coords <- coord$transform(data, panel_params)
@@ -105,6 +110,7 @@ GeomMarkEllipse <- ggproto('GeomMarkEllipse', GeomShape,
                     ),
                     con.gp = gpar(
                         col = con.colour,
+                        fill = con.colour,
                         lwd = con.size * .pt,
                         lty = con.linetype
                     ),
@@ -112,9 +118,11 @@ GeomMarkEllipse <- ggproto('GeomMarkEllipse', GeomShape,
                     label.width = label.width,
                     label.minwidth = label.minwidth,
                     label.hjust = label.hjust,
+                    label.buffer = label.buffer,
                     con.type = con.type,
                     con.border = con.border,
-                    con.cap = con.cap
+                    con.cap = con.cap,
+                    con.arrow = con.arrow
         )
     },
     default_aes = GeomMarkCircle$default_aes
@@ -128,9 +136,10 @@ geom_mark_ellipse <- function(mapping = NULL, data = NULL, stat = "identity",
                              label.width = NULL, label.minwidth = unit(50, 'mm'),
                              label.hjust = 0, label.fontsize = 12, label.family = '',
                              label.fontface = c('bold', 'plain'), label.fill = 'white',
-                             label.colour = 'black', con.colour = 'black', con.size = 0.5,
+                             label.colour = 'black', label.buffer = unit(10, 'mm'),
+                             con.colour = 'black', con.size = 0.5,
                              con.type = 'elbow', con.linetype = 1, con.border = 'one',
-                             con.cap = unit(3, 'mm'), ...,
+                             con.cap = unit(3, 'mm'), con.arrow = NULL, ...,
                              na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) {
     layer(
         data = data,
@@ -155,12 +164,14 @@ geom_mark_ellipse <- function(mapping = NULL, data = NULL, stat = "identity",
             label.hjust = label.hjust,
             label.fill = label.fill,
             label.colour = label.colour,
+            label.buffer = label.buffer,
             con.colour = con.colour,
             con.size = con.size,
             con.type = con.type,
             con.linetype = con.linetype,
             con.border = con.border,
             con.cap = con.cap,
+            con.arrow = con.arrow,
             ...
         )
     )
@@ -175,8 +186,8 @@ ellipEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL
                         name = NULL, mark.gp = gpar(), label.gp = gpar(),
                         con.gp = gpar(), label.margin = margin(), label.width = NULL,
                         label.minwidth = unit(50, 'mm'), label.hjust = 0,
-                        con.type = 'elbow', con.border = 'one',
-                        con.cap = unit(3, 'mm'), vp = NULL) {
+                        label.buffer = unit(10, 'mm'), con.type = 'elbow', con.border = 'one',
+                        con.cap = unit(3, 'mm'), con.arrow = NULL, vp = NULL) {
     if (is.null(id)) {
         if (is.null(id.lengths)) {
             id <- rep(1, length(x))
@@ -199,7 +210,7 @@ ellipEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL
         label <- lapply(seq_len(nrow(label)), function(i) {
             grob <- labelboxGrob(label$label[i], 0, 0, label$description[i],
                                  gp = label.gp, pad = label.margin, width = label.width,
-                                 min.width = label.minwidth)
+                                 min.width = label.minwidth, hjust = label.hjust)
             if (con.border == 'all') {
                 grob$children[[1]]$gp$col = con.gp$col
                 grob$children[[1]]$gp$lwd = con.gp$lwd
@@ -216,23 +227,12 @@ ellipEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL
         labeldim <- NULL
     }
     gTree(mark = mark, n = n, tol = tol, label = label, labeldim = labeldim,
-          ghosts = ghosts, con.gp = con.gp, con.type = con.type,
+          buffer = label.buffer, ghosts = ghosts, con.gp = con.gp, con.type = con.type,
           con.cap = as_mm(con.cap, default.units), con.border = con.border,
-          name = name, vp = vp, cl = 'ellip_enc')
+          con.arrow = con.arrow, name = name, vp = vp, cl = 'ellip_enc')
 }
-#' Calculate the enclosing circle and draw it as a shapeGrob
-#'
-#' This function takes care of calculating the enclosing circle at draw time and
-#' draw it as a shape grob
-#'
-#' @param x A circ_enc grob
-#'
-#' @return A shape grob
-#'
-#' @importFrom grid convertX convertY unit makeContent childNames addGrob
+#' @importFrom grid convertX convertY unit makeContent childNames addGrob setChildren gList
 #' @export
-#' @keywords internal
-#'
 makeContent.ellip_enc <- function(x) {
     mark <- x$mark
     x_new <- convertX(mark$x, 'mm', TRUE)
@@ -255,11 +255,11 @@ makeContent.ellip_enc <- function(x) {
                         x = split(as.numeric(mark$x), mark$id),
                         y = split(as.numeric(mark$y), mark$id))
         labels <- make_label(labels = x$label, dims = x$labeldim, polygons = polygons,
-                             ghosts = x$ghosts, con_type = x$con.type,
+                             ghosts = x$ghosts, buffer = x$buffer, con_type = x$con.type,
                              con_border = x$con.border, con_cap = x$con.cap,
-                             con_gp = x$con.gp, anchor_mod = 2)
-        grid::setChildren(x, do.call(gList, c(list(mark), labels)))
+                             con_gp = x$con.gp, anchor_mod = 2, arrow = x$con.arrow)
+        setChildren(x, do.call(gList, c(list(mark), labels)))
     } else {
-        grid::setChildren(x, gList(mark))
+        setChildren(x, gList(mark))
     }
 }

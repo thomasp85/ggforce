@@ -33,10 +33,10 @@ place_labels <- function(rects, polygons, bounds, anchors, ghosts) {
 }
 #' @importFrom polyclip polyoffset
 #' @importFrom grid convertWidth convertHeight nullGrob polylineGrob
-make_label <- function(labels, dims, polygons, ghosts, con_type, con_border,
-                       con_cap, con_gp, anchor_mod) {
+make_label <- function(labels, dims, polygons, ghosts, buffer, con_type, con_border,
+                       con_cap, con_gp, anchor_mod, arrow) {
     anchors <- lapply(polygons, function(p) c(mean(range(p$x)), mean(range(p$y))))
-    p_big <- polyoffset(polygons, 10)
+    p_big <- polyoffset(polygons, convertWidth(buffer, 'mm', TRUE))
     area <- c(convertWidth(unit(1, 'npc'), 'mm', TRUE),
               convertHeight(unit(1, 'npc'), 'mm', TRUE))
     labelpos <- place_labels(dims, p_big, area, anchors, ghosts)
@@ -74,8 +74,9 @@ make_label <- function(labels, dims, polygons, ghosts, con_type, con_border,
         }
         connect <- end_cap(connect, con_cap)
         connect <- zip_points(connect)
+        if (!is.null(arrow)) arrow$ends <- 2L
         connect <- polylineGrob(connect$x, connect$y, id = connect$id,
-                                default.units = 'mm', gp = con_gp)
+                                default.units = 'mm', gp = con_gp, arrow = arrow)
     }
     c(labels, list(connect))
 }
