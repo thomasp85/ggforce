@@ -4,10 +4,10 @@
 \alias{facet_wrap_paginate}
 \title{Split facet_wrap over multiple plots}
 \usage{
-facet_wrap_paginate(facets, nrow = NULL, ncol = NULL, scales = "fixed",
-  shrink = TRUE, labeller = "label_value", as.table = TRUE,
-  switch = NULL, drop = TRUE, dir = "h", strip.position = "top",
-  page = 1)
+facet_wrap_paginate(facets, nrow = NULL, ncol = NULL,
+  scales = "fixed", shrink = TRUE, labeller = "label_value",
+  as.table = TRUE, switch = NULL, drop = TRUE, dir = "h",
+  strip.position = "top", page = 1)
 }
 \arguments{
 \item{facets}{A set of variables or expressions quoted by \code{\link[=vars]{vars()}}
@@ -15,10 +15,8 @@ and defining faceting groups on the rows or columns dimension.
 The variables can be named (the names are passed to \code{labeller}).
 
 For compatibility with the classic interface, can also be a
-formula or character vector. Use either a one sided formula, `~a
-\itemize{
-\item b\code{, or a character vector,}c("a", "b")`.
-}}
+formula or character vector. Use either a one sided formula, \code{~a + b},
+or a character vector, \code{c("a", "b")}.}
 
 \item{nrow}{Number of rows and columns.}
 
@@ -95,3 +93,4 @@ for (i in seq_len(n_pages)) {
 Other ggforce facets: \code{\link{facet_grid_paginate}},
   \code{\link{facet_stereo}}, \code{\link{facet_zoom}}
 }
+\concept{ggforce facets}

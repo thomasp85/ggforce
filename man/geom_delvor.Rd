@@ -13,23 +13,23 @@
 \usage{
 geom_voronoi_tile(mapping = NULL, data = NULL, stat = "voronoi_tile",
   position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-09,
-  normalize = FALSE, expand = 0, radius = 0, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  normalize = FALSE, by.group = FALSE, expand = 0, radius = 0,
+  show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_voronoi_segment(mapping = NULL, data = NULL,
   stat = "voronoi_segment", position = "identity", na.rm = FALSE,
-  bound = NULL, eps = 1e-09, normalize = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  bound = NULL, eps = 1e-09, normalize = FALSE, by.group = FALSE,
+  show.legend = NA, inherit.aes = TRUE, ...)
 
-geom_delaunay_tile(mapping = NULL, data = NULL, stat = "delaunay_tile",
-  position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-09,
-  normalize = FALSE, expand = 0, radius = 0, show.legend = NA,
-  inherit.aes = TRUE, ...)
+geom_delaunay_tile(mapping = NULL, data = NULL,
+  stat = "delaunay_tile", position = "identity", na.rm = FALSE,
+  bound = NULL, eps = 1e-09, normalize = FALSE, expand = 0,
+  radius = 0, show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_delaunay_segment(mapping = NULL, data = NULL,
   stat = "delaunay_segment", position = "identity", na.rm = FALSE,
-  bound = NULL, eps = 1e-09, normalize = normalize, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  bound = NULL, eps = 1e-09, normalize = normalize,
+  show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_delaunay_segment2(mapping = NULL, data = NULL,
   stat = "delaunay_segment2", position = "identity", na.rm = FALSE,
@@ -57,7 +57,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{stat}{The statistical transformation to use on the data for this
@@ -85,6 +85,9 @@ tesselation and triangulation that seems off when plotted without
 \code{\link[ggplot2:coord_fixed]{ggplot2::coord_fixed()}}. Normalization of coordinates solves this.
 The coordinates are transformed back after calculations.}
 
+\item{by.group}{Should the tesselation be calculated based on the data
+grouping, or for all points in the panel (default to \code{FALSE})}
+
 \item{expand}{A numeric or unit vector of length one, specifying the
 expansion amount. Negative values will result in contraction instead. If the
 value is given as a numeric it will be understood as a proportion of the
@@ -105,7 +108,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{n}{The number of points to create for each segment}

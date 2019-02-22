@@ -48,3 +48,4 @@ ggplot(df, aes(x = x, y = y)) +
   geom_point(position = position_jitternormal(sd_x = 0.15, sd_y = 0),
              alpha = 0.1)
 }
+\concept{position adjustments}

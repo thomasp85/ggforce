@@ -182,20 +182,22 @@ removed data.
 }
 
 \examples{
-ggplot(iris, aes(Petal.Length, Petal.Width)) +
-  geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor')) +
-  geom_point()
+if (requireNamespace('concaveman', quietly = TRUE)) {
+  ggplot(iris, aes(Petal.Length, Petal.Width)) +
+    geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor')) +
+    geom_point()
 
-# Adjusting the concavity lets you change the shape of the hull
-ggplot(iris, aes(Petal.Length, Petal.Width)) +
-  geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor'),
-                 concavity = 1) +
-  geom_point()
+  # Adjusting the concavity lets you change the shape of the hull
+  ggplot(iris, aes(Petal.Length, Petal.Width)) +
+    geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor'),
+                   concavity = 1) +
+    geom_point()
 
-ggplot(iris, aes(Petal.Length, Petal.Width)) +
-  geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor'),
-                 concavity = 10) +
-  geom_point()
+  ggplot(iris, aes(Petal.Length, Petal.Width)) +
+    geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor'),
+                   concavity = 10) +
+    geom_point()
+}
 
 }
 \seealso{

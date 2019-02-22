@@ -3,13 +3,13 @@
 \name{geom_sina}
 \alias{geom_sina}
 \alias{stat_sina}
-\alias{geom_sina}
 \title{Sina plot}
 \usage{
 stat_sina(mapping = NULL, data = NULL, geom = "sina",
   position = "identity", ..., binwidth = NULL, bins = NULL,
   scale = TRUE, method = "density", maxwidth = NULL, adjust = 1,
-  bin_limit = 1, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  bin_limit = 1, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 geom_sina(mapping = NULL, data = NULL, stat = "sina",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
@@ -32,7 +32,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{geom}{The geometric object to use display the data}
@@ -42,7 +42,7 @@ a call to a position adjustment function.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{binwidth}{The width of the bins. The default is to use \code{bins}

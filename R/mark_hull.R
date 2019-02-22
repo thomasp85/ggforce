@@ -38,20 +38,22 @@
 #' @rdname geom_mark_hull
 #'
 #' @examples
-#' ggplot(iris, aes(Petal.Length, Petal.Width)) +
-#'   geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor')) +
-#'   geom_point()
+#' if (requireNamespace('concaveman', quietly = TRUE)) {
+#'   ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'     geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor')) +
+#'     geom_point()
 #'
-#' # Adjusting the concavity lets you change the shape of the hull
-#' ggplot(iris, aes(Petal.Length, Petal.Width)) +
-#'   geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor'),
-#'                  concavity = 1) +
-#'   geom_point()
+#'   # Adjusting the concavity lets you change the shape of the hull
+#'   ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'     geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor'),
+#'                    concavity = 1) +
+#'     geom_point()
 #'
-#' ggplot(iris, aes(Petal.Length, Petal.Width)) +
-#'   geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor'),
-#'                  concavity = 10) +
-#'   geom_point()
+#'   ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'     geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor'),
+#'                    concavity = 10) +
+#'     geom_point()
+#' }
 #'
 NULL
 
@@ -231,7 +233,6 @@ hullEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
           con.arrow = con.arrow, name = name, vp = vp, cl = 'hull_enc')
 }
 #' @importFrom grid convertX convertY unit makeContent setChildren gList
-#' @importFrom concaveman concaveman
 #' @export
 makeContent.hull_enc <- function(x) {
     mark <- x$mark
@@ -244,7 +245,7 @@ makeContent.hull_enc <- function(x) {
     polygons <- Map(function(xx, yy, type) {
         mat <- cbind(xx, yy)
         if (type != 'polygon') return(mat)
-        concaveman(mat, x$concavity)
+        concaveman::concaveman(mat, x$concavity)
     }, xx = x_new, yy = y_new, type = type)
     mark$id <- rep(seq_along(polygons), vapply(polygons, nrow, numeric(1)))
     polygons <- do.call(rbind, polygons)

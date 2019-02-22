@@ -3,16 +3,16 @@
 \name{geom_diagonal_wide}
 \alias{geom_diagonal_wide}
 \alias{stat_diagonal_wide}
-\alias{geom_diagonal_wide}
 \title{Draw an area defined by an upper and lower diagonal}
 \usage{
 stat_diagonal_wide(mapping = NULL, data = NULL, geom = "shape",
   position = "identity", n = 100, strength = 0.5, na.rm = FALSE,
   show.legend = NA, inherit.aes = TRUE, ...)
 
-geom_diagonal_wide(mapping = NULL, data = NULL, stat = "diagonal_wide",
-  position = "identity", n = 100, na.rm = FALSE, strength = 0.5,
-  show.legend = NA, inherit.aes = TRUE, ...)
+geom_diagonal_wide(mapping = NULL, data = NULL,
+  stat = "diagonal_wide", position = "identity", n = 100,
+  na.rm = FALSE, strength = 0.5, show.legend = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -31,7 +31,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{geom}{The geometric object to use display the data}
@@ -60,7 +60,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{stat}{The statistical transformation to use on the data for this

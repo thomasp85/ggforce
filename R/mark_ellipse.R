@@ -41,7 +41,7 @@
 #'
 #' @examples
 #' ggplot(iris, aes(Petal.Length, Petal.Width)) +
-#'   geom_mark_ellipsis(aes(fill = Species, filter = Species != 'versicolor')) +
+#'   geom_mark_ellipse(aes(fill = Species, filter = Species != 'versicolor')) +
 #'   geom_point()
 #'
 NULL
