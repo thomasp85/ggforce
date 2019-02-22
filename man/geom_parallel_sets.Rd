@@ -3,7 +3,6 @@
 \name{geom_parallel_sets}
 \alias{geom_parallel_sets}
 \alias{stat_parallel_sets}
-\alias{geom_parallel_sets}
 \alias{stat_parallel_sets_axes}
 \alias{geom_parallel_sets_axes}
 \alias{geom_parallel_sets_labels}
@@ -11,18 +10,18 @@
 \usage{
 stat_parallel_sets(mapping = NULL, data = NULL, geom = "shape",
   position = "identity", n = 100, strength = 0.5, sep = 0.05,
-  axis.width = 0, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-  ...)
+  axis.width = 0, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
-geom_parallel_sets(mapping = NULL, data = NULL, stat = "parallel_sets",
-  position = "identity", n = 100, na.rm = FALSE, sep = 0.05,
-  strength = 0.5, axis.width = 0, show.legend = NA, inherit.aes = TRUE,
-  ...)
+geom_parallel_sets(mapping = NULL, data = NULL,
+  stat = "parallel_sets", position = "identity", n = 100,
+  na.rm = FALSE, sep = 0.05, strength = 0.5, axis.width = 0,
+  show.legend = NA, inherit.aes = TRUE, ...)
 
 stat_parallel_sets_axes(mapping = NULL, data = NULL,
   geom = "parallel_sets_axes", position = "identity", sep = 0.05,
-  axis.width = 0, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-  ...)
+  axis.width = 0, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 geom_parallel_sets_axes(mapping = NULL, data = NULL,
   stat = "parallel_sets_axes", position = "identity", na.rm = FALSE,
@@ -49,7 +48,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{geom}{The geometric object to use display the data}
@@ -82,7 +81,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{stat}{The statistical transformation to use on the data for this

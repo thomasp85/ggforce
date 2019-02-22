@@ -4,8 +4,9 @@
 \alias{facet_zoom}
 \title{Facet data for zoom with context}
 \usage{
-facet_zoom(x, y, xy, zoom.data, xlim = NULL, ylim = NULL, split = FALSE,
-  horizontal = TRUE, zoom.size = 2, show.area = TRUE, shrink = TRUE)
+facet_zoom(x, y, xy, zoom.data, xlim = NULL, ylim = NULL,
+  split = FALSE, horizontal = TRUE, zoom.size = 2,
+  show.area = TRUE, shrink = TRUE)
 }
 \arguments{
 \item{x, y, xy}{An expression evaluating to a logical vector that determines
@@ -80,3 +81,4 @@ Other ggforce facets: \code{\link{facet_grid_paginate}},
   \code{\link{facet_stereo}},
   \code{\link{facet_wrap_paginate}}
 }
+\concept{ggforce facets}

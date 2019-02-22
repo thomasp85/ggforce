@@ -4,7 +4,8 @@
 \alias{radial_trans}
 \title{Create radial data in a cartesian coordinate system}
 \usage{
-radial_trans(r.range, a.range, offset = pi/2, pad = 0.5, clip = FALSE)
+radial_trans(r.range, a.range, offset = pi/2, pad = 0.5,
+  clip = FALSE)
 }
 \arguments{
 \item{r.range}{The range in radius that correspond to 0 - 1 in the unit

@@ -14,6 +14,7 @@ URL: https://github.com/thomasp85/ggforce
 BugReports: https://github.com/thomasp85/ggforce/issues
 License: GPL (>=2)
 LazyData: TRUE
+Encoding: UTF-8
 Depends:
     ggplot2 (>= 2.2.0),
     R (>= 3.3.0)
@@ -30,18 +31,20 @@ Imports:
     deldir,
     polyclip,
     stats,
-    concaveman,
-    grDevices
+    grDevices,
+    mgcv,
+    ggrepel
 LinkingTo: Rcpp, RcppEigen
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Suggests:
     knitr,
     rmarkdown,
     devtools,
+    concaveman,
     reshape2,
     units (>= 0.4-6)
 VignetteBuilder: knitr
-Collate:
+Collate: 
     'RcppExports.R'
     'aaa.R'
     'shape.R'
@@ -63,8 +66,9 @@ Collate:
     'interpolate.R'
     'link.R'
     'mark_circle.R'
-    'mark_ellipsis.R'
+    'mark_ellipse.R'
     'mark_hull.R'
+    'mark_label.R'
     'mark_rect.R'
     'parallel_sets.R'
     'position-jitternormal.R'

@@ -3,7 +3,6 @@
 \name{geom_diagonal}
 \alias{geom_diagonal}
 \alias{stat_diagonal}
-\alias{geom_diagonal}
 \alias{stat_diagonal2}
 \alias{geom_diagonal2}
 \alias{stat_diagonal0}
@@ -18,21 +17,24 @@ geom_diagonal(mapping = NULL, data = NULL, stat = "diagonal",
   position = "identity", n = 100, na.rm = FALSE, strength = 0.5,
   show.legend = NA, inherit.aes = TRUE, ...)
 
-stat_diagonal2(mapping = NULL, data = NULL, geom = "path_interpolate",
-  position = "identity", na.rm = FALSE, show.legend = NA, n = 100,
-  strength = 0.5, inherit.aes = TRUE, ...)
+stat_diagonal2(mapping = NULL, data = NULL,
+  geom = "path_interpolate", position = "identity", na.rm = FALSE,
+  show.legend = NA, n = 100, strength = 0.5, inherit.aes = TRUE,
+  ...)
 
 geom_diagonal2(mapping = NULL, data = NULL, stat = "diagonal2",
-  position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, n = 100, strength = 0.5, ...)
+  position = "identity", arrow = NULL, lineend = "butt",
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, n = 100,
+  strength = 0.5, ...)
 
 stat_diagonal0(mapping = NULL, data = NULL, geom = "bezier0",
   position = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, strength = 0.5, ...)
 
 geom_diagonal0(mapping = NULL, data = NULL, stat = "diagonal0",
-  position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, strength = 0.5, ...)
+  position = "identity", arrow = NULL, lineend = "butt",
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+  strength = 0.5, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -51,7 +53,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{geom}{The geometric object to use display the data}
@@ -80,7 +82,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{stat}{The statistical transformation to use on the data for this
