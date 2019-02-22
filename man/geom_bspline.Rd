@@ -3,7 +3,6 @@
 \name{geom_bspline}
 \alias{geom_bspline}
 \alias{stat_bspline}
-\alias{geom_bspline}
 \alias{stat_bspline2}
 \alias{geom_bspline2}
 \alias{stat_bspline0}
@@ -16,8 +15,8 @@ stat_bspline(mapping = NULL, data = NULL, geom = "path",
 
 geom_bspline(mapping = NULL, data = NULL, stat = "bspline",
   position = "identity", arrow = NULL, n = 100, type = "clamped",
-  lineend = "butt", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-  ...)
+  lineend = "butt", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 stat_bspline2(mapping = NULL, data = NULL, geom = "path_interpolate",
   position = "identity", na.rm = FALSE, n = 100, type = "clamped",
@@ -25,16 +24,17 @@ stat_bspline2(mapping = NULL, data = NULL, geom = "path_interpolate",
 
 geom_bspline2(mapping = NULL, data = NULL, stat = "bspline2",
   position = "identity", arrow = NULL, n = 100, type = "clamped",
-  lineend = "butt", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-  ...)
+  lineend = "butt", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 stat_bspline0(mapping = NULL, data = NULL, geom = "bspline0",
   position = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, type = "clamped", ...)
 
 geom_bspline0(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, type = "clamped", ...)
+  position = "identity", arrow = NULL, lineend = "butt",
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+  type = "clamped", ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -53,7 +53,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{geom}{The geometric object to use display the data}
@@ -83,7 +83,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{stat}{The statistical transformation to use on the data for this

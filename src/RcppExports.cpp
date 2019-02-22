@@ -6,33 +6,6 @@
 
 using namespace Rcpp;
 
-// bezierPath
-NumericMatrix bezierPath(NumericVector x, NumericVector y, int detail);
-RcppExport SEXP _ggforce_bezierPath(SEXP xSEXP, SEXP ySEXP, SEXP detailSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
-    Rcpp::traits::input_parameter< int >::type detail(detailSEXP);
-    rcpp_result_gen = Rcpp::wrap(bezierPath(x, y, detail));
-    return rcpp_result_gen;
-END_RCPP
-}
-// getBeziers
-List getBeziers(NumericVector x, NumericVector y, IntegerVector id, int detail);
-RcppExport SEXP _ggforce_getBeziers(SEXP xSEXP, SEXP ySEXP, SEXP idSEXP, SEXP detailSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type id(idSEXP);
-    Rcpp::traits::input_parameter< int >::type detail(detailSEXP);
-    rcpp_result_gen = Rcpp::wrap(getBeziers(x, y, id, detail));
-    return rcpp_result_gen;
-END_RCPP
-}
 // splinePath
 NumericMatrix splinePath(NumericVector x, NumericVector y, int degree, std::vector<double> knots, int detail, std::string type);
 RcppExport SEXP _ggforce_splinePath(SEXP xSEXP, SEXP ySEXP, SEXP degreeSEXP, SEXP knotsSEXP, SEXP detailSEXP, SEXP typeSEXP) {
@@ -64,6 +37,33 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// bezierPath
+NumericMatrix bezierPath(NumericVector x, NumericVector y, int detail);
+RcppExport SEXP _ggforce_bezierPath(SEXP xSEXP, SEXP ySEXP, SEXP detailSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< int >::type detail(detailSEXP);
+    rcpp_result_gen = Rcpp::wrap(bezierPath(x, y, detail));
+    return rcpp_result_gen;
+END_RCPP
+}
+// getBeziers
+List getBeziers(NumericVector x, NumericVector y, IntegerVector id, int detail);
+RcppExport SEXP _ggforce_getBeziers(SEXP xSEXP, SEXP ySEXP, SEXP idSEXP, SEXP detailSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type id(idSEXP);
+    Rcpp::traits::input_parameter< int >::type detail(detailSEXP);
+    rcpp_result_gen = Rcpp::wrap(getBeziers(x, y, id, detail));
+    return rcpp_result_gen;
+END_RCPP
+}
 // enclose_ellip_points
 DataFrame enclose_ellip_points(NumericVector x, NumericVector y, IntegerVector id, double tol);
 RcppExport SEXP _ggforce_enclose_ellip_points(SEXP xSEXP, SEXP ySEXP, SEXP idSEXP, SEXP tolSEXP) {
@@ -91,14 +91,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// points_to_path
+List points_to_path(NumericMatrix pos, ListOf<NumericMatrix> path, bool close);
+RcppExport SEXP _ggforce_points_to_path(SEXP posSEXP, SEXP pathSEXP, SEXP closeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type pos(posSEXP);
+    Rcpp::traits::input_parameter< ListOf<NumericMatrix> >::type path(pathSEXP);
+    Rcpp::traits::input_parameter< bool >::type close(closeSEXP);
+    rcpp_result_gen = Rcpp::wrap(points_to_path(pos, path, close));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_ggforce_bezierPath", (DL_FUNC) &_ggforce_bezierPath, 3},
-    {"_ggforce_getBeziers", (DL_FUNC) &_ggforce_getBeziers, 4},
     {"_ggforce_splinePath", (DL_FUNC) &_ggforce_splinePath, 6},
     {"_ggforce_getSplines", (DL_FUNC) &_ggforce_getSplines, 5},
+    {"_ggforce_bezierPath", (DL_FUNC) &_ggforce_bezierPath, 3},
+    {"_ggforce_getBeziers", (DL_FUNC) &_ggforce_getBeziers, 4},
     {"_ggforce_enclose_ellip_points", (DL_FUNC) &_ggforce_enclose_ellip_points, 4},
     {"_ggforce_enclose_points", (DL_FUNC) &_ggforce_enclose_points, 3},
+    {"_ggforce_points_to_path", (DL_FUNC) &_ggforce_points_to_path, 3},
     {NULL, NULL, 0}
 };
 

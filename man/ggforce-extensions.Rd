@@ -3,9 +3,9 @@
 %   R/bezier.R, R/bspline.R, R/bspline_closed.R, R/circle.R, R/diagonal.R,
 %   R/diagonal_wide.R, R/ellipse.R, R/facet_grid_paginate.R, R/facet_stereo.R,
 %   R/facet_wrap_paginate.R, R/facet_zoom.R, R/ggproto-classes.R,
-%   R/interpolate.R, R/link.R, R/mark_circle.R, R/mark_ellipsis.R,
-%   R/mark_hull.R, R/mark_rect.R, R/parallel_sets.R, R/regon.R, R/scale-unit.R,
-%   R/sina.R, R/spiro.R, R/voronoi.R
+%   R/interpolate.R, R/link.R, R/mark_circle.R, R/mark_ellipse.R, R/mark_hull.R,
+%   R/mark_rect.R, R/parallel_sets.R, R/regon.R, R/scale-unit.R, R/sina.R,
+%   R/spiro.R, R/voronoi.R
 \docType{data}
 \name{GeomShape}
 \alias{GeomShape}
@@ -41,7 +41,7 @@
 \alias{StatLink}
 \alias{StatLink2}
 \alias{GeomMarkCircle}
-\alias{GeomMarkEllipsis}
+\alias{GeomMarkEllipse}
 \alias{GeomMarkHull}
 \alias{GeomMarkRect}
 \alias{StatParallelSets}
