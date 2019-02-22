@@ -44,6 +44,7 @@
 #' }
 #'
 #' @inheritParams ggplot2::geom_path
+#' @inheritParams ggplot2::geom_segment
 #' @inheritParams ggplot2::stat_identity
 #'
 #' @param n The number of points to create for each segment
@@ -82,7 +83,7 @@ NULL
 #' @export
 StatLink <- ggproto('StatLink', Stat,
     compute_panel = function(data, scales, n = 100) {
-        extraCols <- !names(data) %in% c('x', 'y', 'xend', 'yend')
+        extraCols <- !names(data) %in% c('x', 'y', 'xend', 'yend', 'group', 'PANEL')
         data <- lapply(seq_len(nrow(data)), function(i) {
             path <- data.frame(
                 x = seq(data$x[i], data$xend[i], length.out = n),
@@ -90,7 +91,7 @@ StatLink <- ggproto('StatLink', Stat,
                 index = seq(0, 1, length.out = n),
                 group = i
             )
-            cbind(path, data[rep(i, n), extraCols])
+            cbind(path, data[rep(i, n), extraCols, drop = FALSE])
         })
         do.call(rbind, data)
     },
