@@ -42,7 +42,7 @@ NULL
 #' @importFrom ggplot2 ggproto zeroGrob
 #' @export
 GeomMarkRect <- ggproto('GeomMarkRect', GeomShape,
-    setup_data = function(data, params) {
+    setup_data = function(self, data, params) {
         if (!is.null(data$filter)) {
             self$removed <- data[!data$filter, c('x', 'y', 'PANEL')]
             data <- data[data$filter, ]
