@@ -34,7 +34,7 @@
 #'
 #' @family ggforce facets
 #'
-#' @importFrom lazyeval lazy
+#' @importFrom rlang enquo
 #' @export
 #'
 #' @examples
@@ -69,9 +69,9 @@
 #'     facet_zoom(x = Species == "versicolor", zoom.data = Species == 'versicolor')
 #'
 facet_zoom <- function(x, y, xy, zoom.data, xlim = NULL, ylim = NULL, split = FALSE, horizontal = TRUE, zoom.size = 2, show.area = TRUE, shrink = TRUE) {
-    x <- if (missing(x)) if (missing(xy)) NULL else lazy(xy) else lazy(x)
-    y <- if (missing(y)) if (missing(xy)) NULL else lazy(xy) else lazy(y)
-    zoom.data <- if (missing(zoom.data)) NULL else lazy(zoom.data)
+    x <- if (missing(x)) if (missing(xy)) NULL else enquo(xy) else enquo(x)
+    y <- if (missing(y)) if (missing(xy)) NULL else enquo(xy) else enquo(y)
+    zoom.data <- if (missing(zoom.data)) NULL else enquo(zoom.data)
     if (is.null(x) && is.null(y) && is.null(xlim) && is.null(ylim)) {
         stop("Either x- or y-zoom must be given", call. = FALSE)
     }
@@ -92,7 +92,7 @@ facet_zoom <- function(x, y, xy, zoom.data, xlim = NULL, ylim = NULL, split = FA
 #' @importFrom grid convertUnit unit unit.c polygonGrob segmentsGrob gpar grobTree rectGrob
 #' @importFrom gtable gtable_add_cols gtable_add_rows gtable_add_grob
 #' @importFrom scales rescale
-#' @importFrom lazyeval lazy_eval
+#' @importFrom rlang eval_tidy
 #' @export
 FacetZoom <- ggproto("FacetZoom", Facet,
     compute_layout = function(data, params) {
@@ -119,19 +119,19 @@ FacetZoom <- ggproto("FacetZoom", Facet,
         rbind(
             cbind(data, PANEL = 1L),
             if (!is.null(params$x)) {
-                index_x <- tryCatch(lazy_eval(params$x, data), error = function(e) FALSE)
+                index_x <- tryCatch(eval_tidy(params$x, data), error = function(e) FALSE)
                 if (sum(index_x, na.rm = TRUE) != 0) {
                     cbind(data[index_x, ], PANEL = layout$PANEL[layout$name == "x"])
                 }
             },
             if (!is.null(params$y)) {
-                index_y <- tryCatch(lazy_eval(params$y, data), error = function(e) FALSE)
+                index_y <- tryCatch(eval_tidy(params$y, data), error = function(e) FALSE)
                 if (sum(index_y, na.rm = TRUE) != 0) {
                     cbind(data[index_y, ], PANEL = layout$PANEL[layout$name == "y"])
                 }
             },
             if (!is.null(params$zoom.data)) {
-                zoom_data <- tryCatch(lazy_eval(params$zoom.data, data), error = function(e) NA)
+                zoom_data <- tryCatch(eval_tidy(params$zoom.data, data), error = function(e) NA)
                 zoom_data <- rep(zoom_data, length.out = nrow(data))
                 zoom_ind <- zoom_data | is.na(zoom_data)
                 orig_ind <- !zoom_data | is.na(zoom_data)

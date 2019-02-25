@@ -26,7 +26,7 @@ Imports:
     MASS,
     tweenr (>= 0.1.5),
     gtable,
-    lazyeval,
+    rlang,
     deldir,
     polyclip,
     stats,
@@ -52,7 +52,6 @@ Collate:
     'bspline.R'
     'bspline_closed.R'
     'circle.R'
-    'compat-plyr.R'
     'diagonal.R'
     'diagonal_wide.R'
     'ellipse.R'
@@ -79,6 +78,7 @@ Collate:
     'themes.R'
     'trans.R'
     'trans_linear.R'
+    'utilities.R'
     'voronoi.R'
 Roxygen: list(markdown = TRUE)
 Remotes: tidyverse/ggplot2
