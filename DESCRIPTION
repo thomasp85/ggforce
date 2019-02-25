@@ -16,7 +16,7 @@ License: GPL (>=2)
 LazyData: TRUE
 Encoding: UTF-8
 Depends:
-    ggplot2 (>= 2.2.0),
+    ggplot2 (>= 3.0.0),
     R (>= 3.3.0)
 Imports:
     Rcpp (>= 0.12.2),
