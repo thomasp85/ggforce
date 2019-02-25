@@ -93,7 +93,6 @@ facet_zoom <- function(x, y, xy, zoom.data, xlim = NULL, ylim = NULL, split = FA
 #' @importFrom gtable gtable_add_cols gtable_add_rows gtable_add_grob
 #' @importFrom scales rescale
 #' @importFrom lazyeval lazy_eval
-#' @importFrom plyr split_indices empty
 #' @export
 FacetZoom <- ggproto("FacetZoom", Facet,
     compute_layout = function(data, params) {
@@ -394,7 +393,7 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
     n <- length(scales)
     if (any(is.na(scale_id))) stop()
 
-    scale_index <- split_indices(scale_id, n)
+    scale_index <- split_indices(scale_id)
 
     lapply(vars, function(var) {
         pieces <- lapply(seq_along(scales), function(i) {

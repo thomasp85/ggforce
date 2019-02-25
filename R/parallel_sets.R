@@ -336,7 +336,7 @@ remove_group <- function(data) {
         disc <- vapply(data, is.discrete, logical(1))
         disc[names(disc) %in% c('split', 'label', 'PANEL')] <- FALSE
         if (any(disc)) {
-            data$group <- plyr::id(data[disc], drop = TRUE)
+            data$group <- id(data[disc], drop = TRUE)
         } else {
             data$group <- -1
         }

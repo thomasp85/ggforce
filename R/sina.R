@@ -134,7 +134,6 @@ NULL
 #' @format NULL
 #' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
-#' @importFrom plyr ddply
 #' @export
 StatSina <- ggproto("StatSina", Stat,
 
@@ -179,9 +178,7 @@ StatSina <- ggproto("StatSina", Stat,
 
     #scale all bins based on their density relative to the densiest bin
     if (scale) {
-      group_scaling_factor <-
-        ddply(data, "group", plyr::mutate,
-              group_max = max(bin_counts))$group_max / max(data$bin_counts)
+      group_scaling_factor <- tapply(data$bin_counts, data$group, max) / max(data$bin_counts)
     } else {
       group_scaling_factor <- 1
     }

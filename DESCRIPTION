@@ -27,12 +27,10 @@ Imports:
     tweenr (>= 0.1.5),
     gtable,
     lazyeval,
-    plyr,
     deldir,
     polyclip,
     stats,
     grDevices,
-    mgcv,
     ggrepel
 LinkingTo: Rcpp, RcppEigen
 RoxygenNote: 6.1.1
@@ -54,6 +52,7 @@ Collate:
     'bspline.R'
     'bspline_closed.R'
     'circle.R'
+    'compat-plyr.R'
     'diagonal.R'
     'diagonal_wide.R'
     'ellipse.R'
