@@ -27,7 +27,6 @@ Imports:
     tweenr (>= 0.1.5),
     gtable,
     rlang,
-    deldir,
     polyclip,
     stats,
     grDevices,
@@ -39,6 +38,7 @@ Suggests:
     rmarkdown,
     sessioninfo,
     concaveman,
+    deldir,
     reshape2,
     units (>= 0.4-6)
 VignetteBuilder: knitr

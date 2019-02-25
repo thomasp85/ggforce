@@ -107,10 +107,10 @@ NULL
 #' @format NULL
 #' @usage NULL
 #' @importFrom scales rescale
-#' @importFrom deldir deldir
 #' @importFrom ggplot2 ggproto Stat
 StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
     compute_panel = function(self, data, scales, bound = NULL, eps = 1e-9, normalize = FALSE, by.group = FALSE) {
+        require_deldir()
         if (by.group) {
             data <- ggproto_parent(Stat, self)$compute_panel(
                 data = data, scales = scales, bound, eps = eps, normalize = normalize,
@@ -132,7 +132,7 @@ StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
                 bound[3:4] <- rescale(bound[3:4], from = x_range)
             }
         }
-        vor <- deldir(data$x, data$y, rw = bound, eps = eps, suppressMsge = TRUE)
+        vor <- deldir::deldir(data$x, data$y, rw = bound, eps = eps, suppressMsge = TRUE)
         tiles <- to_tile(vor)
         tiles$group <- data$group[vor$ind.orig[tiles$group]]
         data$x <- NULL
@@ -169,10 +169,10 @@ geom_voronoi_tile <- function(mapping = NULL, data = NULL, stat = "voronoi_tile"
 #' @format NULL
 #' @usage NULL
 #' @importFrom scales rescale
-#' @importFrom deldir deldir
 #' @importFrom ggplot2 ggproto Stat
 StatVoronoiSegment <- ggproto('StatVoronoiSegment', Stat,
     compute_panel = function(data, scales, bound = NULL, eps = 1e-9, normalize = FALSE, by.group = FALSE) {
+        require_deldir()
         if (by.group) {
             data <- ggproto_parent(Stat, self)$compute_panel(
                 data = data, scales = scales, bound, eps = eps, normalize = normalize,
@@ -193,7 +193,7 @@ StatVoronoiSegment <- ggproto('StatVoronoiSegment', Stat,
                 bound[3:4] <- rescale(bound[3:4], from = x_range)
             }
         }
-        vor <- deldir(data$x, data$y, rw = bound, eps = eps, suppressMsge = TRUE)
+        vor <- deldir::deldir(data$x, data$y, rw = bound, eps = eps, suppressMsge = TRUE)
         segments <- vor$dirsgs[, 1:5]
         names(segments) <- c('x', 'y', 'xend', 'yend', 'group')
         segments$group <- vor$ind.orig[segments$group]
@@ -230,10 +230,10 @@ geom_voronoi_segment <- function(mapping = NULL, data = NULL, stat = "voronoi_se
 #' @format NULL
 #' @usage NULL
 #' @importFrom scales rescale
-#' @importFrom deldir deldir
 #' @importFrom ggplot2 ggproto Stat
 StatDelaunayTile <- ggproto('StatDelaunayTile', Stat,
     compute_panel = function(data, scales, bound = NULL, eps = 1e-9, normalize = FALSE) {
+        require_deldir()
         if (normalize) {
             x_range <- range(data$x, na.rm = TRUE, finite = TRUE)
             y_range <- range(data$y, na.rm = TRUE, finite = TRUE)
@@ -248,7 +248,7 @@ StatDelaunayTile <- ggproto('StatDelaunayTile', Stat,
             if (any(duplicated(d[, c('x', 'y')]))) {
                 warning('stat_delaunay_tile: dropping duplicated points', call. = FALSE)
             }
-            vor <- deldir(d$x, d$y, rw = bound, eps = eps, suppressMsge = TRUE)
+            vor <- deldir::deldir(d$x, d$y, rw = bound, eps = eps, suppressMsge = TRUE)
             d <- to_triangle(vor)
             d$group <- match(d$group, unique(d$group))
             d
@@ -283,10 +283,10 @@ geom_delaunay_tile <- function(mapping = NULL, data = NULL, stat = "delaunay_til
 #' @format NULL
 #' @usage NULL
 #' @importFrom scales rescale
-#' @importFrom deldir deldir
 #' @importFrom ggplot2 ggproto Stat
 StatDelaunaySegment <- ggproto('StatDelaunaySegment', Stat,
     compute_group = function(data, scales, bound = NULL, eps = 1e-9, normalize = FALSE) {
+        require_deldir()
         if (any(duplicated(data[, c('x', 'y')]))) {
             warning('stat_delaunay_segment: dropping duplicated points', call. = FALSE)
         }
@@ -300,7 +300,7 @@ StatDelaunaySegment <- ggproto('StatDelaunaySegment', Stat,
                 bound[3:4] <- rescale(bound[3:4], from = x_range)
             }
         }
-        vor <- deldir(data$x, data$y, rw = bound, eps = eps, suppressMsge = TRUE)
+        vor <- deldir::deldir(data$x, data$y, rw = bound, eps = eps, suppressMsge = TRUE)
         segments <- vor$delsgs[, 1:5]
         names(segments) <- c('x', 'y', 'xend', 'yend', 'group')
         segments$group <- vor$ind.orig[segments$group]
@@ -331,10 +331,10 @@ geom_delaunay_segment <- function(mapping = NULL, data = NULL, stat = "delaunay_
 #' @format NULL
 #' @usage NULL
 #' @importFrom scales rescale
-#' @importFrom deldir deldir
 #' @importFrom ggplot2 ggproto Stat
 StatDelaunaySegment2 <- ggproto('StatDelaunaySegment2', Stat,
     compute_group = function(data, scales, bound = NULL, eps = 1e-9, n = 100, normalize = FALSE) {
+        require_deldir()
         if (any(duplicated(data[, c('x', 'y')]))) {
             warning('stat_delaunay_segment2: dropping duplicated points', call. = FALSE)
         }
@@ -348,7 +348,7 @@ StatDelaunaySegment2 <- ggproto('StatDelaunaySegment2', Stat,
                 bound[3:4] <- rescale(bound[3:4], from = x_range)
             }
         }
-        vor <- deldir(data$x, data$y, rw = bound, eps = eps, suppressMsge = TRUE)
+        vor <- deldir::deldir(data$x, data$y, rw = bound, eps = eps, suppressMsge = TRUE)
         segments <- rbind(structure(vor$delsgs[, c(1:2, 5)], names = c('x', 'y', 'group')),
                           structure(vor$delsgs[, c(3:4, 6)], names = c('x', 'y', 'group')))
         segments$group <- vor$ind.orig[segments$group]
@@ -379,11 +379,11 @@ geom_delaunay_segment2 <- function(mapping = NULL, data = NULL, stat = "delaunay
 #' @format NULL
 #' @usage NULL
 #' @importFrom scales rescale
-#' @importFrom deldir deldir
 #' @importFrom ggplot2 ggproto Stat
 #' @export
 StatDelvorSummary <- ggproto('StatDelvorSummary', Stat,
     compute_group = function(data, scales, bound = NULL, eps = 1e-9, switch.centroid = FALSE, normalize = FALSE) {
+        require_deldir()
         if (any(duplicated(data[, c('x', 'y')]))) {
             warning('stat_delaunay_segment2: dropping duplicated points', call. = FALSE)
         }
@@ -397,7 +397,7 @@ StatDelvorSummary <- ggproto('StatDelvorSummary', Stat,
                 bound[3:4] <- rescale(bound[3:4], from = x_range)
             }
         }
-        vor <- deldir(data$x, data$y, rw = bound, eps = eps, suppressMsge = TRUE)
+        vor <- deldir::deldir(data$x, data$y, rw = bound, eps = eps, suppressMsge = TRUE)
         names(vor$summary) <- c('x', 'y', 'ntri', 'triarea', 'triprop', 'nsides', 'nedges', 'vorarea', 'vorprop')
         tiles <- to_tile(vor)
         vor$summary$xcent <- sapply(split(tiles$x, tiles$group), mean)
@@ -430,10 +430,13 @@ stat_delvor_summary <- function(mapping = NULL, data = NULL, geom = "point",
 
 
 # HELPERS -----------------------------------------------------------------
-
-
-#' @importFrom deldir get.cnrind
+require_deldir <- function() {
+    if (!requireNamespace('deldir', quietly = TRUE)) {
+        stop('The delauney-based geoms and stats require the deldir package', call. = FALSE)
+    }
+}
 to_tile <- function(object) {
+    require_deldir()
     tiles <- rbind(structure(object$dirsgs[, c(1:2, 5)], names = c('x', 'y', 'group')),
                    structure(object$dirsgs[, c(1:2, 6)], names = c('x', 'y', 'group')),
                    structure(object$dirsgs[, c(3:5)], names = c('x', 'y', 'group')),
@@ -442,7 +445,7 @@ to_tile <- function(object) {
     tiles <- rbind(tiles,
                    data.frame(x = object$rw[c(1, 2, 2, 1)],
                               y = object$rw[c(3, 3, 4, 4)],
-                              group = get.cnrind(object$summary$x,
+                              group = deldir::get.cnrind(object$summary$x,
                                                  object$summary$y,
                                                  object$rw)
                    )
