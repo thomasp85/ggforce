@@ -39,7 +39,7 @@ RoxygenNote: 6.1.1
 Suggests:
     knitr,
     rmarkdown,
-    devtools,
+    sessioninfo,
     concaveman,
     reshape2,
     units (>= 0.4-6)
