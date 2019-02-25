@@ -19,6 +19,8 @@ panel
   expanded/contracted sides. `geom_shape` replaces all `geom_polygon` internally.
 - Add `geom_mark_[rect|circle|ellipse|hull]` to encircle a group of points and
   optionally add textual annotation to it
+- Slimmed down the dependencies for the package. `plyr`, `lazyeval` and `dplyr`
+  has all been removed
 
 # ggforce 0.1.1
 
