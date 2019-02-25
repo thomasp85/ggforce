@@ -3,7 +3,6 @@
 #' @usage NULL
 #' @importFrom ggplot2 ggproto GeomPath coord_munch zeroGrob alpha .pt
 #' @importFrom grid segmentsGrob polylineGrob gpar
-#' @importFrom dplyr %>% group_by_ do ungroup
 GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
     draw_panel = function(data, panel_scales, coord, arrow = NULL,
                           lineend = "butt", linejoin = "round", linemitre = 1,
@@ -20,13 +19,13 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
         munched <- munched[rows >= 2, ]
         if (nrow(munched) < 2)
             return(zeroGrob())
-        attr <- data %>% group_by_(~group) %>%
-            do({
-                data.frame(solid = identical(unique(.$linetype), 1),
-                           constant = nrow(unique(.[, c("alpha", "colour",
-                                                        "size", "linetype")])) == 1)
-            }) %>%
-            ungroup()
+        attr <- dapply(data, 'group', function(df) {
+            new_data_frame(list(
+                solid = identical(unique(df$linetype), 1),
+                constant = nrow(unique(df[, c("alpha", "colour",
+                                             "size", "linetype")])) == 1
+            ))
+        })
 
         solid_lines <- all(attr$solid)
         constant <- all(attr$constant)

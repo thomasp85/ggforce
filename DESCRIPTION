@@ -21,7 +21,6 @@ Depends:
 Imports:
     Rcpp (>= 0.12.2),
     grid,
-    dplyr,
     scales,
     MASS,
     tweenr (>= 0.1.5),
@@ -81,4 +80,3 @@ Collate:
     'utilities.R'
     'voronoi.R'
 Roxygen: list(markdown = TRUE)
-Remotes: tidyverse/ggplot2

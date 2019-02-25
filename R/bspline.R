@@ -85,7 +85,6 @@ NULL
 #' @format NULL
 #' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
-#' @importFrom dplyr %>% group_by_ do
 #' @export
 StatBspline <- ggproto('StatBspline', Stat,
     compute_layer = function(self, data, params, panels) {
@@ -127,7 +126,6 @@ geom_bspline <- function(mapping = NULL, data = NULL, stat = "bspline",
 #' @format NULL
 #' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
-#' @importFrom dplyr %>% group_by_ do
 #' @export
 StatBspline2 <- ggproto('StatBspline2', Stat,
     compute_layer = function(self, data, params, panels) {

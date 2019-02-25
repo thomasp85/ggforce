@@ -118,25 +118,22 @@ stat_link  <- function(mapping = NULL, data = NULL, geom = "path",
 StatLink2 <- ggproto('StatLink2', Stat,
     compute_panel = function(data, scales, n = 100) {
         extraCols <- !names(data) %in% c('x', 'y', 'group', 'PANEL', 'frame')
-        data <- data %>% group_by_(~group) %>%
-            do({
-                n_group <- n * (nrow(.)-1) + 1
-                interp <- tween_t(list(.$x, .$y), n_group)
-                interp <- data.frame(x = interp[[1]], y = interp[[2]])
-                interp <- cbind(interp,
-                                index = seq(0, 1, length.out = n_group),
-                                group = .$group[1],
-                                PANEL = .$PANEL[1])
-                if ('frame' %in% names(.)) interp$frame <- .$frame[1]
-                nIndex <- seq_len(nrow(interp))
-                if (any(extraCols)) {
-                    cbind(interp, .[nIndex, extraCols], .interp = nIndex > nrow(.))
-                } else {
-                    cbind(interp, .interp = nIndex > nrow(.))
-                }
-            }) %>%
-            ungroup()
-        as.data.frame(data)
+        dapply(data, 'group', function(df) {
+            n_group <- n * (nrow(df) - 1) + 1
+            interp <- tween_t(list(df$x, df$y), n_group)
+            interp <- data.frame(x = interp[[1]], y = interp[[2]])
+            interp <- cbind(interp,
+                            index = seq(0, 1, length.out = n_group),
+                            group = df$group[1],
+                            PANEL = df$PANEL[1])
+            if ('frame' %in% names(df)) interp$frame <- df$frame[1]
+            nIndex <- seq_len(nrow(interp))
+            if (any(extraCols)) {
+                cbind(interp, df[nIndex, extraCols], .interp = nIndex > nrow(df))
+            } else {
+                cbind(interp, .interp = nIndex > nrow(df))
+            }
+        })
     },
     required_aes = c('x', 'y')
 )

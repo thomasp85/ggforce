@@ -123,29 +123,27 @@ stat_arc_bar  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
 #' @format NULL
 #' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
-#' @importFrom dplyr group_by_ do
 #' @export
 StatPie <- ggproto('StatPie', Stat,
     compute_panel = function(data, scales, n = 360, sep = 0) {
-        data <- data %>% group_by_(~x0, ~y0) %>%
-            do({
-                angles <- cumsum(.$amount)
-                seps <- cumsum(sep * seq_along(angles))
-                if (max(seps) >= 2*pi) {
-                    stop('Total separation exceeds circle circumference. Try lowering "sep"')
-                }
-                angles <- angles/max(angles) * (2*pi - max(seps))
-                data.frame(
-                    as.data.frame(.),
-                    start = c(0, angles[-length(angles)]) + c(0, seps[-length(seps)]) + sep/2,
-                    end = angles + seps -sep/2,
-                    stringsAsFactors = FALSE
-                )
-            })
+        data <- dapply(data, c('x0', 'y0'), function(df) {
+            angles <- cumsum(df$amount)
+            seps <- cumsum(sep * seq_along(angles))
+            if (max(seps) >= 2*pi) {
+                stop('Total separation exceeds circle circumference. Try lowering "sep"')
+            }
+            angles <- angles/max(angles) * (2*pi - max(seps))
+            new_data_frame(c(df, list(
+                start = c(0, angles[-length(angles)]) + c(0, seps[-length(seps)]) + sep/2,
+                end = angles + seps - sep/2,
+                stringsAsFactors = FALSE
+            )))
+        })
         arcPaths(as.data.frame(data), n)
     },
 
-    required_aes = c('x0', 'y0', 'r0','r', 'amount')
+    required_aes = c('x0', 'y0', 'r0','r', 'amount'),
+    default_aes = aes(explode = NULL)
 )
 #' @rdname geom_arc_bar
 #' @importFrom ggplot2 layer
