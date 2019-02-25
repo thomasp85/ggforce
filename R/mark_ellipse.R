@@ -198,11 +198,18 @@ ellipEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL
             }
         }
     }
-    df <- unique(data.frame(x = x, y = y, id = id))
-    include <- unlist(lapply(split(df, df$id), function(d) {
-        seq_len(nrow(d)) %in% chull(d$x, d$y)
+    include <- unlist(lapply(split(seq_along(x), id), function(i) {
+        xi <- x[i]
+        yi <- y[i]
+        if (length(unique(xi)) == 1) {
+            return(i[c(which.min(yi), which.max(yi))])
+        }
+        if (length(unique(yi)) == 1) {
+            return(i[c(which.min(xi), which.max(xi))])
+        }
+        i[chull(xi, yi)]
     }))
-    mark <- shapeGrob(x = df$x[include], y = df$y[include], id = df$id[include],
+    mark <- shapeGrob(x = x[include], y = y[include], id = id[include],
                       id.lengths = NULL, expand = expand, radius = radius,
                       default.units = default.units, name = name, gp = mark.gp,
                       vp = vp)
@@ -249,7 +256,7 @@ makeContent.ellip_enc <- function(x) {
     mark$x <- unit(ellipses$x, 'mm')
     mark$y <- unit(ellipses$y, 'mm')
     mark$id <- ellipses$id
-    mark <- makeContent(mark)
+    if (inherits(mark, 'shape')) mark <- makeContent(mark)
     if (!is.null(x$label)) {
         polygons <- Map(function(x, y) list(x = x, y = y),
                         x = split(as.numeric(mark$x), mark$id),

@@ -11,7 +11,72 @@ struct Ellipse {
     double b;
     double rad;
 };
+
+bool points_on_line(Eigen::MatrixXd points, Ellipse &enc) {
+    double xmin, ymin, xmax, ymax;
+    int n = points.rows();
+    if (n == 1) {
+        enc.x = points.coeff(0, 0);
+        enc.y = points.coeff(0, 1);
+        enc.a = 0;
+        enc.b = 0;
+        enc.rad = 0;
+        return true;
+    }
+    if (n == 2) {
+        xmin = std::min(points.coeff(0, 0), points.coeff(1, 0));
+        xmax = std::max(points.coeff(0, 0), points.coeff(1, 0));
+        ymin = std::min(points.coeff(0, 1), points.coeff(1, 1));
+        ymax = std::max(points.coeff(0, 1), points.coeff(1, 1));
+    } else {
+        double x0 = xmin = xmax = points.coeff(0, 0);
+        double y0 = ymin = ymax = points.coeff(0, 1);
+        double xdiff = points.coeff(1, 0) - x0;
+        bool vert = xdiff == 0;
+        double slope;
+        if (!vert) {
+            slope = (points.coeff(1, 1) - y0) / xdiff;
+        }
+        for (int i = 2; i < n; i++) {
+            xdiff = points(i, 0) - x0;
+            if (vert && xdiff == 0) {
+                ymin = std::min(ymin, points(i, 1));
+                ymax = std::max(ymax, points(i, 1));
+                continue;
+            }
+            if (slope == (points.coeff(i, 1) - y0) / xdiff) {
+                xmin = std::min(xmin, points(i, 0));
+                xmax = std::max(xmax, points(i, 0));
+                ymin = std::min(ymin, points(i, 1));
+                ymax = std::max(ymax, points(i, 1));
+                continue;
+            }
+            return false;
+        }
+    }
+    if (xmin == xmax && ymin == ymax) {
+        enc.x = xmin;
+        enc.y = ymin;
+        enc.a = 0;
+        enc.b = 0;
+        enc.rad = 0;
+    } else {
+        enc.x = (xmin + xmax) / 2;
+        enc.y = (ymin + ymax) / 2;
+        double diff_x = xmax - xmin;
+        double diff_y = ymax - ymin;
+        enc.a = std::sqrt(diff_x * diff_x + diff_y * diff_y) / 2;
+        enc.b = enc.a * 0.1;
+        enc.rad = std::atan(diff_y / diff_x);
+    }
+    return true;
+}
+
 Ellipse khachiyan(Eigen::MatrixXd points, double tol) {
+    Ellipse enc;
+    if (points_on_line(points, enc)) {
+        return enc;
+    }
     points.adjointInPlace();
     int N = points.cols();
     int d = points.rows();
@@ -41,7 +106,6 @@ Ellipse khachiyan(Eigen::MatrixXd points, double tol) {
     A = (1.0/d) * (points * u.asDiagonal() * points.adjoint() - (points * u)*(points * u).adjoint() ).inverse();
     Eigen::JacobiSVD<Eigen::MatrixXd> svd_A(A, Eigen::ComputeThinV);
     c = points * u;
-    Ellipse enc;
     enc.x = c[0];
     enc.y = c[1];
     enc.a = 1.0/std::sqrt(float(svd_A.singularValues()[1]));

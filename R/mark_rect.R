@@ -55,7 +55,7 @@ GeomMarkRect <- ggproto('GeomMarkRect', GeomShape,
                                 y = y_range[c(1, 2, 2, 1)])
             d$x <- NULL
             d$y <- NULL
-            cbind(d_new, d[rep(1,4), ])
+            unique(cbind(d_new, d[rep(1,4), ]))
         }))
     },
     draw_panel = function(self, data, panel_params, coord, expand = unit(5, 'mm'),
@@ -218,7 +218,8 @@ rectEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
 #' @importFrom grid makeContent setChildren gList
 #' @export
 makeContent.rect_enc <- function(x) {
-    mark <- makeContent(x$mark)
+    mark <- x$mark
+    if (inherits(mark, 'shape')) mark <- makeContent(mark)
     if (!is.null(x$label)) {
         polygons <- Map(function(x, y) list(x = x, y = y),
                         x = split(as.numeric(mark$x), mark$id),

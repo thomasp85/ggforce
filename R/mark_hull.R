@@ -236,22 +236,28 @@ hullEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
 #' @export
 makeContent.hull_enc <- function(x) {
     mark <- x$mark
-    id.length <- lengths(split(seq_along(mark$id), mark$id))
-    type <- ifelse(id.length == 1, 'point', ifelse(id.length == 2, 'line', 'polygon'))
     x_new <- convertX(mark$x, 'mm', TRUE)
     x_new <- split(x_new, mark$id)
     y_new <- convertY(mark$y, 'mm', TRUE)
     y_new <- split(y_new, mark$id)
     polygons <- Map(function(xx, yy, type) {
-        mat <- cbind(xx, yy)
-        if (type != 'polygon') return(mat)
-        concaveman::concaveman(mat, x$concavity)
-    }, xx = x_new, yy = y_new, type = type)
+        mat <- unique(cbind(xx, yy))
+        if (nrow(mat) <= 2) {
+            return(mat)
+        }
+        if (length(unique(xx)) == 1) {
+            return(mat[c(which.min(mat[,2]), which.max(mat[,2])), ])
+        }
+        if (length(unique((yy[-1] - yy[1]) / (xx[-1] - xx[1]))) == 1) {
+            return(mat[c(which.min(mat[,1]), which.max(mat[,1])), ])
+        }
+        concaveman::concaveman(mat, x$concavity, 0)
+    }, xx = x_new, yy = y_new)
     mark$id <- rep(seq_along(polygons), vapply(polygons, nrow, numeric(1)))
     polygons <- do.call(rbind, polygons)
     mark$x <- unit(polygons[,1], 'mm')
     mark$y <- unit(polygons[,2], 'mm')
-    mark <- makeContent(mark)
+    if (inherits(mark, 'shape')) mark <- makeContent(mark)
     if (!is.null(x$label)) {
         polygons <- Map(function(x, y) list(x = x, y = y),
                         x = split(as.numeric(mark$x), mark$id),
