@@ -3,7 +3,12 @@ Type: Package
 Title: Accelerating 'ggplot2'
 Version: 0.1.1
 Date: 2016-11-27
-Author: Thomas Lin Pedersen
+Authors@R: 
+    person(given = "Thomas Lin",
+           family = "Pedersen",
+           role = c("cre", "aut"),
+           email = "thomasp85@gmail.com",
+           comment = c(ORCID = "0000-0002-5147-4711"))
 Maintainer: Thomas Lin Pedersen <thomasp85@gmail.com>
 Description: The aim of 'ggplot2' is to aid in visual data investigations. This
     focus has led to a lack of facilities for composing specialised plots.
