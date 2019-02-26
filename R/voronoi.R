@@ -56,21 +56,31 @@ NULL
 #' @inheritParams ggplot2::stat_identity
 #' @inheritParams geom_link
 #'
-#' @param bound The bounding rectangle for the tesselation. Defaults to
-#' `NULL` which creates a rectangle expanded 10\% in all directions. If
-#' supplied it should be a vector giving the bounds in the following order:
-#' xmin, xmax, ymin, ymax.
+#' @param bound The bounding rectangle for the tesselation or a custom polygon
+#' to clip the tesselation to. Defaults to `NULL` which creates a rectangle
+#' expanded 10\% in all directions. If supplied as a bounding box it should be a
+#' vector giving the bounds in the following order: xmin, xmax, ymin, ymax. If
+#' supplied as a polygon it should either be a 2-column matrix or a data.frame
+#' containing an `x` and `y` column.
 #'
 #' @param eps A value of epsilon used in testing whether a quantity is zero,
 #' mainly in the context of whether points are collinear. If anomalous errors
 #' arise, it is possible that these may averted by adjusting the value of eps
 #' upward or downward.
 #'
+#' @param max.radius The maximum distance a tile can extend from the point of
+#' origin. Will in effect clip each til to a circle centered at the point with
+#' the given radius. If `normalize = TRUE` the radius will be given relative to
+#' the normalized values
+#'
 #' @param normalize Should coordinates be normalized prior to calculations. If
 #' `x` and `y` are in wildly different ranges it can lead to
 #' tesselation and triangulation that seems off when plotted without
 #' [ggplot2::coord_fixed()]. Normalization of coordinates solves this.
 #' The coordinates are transformed back after calculations.
+#'
+#' @param asp.ratio If `normalize = TRUE` the x values will be multiplied by this
+#' amount after normalization.
 #'
 #' @param by.group Should the tesselation be calculated based on the data
 #' grouping, or for all points in the panel (default to `FALSE`)
@@ -96,6 +106,15 @@ NULL
 #'   geom_text(aes(label = ..nsides.., size = ..vorarea..),
 #'             stat = 'delvor_summary', switch.centroid = TRUE, normalize = TRUE)
 #'
+#' # Set a max radius
+#' ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+#'   geom_voronoi_tile(aes(fill = Species), colour = 'black', max.radius = 0.25)
+#'
+#' # Set custom bounding polygon
+#' triangle <- cbind(c(3, 9, 6), c(1, 1, 6))
+#' ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+#'   geom_voronoi_tile(aes(fill = Species), colour = 'black', bound = triangle)
+#'
 #' # Delaunay triangles - interpolation of species
 #' ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
 #'   geom_delaunay_tile(alpha = 0.3) +
@@ -109,7 +128,7 @@ NULL
 #' @importFrom scales rescale
 #' @importFrom ggplot2 ggproto Stat
 StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
-    compute_panel = function(self, data, scales, bound = NULL, eps = 1e-9, normalize = FALSE, by.group = FALSE) {
+    compute_panel = function(self, data, scales, bound = NULL, eps = 1e-9, max.radius = NULL, normalize = FALSE, asp.ratio = 1, by.group = FALSE) {
         require_deldir()
         if (by.group) {
             data <- ggproto_parent(Stat, self)$compute_panel(
@@ -122,24 +141,45 @@ StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
         if (any(duplicated(data[, c('x', 'y')]))) {
             warning('stat_voronoi_tile: dropping duplicated points', call. = FALSE)
         }
+        polybound <- NULL
+        if (is.null(bound)) {
+            if (!is.null(max.radius)) {
+                bound <- c(range(data$x), range(data$y))
+                bound[c(1, 3)] <- bound[c(1, 3)] - max.radius * 1.5
+                bound[c(2, 4)] <- bound[c(2, 4)] + max.radius * 1.5
+            }
+        } else if (is.matrix(bound) || is.data.frame(bound)) {
+            if (is.matrix(bound) && is.null(colnames(bound))) {
+                colnames(bound) <- c('x', 'y')
+            }
+            polybound <- as.data.frame(bound)
+            bound <- c(range(polybound$x), range(polybound$y))
+        }
         if (normalize) {
             x_range <- range(data$x, na.rm = TRUE, finite = TRUE)
             y_range <- range(data$y, na.rm = TRUE, finite = TRUE)
-            data$x <- rescale(data$x, from = x_range)
+            data$x <- rescale(data$x, from = x_range) * asp.ratio
             data$y <- rescale(data$y, from = y_range)
             if (!is.null(bound)) {
-                bound[1:2] <- rescale(bound[1:2], from = x_range)
-                bound[3:4] <- rescale(bound[3:4], from = x_range)
+                bound[1:2] <- rescale(bound[1:2], from = x_range) * asp.ratio
+                bound[3:4] <- rescale(bound[3:4], from = y_range)
+            }
+            if (!is.null(polybound)) {
+                polybound$x <- rescale(polybound$x, from = x_range) * asp.ratio
+                polybound$y <- rescale(polybound$y, from = y_range)
             }
         }
         vor <- deldir::deldir(data$x, data$y, rw = bound, eps = eps, suppressMsge = TRUE)
         tiles <- to_tile(vor)
+        tiles$orig_x <- data$x[vor$ind.orig[tiles$group]]
+        tiles$orig_y <- data$y[vor$ind.orig[tiles$group]]
         tiles$group <- data$group[vor$ind.orig[tiles$group]]
+        tiles <- clip_tiles(tiles, max.radius, polybound)
         data$x <- NULL
         data$y <- NULL
-        data <- merge(data, tiles, all = TRUE)
+        data <- merge(tiles, data, all = TRUE, sort = FALSE)
         if (normalize) {
-            data$x <- rescale(data$x, to = x_range, from = c(0, 1))
+            data$x <- rescale(data$x / asp.ratio, to = x_range, from = c(0, 1))
             data$y <- rescale(data$y, to = y_range, from = c(0, 1))
         }
         data
@@ -158,11 +198,11 @@ StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
 #' @inheritParams geom_shape
 #' @export
 geom_voronoi_tile <- function(mapping = NULL, data = NULL, stat = "voronoi_tile",
-                        position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-9, normalize = FALSE,
+                        position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-9, max.radius = NULL, normalize = FALSE, asp.ratio = 1,
                         by.group = FALSE, expand = 0, radius = 0, show.legend = NA, inherit.aes = TRUE, ...) {
     layer(data = data, mapping = mapping, stat = stat, geom = GeomShape,
           position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm, by.group = by.group, ...))
+          params = list(bound = bound, eps = eps, max.radius = max.radius, normalize = normalize, asp.ratio = asp.ratio, na.rm = na.rm, by.group = by.group, ...))
 }
 
 #' @rdname ggforce-extensions
@@ -495,4 +535,29 @@ tri_mat <- function(object) {
             }
     }
     tlist
+}
+#' @importFrom polyclip polyclip
+clip_tiles <- function(tiles, radius, bound) {
+    if (is.null(radius) && is.null(bound)) return(tiles)
+    p <- seq(0, 2*pi, length.out = 361)[-361]
+    circ <- list(
+        x = cos(p) * radius,
+        y = sin(p) * radius
+    )
+    dapply(tiles, 'group', function(tile) {
+        final_tile <- list(x = tile$x, y = tile$y)
+        if (!is.null(radius)) {
+            circ_temp <- list(x = circ$x + tile$orig_x[1], y = circ$y + tile$orig_y[1])
+            final_tile <- polyclip(final_tile, circ_temp, 'intersection')
+        }
+        if (!is.null(bound)) {
+            final_tile <- polyclip(final_tile, bound, 'intersection')
+        }
+        if (length(final_tile) == 0) return(NULL)
+        new_data_frame(list(
+            x = final_tile[[1]]$x,
+            y = final_tile[[1]]$y,
+            group = tile$group[1]
+        ))
+    })
 }
