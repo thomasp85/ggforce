@@ -38,10 +38,11 @@
 #'
 #' @examples
 #' ggplot() +
-#'   geom_regon(aes(x0 = runif(8), y0 = runif(8), sides = sample(3:10, 8),
-#'                  angle = 0, r = runif(8)/10)) +
+#'   geom_regon(aes(
+#'     x0 = runif(8), y0 = runif(8), sides = sample(3:10, 8),
+#'     angle = 0, r = runif(8) / 10
+#'   )) +
 #'   coord_fixed()
-#'
 NULL
 
 #' @rdname ggforce-extensions
@@ -50,44 +51,46 @@ NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @export
 StatRegon <- ggproto('StatRegon', Stat,
-    compute_layer = function(self, data, params, panels) {
-        if (is.null(data)) return(data)
-        pos <- unlist(lapply(data$sides, function(n) {
-            p <- (seq_len(n) - 1)/n
-            if (n%%2 == 0) p <- p + p[2]/2
-            p * 2 * pi
-        }))
-        data$group <- seq_len(nrow(data))
-        data <- data[rep(data$group, data$sides), ]
-        x_tmp <- sin(pos) * data$r
-        y_tmp <- cos(pos) * data$r
-        data$x <- data$x0 + x_tmp*cos(data$angle) - y_tmp*sin(data$angle)
-        data$y <- data$y0 + x_tmp*sin(data$angle) + y_tmp*cos(data$angle)
-        data
-    },
-    required_aes = c('x0', 'y0', 'sides', 'angle', 'r'),
-    extra_params = c('na.rm')
+  compute_layer = function(self, data, params, panels) {
+    if (is.null(data)) return(data)
+    pos <- unlist(lapply(data$sides, function(n) {
+      p <- (seq_len(n) - 1) / n
+      if (n %% 2 == 0) p <- p + p[2] / 2
+      p * 2 * pi
+    }))
+    data$group <- seq_len(nrow(data))
+    data <- data[rep(data$group, data$sides), ]
+    x_tmp <- sin(pos) * data$r
+    y_tmp <- cos(pos) * data$r
+    data$x <- data$x0 + x_tmp * cos(data$angle) - y_tmp * sin(data$angle)
+    data$y <- data$y0 + x_tmp * sin(data$angle) + y_tmp * cos(data$angle)
+    data
+  },
+  required_aes = c('x0', 'y0', 'sides', 'angle', 'r'),
+  extra_params = c('na.rm')
 )
 
 #' @rdname geom_regon
 #' @importFrom ggplot2 layer
 #' @export
-stat_regon <- function(mapping = NULL, data = NULL, geom = "shape",
-                          position = "identity", na.rm = FALSE, show.legend = NA,
-                          inherit.aes = TRUE, ...) {
-    layer(
-        stat = StatRegon, data = data, mapping = mapping, geom = geom,
-        position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-        params = list(na.rm = na.rm, ...)
-    )
+stat_regon <- function(mapping = NULL, data = NULL, geom = 'shape',
+                       position = 'identity', na.rm = FALSE, show.legend = NA,
+                       inherit.aes = TRUE, ...) {
+  layer(
+    stat = StatRegon, data = data, mapping = mapping, geom = geom,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, ...)
+  )
 }
 #' @rdname geom_regon
 #' @importFrom ggplot2 layer
 #' @export
-geom_regon <- function(mapping = NULL, data = NULL, stat = "regon",
-                          position = "identity", na.rm = FALSE,
-                          show.legend = NA, inherit.aes = TRUE, ...) {
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomShape,
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(na.rm = na.rm, ...))
+geom_regon <- function(mapping = NULL, data = NULL, stat = 'regon',
+                       position = 'identity', na.rm = FALSE,
+                       show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    data = data, mapping = mapping, stat = stat, geom = GeomShape,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, ...)
+  )
 }

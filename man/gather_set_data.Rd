@@ -24,5 +24,4 @@ that can be used by geom_parallel_sets.
 \examples{
 data <- reshape2::melt(Titanic)
 head(gather_set_data(data, 1:4))
-
 }

@@ -62,9 +62,9 @@ or \code{label.minwidth} decide}
 the size of the label exceeds this, the the description is allowed to fill as
 much as the label}
 
-\item{label.hjust}{The horizontal justification for the annotation. If it contains
-two elements the first will be used for the label and the second for the
-description.}
+\item{label.hjust}{The horizontal justification for the annotation. If it
+contains two elements the first will be used for the label and the second for
+the description.}
 
 \item{label.fontsize}{The size of the text for the annotation. If it contains
 two elements the first will be used for the label and the second for the
@@ -137,8 +137,8 @@ is expanded 5mm and rounded on the corners. This can be adjusted with the
 }
 \section{Aesthetics}{
 
-geom_mark_hull understand the following aesthetics (required aesthetics are in
-bold):
+geom_mark_hull understand the following aesthetics (required aesthetics are
+in bold):
 \itemize{
 \item \strong{x}
 \item \strong{y}
@@ -190,15 +190,16 @@ if (requireNamespace('concaveman', quietly = TRUE)) {
   # Adjusting the concavity lets you change the shape of the hull
   ggplot(iris, aes(Petal.Length, Petal.Width)) +
     geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor'),
-                   concavity = 1) +
+      concavity = 1
+    ) +
     geom_point()
 
   ggplot(iris, aes(Petal.Length, Petal.Width)) +
     geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor'),
-                   concavity = 10) +
+      concavity = 10
+    ) +
     geom_point()
 }
-
 }
 \seealso{
 Other mark geoms: \code{\link{geom_mark_circle}},

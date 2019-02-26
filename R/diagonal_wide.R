@@ -47,48 +47,50 @@ NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @export
 StatDiagonalWide <- ggproto('StatDiagonalWide', Stat,
-    setup_data = function(data, params) {
-        if (any(table(data$group) != 4)) {
-            stop('Each group must consist of 4 points')
-        }
-        data
-    },
-    compute_panel = function(data, scales, strength = 0.5, n = 100) {
-        data <- data[order(data$group, data$x, data$y), ]
-        lower <- data[c(TRUE, FALSE, TRUE, FALSE), ]
-        upper <- data[c(FALSE, TRUE, FALSE, TRUE), ]
-        lower <- add_controls(lower, strength)
-        upper <- add_controls(upper[rev(seq_len(nrow(upper))), ], strength)
-        lower <- StatBezier$compute_layer(lower, list(n = n))
-        upper <- StatBezier$compute_layer(upper, list(n = n))
-        diagonals <- rbind(lower, upper)
-        diagonals$index <- NULL
-        diagonals[order(diagonals$group), ]
-    },
-    required_aes = c('x', 'y', 'group'),
-    extra_params = c('na.rm', 'n', 'strength')
+  setup_data = function(data, params) {
+    if (any(table(data$group) != 4)) {
+      stop('Each group must consist of 4 points')
+    }
+    data
+  },
+  compute_panel = function(data, scales, strength = 0.5, n = 100) {
+    data <- data[order(data$group, data$x, data$y), ]
+    lower <- data[c(TRUE, FALSE, TRUE, FALSE), ]
+    upper <- data[c(FALSE, TRUE, FALSE, TRUE), ]
+    lower <- add_controls(lower, strength)
+    upper <- add_controls(upper[rev(seq_len(nrow(upper))), ], strength)
+    lower <- StatBezier$compute_layer(lower, list(n = n))
+    upper <- StatBezier$compute_layer(upper, list(n = n))
+    diagonals <- rbind(lower, upper)
+    diagonals$index <- NULL
+    diagonals[order(diagonals$group), ]
+  },
+  required_aes = c('x', 'y', 'group'),
+  extra_params = c('na.rm', 'n', 'strength')
 )
 #' @rdname geom_diagonal_wide
 #' @importFrom ggplot2 layer
 #' @export
-stat_diagonal_wide  <- function(mapping = NULL, data = NULL, geom = "shape",
-                                position = "identity", n = 100, strength = 0.5,
-                                na.rm = FALSE, show.legend = NA,
-                                inherit.aes = TRUE, ...) {
-    layer(
-        stat = StatDiagonalWide, data = data, mapping = mapping, geom = geom,
-        position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-        params = list(na.rm = na.rm, n = n, strength = strength, ...)
-    )
+stat_diagonal_wide <- function(mapping = NULL, data = NULL, geom = 'shape',
+                               position = 'identity', n = 100, strength = 0.5,
+                               na.rm = FALSE, show.legend = NA,
+                               inherit.aes = TRUE, ...) {
+  layer(
+    stat = StatDiagonalWide, data = data, mapping = mapping, geom = geom,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, n = n, strength = strength, ...)
+  )
 }
 #' @rdname geom_diagonal_wide
 #' @importFrom ggplot2 layer
 #' @export
-geom_diagonal_wide <- function(mapping = NULL, data = NULL, stat = "diagonal_wide",
-                         position = "identity", n = 100,
-                         na.rm = FALSE, strength = 0.5,
-                         show.legend = NA, inherit.aes = TRUE, ...) {
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomShape,
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(na.rm = na.rm, n = n, strength = strength, ...))
+geom_diagonal_wide <- function(mapping = NULL, data = NULL,
+                               stat = 'diagonal_wide', position = 'identity',
+                               n = 100, na.rm = FALSE, strength = 0.5,
+                               show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    data = data, mapping = mapping, stat = stat, geom = GeomShape,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, n = n, strength = strength, ...)
+  )
 }

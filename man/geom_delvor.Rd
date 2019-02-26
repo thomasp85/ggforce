@@ -187,14 +187,16 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
   geom_voronoi_tile(aes(fill = Species)) +
   geom_voronoi_segment() +
   geom_text(aes(label = ..nsides.., size = ..vorarea..),
-            stat = 'delvor_summary', switch.centroid = TRUE)
+    stat = 'delvor_summary', switch.centroid = TRUE
+  )
 
 # Difference of normalize = TRUE
 ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
   geom_voronoi_tile(aes(fill = Species), normalize = TRUE) +
   geom_voronoi_segment(normalize = TRUE) +
   geom_text(aes(label = ..nsides.., size = ..vorarea..),
-            stat = 'delvor_summary', switch.centroid = TRUE, normalize = TRUE)
+    stat = 'delvor_summary', switch.centroid = TRUE, normalize = TRUE
+  )
 
 # Set a max radius
 ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
@@ -209,7 +211,6 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
 ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
   geom_delaunay_tile(alpha = 0.3) +
   geom_delaunay_segment2(aes(colour = Species, group = -1))
-
 }
 \author{
 Thomas Lin Pedersen

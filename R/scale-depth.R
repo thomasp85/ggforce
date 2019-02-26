@@ -25,9 +25,8 @@
 #'   geom_point(aes(mpg, disp, depth = cyl)) +
 #'   scale_depth(range = c(-0.1, 0.25)) +
 #'   facet_stereo()
-#'
 scale_depth <- function(..., range = c(0, 0.3)) {
-    continuous_scale("depth", "depth_c", rescale_pal(range), ...)
+  continuous_scale('depth', 'depth_c', rescale_pal(range), ...)
 }
 
 #' @rdname scale_depth
@@ -40,6 +39,8 @@ scale_depth_continuous <- scale_depth
 #' @export
 #' @importFrom ggplot2 discrete_scale
 scale_depth_discrete <- function(..., range = c(0, 0.3)) {
-    discrete_scale("depth", "depth_d",
-                   function(n) seq(range[1], range[2], length.out = n), ...)
+  discrete_scale(
+    'depth', 'depth_d',
+    function(n) seq(range[1], range[2], length.out = n), ...
+  )
 }

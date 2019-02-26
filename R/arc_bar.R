@@ -60,37 +60,44 @@ NULL
 #' @examples
 #' # If you know the angle spans to plot it is easy
 #' arcs <- data.frame(
-#'   start = seq(0, 2*pi, length.out=11)[-11],
-#'   end = seq(0, 2*pi, length.out=11)[-1],
+#'   start = seq(0, 2 * pi, length.out = 11)[-11],
+#'   end = seq(0, 2 * pi, length.out = 11)[-1],
 #'   r = rep(1:2, 5)
 #' )
-#'
+#' 
 #' # Behold the arcs
-#' ggplot() + geom_arc_bar(aes(x0=0, y0=0, r0=r-1, r=r, start=start, end=end,
-#'                         fill = r),
-#'                     data=arcs)
-#'
+#' ggplot() + geom_arc_bar(aes(
+#'   x0 = 0, y0 = 0, r0 = r - 1, r = r, start = start, end = end,
+#'   fill = r
+#' ),
+#' data = arcs
+#' )
+#' 
 #' # If you got values for a pie chart, use stat_pie
-#' states <- c('eaten', "eaten but said you didn't", 'cat took it', 'for tonight',
-#'             'will decompose slowly')
+#' states <- c(
+#'   'eaten', 'eaten but said you didn\'t', 'cat took it', 'for tonight',
+#'   'will decompose slowly'
+#' )
 #' pie <- data.frame(
 #'   state = factor(rep(states, 2), levels = states),
 #'   type = rep(c('Pie', 'Donut'), each = 5),
 #'   r0 = rep(c(0, 0.8), each = 5),
-#'   focus=rep(c(0.2, 0, 0, 0, 0), 2),
-#'   amount = c(4,3, 1, 1.5, 6, 6, 1, 2, 3, 2),
+#'   focus = rep(c(0.2, 0, 0, 0, 0), 2),
+#'   amount = c(4, 3, 1, 1.5, 6, 6, 1, 2, 3, 2),
 #'   stringsAsFactors = FALSE
 #' )
-#'
+#' 
 #' # Look at the cakes
-#' ggplot() + geom_arc_bar(aes(x0=0, y0=0, r0=r0, r=1, amount=amount,
-#'                             fill=state, explode=focus),
-#'                         data=pie, stat='pie') +
-#'   facet_wrap(~type, ncol=1) +
+#' ggplot() + geom_arc_bar(aes(
+#'   x0 = 0, y0 = 0, r0 = r0, r = 1, amount = amount,
+#'   fill = state, explode = focus
+#' ),
+#' data = pie, stat = 'pie'
+#' ) +
+#'   facet_wrap(~type, ncol = 1) +
 #'   coord_fixed() +
 #'   theme_no_axes() +
-#'   scale_fill_brewer('', type='qual')
-#'
+#'   scale_fill_brewer('', type = 'qual')
 #' @seealso [geom_arc()] for drawing arcs as lines
 #'
 NULL
@@ -101,23 +108,23 @@ NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @export
 StatArcBar <- ggproto('StatArcBar', Stat,
-    compute_panel = function(data, scales, n = 360) {
-        arcPaths(data, n)
-    },
+  compute_panel = function(data, scales, n = 360) {
+    arcPaths(data, n)
+  },
 
-    required_aes = c('x0', 'y0', 'r0','r', 'start', 'end')
+  required_aes = c('x0', 'y0', 'r0', 'r', 'start', 'end')
 )
 #' @rdname geom_arc_bar
 #' @importFrom ggplot2 layer
 #' @export
-stat_arc_bar  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
-                          position = "identity", n = 360, na.rm = FALSE,
-                          show.legend = NA, inherit.aes = TRUE, ...) {
-    layer(
-        stat = StatArcBar, data = data, mapping = mapping, geom = geom,
-        position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-        params = list(na.rm = na.rm, n = n, ...)
-    )
+stat_arc_bar <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
+                         position = 'identity', n = 360, na.rm = FALSE,
+                         show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    stat = StatArcBar, data = data, mapping = mapping, geom = geom,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, n = n, ...)
+  )
 }
 #' @rdname ggforce-extensions
 #' @format NULL
@@ -125,37 +132,37 @@ stat_arc_bar  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
 #' @importFrom ggplot2 ggproto Stat
 #' @export
 StatPie <- ggproto('StatPie', Stat,
-    compute_panel = function(data, scales, n = 360, sep = 0) {
-        data <- dapply(data, c('x0', 'y0'), function(df) {
-            angles <- cumsum(df$amount)
-            seps <- cumsum(sep * seq_along(angles))
-            if (max(seps) >= 2*pi) {
-                stop('Total separation exceeds circle circumference. Try lowering "sep"')
-            }
-            angles <- angles/max(angles) * (2*pi - max(seps))
-            new_data_frame(c(df, list(
-                start = c(0, angles[-length(angles)]) + c(0, seps[-length(seps)]) + sep/2,
-                end = angles + seps - sep/2,
-                stringsAsFactors = FALSE
-            )))
-        })
-        arcPaths(as.data.frame(data), n)
-    },
+  compute_panel = function(data, scales, n = 360, sep = 0) {
+    data <- dapply(data, c('x0', 'y0'), function(df) {
+      angles <- cumsum(df$amount)
+      seps <- cumsum(sep * seq_along(angles))
+      if (max(seps) >= 2 * pi) {
+        stop('Total separation exceeds circle circumference. Try lowering "sep"')
+      }
+      angles <- angles / max(angles) * (2 * pi - max(seps))
+      new_data_frame(c(df, list(
+        start = c(0, angles[-length(angles)]) + c(0, seps[-length(seps)]) + sep / 2,
+        end = angles + seps - sep / 2,
+        stringsAsFactors = FALSE
+      )))
+    })
+    arcPaths(as.data.frame(data), n)
+  },
 
-    required_aes = c('x0', 'y0', 'r0','r', 'amount'),
-    default_aes = aes(explode = NULL)
+  required_aes = c('x0', 'y0', 'r0', 'r', 'amount'),
+  default_aes = aes(explode = NULL)
 )
 #' @rdname geom_arc_bar
 #' @importFrom ggplot2 layer
 #' @export
-stat_pie  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
-                      position = "identity", n = 360, sep = 0, na.rm = FALSE,
-                      show.legend = NA, inherit.aes = TRUE, ...) {
-    layer(
-        stat = StatPie, data = data, mapping = mapping, geom = geom,
-        position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-        params = list(na.rm = na.rm, n = n, sep = sep, ...)
-    )
+stat_pie <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
+                     position = 'identity', n = 360, sep = 0, na.rm = FALSE,
+                     show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    stat = StatPie, data = data, mapping = mapping, geom = geom,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, n = n, sep = sep, ...)
+  )
 }
 #' @rdname ggforce-extensions
 #' @format NULL
@@ -163,109 +170,121 @@ stat_pie  <- function(mapping = NULL, data = NULL, geom = "arc_bar",
 #' @importFrom ggplot2 ggproto
 #' @export
 GeomArcBar <- ggproto('GeomArcBar', GeomShape,
-    default_aes = list(colour = 'black', fill = NA, size = 0.5, linetype = 1, alpha = NA)
+  default_aes = list(
+    colour = 'black', fill = NA, size = 0.5, linetype = 1,
+    alpha = NA
+  )
 )
 #' @rdname geom_arc_bar
 #' @importFrom ggplot2 layer
 #' @inheritParams geom_shape
 #' @export
-geom_arc_bar <- function(mapping = NULL, data = NULL, stat = "arc_bar",
-                     position = "identity", n = 360, expand = 0, radius = 0, na.rm = FALSE,
-                     show.legend = NA, inherit.aes = TRUE, ...) {
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomArcBar,
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(na.rm = na.rm, n = n, ...))
+geom_arc_bar <- function(mapping = NULL, data = NULL, stat = 'arc_bar',
+                         position = 'identity', n = 360, expand = 0, radius = 0,
+                         na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+                         ...) {
+  layer(
+    data = data, mapping = mapping, stat = stat, geom = GeomArcBar,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, n = n, ...)
+  )
 }
 
 arcPaths <- function(data, n) {
-    trans <- radial_trans(c(0, 1), c(0, 2*pi), pad = 0)
-    data <- data[data$start != data$end, ]
-    data$nControl <- ceiling(n/(2*pi) * abs(data$end - data$start))
-    data$nControl[data$nControl < 3] <- 3
-    extraData <- !names(data) %in% c('r0', 'r', 'start', 'end')
-    paths <- lapply(seq_len(nrow(data)), function(i) {
-        path <- data.frame(
-            a = seq(data$start[i], data$end[i], length.out = data$nControl[i]),
-            r = data$r[i]
+  trans <- radial_trans(c(0, 1), c(0, 2 * pi), pad = 0)
+  data <- data[data$start != data$end, ]
+  data$nControl <- ceiling(n / (2 * pi) * abs(data$end - data$start))
+  data$nControl[data$nControl < 3] <- 3
+  extraData <- !names(data) %in% c('r0', 'r', 'start', 'end')
+  paths <- lapply(seq_len(nrow(data)), function(i) {
+    path <- data.frame(
+      a = seq(data$start[i], data$end[i], length.out = data$nControl[i]),
+      r = data$r[i]
+    )
+    if ('r0' %in% names(data)) {
+      if (data$r0[i] != 0) {
+        path <- rbind(
+          path,
+          data.frame(a = rev(path$a), r = data$r0[i])
         )
-        if ('r0' %in% names(data)) {
-            if (data$r0[i] != 0) {
-                path <- rbind(
-                    path,
-                    data.frame(a = rev(path$a), r = data$r0[i])
-                )
-            } else {
-                path <- rbind(
-                    path,
-                    data.frame(a = data$start[i], r = 0)
-                )
-            }
-        }
-        path$group <- i
-        path$index <- seq(0, 1, length.out = nrow(path))
-        path <- cbind(path, data[rep(i, nrow(path)), extraData, drop = FALSE])
-    })
-    paths <- do.call(rbind, paths)
-    paths <- cbind(paths[, !names(paths) %in% c('r', 'a')],
-                   trans$transform(paths$r, paths$a))
-    paths$x <- paths$x + paths$x0
-    paths$y <- paths$y + paths$y0
-    if ('explode' %in% names(data)) {
-        exploded <- data$explode != 0
-        if (any(exploded)) {
-            exploder <- trans$transform(
-                data$explode[exploded],
-                data$start[exploded] + (data$end[exploded] - data$start[exploded])/2
-            )
-            explodedPaths <- paths$group %in% which(exploded)
-            exploderInd <- as.integer(factor(paths$group[explodedPaths]))
-            paths$x[explodedPaths] <-
-                paths$x[explodedPaths] + exploder$x[exploderInd]
-            paths$y[explodedPaths] <-
-                paths$y[explodedPaths] + exploder$y[exploderInd]
-        }
+      } else {
+        path <- rbind(
+          path,
+          data.frame(a = data$start[i], r = 0)
+        )
+      }
     }
-    paths[, !names(paths) %in% c('x0', 'y0', 'exploded')]
+    path$group <- i
+    path$index <- seq(0, 1, length.out = nrow(path))
+    path <- cbind(path, data[rep(i, nrow(path)), extraData, drop = FALSE])
+  })
+  paths <- do.call(rbind, paths)
+  paths <- cbind(
+    paths[, !names(paths) %in% c('r', 'a')],
+    trans$transform(paths$r, paths$a)
+  )
+  paths$x <- paths$x + paths$x0
+  paths$y <- paths$y + paths$y0
+  if ('explode' %in% names(data)) {
+    exploded <- data$explode != 0
+    if (any(exploded)) {
+      exploder <- trans$transform(
+        data$explode[exploded],
+        data$start[exploded] + (data$end[exploded] - data$start[exploded]) / 2
+      )
+      explodedPaths <- paths$group %in% which(exploded)
+      exploderInd <- as.integer(factor(paths$group[explodedPaths]))
+      paths$x[explodedPaths] <-
+        paths$x[explodedPaths] + exploder$x[exploderInd]
+      paths$y[explodedPaths] <-
+        paths$y[explodedPaths] + exploder$y[exploderInd]
+    }
+  }
+  paths[, !names(paths) %in% c('x0', 'y0', 'exploded')]
 }
 arcPaths2 <- function(data, n) {
-    trans <- radial_trans(c(0, 1), c(0, 2*pi), pad = 0)
-    fullCirc <- n/(2*pi)
-    extraData <- setdiff(names(data), c('r', 'x0', 'y0', 'end', 'group', 'PANEL'))
-    hasExtra <- length(extraData) != 0
-    extraTemplate <-  data[NA, extraData, drop = FALSE][1, , drop = FALSE]
-    paths <- lapply(split(seq_len(nrow(data)), data$group), function(i) {
-        if (length(i) != 2) {
-            stop('Arcs must be defined by two end points', call. = FALSE)
-        }
-        if (data$r[i[1]] != data$r[i[2]] ||
-            data$x0[i[1]] != data$x0[i[2]] ||
-            data$y0[i[1]] != data$y0[i[2]]) {
-            stop('Both end points must be at same radius and with same center', call. = FALSE)
-        }
-        if (data$end[i[1]] == data$end[i[2]]) return()
-        nControl <- ceiling(fullCirc * abs(diff(data$end[i])))
-        if (nControl < 3) nControl <- 3
-        path <- data.frame(
-            a = seq(data$end[i[1]], data$end[i[2]], length.out = nControl),
-            r = data$r[i[1]],
-            x0 = data$x0[i[1]],
-            y0 = data$y0[i[1]],
-            group = data$group[i[1]],
-            index = seq(0, 1, length.out = nControl),
-            .interp = c(FALSE, rep(TRUE, nControl -2), FALSE),
-            PANEL = data$PANEL[i[1]]
-        )
-        if (hasExtra) {
-            path <- cbind(path, extraTemplate[rep(1, nControl), , drop = FALSE])
-            path[1, extraData] <- data[i[1], extraData, drop = FALSE]
-            path[nControl, extraData] <- data[i[2], extraData, drop = FALSE]
-        }
-        path
-    })
-    paths <- do.call(rbind, paths)
-    paths <- cbind(paths[, !names(paths) %in% c('r', 'a')],
-                   trans$transform(paths$r, paths$a))
-    paths$x <- paths$x + paths$x0
-    paths$y <- paths$y + paths$y0
-    paths[, !names(paths) %in% c('x0', 'y0')]
+  trans <- radial_trans(c(0, 1), c(0, 2 * pi), pad = 0)
+  fullCirc <- n / (2 * pi)
+  extraData <- setdiff(names(data), c('r', 'x0', 'y0', 'end', 'group', 'PANEL'))
+  hasExtra <- length(extraData) != 0
+  extraTemplate <- data[NA, extraData, drop = FALSE][1, , drop = FALSE]
+  paths <- lapply(split(seq_len(nrow(data)), data$group), function(i) {
+    if (length(i) != 2) {
+      stop('Arcs must be defined by two end points', call. = FALSE)
+    }
+    if (data$r[i[1]] != data$r[i[2]] ||
+      data$x0[i[1]] != data$x0[i[2]] ||
+      data$y0[i[1]] != data$y0[i[2]]) {
+      stop('Both end points must be at same radius and with same center',
+        call. = FALSE
+      )
+    }
+    if (data$end[i[1]] == data$end[i[2]]) return()
+    nControl <- ceiling(fullCirc * abs(diff(data$end[i])))
+    if (nControl < 3) nControl <- 3
+    path <- data.frame(
+      a = seq(data$end[i[1]], data$end[i[2]], length.out = nControl),
+      r = data$r[i[1]],
+      x0 = data$x0[i[1]],
+      y0 = data$y0[i[1]],
+      group = data$group[i[1]],
+      index = seq(0, 1, length.out = nControl),
+      .interp = c(FALSE, rep(TRUE, nControl - 2), FALSE),
+      PANEL = data$PANEL[i[1]]
+    )
+    if (hasExtra) {
+      path <- cbind(path, extraTemplate[rep(1, nControl), , drop = FALSE])
+      path[1, extraData] <- data[i[1], extraData, drop = FALSE]
+      path[nControl, extraData] <- data[i[2], extraData, drop = FALSE]
+    }
+    path
+  })
+  paths <- do.call(rbind, paths)
+  paths <- cbind(
+    paths[, !names(paths) %in% c('r', 'a')],
+    trans$transform(paths$r, paths$a)
+  )
+  paths$x <- paths$x + paths$x0
+  paths$y <- paths$y + paths$y0
+  paths[, !names(paths) %in% c('x0', 'y0')]
 }

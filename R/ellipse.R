@@ -50,14 +50,13 @@
 #' # Rotation
 #' # Note that it expects radians and rotates the ellipse counter-clockwise
 #' ggplot() +
-#'   geom_ellipsis(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = pi/4)) +
+#'   geom_ellipsis(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = pi / 4)) +
 #'   coord_fixed()
 #'
 #' # Draw a super ellipse
 #' ggplot() +
 #'   geom_ellipsis(aes(x0 = 0, y0 = 0, a = 6, b = 3, angle = 75, m1 = 3)) +
 #'   coord_fixed()
-#'
 NULL
 
 #' @rdname ggforce-extensions
@@ -66,49 +65,52 @@ NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @export
 StatEllipsis <- ggproto('StatEllipsis', Stat,
-    setup_data = function(data, params) {
-        data$m1 <- ifelse(is.null(data$m1), 2, data$m1)
-        data$m2 <- ifelse(is.null(data$m2), data$m1, data$m2)
-        data
-    },
-    compute_layer = function(self, data, params, layout) {
-        if (is.null(data)) return(data)
-        data$group <- seq_len(nrow(data))
-        n_ellipses <- nrow(data)
-        data <- data[rep(seq_len(n_ellipses), each = params$n), ]
-        points <- rep(seq(0, 2*pi, length.out = params$n + 1)[seq_len(params$n)], n_ellipses)
-        cos_p <- cos(points)
-        sin_p <- sin(points)
-        x_tmp <- abs(cos_p)^(2/data$m1) * data$a * sign(cos_p)
-        y_tmp <- abs(sin_p)^(2/data$m2) * data$b * sign(sin_p)
-        data$x <- data$x0 + x_tmp*cos(data$angle) - y_tmp*sin(data$angle)
-        data$y <- data$y0 + x_tmp*sin(data$angle) + y_tmp*cos(data$angle)
-        data
-    },
-    required_aes = c('x0', 'y0', 'a', 'b', 'angle'),
-    default_aes = aes(m1 = NA, m2 = NA),
-    extra_params = c('n', 'na.rm')
+  setup_data = function(data, params) {
+    data$m1 <- ifelse(is.null(data$m1), 2, data$m1)
+    data$m2 <- ifelse(is.null(data$m2), data$m1, data$m2)
+    data
+  },
+  compute_layer = function(self, data, params, layout) {
+    if (is.null(data)) return(data)
+    data$group <- seq_len(nrow(data))
+    n_ellipses <- nrow(data)
+    data <- data[rep(seq_len(n_ellipses), each = params$n), ]
+    points <- rep(seq(0, 2 * pi, length.out = params$n + 1)[seq_len(params$n)],
+                  n_ellipses)
+    cos_p <- cos(points)
+    sin_p <- sin(points)
+    x_tmp <- abs(cos_p)^(2 / data$m1) * data$a * sign(cos_p)
+    y_tmp <- abs(sin_p)^(2 / data$m2) * data$b * sign(sin_p)
+    data$x <- data$x0 + x_tmp * cos(data$angle) - y_tmp * sin(data$angle)
+    data$y <- data$y0 + x_tmp * sin(data$angle) + y_tmp * cos(data$angle)
+    data
+  },
+  required_aes = c('x0', 'y0', 'a', 'b', 'angle'),
+  default_aes = aes(m1 = NA, m2 = NA),
+  extra_params = c('n', 'na.rm')
 )
 #' @rdname geom_ellipsis
 #' @importFrom ggplot2 layer
 #' @export
-stat_ellipsis <- function(mapping = NULL, data = NULL, geom = "circle",
-                         position = "identity", n = 360, na.rm = FALSE, show.legend = NA,
-                         inherit.aes = TRUE, ...) {
-    layer(
-        stat = StatEllipsis, data = data, mapping = mapping, geom = geom,
-        position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-        params = list(na.rm = na.rm, n = n, ...)
-    )
+stat_ellipsis <- function(mapping = NULL, data = NULL, geom = 'circle',
+                          position = 'identity', n = 360, na.rm = FALSE,
+                          show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    stat = StatEllipsis, data = data, mapping = mapping, geom = geom,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, n = n, ...)
+  )
 }
 
 #' @rdname geom_ellipsis
 #' @importFrom ggplot2 layer
 #' @export
-geom_ellipsis <- function(mapping = NULL, data = NULL, stat = "ellipsis",
-                        position = "identity", n = 360, na.rm = FALSE,
-                        show.legend = NA, inherit.aes = TRUE, ...) {
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomCircle,
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(n = n, na.rm = na.rm, ...))
+geom_ellipsis <- function(mapping = NULL, data = NULL, stat = 'ellipsis',
+                          position = 'identity', n = 360, na.rm = FALSE,
+                          show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    data = data, mapping = mapping, stat = stat, geom = GeomCircle,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(n = n, na.rm = na.rm, ...)
+  )
 }

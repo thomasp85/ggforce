@@ -107,7 +107,6 @@ ggplot(controls, aes(x, y)) +
   geom_polygon(fill = NA, colour = 'grey') +
   geom_point(colour = 'red') +
   geom_bspline_closed(alpha = 0.5)
-
 }
 \author{
 Thomas Lin Pedersen. The C++ code for De Boor's algorithm has been

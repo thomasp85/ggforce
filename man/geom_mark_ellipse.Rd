@@ -64,9 +64,9 @@ or \code{label.minwidth} decide}
 the size of the label exceeds this, the the description is allowed to fill as
 much as the label}
 
-\item{label.hjust}{The horizontal justification for the annotation. If it contains
-two elements the first will be used for the label and the second for the
-description.}
+\item{label.hjust}{The horizontal justification for the annotation. If it
+contains two elements the first will be used for the label and the second for
+the description.}
 
 \item{label.fontsize}{The size of the text for the annotation. If it contains
 two elements the first will be used for the label and the second for the
@@ -139,8 +139,8 @@ hull consisting of 1000 points).
 }
 \section{Aesthetics}{
 
-geom_mark_hull understand the following aesthetics (required aesthetics are in
-bold):
+geom_mark_hull understand the following aesthetics (required aesthetics are
+in bold):
 \itemize{
 \item \strong{x}
 \item \strong{y}
@@ -187,7 +187,6 @@ removed data.
 ggplot(iris, aes(Petal.Length, Petal.Width)) +
   geom_mark_ellipse(aes(fill = Species, filter = Species != 'versicolor')) +
   geom_point()
-
 }
 \seealso{
 Other mark geoms: \code{\link{geom_mark_circle}},
