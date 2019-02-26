@@ -56,6 +56,7 @@ NULL
 #'
 #' @name geom_arc_bar
 #' @rdname geom_arc_bar
+#' @seealso [geom_arc()] for drawing arcs as lines
 #'
 #' @examples
 #' # If you know the angle spans to plot it is easy
@@ -64,18 +65,15 @@ NULL
 #'   end = seq(0, 2 * pi, length.out = 11)[-1],
 #'   r = rep(1:2, 5)
 #' )
-#' 
+#'
 #' # Behold the arcs
-#' ggplot() + geom_arc_bar(aes(
-#'   x0 = 0, y0 = 0, r0 = r - 1, r = r, start = start, end = end,
-#'   fill = r
-#' ),
-#' data = arcs
-#' )
-#' 
+#' ggplot(arcs) +
+#' geom_arc_bar(aes(x0 = 0, y0 = 0, r0 = r - 1, r = r, start = start, end = end,
+#'                  fill = r))
+#'
 #' # If you got values for a pie chart, use stat_pie
 #' states <- c(
-#'   'eaten', 'eaten but said you didn\'t', 'cat took it', 'for tonight',
+#'   'eaten', "eaten but said you didn\'t", 'cat took it', 'for tonight',
 #'   'will decompose slowly'
 #' )
 #' pie <- data.frame(
@@ -86,7 +84,7 @@ NULL
 #'   amount = c(4, 3, 1, 1.5, 6, 6, 1, 2, 3, 2),
 #'   stringsAsFactors = FALSE
 #' )
-#' 
+#'
 #' # Look at the cakes
 #' ggplot() + geom_arc_bar(aes(
 #'   x0 = 0, y0 = 0, r0 = r0, r = 1, amount = amount,
@@ -98,7 +96,6 @@ NULL
 #'   coord_fixed() +
 #'   theme_no_axes() +
 #'   scale_fill_brewer('', type = 'qual')
-#' @seealso [geom_arc()] for drawing arcs as lines
 #'
 NULL
 

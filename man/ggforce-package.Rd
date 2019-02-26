@@ -63,6 +63,14 @@ ggplot() + geom_link(aes(
   ggtitle('ggforce: Accelerating ggplot2') +
   theme(plot.title = element_text(size = 20))
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/thomasp85/ggforce}
+  \item Report bugs at \url{https://github.com/thomasp85/ggforce/issues}
+}
+
+}
 \author{
 Thomas Lin Pedersen
 }

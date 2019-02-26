@@ -66,4 +66,4 @@
 #'   xlab('') + ylab('') +
 #'   ggtitle('ggforce: Accelerating ggplot2') +
 #'   theme(plot.title = element_text(size = 20))
-NULL
+"_PACKAGE"
