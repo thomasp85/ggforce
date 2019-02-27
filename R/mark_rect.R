@@ -24,7 +24,6 @@
 #'
 #' @inheritParams geom_mark_circle
 #'
-#' @author Thomas Lin Pedersen
 #' @family mark geoms
 #'
 #' @name geom_mark_rect
@@ -33,6 +32,36 @@
 #' @examples
 #' ggplot(iris, aes(Petal.Length, Petal.Width)) +
 #'   geom_mark_rect(aes(fill = Species, filter = Species != 'versicolor')) +
+#'   geom_point()
+#'
+#' # Add annotation
+#' ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'   geom_mark_rect(aes(fill = Species, label = Species)) +
+#'   geom_point()
+#'
+#' # Long descriptions are automatically wrapped to fit into the width
+#' iris$desc <- c(
+#'   'A super Iris — and it knows it',
+#'   'Pretty mediocre Iris, but give it a couple of years and it might surprise you',
+#'   "You'll never guess what this Iris does every Sunday"
+#' )[iris$Species]
+#'
+#' ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'   geom_mark_rect(aes(fill = Species, label = Species, description = desc)) +
+#'   geom_point()
+#'
+#' # Change the buffer size to move labels farther away (or closer) from the
+#' # marks
+#' ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'   geom_mark_rect(aes(fill = Species, label = Species, description = desc),
+#'                    label.buffer = unit(40, 'mm')) +
+#'   geom_point()
+#'
+#' # The connector is capped a bit before it reaches the mark, but this can be
+#' # controlled
+#' ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'   geom_mark_rect(aes(fill = Species, label = Species, description = desc),
+#'                    con.cap = 0) +
 #'   geom_point()
 NULL
 
@@ -224,7 +253,7 @@ rectEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
   }
   gTree(
     mark = mark, label = label, labeldim = labeldim,
-    ghosts = ghosts, con.gp = con.gp, con.type = con.type,
+    buffer = label.buffer, ghosts = ghosts, con.gp = con.gp, con.type = con.type,
     con.cap = as_mm(con.cap, default.units), con.border = con.border,
     con.arrow = con.arrow, name = name, vp = vp, cl = 'rect_enc'
   )

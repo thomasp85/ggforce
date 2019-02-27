@@ -6,13 +6,17 @@
 #'
 #' @inheritParams ggplot2::continuous_scale
 #' @inheritParams ggplot2::scale_x_continuous
+#'
 #' @param unit A unit specification to use for the axis. If given, the values
 #' will be converted to this unit before plotting. An error will be thrown if
 #' the specified unit is incompatible with the unit of the data.
 #'
+#' @name scale_unit
+#' @aliases NULL
+#'
 #' @examples
 #' library(units)
-#' gallon <- make_unit('gallon')
+#' gallon <- as_units('gallon')
 #' mtcars$consumption <- mtcars$mpg * with(ud_units, mi / gallon)
 #' mtcars$power <- mtcars$hp * with(ud_units, hp)
 #'
@@ -29,8 +33,6 @@
 #' # Resolve units when transforming data
 #' ggplot(mtcars) +
 #'   geom_point(aes(power, 1 / consumption))
-#' @name scale_unit
-#' @aliases NULL
 NULL
 
 #' @rdname scale_unit

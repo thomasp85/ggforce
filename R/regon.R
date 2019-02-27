@@ -31,17 +31,20 @@
 #' @inheritParams ggplot2::geom_polygon
 #' @inheritParams ggplot2::stat_identity
 #'
-#' @author Thomas Lin Pedersen
-#'
 #' @name geom_regon
 #' @rdname geom_regon
 #'
 #' @examples
 #' ggplot() +
-#'   geom_regon(aes(
-#'     x0 = runif(8), y0 = runif(8), sides = sample(3:10, 8),
-#'     angle = 0, r = runif(8) / 10
-#'   )) +
+#'   geom_regon(aes(x0 = runif(8), y0 = runif(8), sides = sample(3:10, 8),
+#'                  angle = 0, r = runif(8) / 10)) +
+#'   coord_fixed()
+#'
+#' # The polygons are drawn with geom_shape, so can be manipulated as such
+#' ggplot() +
+#'   geom_regon(aes(x0 = runif(8), y0 = runif(8), sides = sample(3:10, 8),
+#'                  angle = 0, r = runif(8) / 10),
+#'              expand = unit(1, 'cm'), radius = unit(1, 'cm')) +
 #'   coord_fixed()
 NULL
 

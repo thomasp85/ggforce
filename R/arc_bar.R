@@ -52,8 +52,6 @@ NULL
 #'
 #' @param sep The separation between arcs in pie/donut charts
 #'
-#' @author Thomas Lin Pedersen
-#'
 #' @name geom_arc_bar
 #' @rdname geom_arc_bar
 #' @seealso [geom_arc()] for drawing arcs as lines
@@ -68,8 +66,14 @@ NULL
 #'
 #' # Behold the arcs
 #' ggplot(arcs) +
-#' geom_arc_bar(aes(x0 = 0, y0 = 0, r0 = r - 1, r = r, start = start, end = end,
-#'                  fill = r))
+#'   geom_arc_bar(aes(x0 = 0, y0 = 0, r0 = r - 1, r = r, start = start,
+#'                    end = end, fill = r))
+#'
+#' # geom_arc_bar uses geom_shape to draw the arcs, so you have all the
+#' # possibilities of that as well, e.g. rounding of corners
+#' ggplot(arcs) +
+#'   geom_arc_bar(aes(x0 = 0, y0 = 0, r0 = r - 1, r = r, start = start,
+#'                    end = end, fill = r), radius = unit(4, 'mm'))
 #'
 #' # If you got values for a pie chart, use stat_pie
 #' states <- c(

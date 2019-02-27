@@ -92,8 +92,7 @@ layer, as a string.}
 This set of geoms makes it possible to connect points creating either
 quadratic or cubic beziers. bezier and bezier2 both work by calculating
 points along the bezier and connecting these to draw the curve. bezier0
-directly draws the bezier using bezierGrob and is thus probably more
-performant. In line with the \code{\link[=geom_link]{geom_link()}} and
+directly draws the bezier using bezierGrob. In line with the \code{\link[=geom_link]{geom_link()}} and
 \code{\link[=geom_link2]{geom_link2()}} differences geom_bezier creates the points, assign
 an index to each interpolated point and repeat the aesthetics for the start
 point, while geom_bezier2 interpolates the aesthetics between the start and
@@ -112,7 +111,7 @@ geom_bezier2.
 }
 \section{Aesthetics}{
 
-geom_link, geom_link2 and geom_lin0 understand the following aesthetics
+geom_bezier, geom_bezier2 and geom_bezier0 understand the following aesthetics
 (required aesthetics are in bold):
 \itemize{
 \item \strong{x}
@@ -139,7 +138,8 @@ beziers <- data.frame(
   x = c(1, 2, 3, 4, 4, 6, 6),
   y = c(0, 2, 0, 0, 2, 2, 0),
   type = rep(c('cubic', 'quadratic'), c(3, 4)),
-  point = c('end', 'control', 'end', 'end', 'control', 'control', 'end')
+  point = c('end', 'control', 'end', 'end', 'control', 'control', 'end'),
+  colour = letters[1:7]
 )
 help_lines <- data.frame(
   x = c(1, 3, 4, 6),
@@ -147,16 +147,31 @@ help_lines <- data.frame(
   y = 0,
   yend = 2
 )
-ggplot() + geom_segment(aes(x = x, xend = xend, y = y, yend = yend),
-  data = help_lines,
-  arrow = arrow(length = unit(c(0, 0, 0.5, 0.5), 'cm')),
-  colour = 'grey'
-) +
+
+# See how control points affect the bezier
+ggplot() +
+  geom_segment(aes(x = x, xend = xend, y = y, yend = yend),
+               data = help_lines,
+               arrow = arrow(length = unit(c(0, 0, 0.5, 0.5), 'cm')),
+               colour = 'grey') +
   geom_bezier(aes(x = x, y = y, group = type, linetype = type),
-    data = beziers
-  ) +
-  geom_point(aes(x = x, y = y, colour = point), data = beziers)
-}
-\author{
-Thomas Lin Pedersen
+              data = beziers) +
+  geom_point(aes(x = x, y = y, colour = point),
+             data = beziers)
+
+# geom_bezier0 is less exact
+ggplot() +
+  geom_segment(aes(x = x, xend = xend, y = y, yend = yend),
+               data = help_lines,
+               arrow = arrow(length = unit(c(0, 0, 0.5, 0.5), 'cm')),
+               colour = 'grey') +
+  geom_bezier0(aes(x = x, y = y, group = type, linetype = type),
+               data = beziers) +
+  geom_point(aes(x = x, y = y, colour = point),
+             data = beziers)
+
+# Use geom_bezier2 to interpolate between endpoint aesthetics
+ggplot(beziers) +
+  geom_bezier2(aes(x = x, y = y, group = type, colour = colour))
+
 }

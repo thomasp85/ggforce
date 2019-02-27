@@ -7,29 +7,24 @@
 #' loop to render all pages one by one.
 #'
 #' @inheritParams ggplot2::facet_wrap
-#' @param ncol Number of rows and columns
+#' @param nrow,ncol Number of rows and columns
 #' @param page The page to draw
 #'
 #' @note If either `ncol` or `nrow` is `NULL` this function will
 #' fall back to the standard `facet_wrap` functionality.
 #'
 #' @family ggforce facets
+#' @seealso [n_pages()] to compute the total number of pages in a paginated
+#' faceted plot
 #'
 #' @export
 #' @importFrom ggplot2 facet_wrap ggproto
 #'
 #' @examples
-#' # Calculate the number of pages with 9 panels per page
-#' n_pages <- ceiling(
-#'   length(levels(diamonds$cut)) * length(levels(diamonds$clarity)) / 9
-#' )
-#'
-#' # Draw each page
-#' for (i in seq_len(n_pages)) {
-#'   ggplot(diamonds) +
+#' ggplot(diamonds) +
 #'     geom_point(aes(carat, price), alpha = 0.1) +
-#'     facet_wrap_paginate(~ cut:clarity, ncol = 3, nrow = 3, page = i)
-#' }
+#'     facet_wrap_paginate(~ cut:clarity, ncol = 3, nrow = 3, page = 4)
+#'
 facet_wrap_paginate <- function(facets, nrow = NULL, ncol = NULL,
                                 scales = 'fixed', shrink = TRUE,
                                 labeller = 'label_value', as.table = TRUE,

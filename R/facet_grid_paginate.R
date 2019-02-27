@@ -16,6 +16,8 @@
 #' fall back to the standard `facet_grid` functionality.
 #'
 #' @family ggforce facets
+#' @seealso [n_pages()] to compute the total number of pages in a paginated
+#' faceted plot
 #'
 #' @export
 #' @importFrom ggplot2 facet_grid ggproto

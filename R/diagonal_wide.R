@@ -25,8 +25,6 @@
 #' @param strength The proportion to move the control point along the x-axis
 #' towards the other end of the bezier curve
 #'
-#' @author Thomas Lin Pedersen
-#'
 #' @name geom_diagonal_wide
 #' @rdname geom_diagonal_wide
 #'
@@ -39,6 +37,17 @@
 #'
 #' ggplot(data) +
 #'   geom_diagonal_wide(aes(x, y, group = group))
+#'
+#' # The strength control the steepness
+#' ggplot(data, aes(x, y, group = group)) +
+#'   geom_diagonal_wide(strength = 0.75, alpha = 0.5, fill = 'red') +
+#'   geom_diagonal_wide(strength = 0.25, alpha = 0.5, fill = 'blue')
+#'
+#' # The diagonal_wide geom uses geom_shape under the hood, so corner rounding
+#' # etc are all there
+#' ggplot(data) +
+#'   geom_diagonal_wide(aes(x, y, group = group), radius = unit(5, 'mm'))
+#'
 NULL
 
 #' @rdname ggforce-extensions

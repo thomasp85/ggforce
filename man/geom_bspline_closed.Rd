@@ -76,8 +76,8 @@ way as the base version (expand, contract, etc).
 }
 \section{Aesthetics}{
 
-geom_bspline understand the following aesthetics (required aesthetics are in
-bold):
+geom_bspline_closed understand the following aesthetics (required aesthetics
+are in bold):
 \itemize{
 \item \strong{x}
 \item \strong{y}
@@ -99,14 +99,29 @@ bold):
 }
 
 \examples{
+# Create 6 random control points
 controls <- data.frame(
   x = runif(6),
   y = runif(6)
 )
+
 ggplot(controls, aes(x, y)) +
   geom_polygon(fill = NA, colour = 'grey') +
   geom_point(colour = 'red') +
   geom_bspline_closed(alpha = 0.5)
+
+# The 0 version approximates the correct shape
+ggplot(controls, aes(x, y)) +
+  geom_polygon(fill = NA, colour = 'grey') +
+  geom_point(colour = 'red') +
+  geom_bspline_closed0(alpha = 0.5)
+
+# But only the standard version supports geom_shape operations
+# Be aware of self-intersections though
+ggplot(controls, aes(x, y)) +
+  geom_polygon(fill = NA, colour = 'grey') +
+  geom_point(colour = 'red') +
+  geom_bspline_closed(alpha = 0.5, expand = unit(2, 'cm'))
 }
 \author{
 Thomas Lin Pedersen. The C++ code for De Boor's algorithm has been

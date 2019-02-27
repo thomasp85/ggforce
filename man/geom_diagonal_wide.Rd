@@ -96,7 +96,15 @@ data <- data.frame(
 
 ggplot(data) +
   geom_diagonal_wide(aes(x, y, group = group))
-}
-\author{
-Thomas Lin Pedersen
+
+# The strength control the steepness
+ggplot(data, aes(x, y, group = group)) +
+  geom_diagonal_wide(strength = 0.75, alpha = 0.5, fill = 'red') +
+  geom_diagonal_wide(strength = 0.25, alpha = 0.5, fill = 'blue')
+
+# The diagonal_wide geom uses geom_shape under the hood, so corner rounding
+# etc are all there
+ggplot(data) +
+  geom_diagonal_wide(aes(x, y, group = group), radius = unit(5, 'mm'))
+
 }

@@ -109,7 +109,7 @@ takes care of the transformation.
 }
 \section{Aesthetics}{
 
-geom_diagonal_wide understand the following aesthetics
+geom_parallel_sets understand the following aesthetics
 (required aesthetics are in bold):
 \itemize{
 \item \strong{x}

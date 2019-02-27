@@ -36,8 +36,6 @@
 #'
 #' @param n The number of points to sample along the ellipse.
 #'
-#' @author Thomas Lin Pedersen
-#'
 #' @name geom_ellipsis
 #' @rdname geom_ellipsis
 #'

@@ -83,7 +83,7 @@ If the intend is to draw a bubble chart then use
 }
 \section{Aesthetics}{
 
-geom_arc understand the following aesthetics (required aesthetics are in
+geom_circle understand the following aesthetics (required aesthetics are in
 bold):
 \itemize{
 \item \strong{x0}
@@ -122,10 +122,8 @@ ggplot() +
 ggplot() +
   geom_circle(aes(x0 = x0, y0 = y0, r = r, fill = r), data = circles) +
   coord_fixed()
+
 }
 \seealso{
 \code{\link[=geom_arc_bar]{geom_arc_bar()}} for drawing arcs with fill
-}
-\author{
-Thomas Lin Pedersen
 }

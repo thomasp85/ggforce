@@ -32,29 +32,65 @@
 #' @param concavity A meassure of the concavity of the hull. `1` is very concave
 #' while it approaches convex as it grows. Defaults to `2`
 #'
-#' @author Thomas Lin Pedersen
 #' @family mark geoms
 #' @name geom_mark_hull
 #' @rdname geom_mark_hull
 #'
 #' @examples
 #' if (requireNamespace('concaveman', quietly = TRUE)) {
-#'   ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'   p <- ggplot(iris, aes(Petal.Length, Petal.Width)) +
 #'     geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor')) +
 #'     geom_point()
+#'   plot(p)
 #'
 #'   # Adjusting the concavity lets you change the shape of the hull
-#'   ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'   p <- ggplot(iris, aes(Petal.Length, Petal.Width)) +
 #'     geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor'),
 #'       concavity = 1
 #'     ) +
 #'     geom_point()
+#'   plot(p)
 #'
-#'   ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'   p <- ggplot(iris, aes(Petal.Length, Petal.Width)) +
 #'     geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor'),
 #'       concavity = 10
 #'     ) +
 #'     geom_point()
+#'   plot(p)
+#'
+#'   # Add annotation
+#'   p <- ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'     geom_mark_hull(aes(fill = Species, label = Species)) +
+#'     geom_point()
+#'   plot(p)
+#'
+#'   # Long descriptions are automatically wrapped to fit into the width
+#'   iris$desc <- c(
+#'     'A super Iris — and it knows it',
+#'     'Pretty mediocre Iris, but give it a couple of years and it might surprise you',
+#'     "You'll never guess what this Iris does every Sunday"
+#'   )[iris$Species]
+#'
+#'   p <- ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'     geom_mark_hull(aes(fill = Species, label = Species, description = desc)) +
+#'     geom_point()
+#'   plot(p)
+#'
+#'   # Change the buffer size to move labels farther away (or closer) from the
+#'   # marks
+#'   p <- ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'     geom_mark_hull(aes(fill = Species, label = Species, description = desc),
+#'                      label.buffer = unit(40, 'mm')) +
+#'     geom_point()
+#'   plot(p)
+#'
+#'   # The connector is capped a bit before it reaches the mark, but this can be
+#'   # controlled
+#'   p <- ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'     geom_mark_hull(aes(fill = Species, label = Species, description = desc),
+#'                      con.cap = 0) +
+#'     geom_point()
+#'   plot(p)
 #' }
 NULL
 

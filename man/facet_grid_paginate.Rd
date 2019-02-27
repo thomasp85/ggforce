@@ -85,6 +85,9 @@ ggplot(diamonds) +
   facet_grid_paginate(color ~ cut:clarity, ncol = 3, nrow = 3, page = 4)
 }
 \seealso{
+\code{\link[=n_pages]{n_pages()}} to compute the total number of pages in a paginated
+faceted plot
+
 Other ggforce facets: \code{\link{facet_stereo}},
   \code{\link{facet_wrap_paginate}},
   \code{\link{facet_zoom}}
