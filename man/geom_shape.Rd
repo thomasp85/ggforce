@@ -111,7 +111,6 @@ ggplot(shape, aes(x = x, y = y)) +
 ggplot(shape, aes(x = x, y = y)) +
   geom_polygon(fill = 'red') +
   geom_shape(radius = unit(1, 'cm'))
-
 }
 \author{
 Thomas Lin Pedersen

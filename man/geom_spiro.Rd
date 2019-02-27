@@ -118,7 +118,6 @@ ggplot() +
 # Let the inner gear circle the outside of the outer gear
 ggplot() +
   geom_spiro(aes(R = 10, r = 3, d = 5, outer = TRUE))
-
 }
 \author{
 Thomas Lin Pedersen

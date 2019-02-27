@@ -48,36 +48,43 @@
 #' @examples
 #' # Define some control points
 #' cp <- data.frame(
-#'   x = c(0, -5, -5, 5, 5, 2.5, 5, 7.5, 5, 2.5, 5, 7.5, 5, -2.5, -5, -7.5, -5,
-#'         -2.5, -5, -7.5, -5),
-#'   y = c(0, -5, 5, -5, 5, 5, 7.5, 5, 2.5, -5, -7.5, -5, -2.5, 5, 7.5, 5, 2.5,
-#'         -5, -7.5, -5, -2.5),
+#'   x = c(
+#'     0, -5, -5, 5, 5, 2.5, 5, 7.5, 5, 2.5, 5, 7.5, 5, -2.5, -5, -7.5, -5,
+#'     -2.5, -5, -7.5, -5
+#'   ),
+#'   y = c(
+#'     0, -5, 5, -5, 5, 5, 7.5, 5, 2.5, -5, -7.5, -5, -2.5, 5, 7.5, 5, 2.5,
+#'     -5, -7.5, -5, -2.5
+#'   ),
 #'   class = sample(letters[1:3], 21, replace = TRUE)
 #' )
-#'
+#' 
 #' # Now create some paths between them
 #' paths <- data.frame(
-#'   ind = c(7,5,8,8,5,9,9,5,6,6,5,7,7,5,1,3,15,8,5,1,3,17,9,5,1,2,19,6,5,1,4,
-#'           12,7,5,1,4,10,6,5,1,2,20),
-#'   group = c(1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,5,5,6,6,6,6,6,7,7,7,7,7,8,8,8,8,8,
-#'             9,9,9,9,9,10,10,10,10,10)
+#'   ind = c(
+#'     7, 5, 8, 8, 5, 9, 9, 5, 6, 6, 5, 7, 7, 5, 1, 3, 15, 8, 5, 1, 3, 17, 9, 5, 1, 2, 19, 6, 5, 1, 4,
+#'     12, 7, 5, 1, 4, 10, 6, 5, 1, 2, 20
+#'   ),
+#'   group = c(
+#'     1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8,
+#'     9, 9, 9, 9, 9, 10, 10, 10, 10, 10
+#'   )
 #' )
 #' paths$x <- cp$x[paths$ind]
 #' paths$y <- cp$y[paths$ind]
 #' paths$class <- cp$class[paths$ind]
-#'
+#' 
 #' ggplot() +
-#'   geom_bspline(aes(x=x, y=y, group=group, colour = ..index..), data=paths) +
-#'   geom_point(aes(x=x, y=y), data=cp, color='steelblue')
-#'
+#'   geom_bspline(aes(x = x, y = y, group = group, colour = ..index..), data = paths) +
+#'   geom_point(aes(x = x, y = y), data = cp, color = 'steelblue')
+#' 
 #' ggplot() +
-#'   geom_bspline2(aes(x=x, y=y, group=group, colour = class), data=paths) +
-#'   geom_point(aes(x=x, y=y), data=cp, color='steelblue')
-#'
+#'   geom_bspline2(aes(x = x, y = y, group = group, colour = class), data = paths) +
+#'   geom_point(aes(x = x, y = y), data = cp, color = 'steelblue')
+#' 
 #' ggplot() +
-#'   geom_bspline0(aes(x=x, y=y, group=group), data=paths) +
-#'   geom_point(aes(x=x, y=y), data=cp, color='steelblue')
-#'
+#'   geom_bspline0(aes(x = x, y = y, group = group), data = paths) +
+#'   geom_point(aes(x = x, y = y), data = cp, color = 'steelblue')
 NULL
 
 
@@ -87,40 +94,55 @@ NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBspline <- ggproto('StatBspline', Stat,
-    compute_layer = function(self, data, params, panels) {
-        if (is.null(data)) return(data)
-        data <- data[order(data$group),]
-        paths <- getSplines(data$x, data$y, data$group, params$n, params$type)
-        paths <- data.frame(x = paths$paths[,1], y = paths$paths[,2], group = paths$pathID)
-        paths$index <- rep(seq(0, 1, length.out = params$n), length(unique(data$group)))
-        dataIndex <- rep(match(unique(data$group), data$group), each = params$n)
-        cbind(paths, data[dataIndex, !names(data) %in% c('x', 'y', 'group'), drop = FALSE])
-    },
-    required_aes = c('x', 'y'),
-    extra_params = c('na.rm', 'n', 'type')
+  compute_layer = function(self, data, params, panels) {
+    if (is.null(data)) return(data)
+    data <- data[order(data$group), ]
+    paths <- getSplines(data$x, data$y, data$group, params$n, params$type)
+    paths <- data.frame(
+      x = paths$paths[, 1], y = paths$paths[, 2],
+      group = paths$pathID
+    )
+    paths$index <- rep(
+      seq(0, 1, length.out = params$n),
+      length(unique(data$group))
+    )
+    dataIndex <- rep(match(unique(data$group), data$group), each = params$n)
+    cbind(
+      paths,
+      data[dataIndex, !names(data) %in% c('x', 'y', 'group'), drop = FALSE]
+    )
+  },
+  required_aes = c('x', 'y'),
+  extra_params = c('na.rm', 'n', 'type')
 )
 #' @rdname geom_bspline
 #' @importFrom ggplot2 layer
 #' @export
-stat_bspline <- function(mapping = NULL, data = NULL, geom = "path",
-                             position = "identity", na.rm = FALSE, n = 100, type = 'clamped',
-                             show.legend = NA, inherit.aes = TRUE, ...) {
-    layer(
-        stat = StatBspline, data = data, mapping = mapping, geom = geom,
-        position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-        params = list(na.rm = na.rm, n=n, type = type, ...)
-    )
+stat_bspline <- function(mapping = NULL, data = NULL, geom = 'path',
+                         position = 'identity', na.rm = FALSE, n = 100,
+                         type = 'clamped', show.legend = NA, inherit.aes = TRUE,
+                         ...) {
+  layer(
+    stat = StatBspline, data = data, mapping = mapping, geom = geom,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, n = n, type = type, ...)
+  )
 }
 #' @rdname geom_bspline
 #' @importFrom ggplot2 layer
 #' @export
-geom_bspline <- function(mapping = NULL, data = NULL, stat = "bspline",
-                     position = "identity", arrow = NULL, n = 100, type = 'clamped',
-                     lineend = "butt", na.rm = FALSE, show.legend = NA,
-                     inherit.aes = TRUE, ...) {
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomPath,
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, n=n, type = type, ...))
+geom_bspline <- function(mapping = NULL, data = NULL, stat = 'bspline',
+                         position = 'identity', arrow = NULL, n = 100,
+                         type = 'clamped', lineend = 'butt', na.rm = FALSE,
+                         show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    data = data, mapping = mapping, stat = stat, geom = GeomPath,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(
+      arrow = arrow, lineend = lineend, na.rm = na.rm, n = n,
+      type = type, ...
+    )
+  )
 }
 #' @rdname ggforce-extensions
 #' @format NULL
@@ -128,57 +150,69 @@ geom_bspline <- function(mapping = NULL, data = NULL, stat = "bspline",
 #' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBspline2 <- ggproto('StatBspline2', Stat,
-    compute_layer = function(self, data, params, panels) {
-        if (is.null(data)) return(data)
-        data <- data[order(data$group),]
-        nControls <- table(data$group)
-        paths <- getSplines(data$x, data$y, data$group, params$n, params$type)
-        paths <- data.frame(x = paths$paths[,1], y = paths$paths[,2], group = paths$pathID)
-        paths$index <- rep(seq(0, 1, length.out = params$n), length(unique(data$group)))
-        dataIndex <- rep(match(unique(data$group), data$group), each = params$n)
-        paths <- cbind(paths, data[dataIndex, 'PANEL', drop = FALSE])
-        extraCols <- !names(data) %in% c('x', 'y', 'group', 'PANEL')
-        pathIndex <- match(unique(data$group), paths$group)
-        pathIndex <- unlist(Map(seq, from = pathIndex, length.out = nControls))
-        paths$.interp <- TRUE
-        paths$.interp[pathIndex] <- FALSE
-        if (any(extraCols)) {
-            for (i in names(data)[extraCols]) {
-                paths[[i]] <- NA
-                if (is.factor(data[[i]])) {
-                    paths[[i]] <- as.factor(paths[[i]])
-                    levels(paths[[i]]) <- levels(data[[i]])
-                }
-                paths[[i]][pathIndex] <- data[, i]
-            }
+  compute_layer = function(self, data, params, panels) {
+    if (is.null(data)) return(data)
+    data <- data[order(data$group), ]
+    nControls <- table(data$group)
+    paths <- getSplines(data$x, data$y, data$group, params$n, params$type)
+    paths <- data.frame(
+      x = paths$paths[, 1], y = paths$paths[, 2],
+      group = paths$pathID
+    )
+    paths$index <- rep(
+      seq(0, 1, length.out = params$n),
+      length(unique(data$group))
+    )
+    dataIndex <- rep(match(unique(data$group), data$group), each = params$n)
+    paths <- cbind(paths, data[dataIndex, 'PANEL', drop = FALSE])
+    extraCols <- !names(data) %in% c('x', 'y', 'group', 'PANEL')
+    pathIndex <- match(unique(data$group), paths$group)
+    pathIndex <- unlist(Map(seq, from = pathIndex, length.out = nControls))
+    paths$.interp <- TRUE
+    paths$.interp[pathIndex] <- FALSE
+    if (any(extraCols)) {
+      for (i in names(data)[extraCols]) {
+        paths[[i]] <- NA
+        if (is.factor(data[[i]])) {
+          paths[[i]] <- as.factor(paths[[i]])
+          levels(paths[[i]]) <- levels(data[[i]])
         }
-        paths
-    },
-    required_aes = c('x', 'y'),
-    extra_params = c('na.rm', 'n', 'type')
+        paths[[i]][pathIndex] <- data[, i]
+      }
+    }
+    paths
+  },
+  required_aes = c('x', 'y'),
+  extra_params = c('na.rm', 'n', 'type')
 )
 #' @rdname geom_bspline
 #' @importFrom ggplot2 layer
 #' @export
-stat_bspline2 <- function(mapping = NULL, data = NULL, geom = "path_interpolate",
-                         position = "identity", na.rm = FALSE, n = 100,  type = 'clamped',
-                         show.legend = NA, inherit.aes = TRUE, ...) {
-    layer(
-        stat = StatBspline2, data = data, mapping = mapping, geom = geom,
-        position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-        params = list(na.rm = na.rm, n=n, type = type, ...)
-    )
+stat_bspline2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
+                          position = 'identity', na.rm = FALSE, n = 100,
+                          type = 'clamped', show.legend = NA, inherit.aes = TRUE,
+                          ...) {
+  layer(
+    stat = StatBspline2, data = data, mapping = mapping, geom = geom,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, n = n, type = type, ...)
+  )
 }
 #' @rdname geom_bspline
 #' @importFrom ggplot2 layer
 #' @export
-geom_bspline2 <- function(mapping = NULL, data = NULL, stat = "bspline2",
-                         position = "identity", arrow = NULL, n = 100, type = 'clamped',
-                         lineend = "butt", na.rm = FALSE, show.legend = NA,
-                         inherit.aes = TRUE, ...) {
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomPathInterpolate,
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, n=n, type = type, ...))
+geom_bspline2 <- function(mapping = NULL, data = NULL, stat = 'bspline2',
+                          position = 'identity', arrow = NULL, n = 100,
+                          type = 'clamped', lineend = 'butt', na.rm = FALSE,
+                          show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    data = data, mapping = mapping, stat = stat, geom = GeomPathInterpolate,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(
+      arrow = arrow, lineend = lineend, na.rm = na.rm, n = n,
+      type = type, ...
+    )
+  )
 }
 #' @rdname ggforce-extensions
 #' @format NULL
@@ -187,39 +221,48 @@ geom_bspline2 <- function(mapping = NULL, data = NULL, stat = "bspline2",
 #' @importFrom ggplot2 ggproto GeomPath alpha
 #' @export
 GeomBspline0 <- ggproto('GeomBspline0', GeomPath,
-    draw_panel = function(data, panel_scales, coord, arrow = NULL, type = 'clamped',
-                          lineend = "butt", linejoin = "round", linemitre = 1,
-                          na.rm = FALSE) {
-        coords <- coord$transform(data, panel_scales)
-        startPoint <- match(unique(coords$group), coords$group)
-        xsplineGrob(coords$x, coords$y, id = coords$group, default.units = "native",
-                    shape = 1,arrow = arrow, repEnds = type == 'clamped',
-                    gp = gpar(col = alpha(coords$colour[startPoint], coords$alpha[startPoint]),
-                             lwd = coords$size[startPoint] * .pt,
-                             lty = coords$linetype[startPoint], lineend = lineend,
-                             linejoin = linejoin, linemitre = linemitre))
-    }
+  draw_panel = function(data, panel_scales, coord, arrow = NULL,
+                          type = 'clamped', lineend = 'butt', linejoin = 'round',
+                          linemitre = 1, na.rm = FALSE) {
+    coords <- coord$transform(data, panel_scales)
+    startPoint <- match(unique(coords$group), coords$group)
+    xsplineGrob(coords$x, coords$y,
+      id = coords$group, default.units = 'native',
+      shape = 1, arrow = arrow, repEnds = type == 'clamped',
+      gp = gpar(
+        col = alpha(coords$colour[startPoint], coords$alpha[startPoint]),
+        lwd = coords$size[startPoint] * .pt,
+        lty = coords$linetype[startPoint], lineend = lineend,
+        linejoin = linejoin, linemitre = linemitre
+      )
+    )
+  }
 )
 #' @rdname geom_bspline
 #' @importFrom ggplot2 layer StatIdentity
 #' @export
-stat_bspline0  <- function(mapping = NULL, data = NULL, geom = "bspline0",
-                          position = "identity", na.rm = FALSE, show.legend = NA,
+stat_bspline0 <- function(mapping = NULL, data = NULL, geom = 'bspline0',
+                          position = 'identity', na.rm = FALSE, show.legend = NA,
                           inherit.aes = TRUE, type = 'clamped', ...) {
-    layer(
-        stat = StatIdentity, data = data, mapping = mapping, geom = geom,
-        position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-        params = list(na.rm = na.rm, type = type, ...)
-    )
+  layer(
+    stat = StatIdentity, data = data, mapping = mapping, geom = geom,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, type = type, ...)
+  )
 }
 #' @rdname geom_bspline
 #' @importFrom ggplot2 layer
 #' @export
-geom_bspline0 <- function(mapping = NULL, data = NULL, stat = "identity",
-                         position = "identity", arrow = NULL, lineend = "butt",
-                         na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-                         type = 'clamped', ...) {
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomBspline0,
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, type = type, ...))
+geom_bspline0 <- function(mapping = NULL, data = NULL, stat = 'identity',
+                          position = 'identity', arrow = NULL, lineend = 'butt',
+                          na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+                          type = 'clamped', ...) {
+  layer(
+    data = data, mapping = mapping, stat = stat, geom = GeomBspline0,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(
+      arrow = arrow, lineend = lineend, na.rm = na.rm, type = type,
+      ...
+    )
+  )
 }

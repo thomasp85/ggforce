@@ -23,8 +23,10 @@ more circular clusters.
 }
 \examples{
 # Example data
-df <- data.frame(x = sample(1:3, 1500, TRUE),
-                 y = sample(1:3, 1500, TRUE))
+df <- data.frame(
+  x = sample(1:3, 1500, TRUE),
+  y = sample(1:3, 1500, TRUE)
+)
 
 # position_jitter results in rectangular clusters
 ggplot(df, aes(x = x, y = y)) +
@@ -45,7 +47,9 @@ ggplot(df, aes(x = x, y = y)) +
 
 # Only add random noise to one dimension
 ggplot(df, aes(x = x, y = y)) +
-  geom_point(position = position_jitternormal(sd_x = 0.15, sd_y = 0),
-             alpha = 0.1)
+  geom_point(
+    position = position_jitternormal(sd_x = 0.15, sd_y = 0),
+    alpha = 0.1
+  )
 }
 \concept{position adjustments}

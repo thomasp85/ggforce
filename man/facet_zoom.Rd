@@ -47,23 +47,23 @@ possible to both get each zoom separately and combined or just combined.
 \examples{
 # Zoom in on the versicolor species on the x-axis
 ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
-    geom_point() +
-    facet_zoom(x = Species == "versicolor")
+  geom_point() +
+  facet_zoom(x = Species == 'versicolor')
 
 # Zoom in on versicolor on both axes
 ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
-    geom_point() +
-    facet_zoom(xy = Species == "versicolor")
+  geom_point() +
+  facet_zoom(xy = Species == 'versicolor')
 
 # Use different zoom criteria on each axis
 ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
-    geom_point() +
-    facet_zoom(x = Species != 'setosa', y = Species == 'versicolor')
+  geom_point() +
+  facet_zoom(x = Species != 'setosa', y = Species == 'versicolor')
 
 # Get each axis zoom separately as well
 ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
-    geom_point() +
-    facet_zoom(xy = Species == "versicolor", split = TRUE)
+  geom_point() +
+  facet_zoom(xy = Species == 'versicolor', split = TRUE)
 
 # Define the zoom area directly
 ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
@@ -72,9 +72,8 @@ ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
 
 # Selectively show data in the zoom panel
 ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
-    geom_point() +
-    facet_zoom(x = Species == "versicolor", zoom.data = Species == 'versicolor')
-
+  geom_point() +
+  facet_zoom(x = Species == 'versicolor', zoom.data = Species == 'versicolor')
 }
 \seealso{
 Other ggforce facets: \code{\link{facet_grid_paginate}},

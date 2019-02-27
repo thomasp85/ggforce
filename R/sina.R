@@ -75,56 +75,61 @@
 #'
 #' @examples
 #' ggplot(midwest, aes(state, area)) + geom_point()
-#'
+#' 
 #' # Boxplot and Violin plots convey information on the distribution but not the
 #' # number of samples, while Jitter does the opposite.
 #' ggplot(midwest, aes(state, area)) + geom_violin()
 #' ggplot(midwest, aes(state, area)) + geom_jitter()
-#'
+#' 
 #' # Sina does both!
 #' ggplot(midwest, aes(state, area)) + geom_violin() + geom_sina()
-#'
+#' 
 #' p <- ggplot(midwest, aes(state, popdensity)) + scale_y_log10()
 #' p + geom_sina()
-#'
+#' 
 #' # Colour the points based on the data set's columns
 #' p + geom_sina(aes(colour = inmetro))
-#'
+#' 
 #' # Or any other way
 #' cols <- midwest$popdensity > 10000
 #' p + geom_sina(colour = cols + 1L)
-#'
+#' 
 #' # Sina plots with continuous x:
 #' p <- ggplot(midwest, aes(cut_width(area, 0.02), popdensity)) + scale_y_log10()
 #' p + geom_sina()
-#'
-#'
-#' ###Sample gaussian distributions
+#' 
+#' 
+#' ### Sample gaussian distributions
 #' # Unimodal
 #' a <- rnorm(500, 6, 1)
 #' b <- rnorm(400, 5, 1.5)
-#'
+#' 
 #' # Bimodal
 #' c <- c(rnorm(200, 3, .7), rnorm(50, 7, 0.4))
-#'
+#' 
 #' # Trimodal
 #' d <- c(rnorm(200, 2, 0.7), rnorm(300, 5.5, 0.4), rnorm(100, 8, 0.4))
-#'
+#' 
 #' df <- data.frame(
-#'   "Distribution" = c(rep("Unimodal 1", length(a)),
-#'                      rep("Unimodal 2", length(b)),
-#'                      rep("Bimodal", length(c)),
-#'                      rep("Trimodal", length(d))),
-#'   "Value" = c(a, b, c, d))
-#'
+#'   'Distribution' = c(
+#'     rep('Unimodal 1', length(a)),
+#'     rep('Unimodal 2', length(b)),
+#'     rep('Bimodal', length(c)),
+#'     rep('Trimodal', length(d))
+#'   ),
+#'   'Value' = c(a, b, c, d)
+#' )
+#' 
 #' # Reorder levels
-#' df$Distribution <- factor(df$Distribution,
-#'                           levels(df$Distribution)[c(3, 4, 1, 2)])
-#'
+#' df$Distribution <- factor(
+#'   df$Distribution,
+#'   levels(df$Distribution)[c(3, 4, 1, 2)]
+#' )
+#' 
 #' p <- ggplot(df, aes(Distribution, Value))
 #' p + geom_boxplot()
 #' p + geom_violin() + geom_sina()
-#'
+#' 
 #' # By default, Sina plot scales the width of the class according to the width
 #' # of the class with the highest density. Turn group-wise scaling off with:
 #' p + geom_violin() + geom_sina(scale = FALSE)
@@ -135,27 +140,29 @@ NULL
 #' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @export
-StatSina <- ggproto("StatSina", Stat,
-
-  required_aes = c("x", "y"),
+StatSina <- ggproto('StatSina', Stat,
+  required_aes = c('x', 'y'),
 
   default_aes = aes(xend = ..scaled..),
 
   setup_data = function(data, params) {
     if (is.double(data$x) && !.has_groups(data) && any(data$x != data$x[1L])) {
-      stop("Continuous x aesthetic -- did you forget aes(group=...)?",
-           call. = FALSE)
+      stop('Continuous x aesthetic -- did you forget aes(group=...)?',
+        call. = FALSE
+      )
     }
 
     data
   },
 
   setup_params = function(data, params) {
-    #Limit maxwidth to 0.96 to leave some space between groups
-    if (!is.null(params$maxwidth))
-      params$maxwidth <- abs(params$maxwidth) # needs to be positive
-    else
+    # Limit maxwidth to 0.96 to leave some space between groups
+    if (!is.null(params$maxwidth)) {
+      params$maxwidth <- abs(params$maxwidth)
+    } # needs to be positive
+    else {
       params$maxwidth <- 0.96
+    }
 
     if (is.null(params$binwidth) && is.null(params$bins)) {
       params$bins <- 50
@@ -165,18 +172,20 @@ StatSina <- ggproto("StatSina", Stat,
   },
 
   compute_panel = function(self, data, scales, binwidth = NULL, bins = NULL,
-                           scale = TRUE, method = "density", maxwidth = NULL,
-                           adjust = 1, bin_limit = 1, na.rm = FALSE) {
-    if (!is.null(binwidth))
+                             scale = TRUE, method = 'density', maxwidth = NULL,
+                             adjust = 1, bin_limit = 1, na.rm = FALSE) {
+    if (!is.null(binwidth)) {
       bins <- bin_breaks_width(scales$y$dimension() + 1e-8, binwidth)
-    else
+    } else {
       bins <- bin_breaks_bins(scales$y$dimension() + 1e-8, bins)
+    }
 
     data <- ggproto_parent(Stat, self)$compute_panel(data, scales,
       scale = scale, method = method, maxwidth = maxwidth, adjust = adjust,
-      bin_limit = bin_limit, bins = bins$breaks, na.rm = na.rm)
+      bin_limit = bin_limit, bins = bins$breaks, na.rm = na.rm
+    )
 
-    #scale all bins based on their density relative to the densiest bin
+    # scale all bins based on their density relative to the densiest bin
     if (scale) {
       group_scaling_factor <- tapply(data$bin_counts, data$group, max) / max(data$bin_counts)
     } else {
@@ -186,68 +195,70 @@ StatSina <- ggproto("StatSina", Stat,
     data$scaled <- data$x + data$x_translation * group_scaling_factor
     data$x_translation <- NULL
 
-    #jitter y values if the input is input is integer
-    if (all(data$y == floor(data$y)))
+    # jitter y values if the input is input is integer
+    if (all(data$y == floor(data$y))) {
       data$y <- jitter(data$y)
+    }
 
     data
   },
 
-  compute_group = function(data, scales, scale = TRUE, method = "density",
-                           maxwidth = NULL, adjust = 1, bin_limit = 1,
-                           bins = NULL, na.rm = FALSE) {
+  compute_group = function(data, scales, scale = TRUE, method = 'density',
+                             maxwidth = NULL, adjust = 1, bin_limit = 1,
+                             bins = NULL, na.rm = FALSE) {
 
-    #initialize x_translation and bin_counts to 0
+    # initialize x_translation and bin_counts to 0
     data$x_translation <- data$bin_counts <- rep(0, nrow(data))
 
-    #if group has less than 2 points return as is
+    # if group has less than 2 points return as is
     if (nrow(data) < 2) {
       data$bin_counts <- 1
       return(data)
     }
 
-    #per bin sample count
+    # per bin sample count
     bin_counts <- table(findInterval(data$y, bins))
 
-    #per bin sample density
-    if (method == "density") {
+    # per bin sample density
+    if (method == 'density') {
       densities <- stats::density(data$y, adjust = adjust)
 
-      #confine the samples in a (-maxwidth/2, -maxwidth/2) area around the
-      #group's center
+      # confine the samples in a (-maxwidth/2, -maxwidth/2) area around the
+      # group's center
       intra_scaling_factor <- 0.5 * maxwidth / max(densities$y)
 
       data$bin <- findInterval(data$y, densities$x)
 
-      data$bin_counts <- as.numeric(bin_counts[match(findInterval(data$y, bins),
-                                                     names(bin_counts))])
+      data$bin_counts <- as.numeric(bin_counts[match(
+        findInterval(data$y, bins),
+        names(bin_counts)
+      )])
 
       x_translation <- sapply(densities$y[data$bin], jitter, x = 0, factor = 1)
       data$x_translation <- x_translation * intra_scaling_factor
 
       data$bin <- NULL
-
     } else {
-      #allow up to 50 samples in a bin without scaling
+      # allow up to 50 samples in a bin without scaling
       intra_scaling_factor <- 50 * maxwidth / max(bin_counts)
 
       for (i in names(bin_counts)) {
-        #examine bins with more than 'bin_limit' samples
+        # examine bins with more than 'bin_limit' samples
         if (bin_counts[i] > bin_limit) {
-          cur_bin <- bins[ as.integer(i) : (as.integer(i) + 1)]
+          cur_bin <- bins[ as.integer(i):(as.integer(i) + 1)]
 
-          #find samples in the current bin and translate their X coord.
+          # find samples in the current bin and translate their X coord.
           points <- findInterval(data$y, cur_bin) == 1
 
-          #compute the border margin for the current bin.
+          # compute the border margin for the current bin.
           xmax <- bin_counts[i] / 100
 
-          #assign the samples uniformely within the specified range
-          x_translation <- stats::runif(bin_counts[i], - xmax, xmax)
+          # assign the samples uniformely within the specified range
+          x_translation <- stats::runif(bin_counts[i], -xmax, xmax)
 
-          #scale and store new x coordinates
+          # scale and store new x coordinates
           data$x_translation[points] <- x_translation * intra_scaling_factor
-          #store bin counts. Used for group-wise scaling.
+          # store bin counts. Used for group-wise scaling.
           data$bin_counts[points] <- bin_counts[i]
         }
       }
@@ -259,20 +270,20 @@ StatSina <- ggproto("StatSina", Stat,
 #' @rdname geom_sina
 #' @importFrom ggplot2 layer
 #' @export
-stat_sina <-function(mapping = NULL, data = NULL,
-                     geom = "sina", position = "identity",
-                     ...,
-                     binwidth = NULL,
-                     bins = NULL,
-                     scale = TRUE,
-                     method = "density",
-                     maxwidth = NULL,
-                     adjust = 1,
-                     bin_limit = 1,
-                     na.rm = FALSE,
-                     show.legend = NA,
-                     inherit.aes = TRUE) {
-  method <- match.arg(method, c("density", "counts"))
+stat_sina <- function(mapping = NULL, data = NULL,
+                      geom = 'sina', position = 'identity',
+                      ...,
+                      binwidth = NULL,
+                      bins = NULL,
+                      scale = TRUE,
+                      method = 'density',
+                      maxwidth = NULL,
+                      adjust = 1,
+                      bin_limit = 1,
+                      na.rm = FALSE,
+                      show.legend = NA,
+                      inherit.aes = TRUE) {
+  method <- match.arg(method, c('density', 'counts'))
 
   layer(
     data = data,
@@ -301,11 +312,10 @@ stat_sina <-function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @importFrom ggplot2 ggproto GeomPoint
 #' @export
-GeomSina <- ggproto("GeomSina", GeomPoint,
-
-                    setup_data = function(data, params) {
-                      transform(data, x = xend)
-                    }
+GeomSina <- ggproto('GeomSina', GeomPoint,
+  setup_data = function(data, params) {
+    transform(data, x = xend)
+  }
 )
 
 
@@ -313,7 +323,7 @@ GeomSina <- ggproto("GeomSina", GeomPoint,
 #' @importFrom ggplot2 layer
 #' @export
 geom_sina <- function(mapping = NULL, data = NULL,
-                      stat = "sina", position = "identity",
+                      stat = 'sina', position = 'identity',
                       ...,
                       na.rm = FALSE,
                       show.legend = NA,
@@ -331,21 +341,20 @@ geom_sina <- function(mapping = NULL, data = NULL,
       ...
     )
   )
-
 }
 
 
 
 # Binning functions -------------------------------------------------------
 
-bins <- function(breaks, closed = c("right", "left"),
+bins <- function(breaks, closed = c('right', 'left'),
                  fuzz = 1e-08 * stats::median(diff(breaks))) {
   stopifnot(is.numeric(breaks))
   closed <- match.arg(closed)
 
   breaks <- sort(breaks)
   # Adapted base::hist - this protects from floating point rounding errors
-  if (closed == "right") {
+  if (closed == 'right') {
     fuzzes <- c(-fuzz, rep.int(fuzz, length(breaks) - 1))
   } else {
     fuzzes <- c(rep.int(-fuzz, length(breaks) - 1), fuzz)
@@ -355,20 +364,20 @@ bins <- function(breaks, closed = c("right", "left"),
     list(
       breaks = breaks,
       fuzzy = breaks + fuzzes,
-      right_closed = closed == "right"
+      right_closed = closed == 'right'
     ),
-    class = "ggplot2_bins"
+    class = 'ggplot2_bins'
   )
 }
 
 # Compute parameters -----------------------------------------------------------
 
-bin_breaks <- function(breaks, closed = c("right", "left")) {
+bin_breaks <- function(breaks, closed = c('right', 'left')) {
   bins(breaks, closed)
 }
 
 bin_breaks_width <- function(x_range, width = NULL, center = NULL,
-                             boundary = NULL, closed = c("right", "left")) {
+                             boundary = NULL, closed = c('right', 'left')) {
   stopifnot(length(x_range) == 2)
 
   # if (length(x_range) == 0) {
@@ -376,17 +385,16 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
   # }
   stopifnot(is.numeric(width), length(width) == 1)
   if (width <= 0) {
-    stop("`binwidth` must be positive", call. = FALSE)
+    stop('`binwidth` must be positive', call. = FALSE)
   }
 
   if (!is.null(boundary) && !is.null(center)) {
-    stop("Only one of 'boundary' and 'center' may be specified.")
+    stop('Only one of \'boundary\' and \'center\' may be specified.')
   } else if (is.null(boundary)) {
     if (is.null(center)) {
       # If neither edge nor center given, compute both using tile layer's
       # algorithm. This puts min and max of data in outer half of their bins.
       boundary <- width / 2
-
     } else {
       # If center given but not boundary, compute boundary.
       boundary <- center - width / 2
@@ -410,12 +418,12 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
 }
 
 bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
-                            boundary = NULL, closed = c("right", "left")) {
+                            boundary = NULL, closed = c('right', 'left')) {
   stopifnot(length(x_range) == 2)
 
   bins <- as.integer(bins)
   if (bins < 1) {
-    stop("Need at least one bin.", call. = FALSE)
+    stop('Need at least one bin.', call. = FALSE)
   } else if (bins == 1) {
     width <- diff(x_range)
     boundary <- x_range[1]
@@ -423,8 +431,10 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
     width <- (x_range[2] - x_range[1]) / (bins - 1)
   }
 
-  bin_breaks_width(x_range, width, boundary = boundary, center = center,
-                   closed = closed)
+  bin_breaks_width(x_range, width,
+    boundary = boundary, center = center,
+    closed = closed
+  )
 }
 
 .has_groups <- function(data) {

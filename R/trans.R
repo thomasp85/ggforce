@@ -18,26 +18,25 @@
 #' trans$transform(1:10)
 #'
 #' # Cubic root transformation
-#' trans <- power_trans(1/3)
+#' trans <- power_trans(1 / 3)
 #' trans$transform(1:10)
 #'
 #' # Use it in a plot
-#' ggplot() + geom_line(aes(x=1:10, y=1:10)) +
-#'   scale_x_continuous(trans = power_trans(2), expand=c(0,1))
-#'
+#' ggplot() + geom_line(aes(x = 1:10, y = 1:10)) +
+#'   scale_x_continuous(trans = power_trans(2), expand = c(0, 1))
 power_trans <- function(n) {
-    trans_new(
-        name = paste0("power of ", fractions(n)),
-        transform = function(x) {
-            x ^ n
-        },
-        inverse = function(x) {
-            x ^ (1/n)
-        },
-        breaks = extended_breaks(),
-        format = format_format(),
-        domain = c(0, Inf)
-    )
+  trans_new(
+    name = paste0('power of ', fractions(n)),
+    transform = function(x) {
+      x^n
+    },
+    inverse = function(x) {
+      x^(1 / n)
+    },
+    breaks = extended_breaks(),
+    format = format_format(),
+    domain = c(0, Inf)
+  )
 }
 #' Create radial data in a cartesian coordinate system
 #'
@@ -87,52 +86,53 @@ power_trans <- function(n) {
 #' rad <- data.frame(r = seq(1, 10, by = 0.1), a = seq(1, 10, by = 0.1))
 #'
 #' # Create a transformation
-#' radial <- radial_trans(c(0,1), c(0,5))
+#' radial <- radial_trans(c(0, 1), c(0, 5))
 #'
 #' # Get data in x, y
 #' cart <- radial$transform(rad$r, rad$a)
 #'
 #' # Have a look
-#' ggplot() + geom_path(aes(x=x, y=y), data = cart, color='forestgreen') +
-#'   geom_path(aes(x=r, y=a), data = rad, color='firebrick')
-#'
-radial_trans <- function(r.range, a.range, offset = pi/2, pad = 0.5,
+#' ggplot() + geom_path(aes(x = x, y = y), data = cart, color = 'forestgreen') +
+#'   geom_path(aes(x = r, y = a), data = rad, color = 'firebrick')
+radial_trans <- function(r.range, a.range, offset = pi / 2, pad = 0.5,
                          clip = FALSE) {
-    a.range[which.min(a.range)] <- min(a.range) - pad
-    a.range[which.max(a.range)] <- max(a.range) + pad
-    trans_new(
-        name = paste0("radial-to-cartesian: ",
-                      r.range[1], '-', r.range[2], ' -> 0-1; ',
-                      a.range[1], '-', a.range[2], ' -> 2pi-0'),
-        transform = function(r, a) {
-            if (clip) {
-                r[r < min(r.range)] <- min(r.range)
-                r[r > max(r.range)] <- max(r.range)
-                a[a < min(a.range)] <- min(a.range)
-                a[a > max(a.range)] <- max(a.range)
-            }
-            if (diff(r.range) == 0) {
-                r <- 1
-            } else {
-                r <- (r - r.range[1])/diff(r.range)
-            }
-            if (diff(a.range) == 0) {
-                a <- offset
-            } else {
-                a <- offset + (a - a.range[1])/diff(a.range) * -2*pi
-            }
-            data.frame(x = r*cos(a), y = r*sin(a))
-        },
-        inverse = function(x, y) {
-            r <- sqrt(x^2 + y^2) * diff(r.range) + r.range[1]
-            angle <- -(atan2(y, x) - offset)
-            angle[angle < 0] <- 2*pi + angle[angle < 0]
-            a <- angle/(2*pi)*diff(a.range) + a.range[1]
-            data.frame(r = r, a = a)
-        },
-        breaks = extended_breaks(),
-        format = format_format()
-    )
+  a.range[which.min(a.range)] <- min(a.range) - pad
+  a.range[which.max(a.range)] <- max(a.range) + pad
+  trans_new(
+    name = paste0(
+      'radial-to-cartesian: ',
+      r.range[1], '-', r.range[2], ' -> 0-1; ',
+      a.range[1], '-', a.range[2], ' -> 2pi-0'
+    ),
+    transform = function(r, a) {
+      if (clip) {
+        r[r < min(r.range)] <- min(r.range)
+        r[r > max(r.range)] <- max(r.range)
+        a[a < min(a.range)] <- min(a.range)
+        a[a > max(a.range)] <- max(a.range)
+      }
+      if (diff(r.range) == 0) {
+        r <- 1
+      } else {
+        r <- (r - r.range[1]) / diff(r.range)
+      }
+      if (diff(a.range) == 0) {
+        a <- offset
+      } else {
+        a <- offset + (a - a.range[1]) / diff(a.range) * -2 * pi
+      }
+      data.frame(x = r * cos(a), y = r * sin(a))
+    },
+    inverse = function(x, y) {
+      r <- sqrt(x^2 + y^2) * diff(r.range) + r.range[1]
+      angle <- -(atan2(y, x) - offset)
+      angle[angle < 0] <- 2 * pi + angle[angle < 0]
+      a <- angle / (2 * pi) * diff(a.range) + a.range[1]
+      data.frame(r = r, a = a)
+    },
+    breaks = extended_breaks(),
+    format = format_format()
+  )
 }
 #' Reverse a transformation
 #'
@@ -146,32 +146,34 @@ radial_trans <- function(r.range, a.range, offset = pi/2, pad = 0.5,
 #'
 #' @return A trans object
 #'
-#' @importFrom scales as.trans trans_new asn_trans atanh_trans boxcox_trans date_trans exp_trans identity_trans log10_trans log1p_trans log2_trans logit_trans log_trans probability_trans probit_trans reciprocal_trans reverse_trans sqrt_trans time_trans
+#' @importFrom scales as.trans trans_new asn_trans atanh_trans boxcox_trans
+#' date_trans exp_trans identity_trans log10_trans log1p_trans log2_trans
+#' logit_trans log_trans probability_trans probit_trans reciprocal_trans
+#' reverse_trans sqrt_trans time_trans
 #'
 #' @export
 #'
 #' @examples
 #' # Lets make a plot
-#' p <- ggplot() + geom_line(aes(x=1:10, y=1:10))
+#' p <- ggplot() + geom_line(aes(x = 1:10, y = 1:10))
 #'
 #' # scales already have a reverse trans
-#' p + scale_x_continuous(trans='reverse')
+#' p + scale_x_continuous(trans = 'reverse')
 #'
 #' # But what if you wanted to reverse an already log transformed scale?
-#' p + scale_x_continuous(trans=trans_reverser('log'))
-#'
+#' p + scale_x_continuous(trans = trans_reverser('log'))
 trans_reverser <- function(trans) {
-    transformOrig <- as.trans(trans)
-    trans_new(
-        name = paste0('reverse-', transformOrig$name),
-        transform = function(x) {
-            -transformOrig$transform(x)
-        },
-        inverse = function(x) {
-            transformOrig$inverse(-x)
-        },
-        breaks = transformOrig$breaks,
-        format = transformOrig$format,
-        domain = transformOrig$domain
-    )
+  transformOrig <- as.trans(trans)
+  trans_new(
+    name = paste0('reverse-', transformOrig$name),
+    transform = function(x) {
+      -transformOrig$transform(x)
+    },
+    inverse = function(x) {
+      transformOrig$inverse(-x)
+    },
+    breaks = transformOrig$breaks,
+    format = transformOrig$format,
+    domain = transformOrig$domain
+  )
 }

@@ -85,9 +85,8 @@ n_pages <- ceiling(
 for (i in seq_len(n_pages)) {
   ggplot(diamonds) +
     geom_point(aes(carat, price), alpha = 0.1) +
-    facet_wrap_paginate(~cut:clarity, ncol = 3, nrow = 3, page = i)
+    facet_wrap_paginate(~ cut:clarity, ncol = 3, nrow = 3, page = i)
 }
-
 }
 \seealso{
 Other ggforce facets: \code{\link{facet_grid_paginate}},

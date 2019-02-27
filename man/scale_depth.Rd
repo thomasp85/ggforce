@@ -33,5 +33,4 @@ ggplot(mtcars) +
   geom_point(aes(mpg, disp, depth = cyl)) +
   scale_depth(range = c(-0.1, 0.25)) +
   facet_stereo()
-
 }

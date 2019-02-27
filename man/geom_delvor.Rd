@@ -13,8 +13,9 @@
 \usage{
 geom_voronoi_tile(mapping = NULL, data = NULL, stat = "voronoi_tile",
   position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-09,
-  normalize = FALSE, by.group = FALSE, expand = 0, radius = 0,
-  show.legend = NA, inherit.aes = TRUE, ...)
+  max.radius = NULL, normalize = FALSE, asp.ratio = 1,
+  by.group = FALSE, expand = 0, radius = 0, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 geom_voronoi_segment(mapping = NULL, data = NULL,
   stat = "voronoi_segment", position = "identity", na.rm = FALSE,
@@ -69,21 +70,31 @@ a call to a position adjustment function.}
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
-\item{bound}{The bounding rectangle for the tesselation. Defaults to
-\code{NULL} which creates a rectangle expanded 10\% in all directions. If
-supplied it should be a vector giving the bounds in the following order:
-xmin, xmax, ymin, ymax.}
+\item{bound}{The bounding rectangle for the tesselation or a custom polygon
+to clip the tesselation to. Defaults to \code{NULL} which creates a rectangle
+expanded 10\% in all directions. If supplied as a bounding box it should be a
+vector giving the bounds in the following order: xmin, xmax, ymin, ymax. If
+supplied as a polygon it should either be a 2-column matrix or a data.frame
+containing an \code{x} and \code{y} column.}
 
 \item{eps}{A value of epsilon used in testing whether a quantity is zero,
 mainly in the context of whether points are collinear. If anomalous errors
 arise, it is possible that these may averted by adjusting the value of eps
 upward or downward.}
 
+\item{max.radius}{The maximum distance a tile can extend from the point of
+origin. Will in effect clip each til to a circle centered at the point with
+the given radius. If \code{normalize = TRUE} the radius will be given relative to
+the normalized values}
+
 \item{normalize}{Should coordinates be normalized prior to calculations. If
 \code{x} and \code{y} are in wildly different ranges it can lead to
 tesselation and triangulation that seems off when plotted without
 \code{\link[ggplot2:coord_fixed]{ggplot2::coord_fixed()}}. Normalization of coordinates solves this.
 The coordinates are transformed back after calculations.}
+
+\item{asp.ratio}{If \code{normalize = TRUE} the x values will be multiplied by this
+amount after normalization.}
 
 \item{by.group}{Should the tesselation be calculated based on the data
 grouping, or for all points in the panel (default to \code{FALSE})}
@@ -176,20 +187,30 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
   geom_voronoi_tile(aes(fill = Species)) +
   geom_voronoi_segment() +
   geom_text(aes(label = ..nsides.., size = ..vorarea..),
-            stat = 'delvor_summary', switch.centroid = TRUE)
+    stat = 'delvor_summary', switch.centroid = TRUE
+  )
 
 # Difference of normalize = TRUE
 ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
   geom_voronoi_tile(aes(fill = Species), normalize = TRUE) +
   geom_voronoi_segment(normalize = TRUE) +
   geom_text(aes(label = ..nsides.., size = ..vorarea..),
-            stat = 'delvor_summary', switch.centroid = TRUE, normalize = TRUE)
+    stat = 'delvor_summary', switch.centroid = TRUE, normalize = TRUE
+  )
+
+# Set a max radius
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+  geom_voronoi_tile(aes(fill = Species), colour = 'black', max.radius = 0.25)
+
+# Set custom bounding polygon
+triangle <- cbind(c(3, 9, 6), c(1, 1, 6))
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+  geom_voronoi_tile(aes(fill = Species), colour = 'black', bound = triangle)
 
 # Delaunay triangles - interpolation of species
 ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
   geom_delaunay_tile(alpha = 0.3) +
   geom_delaunay_segment2(aes(colour = Species, group = -1))
-
 }
 \author{
 Thomas Lin Pedersen

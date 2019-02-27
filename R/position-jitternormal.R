@@ -16,8 +16,10 @@
 #' @export
 #' @examples
 #' # Example data
-#' df <- data.frame(x = sample(1:3, 1500, TRUE),
-#'                  y = sample(1:3, 1500, TRUE))
+#' df <- data.frame(
+#'   x = sample(1:3, 1500, TRUE),
+#'   y = sample(1:3, 1500, TRUE)
+#' )
 #'
 #' # position_jitter results in rectangular clusters
 #' ggplot(df, aes(x = x, y = y)) +
@@ -38,18 +40,20 @@
 #'
 #' # Only add random noise to one dimension
 #' ggplot(df, aes(x = x, y = y)) +
-#'   geom_point(position = position_jitternormal(sd_x = 0.15, sd_y = 0),
-#'              alpha = 0.1)
+#'   geom_point(
+#'     position = position_jitternormal(sd_x = 0.15, sd_y = 0),
+#'     alpha = 0.1
+#'   )
 position_jitternormal <- function(sd_x = NULL, sd_y = NULL) {
   ggplot2::ggproto(NULL, PositionJitterNormal,
-          sd_x = sd_x,
-          sd_y = sd_y
+    sd_x = sd_x,
+    sd_y = sd_y
   )
 }
 
-PositionJitterNormal <- ggplot2::ggproto("PositionJitterNormal",
-                                         ggplot2:::Position,
-                                         required_aes = c("x", "y"),
+PositionJitterNormal <- ggplot2::ggproto('PositionJitterNormal',
+  ggplot2:::Position,
+  required_aes = c('x', 'y'),
 
   setup_params = function(self, data) {
     list(
@@ -59,8 +63,12 @@ PositionJitterNormal <- ggplot2::ggproto("PositionJitterNormal",
   },
 
   compute_layer = function(data, params, panel) {
-    trans_x <- if (params$sd_x > 0) function(x) x + rnorm(length(x), sd = params$sd_x)
-    trans_y <- if (params$sd_y > 0) function(x) x + rnorm(length(x), sd = params$sd_y)
+    trans_x <- if (params$sd_x > 0) {
+      function(x) x + rnorm(length(x), sd = params$sd_x)
+    }
+    trans_y <- if (params$sd_y > 0) {
+      function(x) x + rnorm(length(x), sd = params$sd_y)
+    }
 
     transform_position(data, trans_x, trans_y)
   }

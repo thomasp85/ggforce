@@ -150,7 +150,6 @@ data <- data.frame(
 
 ggplot(data) +
   geom_diagonal(aes(x, y, xend = xend, yend = yend))
-
 }
 \author{
 Thomas Lin Pedersen

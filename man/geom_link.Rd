@@ -150,15 +150,20 @@ lines <- data.frame(
   colour = letters[1:5]
 )
 
-ggplot() + geom_link(aes(x = x, y = y, xend = xend, yend = yend,
-                         colour = colour, alpha = ..index..,
-                         size = ..index..),
-                     data = lines)
+ggplot() + geom_link(aes(
+  x = x, y = y, xend = xend, yend = yend,
+  colour = colour, alpha = ..index..,
+  size = ..index..
+),
+data = lines
+)
 
-ggplot() + geom_link2(aes(x = x, y = y, colour = colour, size = width,
-                          group = 1),
-                      data = lines, lineend = 'round', n = 500)
-
+ggplot() + geom_link2(aes(
+  x = x, y = y, colour = colour, size = width,
+  group = 1
+),
+data = lines, lineend = 'round', n = 500
+)
 }
 \author{
 Thomas Lin Pedersen
