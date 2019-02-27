@@ -53,7 +53,7 @@
 #'
 #' # Draw a super ellipse
 #' ggplot() +
-#'   geom_ellipsis(aes(x0 = 0, y0 = 0, a = 6, b = 3, angle = 75, m1 = 3)) +
+#'   geom_ellipsis(aes(x0 = 0, y0 = 0, a = 6, b = 3, angle = -pi / 3, m1 = 3)) +
 #'   coord_fixed()
 NULL
 
