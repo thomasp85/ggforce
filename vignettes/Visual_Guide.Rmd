@@ -691,9 +691,9 @@ on the axis is meassured in:
 
 ```{r}
 library(units)
-miles <- make_unit('miles')
-gallon <- make_unit('gallon')
-horsepower <- make_unit('horsepower')
+miles <- as_units('miles')
+gallon <- as_units('gallon')
+horsepower <- as_units('horsepower')
 mtcars$consumption <- mtcars$mpg * (miles/gallon)
 mtcars$power <- mtcars$hp * horsepower
 
