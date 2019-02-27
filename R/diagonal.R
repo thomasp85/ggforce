@@ -147,8 +147,9 @@ geom_diagonal <- function(mapping = NULL, data = NULL, stat = 'diagonal',
 StatDiagonal2 <- ggproto('StatDiagonal2', Stat,
   compute_layer = function(self, data, params, panels) {
     if (is.null(data)) return(data)
+    data <- data[order(data$group), ]
     data <- add_controls(data, params$strength)
-    StatBezier2$compute_layer(data, params['n'], panels)
+    StatBezier2$compute_layer(data, params, panels)
   },
   required_aes = c('x', 'y'),
   extra_params = c('na.rm', 'n', 'strength')
@@ -198,7 +199,8 @@ StatDiagonal0 <- ggproto('StatDiagonal0', Stat,
     data$xend <- NULL
     data$yend <- NULL
     data <- data[order(data$group), ]
-    add_controls(data, params$strength)
+    data <- add_controls(data, params$strength)
+    StatBezier0$compute_layer(data, params, panels)
   },
   required_aes = c('x', 'y', 'xend', 'yend'),
   extra_params = c('na.rm', 'strength')
