@@ -95,7 +95,8 @@ GeomShape <- ggproto('GeomShape', GeomPolygon,
         lty = first_rows$linetype
       )
     )
-  }
+  },
+  extra_params = c('expand', 'radius')
 )
 
 #' @rdname geom_shape
