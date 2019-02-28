@@ -152,7 +152,11 @@ FacetWrapPaginate <- ggproto('FacetWrapPaginate', FacetWrap,
 #'   facet_wrap_paginate(~ cut:clarity, ncol = 3, nrow = 3, page = 1)
 #' n_pages(p)
 n_pages <- function(plot) {
-  page <- ggplot_build(plot)$layout$panel_layout$page
+  if (utils::packageVersion('ggplot2') <= '2.2.1') {
+    page <- ggplot_build(plot)$layout$panel_layout$page
+  } else {
+    page <- ggplot_build(plot)$layout$layout$page
+  }
   if (!is.null(page)) {
     max(page)
   } else {
