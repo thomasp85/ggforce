@@ -153,6 +153,9 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       match_id <- match(layer_data$PANEL, layout$PANEL)
 
       if (!is.null(x_scales)) {
+        if ('x' %in% layout$name && x_scales[[1]]$is_discrete()) {
+          stop('facet_zoom doesn\'t support zooming in discrete scales', call. = FALSE)
+        }
         x_vars <- intersect(x_scales[[1]]$aesthetics, names(layer_data))
         SCALE_X <- layout$SCALE_X[match_id]
 
@@ -165,6 +168,9 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       }
 
       if (!is.null(y_scales)) {
+        if ('y' %in% layout$name && y_scales[[1]]$is_discrete()) {
+          stop('facet_zoom doesn\'t support zooming in discrete scales', call. = FALSE)
+        }
         y_vars <- intersect(y_scales[[1]]$aesthetics, names(layer_data))
         SCALE_Y <- layout$SCALE_Y[match_id]
 
