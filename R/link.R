@@ -129,7 +129,8 @@ StatLink2 <- ggproto('StatLink2', Stat,
       if ('frame' %in% names(df)) interp$frame <- df$frame[1]
       nIndex <- seq_len(nrow(interp))
       if (any(extraCols)) {
-        cbind(interp, df[nIndex, extraCols], .interp = nIndex > nrow(df))
+        cbind(interp, df[nIndex, extraCols, drop = FALSE],
+              .interp = nIndex > nrow(df))
       } else {
         cbind(interp, .interp = nIndex > nrow(df))
       }
