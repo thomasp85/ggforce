@@ -308,11 +308,11 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       widths <- unit.c(
         unit(max_width(list(axes$y[[3]]$left, axes$y[[4]]$left)), 'cm'),
         unit(params$zoom.size, 'null'),
-        unit(max_height(list(axes$y[[3]]$right, axes$y[[4]]$right)), 'cm'),
+        unit(max_width(list(axes$y[[3]]$right, axes$y[[4]]$right)), 'cm'),
         space.x,
         unit(max_width(list(axes$y[[1]]$left, axes$y[[2]]$left)), 'cm'),
         unit(1, 'null'),
-        unit(max_height(list(axes$y[[1]]$right, axes$y[[2]]$right)), 'cm')
+        unit(max_width(list(axes$y[[1]]$right, axes$y[[2]]$right)), 'cm')
       )
       final$heights <- heights
       final$widths <- widths
