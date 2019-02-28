@@ -198,6 +198,7 @@ StatSina <- ggproto('StatSina', Stat,
     # scale all bins based on their density relative to the densiest bin
     if (scale) {
       group_scaling_factor <- tapply(data$bin_counts, data$group, max) / max(data$bin_counts)
+      group_scaling_factor <- group_scaling_factor[data$group]
     } else {
       group_scaling_factor <- 1
     }
