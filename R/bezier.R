@@ -94,7 +94,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBezier <- ggproto('StatBezier', Stat,
   compute_layer = function(self, data, params, panels) {
@@ -121,7 +120,6 @@ StatBezier <- ggproto('StatBezier', Stat,
   extra_params = c('na.rm', 'n')
 )
 #' @rdname geom_bezier
-#' @importFrom ggplot2 layer
 #' @export
 stat_bezier <- function(mapping = NULL, data = NULL, geom = 'path',
                         position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -133,7 +131,6 @@ stat_bezier <- function(mapping = NULL, data = NULL, geom = 'path',
   )
 }
 #' @rdname geom_bezier
-#' @importFrom ggplot2 layer
 #' @export
 geom_bezier <- function(mapping = NULL, data = NULL, stat = 'bezier',
                         position = 'identity', arrow = NULL, lineend = 'butt',
@@ -151,7 +148,6 @@ geom_bezier <- function(mapping = NULL, data = NULL, stat = 'bezier',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBezier2 <- ggproto('StatBezier2', Stat,
   compute_layer = function(self, data, params, panels) {
@@ -194,7 +190,6 @@ StatBezier2 <- ggproto('StatBezier2', Stat,
   extra_params = c('na.rm', 'n')
 )
 #' @rdname geom_bezier
-#' @importFrom ggplot2 layer
 #' @export
 stat_bezier2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
                          position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -206,7 +201,6 @@ stat_bezier2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
   )
 }
 #' @rdname geom_bezier
-#' @importFrom ggplot2 layer
 #' @export
 geom_bezier2 <- function(mapping = NULL, data = NULL, stat = 'bezier2',
                          position = 'identity', arrow = NULL, lineend = 'butt',
@@ -224,7 +218,6 @@ geom_bezier2 <- function(mapping = NULL, data = NULL, stat = 'bezier2',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBezier0 <- ggproto('StatBezier0', Stat,
   compute_layer = function(self, data, params, panels) {
@@ -250,7 +243,6 @@ StatBezier0 <- ggproto('StatBezier0', Stat,
 #' @format NULL
 #' @usage NULL
 #' @importFrom grid bezierGrob gpar
-#' @importFrom ggplot2 ggproto GeomPath alpha
 #' @export
 GeomBezier0 <- ggproto('GeomBezier0', GeomPath,
   draw_panel = function(data, panel_scales, coord, arrow = NULL,
@@ -271,7 +263,6 @@ GeomBezier0 <- ggproto('GeomBezier0', GeomPath,
   }
 )
 #' @rdname geom_bezier
-#' @importFrom ggplot2 layer
 #' @export
 stat_bezier0 <- function(mapping = NULL, data = NULL, geom = 'bezier0',
                          position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -283,7 +274,6 @@ stat_bezier0 <- function(mapping = NULL, data = NULL, geom = 'bezier0',
   )
 }
 #' @rdname geom_bezier
-#' @importFrom ggplot2 layer
 #' @export
 geom_bezier0 <- function(mapping = NULL, data = NULL, stat = 'bezier0',
                          position = 'identity', arrow = NULL, lineend = 'butt',

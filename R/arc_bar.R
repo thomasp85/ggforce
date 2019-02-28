@@ -106,7 +106,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatArcBar <- ggproto('StatArcBar', Stat,
   compute_panel = function(data, scales, n = 360) {
@@ -116,7 +115,6 @@ StatArcBar <- ggproto('StatArcBar', Stat,
   required_aes = c('x0', 'y0', 'r0', 'r', 'start', 'end')
 )
 #' @rdname geom_arc_bar
-#' @importFrom ggplot2 layer
 #' @export
 stat_arc_bar <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
                          position = 'identity', n = 360, na.rm = FALSE,
@@ -130,7 +128,6 @@ stat_arc_bar <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatPie <- ggproto('StatPie', Stat,
   compute_panel = function(data, scales, n = 360, sep = 0) {
@@ -154,7 +151,6 @@ StatPie <- ggproto('StatPie', Stat,
   default_aes = aes(explode = NULL)
 )
 #' @rdname geom_arc_bar
-#' @importFrom ggplot2 layer
 #' @export
 stat_pie <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
                      position = 'identity', n = 360, sep = 0, na.rm = FALSE,
@@ -168,7 +164,6 @@ stat_pie <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @export
 GeomArcBar <- ggproto('GeomArcBar', GeomShape,
   default_aes = list(
@@ -177,7 +172,6 @@ GeomArcBar <- ggproto('GeomArcBar', GeomShape,
   )
 )
 #' @rdname geom_arc_bar
-#' @importFrom ggplot2 layer
 #' @inheritParams geom_shape
 #' @export
 geom_arc_bar <- function(mapping = NULL, data = NULL, stat = 'arc_bar',

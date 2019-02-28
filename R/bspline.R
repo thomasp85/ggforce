@@ -91,7 +91,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBspline <- ggproto('StatBspline', Stat,
   compute_layer = function(self, data, params, panels) {
@@ -116,7 +115,6 @@ StatBspline <- ggproto('StatBspline', Stat,
   extra_params = c('na.rm', 'n', 'type')
 )
 #' @rdname geom_bspline
-#' @importFrom ggplot2 layer
 #' @export
 stat_bspline <- function(mapping = NULL, data = NULL, geom = 'path',
                          position = 'identity', na.rm = FALSE, n = 100,
@@ -129,7 +127,6 @@ stat_bspline <- function(mapping = NULL, data = NULL, geom = 'path',
   )
 }
 #' @rdname geom_bspline
-#' @importFrom ggplot2 layer
 #' @export
 geom_bspline <- function(mapping = NULL, data = NULL, stat = 'bspline',
                          position = 'identity', arrow = NULL, n = 100,
@@ -147,7 +144,6 @@ geom_bspline <- function(mapping = NULL, data = NULL, stat = 'bspline',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBspline2 <- ggproto('StatBspline2', Stat,
   compute_layer = function(self, data, params, panels) {
@@ -186,7 +182,6 @@ StatBspline2 <- ggproto('StatBspline2', Stat,
   extra_params = c('na.rm', 'n', 'type')
 )
 #' @rdname geom_bspline
-#' @importFrom ggplot2 layer
 #' @export
 stat_bspline2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
                           position = 'identity', na.rm = FALSE, n = 100,
@@ -199,7 +194,6 @@ stat_bspline2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate'
   )
 }
 #' @rdname geom_bspline
-#' @importFrom ggplot2 layer
 #' @export
 geom_bspline2 <- function(mapping = NULL, data = NULL, stat = 'bspline2',
                           position = 'identity', arrow = NULL, n = 100,
@@ -218,7 +212,6 @@ geom_bspline2 <- function(mapping = NULL, data = NULL, stat = 'bspline2',
 #' @format NULL
 #' @usage NULL
 #' @importFrom grid xsplineGrob gpar
-#' @importFrom ggplot2 ggproto GeomPath alpha
 #' @export
 GeomBspline0 <- ggproto('GeomBspline0', GeomPath,
   draw_panel = function(data, panel_scales, coord, arrow = NULL,
@@ -239,7 +232,6 @@ GeomBspline0 <- ggproto('GeomBspline0', GeomPath,
   }
 )
 #' @rdname geom_bspline
-#' @importFrom ggplot2 layer StatIdentity
 #' @export
 stat_bspline0 <- function(mapping = NULL, data = NULL, geom = 'bspline0',
                           position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -251,7 +243,6 @@ stat_bspline0 <- function(mapping = NULL, data = NULL, geom = 'bspline0',
   )
 }
 #' @rdname geom_bspline
-#' @importFrom ggplot2 layer
 #' @export
 geom_bspline0 <- function(mapping = NULL, data = NULL, stat = 'identity',
                           position = 'identity', arrow = NULL, lineend = 'butt',

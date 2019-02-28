@@ -60,7 +60,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatEllipsis <- ggproto('StatEllipsis', Stat,
   setup_data = function(data, params) {
@@ -88,7 +87,6 @@ StatEllipsis <- ggproto('StatEllipsis', Stat,
   extra_params = c('n', 'na.rm')
 )
 #' @rdname geom_ellipsis
-#' @importFrom ggplot2 layer
 #' @export
 stat_ellipsis <- function(mapping = NULL, data = NULL, geom = 'circle',
                           position = 'identity', n = 360, na.rm = FALSE,
@@ -101,7 +99,6 @@ stat_ellipsis <- function(mapping = NULL, data = NULL, geom = 'circle',
 }
 
 #' @rdname geom_ellipsis
-#' @importFrom ggplot2 layer
 #' @export
 geom_ellipsis <- function(mapping = NULL, data = NULL, stat = 'ellipsis',
                           position = 'identity', n = 360, na.rm = FALSE,

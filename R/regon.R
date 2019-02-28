@@ -51,7 +51,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatRegon <- ggproto('StatRegon', Stat,
   compute_layer = function(self, data, params, panels) {
@@ -74,7 +73,6 @@ StatRegon <- ggproto('StatRegon', Stat,
 )
 
 #' @rdname geom_regon
-#' @importFrom ggplot2 layer
 #' @export
 stat_regon <- function(mapping = NULL, data = NULL, geom = 'shape',
                        position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -86,7 +84,6 @@ stat_regon <- function(mapping = NULL, data = NULL, geom = 'shape',
   )
 }
 #' @rdname geom_regon
-#' @importFrom ggplot2 layer
 #' @export
 geom_regon <- function(mapping = NULL, data = NULL, stat = 'regon',
                        position = 'identity', na.rm = FALSE,

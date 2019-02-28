@@ -81,7 +81,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatLink <- ggproto('StatLink', Stat,
   compute_panel = function(data, scales, n = 100) {
@@ -100,7 +99,6 @@ StatLink <- ggproto('StatLink', Stat,
   required_aes = c('x', 'y', 'xend', 'yend')
 )
 #' @rdname geom_link
-#' @importFrom ggplot2 layer
 #' @export
 stat_link <- function(mapping = NULL, data = NULL, geom = 'path',
                       position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -114,7 +112,6 @@ stat_link <- function(mapping = NULL, data = NULL, geom = 'path',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom tweenr tween_t
 #' @export
 StatLink2 <- ggproto('StatLink2', Stat,
@@ -141,7 +138,6 @@ StatLink2 <- ggproto('StatLink2', Stat,
   required_aes = c('x', 'y')
 )
 #' @rdname geom_link
-#' @importFrom ggplot2 layer
 #' @export
 stat_link2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
                        position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -153,7 +149,6 @@ stat_link2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
   )
 }
 #' @rdname geom_link
-#' @importFrom ggplot2 layer
 #' @export
 geom_link <- function(mapping = NULL, data = NULL, stat = 'link',
                       position = 'identity', arrow = NULL, lineend = 'butt',
@@ -169,7 +164,6 @@ geom_link <- function(mapping = NULL, data = NULL, stat = 'link',
   )
 }
 #' @rdname geom_link
-#' @importFrom ggplot2 layer
 #' @export
 geom_link2 <- function(mapping = NULL, data = NULL, stat = 'link2',
                        position = 'identity', arrow = NULL, lineend = 'butt',
@@ -185,6 +179,5 @@ geom_link2 <- function(mapping = NULL, data = NULL, stat = 'link2',
   )
 }
 #' @rdname geom_link
-#' @importFrom ggplot2 geom_segment
 #' @export
 geom_link0 <- geom_segment

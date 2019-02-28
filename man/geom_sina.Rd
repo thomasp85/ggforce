@@ -138,13 +138,20 @@ ggplot(midwest, aes(state, area)) + geom_point()
 
 # Boxplot and Violin plots convey information on the distribution but not the
 # number of samples, while Jitter does the opposite.
-ggplot(midwest, aes(state, area)) + geom_violin()
-ggplot(midwest, aes(state, area)) + geom_jitter()
+ggplot(midwest, aes(state, area)) +
+  geom_violin()
+
+ggplot(midwest, aes(state, area)) +
+  geom_jitter()
 
 # Sina does both!
-ggplot(midwest, aes(state, area)) + geom_violin() + geom_sina()
+ggplot(midwest, aes(state, area)) +
+  geom_violin() +
+  geom_sina()
 
-p <- ggplot(midwest, aes(state, popdensity)) + scale_y_log10()
+p <- ggplot(midwest, aes(state, popdensity)) +
+  scale_y_log10()
+
 p + geom_sina()
 
 # Colour the points based on the data set's columns
@@ -155,8 +162,9 @@ cols <- midwest$popdensity > 10000
 p + geom_sina(colour = cols + 1L)
 
 # Sina plots with continuous x:
-p <- ggplot(midwest, aes(cut_width(area, 0.02), popdensity)) + scale_y_log10()
-p + geom_sina()
+ggplot(midwest, aes(cut_width(area, 0.02), popdensity)) +
+  geom_sina() +
+  scale_y_log10()
 
 
 ### Sample gaussian distributions
@@ -188,11 +196,14 @@ df$Distribution <- factor(
 
 p <- ggplot(df, aes(Distribution, Value))
 p + geom_boxplot()
-p + geom_violin() + geom_sina()
+p + geom_violin() +
+  geom_sina()
 
 # By default, Sina plot scales the width of the class according to the width
 # of the class with the highest density. Turn group-wise scaling off with:
-p + geom_violin() + geom_sina(scale = FALSE)
+p +
+  geom_violin() +
+  geom_sina(scale = FALSE)
 }
 \author{
 Nikos Sidiropoulos

@@ -1,7 +1,6 @@
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto GeomPath coord_munch zeroGrob alpha .pt
 #' @importFrom grid segmentsGrob polylineGrob gpar
 GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
   draw_panel = function(data, panel_scales, coord, arrow = NULL,

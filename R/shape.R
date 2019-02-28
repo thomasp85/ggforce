@@ -65,7 +65,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto GeomPolygon
 #' @export
 GeomShape <- ggproto('GeomShape', GeomPolygon,
   draw_panel = function(data, panel_params, coord, expand = 0, radius = 0) {

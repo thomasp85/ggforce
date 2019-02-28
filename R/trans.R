@@ -22,8 +22,10 @@
 #' trans$transform(1:10)
 #'
 #' # Use it in a plot
-#' ggplot() + geom_line(aes(x = 1:10, y = 1:10)) +
-#'   scale_x_continuous(trans = power_trans(2), expand = c(0, 1))
+#' ggplot() +
+#'   geom_line(aes(x = 1:10, y = 1:10)) +
+#'   scale_x_continuous(trans = power_trans(2),
+#'                      expand = c(0, 1))
 power_trans <- function(n) {
   trans_new(
     name = paste0('power of ', fractions(n)),
@@ -92,7 +94,8 @@ power_trans <- function(n) {
 #' cart <- radial$transform(rad$r, rad$a)
 #'
 #' # Have a look
-#' ggplot() + geom_path(aes(x = x, y = y), data = cart, color = 'forestgreen') +
+#' ggplot() +
+#'   geom_path(aes(x = x, y = y), data = cart, color = 'forestgreen') +
 #'   geom_path(aes(x = r, y = a), data = rad, color = 'firebrick')
 radial_trans <- function(r.range, a.range, offset = pi / 2, pad = 0.5,
                          clip = FALSE) {
@@ -155,7 +158,8 @@ radial_trans <- function(r.range, a.range, offset = pi / 2, pad = 0.5,
 #'
 #' @examples
 #' # Lets make a plot
-#' p <- ggplot() + geom_line(aes(x = 1:10, y = 1:10))
+#' p <- ggplot() +
+#'   geom_line(aes(x = 1:10, y = 1:10))
 #'
 #' # scales already have a reverse trans
 #' p + scale_x_continuous(trans = 'reverse')

@@ -77,7 +77,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto zeroGrob
 #' @export
 GeomMarkEllipse <- ggproto('GeomMarkEllipse', GeomShape,
   setup_data = function(self, data, params) {

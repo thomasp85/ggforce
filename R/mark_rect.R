@@ -68,7 +68,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto zeroGrob
 #' @export
 GeomMarkRect <- ggproto('GeomMarkRect', GeomShape,
   setup_data = function(self, data, params) {

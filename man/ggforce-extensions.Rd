@@ -4,8 +4,8 @@
 %   R/diagonal_wide.R, R/ellipse.R, R/facet_grid_paginate.R, R/facet_stereo.R,
 %   R/facet_wrap_paginate.R, R/facet_zoom.R, R/ggproto-classes.R,
 %   R/interpolate.R, R/link.R, R/mark_circle.R, R/mark_ellipse.R, R/mark_hull.R,
-%   R/mark_rect.R, R/parallel_sets.R, R/regon.R, R/scale-unit.R, R/sina.R,
-%   R/spiro.R, R/voronoi.R
+%   R/mark_rect.R, R/parallel_sets.R, R/position-jitternormal.R, R/regon.R,
+%   R/scale-unit.R, R/sina.R, R/spiro.R, R/voronoi.R
 \docType{data}
 \name{GeomShape}
 \alias{GeomShape}
@@ -47,6 +47,7 @@
 \alias{StatParallelSets}
 \alias{StatParallelSetsAxes}
 \alias{GeomParallelSetsAxes}
+\alias{PositionJitterNormal}
 \alias{StatRegon}
 \alias{ScaleContinuousPositionUnit}
 \alias{StatSina}

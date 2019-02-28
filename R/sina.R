@@ -75,41 +75,49 @@
 #'
 #' @examples
 #' ggplot(midwest, aes(state, area)) + geom_point()
-#' 
+#'
 #' # Boxplot and Violin plots convey information on the distribution but not the
 #' # number of samples, while Jitter does the opposite.
-#' ggplot(midwest, aes(state, area)) + geom_violin()
-#' ggplot(midwest, aes(state, area)) + geom_jitter()
-#' 
+#' ggplot(midwest, aes(state, area)) +
+#'   geom_violin()
+#'
+#' ggplot(midwest, aes(state, area)) +
+#'   geom_jitter()
+#'
 #' # Sina does both!
-#' ggplot(midwest, aes(state, area)) + geom_violin() + geom_sina()
-#' 
-#' p <- ggplot(midwest, aes(state, popdensity)) + scale_y_log10()
+#' ggplot(midwest, aes(state, area)) +
+#'   geom_violin() +
+#'   geom_sina()
+#'
+#' p <- ggplot(midwest, aes(state, popdensity)) +
+#'   scale_y_log10()
+#'
 #' p + geom_sina()
-#' 
+#'
 #' # Colour the points based on the data set's columns
 #' p + geom_sina(aes(colour = inmetro))
-#' 
+#'
 #' # Or any other way
 #' cols <- midwest$popdensity > 10000
 #' p + geom_sina(colour = cols + 1L)
-#' 
+#'
 #' # Sina plots with continuous x:
-#' p <- ggplot(midwest, aes(cut_width(area, 0.02), popdensity)) + scale_y_log10()
-#' p + geom_sina()
-#' 
-#' 
+#' ggplot(midwest, aes(cut_width(area, 0.02), popdensity)) +
+#'   geom_sina() +
+#'   scale_y_log10()
+#'
+#'
 #' ### Sample gaussian distributions
 #' # Unimodal
 #' a <- rnorm(500, 6, 1)
 #' b <- rnorm(400, 5, 1.5)
-#' 
+#'
 #' # Bimodal
 #' c <- c(rnorm(200, 3, .7), rnorm(50, 7, 0.4))
-#' 
+#'
 #' # Trimodal
 #' d <- c(rnorm(200, 2, 0.7), rnorm(300, 5.5, 0.4), rnorm(100, 8, 0.4))
-#' 
+#'
 #' df <- data.frame(
 #'   'Distribution' = c(
 #'     rep('Unimodal 1', length(a)),
@@ -119,26 +127,28 @@
 #'   ),
 #'   'Value' = c(a, b, c, d)
 #' )
-#' 
+#'
 #' # Reorder levels
 #' df$Distribution <- factor(
 #'   df$Distribution,
 #'   levels(df$Distribution)[c(3, 4, 1, 2)]
 #' )
-#' 
+#'
 #' p <- ggplot(df, aes(Distribution, Value))
 #' p + geom_boxplot()
-#' p + geom_violin() + geom_sina()
-#' 
+#' p + geom_violin() +
+#'   geom_sina()
+#'
 #' # By default, Sina plot scales the width of the class according to the width
 #' # of the class with the highest density. Turn group-wise scaling off with:
-#' p + geom_violin() + geom_sina(scale = FALSE)
+#' p +
+#'   geom_violin() +
+#'   geom_sina(scale = FALSE)
 NULL
 
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatSina <- ggproto('StatSina', Stat,
   required_aes = c('x', 'y'),
@@ -268,7 +278,6 @@ StatSina <- ggproto('StatSina', Stat,
 )
 
 #' @rdname geom_sina
-#' @importFrom ggplot2 layer
 #' @export
 stat_sina <- function(mapping = NULL, data = NULL,
                       geom = 'sina', position = 'identity',
@@ -310,7 +319,6 @@ stat_sina <- function(mapping = NULL, data = NULL,
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto GeomPoint
 #' @export
 GeomSina <- ggproto('GeomSina', GeomPoint,
   setup_data = function(data, params) {
@@ -320,7 +328,6 @@ GeomSina <- ggproto('GeomSina', GeomPoint,
 
 
 #' @rdname geom_sina
-#' @importFrom ggplot2 layer
 #' @export
 geom_sina <- function(mapping = NULL, data = NULL,
                       stat = 'sina', position = 'identity',

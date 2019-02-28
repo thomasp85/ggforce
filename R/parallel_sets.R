@@ -54,7 +54,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatParallelSets <- ggproto('StatParallelSets', Stat,
   setup_data = function(data, params) {
@@ -91,7 +90,6 @@ StatParallelSets <- ggproto('StatParallelSets', Stat,
   extra_params = c('na.rm', 'n', 'sep', 'strength', 'axis.width')
 )
 #' @rdname geom_parallel_sets
-#' @importFrom ggplot2 layer
 #' @export
 stat_parallel_sets <- function(mapping = NULL, data = NULL, geom = 'shape',
                                position = 'identity', n = 100, strength = 0.5,
@@ -107,7 +105,6 @@ stat_parallel_sets <- function(mapping = NULL, data = NULL, geom = 'shape',
   )
 }
 #' @rdname geom_parallel_sets
-#' @importFrom ggplot2 layer
 #' @export
 geom_parallel_sets <- function(mapping = NULL, data = NULL,
                                stat = 'parallel_sets', position = 'identity',
@@ -126,7 +123,6 @@ geom_parallel_sets <- function(mapping = NULL, data = NULL,
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatParallelSetsAxes <- ggproto('StatParallelSetsAxes', Stat,
   setup_data = function(data, params) {
@@ -166,7 +162,6 @@ StatParallelSetsAxes <- ggproto('StatParallelSetsAxes', Stat,
   extra_params = c('na.rm', 'sep')
 )
 #' @rdname geom_parallel_sets
-#' @importFrom ggplot2 layer
 #' @export
 stat_parallel_sets_axes <- function(mapping = NULL, data = NULL,
                                     geom = 'parallel_sets_axes',
@@ -182,7 +177,6 @@ stat_parallel_sets_axes <- function(mapping = NULL, data = NULL,
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 GeomParallelSetsAxes <- ggproto('GeomParallelSetsAxes', GeomShape,
   setup_data = function(data, params) {
@@ -205,7 +199,6 @@ GeomParallelSetsAxes <- ggproto('GeomParallelSetsAxes', GeomShape,
   required_aes = c('xmin', 'ymin', 'xmax', 'ymax')
 )
 #' @rdname geom_parallel_sets
-#' @importFrom ggplot2 layer
 #' @export
 geom_parallel_sets_axes <- function(mapping = NULL, data = NULL,
                                     stat = 'parallel_sets_axes',
@@ -219,7 +212,6 @@ geom_parallel_sets_axes <- function(mapping = NULL, data = NULL,
   )
 }
 #' @rdname geom_parallel_sets
-#' @importFrom ggplot2 layer GeomText
 #' @export
 geom_parallel_sets_labels <- function(mapping = NULL, data = NULL,
                                       stat = 'parallel_sets_axes', angle = -90,

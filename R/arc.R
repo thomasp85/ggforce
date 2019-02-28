@@ -93,7 +93,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatArc <- ggproto('StatArc', Stat,
   compute_panel = function(data, scales, n = 360) {
@@ -103,7 +102,6 @@ StatArc <- ggproto('StatArc', Stat,
   required_aes = c('x0', 'y0', 'r', 'start', 'end')
 )
 #' @rdname geom_arc
-#' @importFrom ggplot2 layer
 #' @export
 stat_arc <- function(mapping = NULL, data = NULL, geom = 'arc',
                      position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -117,7 +115,6 @@ stat_arc <- function(mapping = NULL, data = NULL, geom = 'arc',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto GeomPath
 #' @importFrom grid curveGrob gList gpar
 #' @export
 GeomArc <- ggproto('GeomArc', GeomPath,
@@ -126,7 +123,6 @@ GeomArc <- ggproto('GeomArc', GeomPath,
   )
 )
 #' @rdname geom_arc
-#' @importFrom ggplot2 layer
 #' @export
 geom_arc <- function(mapping = NULL, data = NULL, stat = 'arc',
                      position = 'identity', n = 360, arrow = NULL,
@@ -141,7 +137,6 @@ geom_arc <- function(mapping = NULL, data = NULL, stat = 'arc',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatArc2 <- ggproto('StatArc2', Stat,
   compute_panel = function(data, scales, n = 360) {
@@ -151,7 +146,6 @@ StatArc2 <- ggproto('StatArc2', Stat,
   required_aes = c('x0', 'y0', 'r', 'group', 'end')
 )
 #' @rdname geom_arc
-#' @importFrom ggplot2 layer
 #' @export
 stat_arc2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
                       position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -163,7 +157,6 @@ stat_arc2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
   )
 }
 #' @rdname geom_arc
-#' @importFrom ggplot2 layer
 #' @export
 geom_arc2 <- function(mapping = NULL, data = NULL, stat = 'arc2',
                       position = 'identity', n = 360, arrow = NULL,
@@ -178,7 +171,6 @@ geom_arc2 <- function(mapping = NULL, data = NULL, stat = 'arc2',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom grid arcCurvature
 #' @export
 StatArc0 <- ggproto('StatArc0', Stat,
@@ -195,7 +187,6 @@ StatArc0 <- ggproto('StatArc0', Stat,
   required_aes = c('x0', 'y0', 'r', 'start', 'end')
 )
 #' @rdname geom_arc
-#' @importFrom ggplot2 layer
 #' @export
 stat_arc0 <- function(mapping = NULL, data = NULL, geom = 'arc0',
                       position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -209,7 +200,6 @@ stat_arc0 <- function(mapping = NULL, data = NULL, geom = 'arc0',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Geom draw_key_path .pt alpha
 #' @importFrom grid curveGrob  gList gpar
 #' @export
 GeomArc0 <- ggproto('GeomArc0', Geom,
@@ -244,7 +234,6 @@ GeomArc0 <- ggproto('GeomArc0', Geom,
   }
 )
 #' @rdname geom_arc
-#' @importFrom ggplot2 layer
 #' @export
 geom_arc0 <- function(mapping = NULL, data = NULL, stat = 'arc0',
                       position = 'identity', ncp = 5, arrow = NULL,

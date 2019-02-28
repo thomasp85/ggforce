@@ -119,6 +119,3 @@ ggplot() +
 ggplot() +
   geom_spiro(aes(R = 10, r = 3, d = 5, outer = TRUE))
 }
-\author{
-Thomas Lin Pedersen
-}

@@ -98,7 +98,6 @@ make_label <- function(labels, dims, polygons, ghosts, buffer, con_type,
   c(labels, list(connect))
 }
 
-#' @importFrom ggplot2 margin
 #' @importFrom grid valid.just textGrob nullGrob viewport grobWidth grobHeight
 #' rectGrob gpar grid.layout unit gTree gList grobDescent
 labelboxGrob <- function(label, x = unit(0.5, 'npc'), y = unit(0.5, 'npc'),

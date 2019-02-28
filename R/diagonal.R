@@ -91,7 +91,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatDiagonal <- ggproto('StatDiagonal', Stat,
   setup_data = function(data, params) {
@@ -114,7 +113,6 @@ StatDiagonal <- ggproto('StatDiagonal', Stat,
   extra_params = c('na.rm', 'n', 'strength')
 )
 #' @rdname geom_diagonal
-#' @importFrom ggplot2 layer
 #' @export
 stat_diagonal <- function(mapping = NULL, data = NULL, geom = 'path',
                           position = 'identity', n = 100, strength = 0.5,
@@ -127,7 +125,6 @@ stat_diagonal <- function(mapping = NULL, data = NULL, geom = 'path',
   )
 }
 #' @rdname geom_diagonal
-#' @importFrom ggplot2 layer GeomPath
 #' @export
 geom_diagonal <- function(mapping = NULL, data = NULL, stat = 'diagonal',
                           position = 'identity', n = 100,
@@ -142,7 +139,6 @@ geom_diagonal <- function(mapping = NULL, data = NULL, stat = 'diagonal',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatDiagonal2 <- ggproto('StatDiagonal2', Stat,
   compute_layer = function(self, data, params, panels) {
@@ -155,7 +151,6 @@ StatDiagonal2 <- ggproto('StatDiagonal2', Stat,
   extra_params = c('na.rm', 'n', 'strength')
 )
 #' @rdname geom_diagonal
-#' @importFrom ggplot2 layer
 #' @export
 stat_diagonal2 <- function(mapping = NULL, data = NULL,
                            geom = 'path_interpolate', position = 'identity',
@@ -168,7 +163,6 @@ stat_diagonal2 <- function(mapping = NULL, data = NULL,
   )
 }
 #' @rdname geom_diagonal
-#' @importFrom ggplot2 layer
 #' @export
 geom_diagonal2 <- function(mapping = NULL, data = NULL, stat = 'diagonal2',
                            position = 'identity', arrow = NULL, lineend = 'butt',
@@ -186,7 +180,6 @@ geom_diagonal2 <- function(mapping = NULL, data = NULL, stat = 'diagonal2',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatDiagonal0 <- ggproto('StatDiagonal0', Stat,
   compute_layer = function(self, data, params, panels) {
@@ -206,7 +199,6 @@ StatDiagonal0 <- ggproto('StatDiagonal0', Stat,
   extra_params = c('na.rm', 'strength')
 )
 #' @rdname geom_diagonal
-#' @importFrom ggplot2 layer
 #' @export
 stat_diagonal0 <- function(mapping = NULL, data = NULL, geom = 'bezier0',
                            position = 'identity', na.rm = FALSE,
@@ -219,7 +211,6 @@ stat_diagonal0 <- function(mapping = NULL, data = NULL, geom = 'bezier0',
   )
 }
 #' @rdname geom_diagonal
-#' @importFrom ggplot2 layer
 #' @export
 geom_diagonal0 <- function(mapping = NULL, data = NULL, stat = 'diagonal0',
                            position = 'identity', arrow = NULL, lineend = 'butt',

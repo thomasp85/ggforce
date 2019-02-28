@@ -64,7 +64,6 @@
 NULL
 
 #' @rdname geom_bspline_closed
-#' @importFrom ggplot2 layer
 #' @export
 stat_bspline_closed <- function(mapping = NULL, data = NULL, geom = 'shape',
                                 position = 'identity', na.rm = FALSE, n = 100,
@@ -76,7 +75,6 @@ stat_bspline_closed <- function(mapping = NULL, data = NULL, geom = 'shape',
   )
 }
 #' @rdname geom_bspline_closed
-#' @importFrom ggplot2 layer
 #' @export
 geom_bspline_closed <- function(mapping = NULL, data = NULL, stat = 'bspline',
                                 position = 'identity', n = 100, na.rm = FALSE,
@@ -91,7 +89,6 @@ geom_bspline_closed <- function(mapping = NULL, data = NULL, stat = 'bspline',
 #' @format NULL
 #' @usage NULL
 #' @importFrom grid xsplineGrob gpar
-#' @importFrom ggplot2 ggproto GeomPolygon alpha
 #' @export
 GeomBsplineClosed0 <- ggproto('GeomBspline0', GeomPolygon,
   draw_panel = function(data, panel_scales, coord, na.rm = FALSE) {
@@ -111,7 +108,6 @@ GeomBsplineClosed0 <- ggproto('GeomBspline0', GeomPolygon,
 )
 
 #' @rdname geom_bspline_closed
-#' @importFrom ggplot2 layer
 #' @export
 geom_bspline_closed0 <- function(mapping = NULL, data = NULL, stat = 'identity',
                                  position = 'identity', na.rm = FALSE,

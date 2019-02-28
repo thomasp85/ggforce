@@ -18,7 +18,6 @@
 #' faceted plot
 #'
 #' @export
-#' @importFrom ggplot2 facet_wrap ggproto
 #'
 #' @examples
 #' ggplot(diamonds) +
@@ -49,7 +48,6 @@ facet_wrap_paginate <- function(facets, nrow = NULL, ncol = NULL,
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto FacetWrap
 #' @importFrom gtable gtable_add_rows gtable_add_cols
 #' @export
 FacetWrapPaginate <- ggproto('FacetWrapPaginate', FacetWrap,
@@ -147,7 +145,6 @@ FacetWrapPaginate <- ggproto('FacetWrapPaginate', FacetWrap,
 #' returns NULL
 #'
 #' @export
-#' @importFrom ggplot2 ggplot_build
 #'
 #' @examples
 #' p <- ggplot(diamonds) +

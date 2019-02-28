@@ -65,7 +65,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom grid arcCurvature
 #' @export
 StatCircle <- ggproto('StatCircle', Stat,
@@ -78,7 +77,6 @@ StatCircle <- ggproto('StatCircle', Stat,
   required_aes = c('x0', 'y0', 'r')
 )
 #' @rdname geom_circle
-#' @importFrom ggplot2 layer
 #' @export
 stat_circle <- function(mapping = NULL, data = NULL, geom = 'circle',
                         position = 'identity', n = 360, na.rm = FALSE,
@@ -92,7 +90,6 @@ stat_circle <- function(mapping = NULL, data = NULL, geom = 'circle',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @export
 GeomCircle <- ggproto('GeomCircle', GeomShape,
   default_aes = list(
@@ -101,7 +98,6 @@ GeomCircle <- ggproto('GeomCircle', GeomShape,
   )
 )
 #' @rdname geom_circle
-#' @importFrom ggplot2 layer
 #' @inheritParams geom_shape
 #' @export
 geom_circle <- function(mapping = NULL, data = NULL, stat = 'circle',

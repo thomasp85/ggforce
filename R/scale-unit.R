@@ -38,7 +38,6 @@ NULL
 #' @rdname scale_unit
 #' @export
 #' @importFrom scales censor
-#' @importFrom ggplot2 waiver continuous_scale sec_axis
 scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
                          minor_breaks = waiver(), labels = waiver(),
                          limits = NULL, expand = waiver(), oob = censor,
@@ -78,7 +77,6 @@ scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
 #' @rdname scale_unit
 #' @export
 #' @importFrom scales censor
-#' @importFrom ggplot2 waiver continuous_scale sec_axis
 scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
                          minor_breaks = waiver(), labels = waiver(),
                          limits = NULL, expand = waiver(), oob = censor,
@@ -118,7 +116,6 @@ scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ScaleContinuousPosition ggproto_parent
 #' @export
 ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleContinuousPosition,
   unit = NULL,
@@ -156,6 +153,5 @@ ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleConti
 #' @rdname scale_unit
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 scale_type
 #' @export
 scale_type.units <- function(x) c('unit', 'continuous')

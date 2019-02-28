@@ -20,7 +20,6 @@
 #' faceted plot
 #'
 #' @export
-#' @importFrom ggplot2 facet_grid ggproto
 #'
 #' @examples
 #' # Draw a small section of the grid
@@ -53,7 +52,6 @@ facet_grid_paginate <- function(facets, margins = FALSE, scales = 'fixed',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto FacetWrap
 #' @importFrom gtable gtable_add_rows gtable_add_cols
 #' @export
 FacetGridPaginate <- ggproto('FacetGridPaginate', FacetGrid,

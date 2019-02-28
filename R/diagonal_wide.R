@@ -53,7 +53,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatDiagonalWide <- ggproto('StatDiagonalWide', Stat,
   setup_data = function(data, params) {
@@ -78,7 +77,6 @@ StatDiagonalWide <- ggproto('StatDiagonalWide', Stat,
   extra_params = c('na.rm', 'n', 'strength')
 )
 #' @rdname geom_diagonal_wide
-#' @importFrom ggplot2 layer
 #' @export
 stat_diagonal_wide <- function(mapping = NULL, data = NULL, geom = 'shape',
                                position = 'identity', n = 100, strength = 0.5,
@@ -91,7 +89,6 @@ stat_diagonal_wide <- function(mapping = NULL, data = NULL, geom = 'shape',
   )
 }
 #' @rdname geom_diagonal_wide
-#' @importFrom ggplot2 layer
 #' @export
 geom_diagonal_wide <- function(mapping = NULL, data = NULL,
                                stat = 'diagonal_wide', position = 'identity',

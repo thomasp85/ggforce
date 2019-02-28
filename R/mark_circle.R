@@ -130,7 +130,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto zeroGrob
 #' @export
 GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
   setup_data = function(self, data, params) {

@@ -18,7 +18,6 @@
 #'
 #' @export
 #' @importFrom scales rescale_pal
-#' @importFrom ggplot2 continuous_scale
 #'
 #' @examples
 #' ggplot(mtcars) +
@@ -37,7 +36,6 @@ scale_depth_continuous <- scale_depth
 #' @rdname scale_depth
 #'
 #' @export
-#' @importFrom ggplot2 discrete_scale
 scale_depth_discrete <- function(..., range = c(0, 0.3)) {
   discrete_scale(
     'depth', 'depth_d',
