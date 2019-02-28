@@ -80,8 +80,9 @@ Ellipse khachiyan(Eigen::MatrixXd points, double tol) {
     points.adjointInPlace();
     int N = points.cols();
     int d = points.rows();
-    Eigen::MatrixXd Q(d+1, N);
-    Q << points;
+    Eigen::MatrixXd Q;
+    Q = points;
+    Q.conservativeResize(d + 1, Eigen::NoChange);
     Q.row(d).setOnes();
     Eigen::MatrixXd Qadj = Q.adjoint();
 
