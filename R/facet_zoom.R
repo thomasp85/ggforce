@@ -339,7 +339,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
         widths <- unit.c(
           unit(max_width(list(axes$y[[1]]$left, axes$y[[2]]$left)), 'cm'),
           unit(1, 'null'),
-          unit(max_height(list(axes$y[[1]]$right, axes$y[[2]]$right)), 'cm')
+          unit(max_width(list(axes$y[[1]]$right, axes$y[[2]]$right)), 'cm')
         )
         final <- gtable_add_rows(panelGrobs[[1]], space)
         final <- rbind(final, panelGrobs[[2]], size = 'first')
