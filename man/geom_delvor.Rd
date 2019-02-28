@@ -210,6 +210,3 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
   geom_delaunay_tile(alpha = 0.3) +
   geom_delaunay_segment2(aes(colour = Species, group = -1))
 }
-\author{
-Thomas Lin Pedersen
-}

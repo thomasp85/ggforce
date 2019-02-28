@@ -69,7 +69,7 @@ NULL
 #' upward or downward.
 #'
 #' @param max.radius The maximum distance a tile can extend from the point of
-#' origin. Will in effect clip each til to a circle centered at the point with
+#' origin. Will in effect clip each tile to a circle centered at the point with
 #' the given radius. If `normalize = TRUE` the radius will be given relative to
 #' the normalized values
 #'
@@ -82,64 +82,60 @@ NULL
 #' @param asp.ratio If `normalize = TRUE` the x values will be multiplied by this
 #' amount after normalization.
 #'
-#' @param by.group Should the tesselation be calculated based on the data
-#' grouping, or for all points in the panel (default to `FALSE`)
-#'
-#' @author Thomas Lin Pedersen
-#'
 #' @name geom_voronoi
 #' @aliases geom_delaunay
 #' @rdname geom_delvor
 #'
 #' @examples
 #' # Voronoi
-#' ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+#' # You usually wants all points to take part in the same tesselation so set
+#' # the group aesthetic to a constant (-1L is just a convention)
+#' ggplot(iris, aes(Sepal.Length, Sepal.Width, group = -1L)) +
 #'   geom_voronoi_tile(aes(fill = Species)) +
 #'   geom_voronoi_segment() +
-#'   geom_text(aes(label = ..nsides.., size = ..vorarea..),
+#'   geom_text(aes(label = stat(nsides), size = stat(vorarea)),
 #'     stat = 'delvor_summary', switch.centroid = TRUE
 #'   )
 #'
-#' # Difference of normalize = TRUE
-#' ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+#' # Difference of normalize = TRUE (segment layer is calculated without
+#' # normalisation)
+#' ggplot(iris, aes(Sepal.Length, Sepal.Width, group = -1L)) +
 #'   geom_voronoi_tile(aes(fill = Species), normalize = TRUE) +
-#'   geom_voronoi_segment(normalize = TRUE) +
-#'   geom_text(aes(label = ..nsides.., size = ..vorarea..),
-#'     stat = 'delvor_summary', switch.centroid = TRUE, normalize = TRUE
-#'   )
+#'   geom_voronoi_segment()
 #'
 #' # Set a max radius
-#' ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+#' ggplot(iris, aes(Sepal.Length, Sepal.Width, group = -1L)) +
 #'   geom_voronoi_tile(aes(fill = Species), colour = 'black', max.radius = 0.25)
 #'
 #' # Set custom bounding polygon
 #' triangle <- cbind(c(3, 9, 6), c(1, 1, 6))
-#' ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+#' ggplot(iris, aes(Sepal.Length, Sepal.Width, group = -1L)) +
 #'   geom_voronoi_tile(aes(fill = Species), colour = 'black', bound = triangle)
 #'
-#' # Delaunay triangles - interpolation of species
+#' # Use geom_shape functionality to round corners etc
+#' ggplot(iris, aes(Sepal.Length, Sepal.Width, group = -1L)) +
+#'   geom_voronoi_tile(aes(fill = Species), colour = 'black',
+#'                     expand = unit(-.5, 'mm'), radius = unit(2, 'mm'))
+#'
+#' # Delaunay triangles
 #' ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
-#'   geom_delaunay_tile(alpha = 0.3) +
-#'   geom_delaunay_segment2(aes(colour = Species, group = -1))
+#'   geom_delaunay_tile(alpha = 0.3, colour = 'black')
+#'
+#' # Use geom_delauney_segment2 to interpolate aestetics between end points
+#' ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+#'   geom_delaunay_segment2(aes(colour = Species, group = -1), size = 2,
+#'                          lineend = 'round')
 NULL
 
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
 #' @importFrom scales rescale
-#' @importFrom ggplot2 ggproto Stat
+#' @export
 StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
-  compute_panel = function(self, data, scales, bound = NULL, eps = 1e-9,
-                           max.radius = NULL, normalize = FALSE, asp.ratio = 1,
-                           by.group = FALSE) {
+  compute_group = function(self, data, scales, bound = NULL, eps = 1e-9,
+                           max.radius = NULL, normalize = FALSE, asp.ratio = 1) {
     require_deldir()
-    if (by.group) {
-      data <- ggproto_parent(Stat, self)$compute_panel(
-        data = data, scales = scales, bound, eps = eps, normalize = normalize,
-        by.group = by.group
-      )
-      return(data)
-    }
     data$group <- paste0(seq_len(nrow(data)), ':', data$group)
     if (any(duplicated(data[, c('x', 'y')]))) {
       warning('stat_voronoi_tile: dropping duplicated points', call. = FALSE)
@@ -181,39 +177,30 @@ StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
     tiles <- clip_tiles(tiles, max.radius, polybound)
     data$x <- NULL
     data$y <- NULL
-    data <- merge(tiles, data, all = TRUE, sort = FALSE)
+    data <- merge(tiles, data, sort = FALSE, all.x = TRUE)
     if (normalize) {
       data$x <- rescale(data$x / asp.ratio, to = x_range, from = c(0, 1))
       data$y <- rescale(data$y, to = y_range, from = c(0, 1))
     }
     data
   },
-  compute_group = function(self, data, scales, bound = NULL, eps = 1e-9,
-                           normalize = FALSE, by.group = FALSE) {
-    self$compute_panel(
-      data = data, scales = scales, bound, eps = eps, normalize = normalize,
-      by.group = FALSE
-    )
-  },
   required_aes = c('x', 'y')
 )
 
 #' @rdname geom_delvor
-#' @importFrom ggplot2 layer
 #' @inheritParams geom_shape
 #' @export
 geom_voronoi_tile <- function(mapping = NULL, data = NULL, stat = 'voronoi_tile',
                               position = 'identity', na.rm = FALSE, bound = NULL,
                               eps = 1e-9, max.radius = NULL, normalize = FALSE,
-                              asp.ratio = 1, by.group = FALSE, expand = 0,
-                              radius = 0, show.legend = NA, inherit.aes = TRUE,
-                              ...) {
+                              asp.ratio = 1, expand = 0, radius = 0,
+                              show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomShape,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(bound = bound, eps = eps, max.radius = max.radius,
                   normalize = normalize, asp.ratio = asp.ratio, na.rm = na.rm,
-                  by.group = by.group, ...)
+                  expand = expand, radius = radius, ...)
   )
 }
 
@@ -221,28 +208,21 @@ geom_voronoi_tile <- function(mapping = NULL, data = NULL, stat = 'voronoi_tile'
 #' @format NULL
 #' @usage NULL
 #' @importFrom scales rescale
-#' @importFrom ggplot2 ggproto Stat
+#' @export
 StatVoronoiSegment <- ggproto('StatVoronoiSegment', Stat,
-  compute_panel = function(self, data, scales, bound = NULL, eps = 1e-9,
-                           normalize = FALSE, by.group = FALSE) {
+  compute_group = function(self, data, scales, bound = NULL, eps = 1e-9,
+                           normalize = FALSE, asp.ratio = 1) {
     require_deldir()
-    if (by.group) {
-      data <- ggproto_parent(Stat, self)$compute_panel(
-        data = data, scales = scales, bound, eps = eps, normalize = normalize,
-        by.group = by.group
-      )
-      return(data)
-    }
     if (any(duplicated(data[, c('x', 'y')]))) {
       warning('stat_voronoi_segment: dropping duplicated points', call. = FALSE)
     }
     if (normalize) {
       x_range <- range(data$x, na.rm = TRUE, finite = TRUE)
       y_range <- range(data$y, na.rm = TRUE, finite = TRUE)
-      data$x <- rescale(data$x, from = x_range)
+      data$x <- rescale(data$x, from = x_range) * asp.ratio
       data$y <- rescale(data$y, from = y_range)
       if (!is.null(bound)) {
-        bound[1:2] <- rescale(bound[1:2], from = x_range)
+        bound[1:2] <- rescale(bound[1:2], from = x_range) * asp.ratio
         bound[3:4] <- rescale(bound[3:4], from = x_range)
       }
     }
@@ -256,36 +236,28 @@ StatVoronoiSegment <- ggproto('StatVoronoiSegment', Stat,
       data[segments$group, !names(data) %in% c('x', 'y'), drop = FALSE]
     )
     if (normalize) {
-      data$x <- rescale(data$x, to = x_range, from = c(0, 1))
-      data$xend <- rescale(data$xend, to = x_range, from = c(0, 1))
+      data$x <- rescale(data$x / asp.ratio, to = x_range, from = c(0, 1))
+      data$xend <- rescale(data$xend / asp.ratio, to = x_range, from = c(0, 1))
       data$y <- rescale(data$y, to = y_range, from = c(0, 1))
       data$yend <- rescale(data$yend, to = y_range, from = c(0, 1))
     }
     data
   },
-  compute_group = function(self, data, scales, bound = NULL, eps = 1e-9,
-                           normalize = FALSE, by.group = FALSE) {
-    self$compute_panel(
-      data = data, scales = scales, bound, eps = eps, normalize = normalize,
-      by.group = FALSE
-    )
-  },
   required_aes = c('x', 'y')
 )
 
 #' @rdname geom_delvor
-#' @importFrom ggplot2 layer GeomSegment
 #' @export
 geom_voronoi_segment <- function(mapping = NULL, data = NULL,
                                  stat = 'voronoi_segment', position = 'identity',
                                  na.rm = FALSE, bound = NULL, eps = 1e-9,
-                                 normalize = FALSE, by.group = FALSE,
+                                 normalize = FALSE, asp.ratio = 1,
                                  show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomSegment,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm,
-                  by.group = by.group, ...)
+    params = list(bound = bound, eps = eps, normalize = normalize,
+                  asp.ratio = asp.ratio, na.rm = na.rm, ...)
   )
 }
 
@@ -293,18 +265,18 @@ geom_voronoi_segment <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @importFrom scales rescale
-#' @importFrom ggplot2 ggproto Stat
+#' @export
 StatDelaunayTile <- ggproto('StatDelaunayTile', Stat,
   compute_panel = function(data, scales, bound = NULL, eps = 1e-9,
-                           normalize = FALSE) {
+                           normalize = FALSE, asp.ratio = 1) {
     require_deldir()
     if (normalize) {
       x_range <- range(data$x, na.rm = TRUE, finite = TRUE)
       y_range <- range(data$y, na.rm = TRUE, finite = TRUE)
-      data$x <- rescale(data$x, from = x_range)
+      data$x <- rescale(data$x, from = x_range) * asp.ratio
       data$y <- rescale(data$y, from = y_range)
       if (!is.null(bound)) {
-        bound[1:2] <- rescale(bound[1:2], from = x_range)
+        bound[1:2] <- rescale(bound[1:2], from = x_range) * asp.ratio
         bound[3:4] <- rescale(bound[3:4], from = x_range)
       }
     }
@@ -324,7 +296,7 @@ StatDelaunayTile <- ggproto('StatDelaunayTile', Stat,
     }
     data <- do.call(rbind, data)
     if (normalize) {
-      data$x <- rescale(data$x, to = x_range, from = c(0, 1))
+      data$x <- rescale(data$x / asp.ratio, to = x_range, from = c(0, 1))
       data$y <- rescale(data$y, to = y_range, from = c(0, 1))
     }
     data
@@ -333,19 +305,20 @@ StatDelaunayTile <- ggproto('StatDelaunayTile', Stat,
 )
 
 #' @rdname geom_delvor
-#' @importFrom ggplot2 layer
 #' @inheritParams geom_shape
 #' @export
 geom_delaunay_tile <- function(mapping = NULL, data = NULL,
                                stat = 'delaunay_tile', position = 'identity',
                                na.rm = FALSE, bound = NULL, eps = 1e-9,
-                               normalize = FALSE, expand = 0, radius = 0,
-                               show.legend = NA, inherit.aes = TRUE, ...) {
+                               normalize = FALSE, asp.ratio = 1, expand = 0,
+                               radius = 0, show.legend = NA, inherit.aes = TRUE,
+                               ...) {
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomShape,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm,
-                  ...)
+    params = list(bound = bound, eps = eps, normalize = normalize,
+                  asp.ratio = asp.ratio, expand = expand, radius = radius,
+                  na.rm = na.rm, ...)
   )
 }
 
@@ -353,10 +326,10 @@ geom_delaunay_tile <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @importFrom scales rescale
-#' @importFrom ggplot2 ggproto Stat
+#' @export
 StatDelaunaySegment <- ggproto('StatDelaunaySegment', Stat,
   compute_group = function(data, scales, bound = NULL, eps = 1e-9,
-                           normalize = FALSE) {
+                           normalize = FALSE, asp.ratio = 1) {
     require_deldir()
     if (any(duplicated(data[, c('x', 'y')]))) {
       warning('stat_delaunay_segment: dropping duplicated points',
@@ -365,10 +338,10 @@ StatDelaunaySegment <- ggproto('StatDelaunaySegment', Stat,
     if (normalize) {
       x_range <- range(data$x, na.rm = TRUE, finite = TRUE)
       y_range <- range(data$y, na.rm = TRUE, finite = TRUE)
-      data$x <- rescale(data$x, from = x_range)
+      data$x <- rescale(data$x, from = x_range) * asp.ratio
       data$y <- rescale(data$y, from = y_range)
       if (!is.null(bound)) {
-        bound[1:2] <- rescale(bound[1:2], from = x_range)
+        bound[1:2] <- rescale(bound[1:2], from = x_range) * asp.ratio
         bound[3:4] <- rescale(bound[3:4], from = x_range)
       }
     }
@@ -382,8 +355,8 @@ StatDelaunaySegment <- ggproto('StatDelaunaySegment', Stat,
       data[segments$group, !names(data) %in% c('x', 'y'), drop = FALSE]
     )
     if (normalize) {
-      data$x <- rescale(data$x, to = x_range, from = c(0, 1))
-      data$xend <- rescale(data$xend, to = x_range, from = c(0, 1))
+      data$x <- rescale(data$x / asp.ratio, to = x_range, from = c(0, 1))
+      data$xend <- rescale(data$xend / asp.ratio, to = x_range, from = c(0, 1))
       data$y <- rescale(data$y, to = y_range, from = c(0, 1))
       data$yend <- rescale(data$yend, to = y_range, from = c(0, 1))
     }
@@ -393,19 +366,18 @@ StatDelaunaySegment <- ggproto('StatDelaunaySegment', Stat,
 )
 
 #' @rdname geom_delvor
-#' @importFrom ggplot2 layer GeomSegment
 #' @export
 geom_delaunay_segment <- function(mapping = NULL, data = NULL,
                                   stat = 'delaunay_segment',
                                   position = 'identity', na.rm = FALSE,
-                                  bound = NULL, eps = 1e-9,
-                                  normalize = normalize, show.legend = NA,
+                                  bound = NULL, eps = 1e-9, normalize = FALSE,
+                                  asp.ratio = 1, show.legend = NA,
                                   inherit.aes = TRUE, ...) {
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomSegment,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm,
-                  ...)
+                  asp.ratio = asp.ratio, ...)
   )
 }
 
@@ -413,10 +385,10 @@ geom_delaunay_segment <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @importFrom scales rescale
-#' @importFrom ggplot2 ggproto Stat
+#' @export
 StatDelaunaySegment2 <- ggproto('StatDelaunaySegment2', Stat,
   compute_group = function(data, scales, bound = NULL, eps = 1e-9, n = 100,
-                           normalize = FALSE) {
+                           normalize = FALSE, asp.ratio = 1) {
     require_deldir()
     if (any(duplicated(data[, c('x', 'y')]))) {
       warning('stat_delaunay_segment2: dropping duplicated points',
@@ -425,10 +397,10 @@ StatDelaunaySegment2 <- ggproto('StatDelaunaySegment2', Stat,
     if (normalize) {
       x_range <- range(data$x, na.rm = TRUE, finite = TRUE)
       y_range <- range(data$y, na.rm = TRUE, finite = TRUE)
-      data$x <- rescale(data$x, from = x_range)
+      data$x <- rescale(data$x, from = x_range) * asp.ratio
       data$y <- rescale(data$y, from = y_range)
       if (!is.null(bound)) {
-        bound[1:2] <- rescale(bound[1:2], from = x_range)
+        bound[1:2] <- rescale(bound[1:2], from = x_range) * asp.ratio
         bound[3:4] <- rescale(bound[3:4], from = x_range)
       }
     }
@@ -446,7 +418,7 @@ StatDelaunaySegment2 <- ggproto('StatDelaunaySegment2', Stat,
     segments$group <- rep(seq_len(nrow(vor$delsgs)), 2)
     segments <- segments[order(segments$group), ]
     if (normalize) {
-      segments$x <- rescale(segments$x, to = x_range, from = c(0, 1))
+      segments$x <- rescale(segments$x / asp.ratio, to = x_range, from = c(0, 1))
       segments$y <- rescale(segments$y, to = y_range, from = c(0, 1))
     }
     StatLink2$compute_panel(segments, scales, n)
@@ -455,19 +427,18 @@ StatDelaunaySegment2 <- ggproto('StatDelaunaySegment2', Stat,
 )
 
 #' @rdname geom_delvor
-#' @importFrom ggplot2 layer GeomSegment
 #' @export
 geom_delaunay_segment2 <- function(mapping = NULL, data = NULL,
                                    stat = 'delaunay_segment2',
                                    position = 'identity', na.rm = FALSE,
                                    bound = NULL, eps = 1e-9, normalize = FALSE,
-                                   n = 100, show.legend = NA, inherit.aes = TRUE,
-                                   ...) {
+                                   asp.ratio = 1, n = 100, show.legend = NA,
+                                   inherit.aes = TRUE, ...) {
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomPathInterpolate,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(bound = bound, eps = eps, normalize = normalize, n = n,
-                  na.rm = na.rm, ...)
+    params = list(bound = bound, eps = eps, normalize = normalize,
+                  asp.ratio = asp.ratio, n = n, na.rm = na.rm, ...)
   )
 }
 
@@ -475,23 +446,23 @@ geom_delaunay_segment2 <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @importFrom scales rescale
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatDelvorSummary <- ggproto('StatDelvorSummary', Stat,
   compute_group = function(data, scales, bound = NULL, eps = 1e-9,
-                           switch.centroid = FALSE, normalize = FALSE) {
+                           switch.centroid = FALSE, normalize = FALSE,
+                           asp.ratio = 1) {
     require_deldir()
     if (any(duplicated(data[, c('x', 'y')]))) {
-      warning('stat_delaunay_segment2: dropping duplicated points',
+      warning('stat_delvor_summary: dropping duplicated points',
               call. = FALSE)
     }
     if (normalize) {
       x_range <- range(data$x, na.rm = TRUE, finite = TRUE)
       y_range <- range(data$y, na.rm = TRUE, finite = TRUE)
-      data$x <- rescale(data$x, from = x_range)
+      data$x <- rescale(data$x, from = x_range) * asp.ratio
       data$y <- rescale(data$y, from = y_range)
       if (!is.null(bound)) {
-        bound[1:2] <- rescale(bound[1:2], from = x_range)
+        bound[1:2] <- rescale(bound[1:2], from = x_range) * asp.ratio
         bound[3:4] <- rescale(bound[3:4], from = x_range)
       }
     }
@@ -507,8 +478,8 @@ StatDelvorSummary <- ggproto('StatDelvorSummary', Stat,
       vor$summary[, !names(vor$summary) %in% c('x', 'y'), drop = FALSE]
     )
     if (normalize) {
-      data$x <- rescale(data$x, to = x_range, from = c(0, 1))
-      data$xcent <- rescale(data$xcent, to = x_range, from = c(0, 1))
+      data$x <- rescale(data$x / asp.ratio, to = x_range, from = c(0, 1))
+      data$xcent <- rescale(data$xcent / asp.ratio, to = x_range, from = c(0, 1))
       data$y <- rescale(data$y, to = y_range, from = c(0, 1))
       data$ycent <- rescale(data$ycent, to = y_range, from = c(0, 1))
     }
@@ -522,17 +493,17 @@ StatDelvorSummary <- ggproto('StatDelvorSummary', Stat,
 )
 
 #' @rdname geom_delvor
-#' @importFrom ggplot2 layer GeomSegment
 #' @export
 stat_delvor_summary <- function(mapping = NULL, data = NULL, geom = 'point',
                                 position = 'identity', na.rm = FALSE,
                                 bound = NULL, eps = 1e-9, normalize = FALSE,
-                                show.legend = NA, inherit.aes = TRUE, ...) {
+                                asp.ratio = asp.ratio, show.legend = NA,
+                                inherit.aes = TRUE, ...) {
   layer(
     data = data, mapping = mapping, stat = StatDelvorSummary, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm,
-                  ...)
+                  asp.ratio = asp.ratio, ...)
   )
 }
 
