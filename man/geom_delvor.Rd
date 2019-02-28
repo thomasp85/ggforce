@@ -205,8 +205,17 @@ triangle <- cbind(c(3, 9, 6), c(1, 1, 6))
 ggplot(iris, aes(Sepal.Length, Sepal.Width, group = -1L)) +
   geom_voronoi_tile(aes(fill = Species), colour = 'black', bound = triangle)
 
-# Delaunay triangles - interpolation of species
+# Use geom_shape functionality to round corners etc
+ggplot(iris, aes(Sepal.Length, Sepal.Width, group = -1L)) +
+  geom_voronoi_tile(aes(fill = Species), colour = 'black',
+                    expand = unit(-.5, 'mm'), radius = unit(2, 'mm'))
+
+# Delaunay triangles
 ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
-  geom_delaunay_tile(alpha = 0.3) +
-  geom_delaunay_segment2(aes(colour = Species, group = -1))
+  geom_delaunay_tile(alpha = 0.3, colour = 'black')
+
+# Use geom_delauney_segment2 to interpolate aestetics between end points
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+  geom_delaunay_segment2(aes(colour = Species, group = -1), size = 2,
+                         lineend = 'round')
 }
