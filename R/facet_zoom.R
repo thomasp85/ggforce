@@ -205,8 +205,11 @@ FacetZoom <- ggproto('FacetZoom', Facet,
     data$PANEL <- factor(data$PANEL, layout$PANEL)
     data
   },
-  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord,
-                           data, theme, params) {
+  draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord,
+                         data, theme, params) {
+    if (inherits(coord, 'CoordFlip')) {
+      stop('facet_zoom currently doesn\'t work with flipped scales', call. = FALSE)
+    }
     if (is.null(params$x) && is.null(params$xlim)) {
       params$horizontal <- TRUE
     } else if (is.null(params$y) && is.null(params$ylim)) {
