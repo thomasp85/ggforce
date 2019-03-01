@@ -203,7 +203,7 @@ ggplot(iris, aes(Petal.Length, Petal.Width)) +
 # marks
 ggplot(iris, aes(Petal.Length, Petal.Width)) +
   geom_mark_circle(aes(fill = Species, label = Species),
-                   label.buffer = unit(40, 'mm')) +
+                   label.buffer = unit(30, 'mm')) +
   geom_point()
 
 # The connector is capped a bit before it reaches the mark, but this can be
