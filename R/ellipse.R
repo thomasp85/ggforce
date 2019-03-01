@@ -36,24 +36,24 @@
 #'
 #' @param n The number of points to sample along the ellipse.
 #'
-#' @name geom_ellipsis
-#' @rdname geom_ellipsis
+#' @name geom_ellipse
+#' @rdname geom_ellipse
 #'
 #' @examples
 #' # Basic usage
 #' ggplot() +
-#'   geom_ellipsis(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = 0)) +
+#'   geom_ellipse(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = 0)) +
 #'   coord_fixed()
 #'
 #' # Rotation
 #' # Note that it expects radians and rotates the ellipse counter-clockwise
 #' ggplot() +
-#'   geom_ellipsis(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = pi / 4)) +
+#'   geom_ellipse(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = pi / 4)) +
 #'   coord_fixed()
 #'
 #' # Draw a super ellipse
 #' ggplot() +
-#'   geom_ellipsis(aes(x0 = 0, y0 = 0, a = 6, b = 3, angle = -pi / 3, m1 = 3)) +
+#'   geom_ellipse(aes(x0 = 0, y0 = 0, a = 6, b = 3, angle = -pi / 3, m1 = 3)) +
 #'   coord_fixed()
 NULL
 
@@ -61,7 +61,7 @@ NULL
 #' @format NULL
 #' @usage NULL
 #' @export
-StatEllipsis <- ggproto('StatEllipsis', Stat,
+StatEllipse <- ggproto('StatEllipse', Stat,
   setup_data = function(data, params) {
     data$m1 <- ifelse(is.null(data$m1), 2, data$m1)
     data$m2 <- ifelse(is.null(data$m2), data$m1, data$m2)
@@ -86,23 +86,23 @@ StatEllipsis <- ggproto('StatEllipsis', Stat,
   default_aes = aes(m1 = NA, m2 = NA),
   extra_params = c('n', 'na.rm')
 )
-#' @rdname geom_ellipsis
+#' @rdname geom_ellipse
 #' @export
-stat_ellipsis <- function(mapping = NULL, data = NULL, geom = 'circle',
-                          position = 'identity', n = 360, na.rm = FALSE,
-                          show.legend = NA, inherit.aes = TRUE, ...) {
+stat_ellipse <- function(mapping = NULL, data = NULL, geom = 'circle',
+                         position = 'identity', n = 360, na.rm = FALSE,
+                         show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
-    stat = StatEllipsis, data = data, mapping = mapping, geom = geom,
+    stat = StatEllipse, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(na.rm = na.rm, n = n, ...)
   )
 }
 
-#' @rdname geom_ellipsis
+#' @rdname geom_ellipse
 #' @export
-geom_ellipsis <- function(mapping = NULL, data = NULL, stat = 'ellipsis',
-                          position = 'identity', n = 360, na.rm = FALSE,
-                          show.legend = NA, inherit.aes = TRUE, ...) {
+geom_ellipse <- function(mapping = NULL, data = NULL, stat = 'ellipse',
+                         position = 'identity', n = 360, na.rm = FALSE,
+                         show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomCircle,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
