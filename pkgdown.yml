@@ -4,6 +4,6 @@ pkgdown_sha: ~
 articles:
   Visual_Guide: Visual_Guide.html
 urls:
-  reference: http://ggforce.data-imaginist.com/reference
-  article: http://ggforce.data-imaginist.com/articles
+  reference: https://ggforce.data-imaginist.com/reference
+  article: https://ggforce.data-imaginist.com/articles
 
