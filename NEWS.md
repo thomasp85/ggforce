@@ -21,6 +21,7 @@ panel
   optionally add textual annotation to it
 - Slimmed down the dependencies for the package. `plyr`, `lazyeval` and `dplyr`
   has all been removed
+- Rewrite `geom_sina` to match `geom_violin` and allow for dodging
 
 # ggforce 0.1.1
 

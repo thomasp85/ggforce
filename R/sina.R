@@ -10,11 +10,10 @@
 #' \itemize{
 #'  \item{`method == "density"`
 #'
-#'    A density kernel is estimated along the y-axis for every sample group. The
-#'    borders are then defined by the density curve. Tuning parameter
-#'    `adjust` can be used to control the density bandwidth in the same way
-#'    it is used in [stats::density()]. }
-#'
+#'    A density kernel is estimated along the y-axis for every sample group, and
+#'    the samples are spread within that curve. In effect this means that points
+#'    will be positioned randomly within a violin plot with the same parameters.
+#'  }
 #'  \item{`method == "counts"`:
 #'
 #'    The borders are defined by the number of samples that occupy the same bin.
@@ -35,17 +34,18 @@
 #'
 #' @inheritParams ggplot2::geom_path
 #' @inheritParams ggplot2::stat_identity
+#' @inheritParams stats::density
 #'
-#' @param binwidth The width of the bins. The default is to use `bins`
-#'   bins that cover the range of the data. You should always override
-#'   this value, exploring multiple widths to find the best to illustrate the
-#'   stories in your data.
+#' @param scale How should each sina be scaled. Corresponds to the `scale`
+#' parameter in [ggplot2::geom_violin()]? Available are:
 #'
-#' @param bins Number of bins. Overridden by binwidth. Defaults to 50.
+#' - `'area'` for scaling by the largest density/bin among the different sinas
+#' - `'count'` as above, but in addition scales by the maximum number of points
+#'   in the different sinas.
+#' - `'width'` Only scale according to the `maxwidth` parameter
 #'
-#' @param scale Logical. When set to `TRUE` x-coordinate widths across all
-#' groups are scaled based on the densiest area in the plot.
-#' Default: `TRUE`
+#' For backwards compatibility it can also be a logical with `TRUE` meaning
+#' `area` and `FALSE` meaning `width`
 #'
 #' @param method Choose the method to spread the samples within the same
 #' bin along the x-axis. Available methods: "density", "counts" (can be
@@ -54,13 +54,19 @@
 #' @param maxwidth Control the maximum width the points can spread into. Values
 #' between 0 and 1.
 #'
-#' @param adjust Adjusts the bandwidth of the density kernel when
-#' `method == "density"` (see [stats::density()]).
-#'
 #' @param bin_limit If the samples within the same y-axis bin are more
 #' than `bin_limit`, the samples's X coordinates will be adjusted.
 #'
-#' @author Nikos Sidiropoulos
+#' @param binwidth The width of the bins. The default is to use `bins`
+#'   bins that cover the range of the data. You should always override
+#'   this value, exploring multiple widths to find the best to illustrate the
+#'   stories in your data.
+#'
+#' @param bins Number of bins. Overridden by binwidth. Defaults to 50.
+#'
+#' @param seed A seed to set for the jitter to ensure a reproducible plot
+#'
+#' @author Nikos Sidiropoulos, Claus Wilke, and Thomas Lin Pedersen
 #'
 #' @name geom_sina
 #' @rdname geom_sina
@@ -68,8 +74,9 @@
 #' @section Computed variables:
 #'
 #' \describe{
-#'   \item{bin_counts}{sample counts per bin per group}
-#'   \item{scaled}{adjusted x-coordinates}
+#'   \item{density}{The density or sample counts per bin for each point}
+#'   \item{scaled}{`density` scaled by the maximum density in each group}
+#'   \item{n}{The number of points in the group the point belong to}
 #' }
 #'
 #'
@@ -153,8 +160,6 @@ NULL
 StatSina <- ggproto('StatSina', Stat,
   required_aes = c('x', 'y'),
 
-  default_aes = aes(xend = ..scaled..),
-
   setup_data = function(data, params) {
     if (is.double(data$x) && !.has_groups(data) && any(data$x != data$x[1L])) {
       stop('Continuous x aesthetic -- did you forget aes(group=...)?',
@@ -166,13 +171,7 @@ StatSina <- ggproto('StatSina', Stat,
   },
 
   setup_params = function(data, params) {
-    # Limit maxwidth to 0.96 to leave some space between groups
-    if (!is.null(params$maxwidth)) {
-      params$maxwidth <- abs(params$maxwidth)
-    } # needs to be positive
-    else {
-      params$maxwidth <- 0.96
-    }
+    params$maxwidth <- params$maxwidth %||% (resolution(data$x %||% 0) * 0.9)
 
     if (is.null(params$binwidth) && is.null(params$bins)) {
       params$bins <- 50
@@ -181,9 +180,11 @@ StatSina <- ggproto('StatSina', Stat,
     params
   },
 
-  compute_panel = function(self, data, scales, binwidth = NULL, bins = NULL,
-                             scale = TRUE, method = 'density', maxwidth = NULL,
-                             adjust = 1, bin_limit = 1, na.rm = FALSE) {
+  compute_panel = function(self, data, scales, scale = TRUE, method = 'density',
+                           bw = 'nrd0', kernel = 'gaussian', binwidth = NULL,
+                           bins = NULL, maxwidth = 1, adjust = 1, bin_limit = 1,
+                           seed = NA) {
+
     if (!is.null(binwidth)) {
       bins <- bin_breaks_width(scales$y$dimension() + 1e-8, binwidth)
     } else {
@@ -191,20 +192,36 @@ StatSina <- ggproto('StatSina', Stat,
     }
 
     data <- ggproto_parent(Stat, self)$compute_panel(data, scales,
-      scale = scale, method = method, maxwidth = maxwidth, adjust = adjust,
-      bin_limit = bin_limit, bins = bins$breaks, na.rm = na.rm
+      scale = scale, method = method, bw = bw, kernel = kernel,
+      bins = bins$breaks, maxwidth = maxwidth, adjust = adjust,
+      bin_limit = bin_limit)
+
+    if (is.logical(scale)) {
+      scale <- if (scale) 'area' else 'width'
+    }
+    # choose how sinas are scaled relative to each other
+    data$sinawidth <- switch(
+      scale,
+      # area : keep the original densities but scale them to a max width of 1
+      #        for plotting purposes only
+      area = data$density / max(data$density),
+      # count: use the original densities scaled to a maximum of 1 (as above)
+      #        and then scale them according to the number of observations
+      count = data$density / max(data$density) * data$n / max(data$n),
+      # width: constant width (each density scaled to a maximum of 1)
+      width = data$scaled
     )
 
-    # scale all bins based on their density relative to the densiest bin
-    if (scale) {
-      group_scaling_factor <- tapply(data$bin_counts, data$group, max) / max(data$bin_counts)
-      group_scaling_factor <- group_scaling_factor[data$group]
-    } else {
-      group_scaling_factor <- 1
+    if (!is.na(seed)) {
+      new_seed <- sample(.Machine$integer.max, 1L)
+      set.seed(seed)
+      on.exit(set.seed(new_seed))
     }
-
-    data$scaled <- data$x + data$x_translation * group_scaling_factor
-    data$x_translation <- NULL
+    data$xmin <- data$x - maxwidth / 2
+    data$xmax <- data$x + maxwidth / 2
+    data$x_diff <- runif(nrow(data), min = -1, max = 1) *
+      maxwidth * data$sinawidth/2
+    data$width <- maxwidth
 
     # jitter y values if the input is input is integer
     if (all(data$y == floor(data$y))) {
@@ -215,83 +232,59 @@ StatSina <- ggproto('StatSina', Stat,
   },
 
   compute_group = function(data, scales, scale = TRUE, method = 'density',
-                             maxwidth = NULL, adjust = 1, bin_limit = 1,
-                             bins = NULL, na.rm = FALSE) {
+                           bw = 'nrd0', kernel = 'gaussian',
+                           maxwidth = 1, adjust = 1, bin_limit = 1,
+                           bins = NULL) {
+    if (nrow(data) == 0) return(NULL)
 
-    # initialize x_translation and bin_counts to 0
-    data$x_translation <- data$bin_counts <- rep(0, nrow(data))
+    if (nrow(data) < 3) {
+      data$density <- 0
+      data$scaled <- 1
+    } else if (method == 'density') { # density kernel estimation
+      range <- range(data$y, na.rm = TRUE)
+      bw <- calc_bw(data$y, bw)
+      dens <- compute_density(data$y, data$w, from = range[1], to = range[2],
+                              bw = bw, adjust = adjust, kernel = kernel)
+      densf <- stats::approxfun(dens$x, dens$density, rule = 2)
 
-    # if group has less than 2 points return as is
-    if (nrow(data) < 2) {
-      data$bin_counts <- 1
-      return(data)
+      data$density <- densf(data$y)
+      data$scaled <- data$density / max(dens$density)
+
+      data
+    } else { # bin based estimation
+      bin_index <- cut(data$y, bins, include.lowest = TRUE, labels = FALSE)
+      data$density <- tapply(bin_index, bin_index, length)[as.character(bin_index)]
+      data$density[data$density <= bin_limit] <- 0
+      data$scaled <- data$density / max(data$density)
     }
 
-    # per bin sample count
-    bin_counts <- table(findInterval(data$y, bins))
-
-    # per bin sample density
-    if (method == 'density') {
-      densities <- stats::density(data$y, adjust = adjust)
-
-      # confine the samples in a (-maxwidth/2, -maxwidth/2) area around the
-      # group's center
-      intra_scaling_factor <- 0.5 * maxwidth / max(densities$y)
-
-      data$bin <- findInterval(data$y, densities$x)
-
-      data$bin_counts <- as.numeric(bin_counts[match(
-        findInterval(data$y, bins),
-        names(bin_counts)
-      )])
-
-      x_translation <- sapply(densities$y[data$bin], jitter, x = 0, factor = 1)
-      data$x_translation <- x_translation * intra_scaling_factor
-
-      data$bin <- NULL
+    # Compute width if x has multiple values
+    if (length(unique(data$x)) > 1) {
+      width <- diff(range(data$x)) * maxwidth
     } else {
-      # allow up to 50 samples in a bin without scaling
-      intra_scaling_factor <- 50 * maxwidth / max(bin_counts)
-
-      for (i in names(bin_counts)) {
-        # examine bins with more than 'bin_limit' samples
-        if (bin_counts[i] > bin_limit) {
-          cur_bin <- bins[ as.integer(i):(as.integer(i) + 1)]
-
-          # find samples in the current bin and translate their X coord.
-          points <- findInterval(data$y, cur_bin) == 1
-
-          # compute the border margin for the current bin.
-          xmax <- bin_counts[i] / 100
-
-          # assign the samples uniformely within the specified range
-          x_translation <- stats::runif(bin_counts[i], -xmax, xmax)
-
-          # scale and store new x coordinates
-          data$x_translation[points] <- x_translation * intra_scaling_factor
-          # store bin counts. Used for group-wise scaling.
-          data$bin_counts[points] <- bin_counts[i]
-        }
-      }
+      width <- maxwidth
     }
+    data$width <- width
+    data$n <- nrow(data)
+    data$x <- mean(range(data$x))
     data
-  }
+  },
+  finish_layer = function(data, params) {
+    # rescale x in case positions have been adjusted
+    x_mod <- (data$xmax - data$xmin) / data$width
+    data$x <- data$x + data$x_diff * x_mod
+    data
+  },
+  extra_params = 'na.rm'
 )
 
 #' @rdname geom_sina
 #' @export
-stat_sina <- function(mapping = NULL, data = NULL,
-                      geom = 'sina', position = 'identity',
-                      ...,
-                      binwidth = NULL,
-                      bins = NULL,
-                      scale = TRUE,
-                      method = 'density',
-                      maxwidth = NULL,
-                      adjust = 1,
-                      bin_limit = 1,
-                      na.rm = FALSE,
-                      show.legend = NA,
+stat_sina <- function(mapping = NULL, data = NULL, geom = 'sina',
+                      position = 'dodge', scale = 'area', method = 'density',
+                      bw = 'nrd0', kernel = 'gaussian', maxwidth = NULL,
+                      adjust = 1, bin_limit = 1, binwidth = NULL, bins = NULL,
+                      seed = NA, ..., na.rm = FALSE, show.legend = NA,
                       inherit.aes = TRUE) {
   method <- match.arg(method, c('density', 'counts'))
 
@@ -303,35 +296,16 @@ stat_sina <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
-      binwidth = binwidth,
-      bins = bins,
-      scale = scale,
-      method = method,
-      maxwidth = maxwidth,
-      adjust = adjust,
-      bin_limit = bin_limit,
-      na.rm = na.rm,
-      ...
-    )
+    params = list(scale = scale, method = method, bw = bw, kernel = kernel,
+      maxwidth = maxwidth, adjust = adjust, bin_limit = bin_limit,
+      binwidth = binwidth, bins = bins, seed = seed, na.rm = na.rm, ...)
   )
 }
-
-#' @rdname ggforce-extensions
-#' @format NULL
-#' @usage NULL
-#' @export
-GeomSina <- ggproto('GeomSina', GeomPoint,
-  setup_data = function(data, params) {
-    transform(data, x = xend)
-  }
-)
-
 
 #' @rdname geom_sina
 #' @export
 geom_sina <- function(mapping = NULL, data = NULL,
-                      stat = 'sina', position = 'identity',
+                      stat = 'sina', position = 'dodge',
                       ...,
                       na.rm = FALSE,
                       show.legend = NA,
@@ -340,7 +314,7 @@ geom_sina <- function(mapping = NULL, data = NULL,
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomSina,
+    geom = GeomPoint,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -379,6 +353,58 @@ bins <- function(breaks, closed = c('right', 'left'),
 }
 
 # Compute parameters -----------------------------------------------------------
+
+# from ggplot2
+compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
+                            kernel = "gaussian", n = 512) {
+  nx <- length(x)
+  if (is.null(w)) {
+    w <- rep(1 / nx, nx)
+  }
+
+  # if less than 2 points return data frame of NAs and a warning
+  if (nx < 2) {
+    warning("Groups with fewer than two data points have been dropped.", call. = FALSE)
+    return(new_data_frame(list(
+      x = NA_real_,
+      density = NA_real_,
+      scaled = NA_real_,
+      ndensity = NA_real_,
+      count = NA_real_,
+      n = NA_integer_
+    ), n = 1))
+  }
+
+  dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
+                         kernel = kernel, n = n, from = from, to = to)
+
+  new_data_frame(list(
+    x = dens$x,
+    density = dens$y,
+    scaled =  dens$y / max(dens$y, na.rm = TRUE),
+    ndensity = dens$y / max(dens$y, na.rm = TRUE),
+    count =   dens$y * nx,
+    n = nx
+  ), n = length(dens$x))
+}
+calc_bw <- function(x, bw) {
+  if (is.character(bw)) {
+    if (length(x) < 2)
+      stop("need at least 2 points to select a bandwidth automatically", call. = FALSE)
+    bw <- switch(
+      tolower(bw),
+      nrd0 = stats::bw.nrd0(x),
+      nrd = stats::bw.nrd(x),
+      ucv = stats::bw.ucv(x),
+      bcv = stats::bw.bcv(x),
+      sj = ,
+      `sj-ste` = stats::bw.SJ(x, method = "ste"),
+      `sj-dpi` = stats::bw.SJ(x, method = "dpi"),
+      stop("unknown bandwidth rule")
+    )
+  }
+  bw
+}
 
 bin_breaks <- function(breaks, closed = c('right', 'left')) {
   bins(breaks, closed)
