@@ -164,15 +164,8 @@ shapeGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
     gp = gp, vp = vp, cl = 'shape'
   )
 }
-#' Reactive behaviour for shapeGrob
-#'
-#' This function defines the way shapeGrob expands and round its polygons
-#'
-#' @param x A shape grob
-#'
 #' @importFrom grid convertX convertY convertWidth
 #' @importFrom polyclip polyoffset polylineoffset
-#' @keywords internal
 #' @export
 makeContent.shape <- function(x) {
   id.length <- lengths(split(seq_along(x$id), x$id))
