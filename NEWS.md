@@ -1,27 +1,49 @@
 # ggforce 0.1.1.99
-- `facet_[wrap|grid]_paginate` will now try to make panels on the last page the
-same size as on full pages (#7)
-- `facet_zoom` now gains `xlim` and `ylim` arguments to control zoom range 
-directly
-- `facet_zoom` now gains `zoom.data` to control which data gets plotted in which 
-panel
+
+## New features
 - `linear_trans` for composing linear transformation using `rotate`, `stretch`, 
-`shear`, `reflect`, and `translate`
-- `facet_stereo` for creating stereographic projections
+  `shear`, `reflect`, and `translate`
+- `facet_stereo` added for creating stereographic projections
 - `geom_voronoi_[tile|segment]`, `geom_delaunay_[tile|segment|segment2]`, and
-`stat_delvor_summary` has been added for tesselation and triangulation.
+  `stat_delvor_summary` has been added for tesselation and triangulation.
 - `geom_spiro` has been added for drawing spirographs
 - Add `geom_ellipse` for drawing regular and superellipses
 - Add `geom_regon` for drawing regular polygons
 - Add `geom_diagonal`, `geom_diagonal_wide` and `geom_parallel_sets` for drawing
   parallel sets diagrams and other visualizations based on diagonals.
 - Add `geom_shape` for drawing polygons with rounded corners and 
-  expanded/contracted sides. `geom_shape` replaces all `geom_polygon` internally.
+  expanded/contracted sides. `geom_shape` replaces all `geom_polygon` 
+  internally.
+- Added `geom_bspline_closed` to draw polygons defined as b-splines
 - Add `geom_mark_[rect|circle|ellipse|hull]` to encircle a group of points and
   optionally add textual annotation to it
+- Add `position_jitternormal` to jitter points based on a normal distribution
+  (@andrewheiss)
+
+## Improvements
+- `facet_[wrap|grid]_paginate` will now try to make panels on the last page the
+  same size as on full pages (#7)
+- `facet_zoom` now gains `xlim` and `ylim` arguments to control zoom range 
+  directly
+- `facet_zoom` now gains `zoom.data` to control which data gets plotted in which 
+  panel
 - Slimmed down the dependencies for the package. `plyr`, `lazyeval` and `dplyr`
   has all been removed
 - Rewrite `geom_sina` to match `geom_violin` and allow for dodging
+- Add `open`/`clamped` option to `geom_bspline
+
+## Bug fixes
+- Fix interpolation of `x` and `y` values in `geom_link2` (@thomasp85 and 
+  @lepennec)
+- `stat_link` no longer replicates the group column
+- arcs and links no longer rename aesthetics when only one aesthetic is present
+  (`drop = FALSE`)
+- `stat_bezier0` and `stat_bezier2` now return data in the expected format
+- Fix bug with `n_pages` due to internal changes in ggplot2
+- Fix bug in `facet_zoom` in combination with secondary y-axis where the space for 
+  the y-axis would become huge
+- Correctly detect and error out when scales and coords does not work with 
+  `facet_zoom`
 
 # ggforce 0.1.1
 

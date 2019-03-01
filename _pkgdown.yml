@@ -7,7 +7,7 @@ authors:
 
 template:
   params:
-    bootswatch: slate
+    bootswatch: sandstone
 
 navbar:
   left:
@@ -33,7 +33,7 @@ reference:
       Shapes are, in essence, anything with volume. These geoms allow you to
       draw differnt types of parameterised shapes, all taking advantage of the
       benefit of the `geom_shape` improvements to `geom_polygon`.
-    content:
+    contents:
       - geom_shape
       - geom_circle
       - geom_ellipse
@@ -49,7 +49,7 @@ reference:
       Many of them have several versions depending on whether you want to show
       gradients along the lines, interpolate between endpoint aesthetics, or
       simply have a barebone version.
-    content:
+    contents:
       - geom_link
       - geom_arc
       - geom_bezier
@@ -64,7 +64,7 @@ reference:
       geoms that makes it easy to draw attention to, and describe, features of
       the plot. They all work in the same way, but differ in the way they
       enclose the area you want to draw attention to.
-    content:
+    contents:
       - geom_mark_rect
       - geom_mark_circle
       - geom_mark_ellipse
@@ -74,7 +74,7 @@ reference:
       Facets are one of the greatest things in ggplot2, and ggforce comes with
       more of the awesomeness, both with variants of `facet_grid` and
       `facet_wrap`, as well as completely new takes on faceting.
-    content:
+    contents:
       - facet_zoom
       - facet_wrap_paginate
       - facet_grid_paginate
@@ -83,7 +83,7 @@ reference:
     desc: >
       While separate packages comes with different palettes for already
       established scales, ggforce provides two completely new ones.
-    content:
+    contents:
       - scale_x_unit
       - scale_depth
   - title: "Transformations"
@@ -91,7 +91,7 @@ reference:
       Transformations can both be used to transform scales and coordinate
       systems but can also be used more broadly for describing specific types of
       spatial transformation of data.
-    content:
+    contents:
       - trans_reverser
       - power_trans
       - radial_trans
@@ -100,7 +100,8 @@ reference:
     desc: >
       ggforce contains an assortment of various stuff that doesn't fit into a
       bigger bucket. That doesn't make it any less useful.
-    content:
+    contents:
       - geom_sina
       - position_jitternormal
       - ggforce-package
+      - ggproto-classes
