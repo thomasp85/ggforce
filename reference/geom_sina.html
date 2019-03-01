@@ -132,13 +132,13 @@ the data within each class.</p>
     </div>
 
     <pre class="usage"><span class='fu'>stat_sina</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"sina"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"density"</span>, <span class='kw'>maxwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>bin_limit</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"area"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"density"</span>,
+  <span class='kw'>bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>, <span class='kw'>kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>, <span class='kw'>maxwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>bin_limit</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>geom_sina</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sina"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -174,11 +174,65 @@ will be used as the layer data.</p></td>
 a call to a position adjustment function.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Other arguments passed on to <code>layer()</code>. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-<code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
-to the paired geom/stat.</p></td>
+      <th>scale</th>
+      <td><p>How should each sina be scaled. Corresponds to the <code>scale</code>
+parameter in <code><a href='https://ggplot2.tidyverse.org/reference/geom_violin.html'>ggplot2::geom_violin()</a></code>? Available are:</p><ul>
+<li><p><code>'area'</code> for scaling by the largest density/bin among the different sinas</p></li>
+<li><p><code>'count'</code> as above, but in addition scales by the maximum number of points
+in the different sinas.</p></li>
+<li><p><code>'width'</code> Only scale according to the <code>maxwidth</code> parameter</p></li>
+</ul>
+
+<p>For backwards compatibility it can also be a logical with <code>TRUE</code> meaning
+<code>area</code> and <code>FALSE</code> meaning <code>width</code></p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>Choose the method to spread the samples within the same
+bin along the x-axis. Available methods: "density", "counts" (can be
+abbreviated, e.g. "d"). See <code>Details</code>.</p></td>
+    </tr>
+    <tr>
+      <th>bw</th>
+      <td><p>the smoothing bandwidth to be used.  The kernels are scaled
+    such that this is the standard deviation of the smoothing kernel.
+    (Note this differs from the reference books cited below, and from S-PLUS.)</p>
+<p><code>bw</code> can also be a character string giving a rule to choose the
+    bandwidth.  See <code><a href='https://www.rdocumentation.org/packages/stats/topics/bandwidth'>bw.nrd</a></code>. <br /> The default,
+    <code>"nrd0"</code>, has remained the default for historical and
+    compatibility reasons, rather than as a general recommendation,
+    where e.g., <code>"SJ"</code> would rather fit, see also Venables and
+    Ripley (2002).</p>
+<p>The specified (or computed) value of <code>bw</code> is multiplied by
+    <code>adjust</code>.</p></td>
+    </tr>
+    <tr>
+      <th>kernel</th>
+      <td><p>a character string giving the smoothing kernel
+    to be used. This must partially match one of <code>"gaussian"</code>,
+    <code>"rectangular"</code>, <code>"triangular"</code>, <code>"epanechnikov"</code>,
+    <code>"biweight"</code>, <code>"cosine"</code> or <code>"optcosine"</code>, with default
+    <code>"gaussian"</code>, and may be abbreviated to a unique prefix (single
+    letter).</p>
+<p><code>"cosine"</code> is smoother than <code>"optcosine"</code>, which is the
+    usual &#8216;cosine&#8217; kernel in the literature and almost MSE-efficient.
+    However, <code>"cosine"</code> is the version used by S.</p></td>
+    </tr>
+    <tr>
+      <th>maxwidth</th>
+      <td><p>Control the maximum width the points can spread into. Values
+between 0 and 1.</p></td>
+    </tr>
+    <tr>
+      <th>adjust</th>
+      <td><p>the bandwidth used is actually <code>adjust*bw</code>.
+    This makes it easy to specify values like &#8216;half the default&#8217;
+    bandwidth.</p></td>
+    </tr>
+    <tr>
+      <th>bin_limit</th>
+      <td><p>If the samples within the same y-axis bin are more
+than <code>bin_limit</code>, the samples's X coordinates will be adjusted.</p></td>
     </tr>
     <tr>
       <th>binwidth</th>
@@ -192,31 +246,15 @@ stories in your data.</p></td>
       <td><p>Number of bins. Overridden by binwidth. Defaults to 50.</p></td>
     </tr>
     <tr>
-      <th>scale</th>
-      <td><p>Logical. When set to <code>TRUE</code> x-coordinate widths across all
-groups are scaled based on the densiest area in the plot.
-Default: <code>TRUE</code></p></td>
+      <th>seed</th>
+      <td><p>A seed to set for the jitter to ensure a reproducible plot</p></td>
     </tr>
     <tr>
-      <th>method</th>
-      <td><p>Choose the method to spread the samples within the same
-bin along the x-axis. Available methods: "density", "counts" (can be
-abbreviated, e.g. "d"). See <code>Details</code>.</p></td>
-    </tr>
-    <tr>
-      <th>maxwidth</th>
-      <td><p>Control the maximum width the points can spread into. Values
-between 0 and 1.</p></td>
-    </tr>
-    <tr>
-      <th>adjust</th>
-      <td><p>Adjusts the bandwidth of the density kernel when
-<code>method == "density"</code> (see <code><a href='https://www.rdocumentation.org/packages/stats/topics/density'>stats::density()</a></code>).</p></td>
-    </tr>
-    <tr>
-      <th>bin_limit</th>
-      <td><p>If the samples within the same y-axis bin are more
-than <code>bin_limit</code>, the samples's X coordinates will be adjusted.</p></td>
+      <th>...</th>
+      <td><p>Other arguments passed on to <code>layer()</code>. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+<code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
+to the paired geom/stat.</p></td>
     </tr>
     <tr>
       <th>na.rm</th>
@@ -250,10 +288,9 @@ layer, as a string.</p></td>
     <p>There are two available ways to define the x-axis borders for the
 samples to spread within:</p><ul>
 <li><p><code>method == "density"</code>
-    A density kernel is estimated along the y-axis for every sample group. The
-borders are then defined by the density curve. Tuning parameter
-<code>adjust</code> can be used to control the density bandwidth in the same way
-it is used in <code><a href='https://www.rdocumentation.org/packages/stats/topics/density'>stats::density()</a></code>.</p></li>
+    A density kernel is estimated along the y-axis for every sample group, and
+the samples are spread within that curve. In effect this means that points
+will be positioned randomly within a violin plot with the same parameters.</p></li>
 <li><p><code>method == "counts"</code>:
     The borders are defined by the number of samples that occupy the same bin.</p></li>
 </ul>
@@ -275,8 +312,9 @@ bold):</p><ul>
 
     
     <dl class='dl-horizontal'>
-<dt>bin_counts</dt><dd><p>sample counts per bin per group</p></dd>
-<dt>scaled</dt><dd><p>adjusted x-coordinates</p></dd>
+<dt>density</dt><dd><p>The density or sample counts per bin for each point</p></dd>
+<dt>scaled</dt><dd><p><code>density</code> scaled by the maximum density in each group</p></dd>
+<dt>n</dt><dd><p>The number of points in the group the point belong to</p></dd>
 </dl>
     
 
@@ -357,7 +395,7 @@ bold):</p><ul>
     </ul>
 
     <h2>Author</h2>
-    <p>Nikos Sidiropoulos</p>
+    <p>Nikos Sidiropoulos, Claus Wilke, and Thomas Lin Pedersen</p>
   </div>
 </div>
 
