@@ -5,19 +5,19 @@
 // Class for dealing with points/vectors in a 2-dimensional space
 class Point {
 public:
-    double x;
-    double y;
+  double x;
+  double y;
 
-    Point();
-    Point(double xInit, double yInit);
+  Point();
+  Point(double xInit, double yInit);
 
-    // copy assignment operator
-    Point operator=(const Point pt);
+  // copy assignment operator
+  Point operator=(const Point pt);
 
-    // Arithmatic operators
-    Point operator+(const Point pt) const;
-    Point operator*(double m) const;
-    Point operator/(double m) const;
+  // Arithmatic operators
+  Point operator+(const Point pt) const;
+  Point operator*(double m) const;
+  Point operator/(double m) const;
 };
 
 // Find the interval in knots where x resides
