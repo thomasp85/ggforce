@@ -284,6 +284,7 @@ complete_data <- function(data) {
 sankey_axis_data <- function(data, sep) {
   do.call(rbind, lapply(split(data, data$x), function(d) {
     splits <- split(d$value, as.character(d$split))
+    splits <- splits[rev(order(match(names(splits), levels(d$split))))]
     d <- data.frame(
       split = names(splits),
       value = sapply(splits, sum),
@@ -342,16 +343,17 @@ sankey_diag_data <- function(data, axes_data, groups, axis.width) {
 
 add_y_pos <- function(data, axes_data) {
   splits <- split(seq_len(nrow(data)), as.character(data$split))
-  ymax <- lapply(splits, function(i) {
+  ymin <- lapply(splits, function(i) {
     split <- as.character(data$split[i[1]])
     sizes <- data$value[i]
-    ymax <- axes_data$ymin[axes_data$split == split] + cumsum(sizes[order(data$group[i])])
-    ymax[order(data$group[i])] <- ymax
-    ymax
+    ymin <- axes_data$ymax[axes_data$split == split] -
+      cumsum(sizes[order(data$group[i])])
+    ymin[order(data$group[i])] <- ymin
+    ymin
   })
-  data$y[unlist(splits)] <- unlist(ymax)
+  data$y[unlist(splits)] <- unlist(ymin)
   data_tmp <- data
-  data_tmp$y <- data$y - data$value
+  data_tmp$y <- data$y + data$value
   rbind(data_tmp, data)
 }
 
