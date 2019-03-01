@@ -11,7 +11,7 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/slate/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -121,18 +121,15 @@
 <h1 class="page-header">
 <a href="#ggforce-0-1-1-99" class="anchor"></a>ggforce 0.1.1.99<small> Unreleased </small>
 </h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
-<li>
-<code>facet_[wrap|grid]_paginate</code> will now try to make panels on the last page the same size as on full pages (<a href='https://github.com/thomasp85/ggforce/issues/7'>#7</a>)</li>
-<li>
-<code>facet_zoom</code> now gains <code>xlim</code> and <code>ylim</code> arguments to control zoom range directly</li>
-<li>
-<code>facet_zoom</code> now gains <code>zoom.data</code> to control which data gets plotted in which panel</li>
 <li>
 <code>linear_trans</code> for composing linear transformation using <code>rotate</code>, <code>stretch</code>, <code>shear</code>, <code>reflect</code>, and <code>translate</code>
 </li>
 <li>
-<code>facet_stereo</code> for creating stereographic projections</li>
+<code>facet_stereo</code> added for creating stereographic projections</li>
 <li>
 <code>geom_voronoi_[tile|segment]</code>, <code>geom_delaunay_[tile|segment|segment2]</code>, and <code>stat_delvor_summary</code> has been added for tesselation and triangulation.</li>
 <li>
@@ -141,25 +138,59 @@
 <li>Add <code>geom_regon</code> for drawing regular polygons</li>
 <li>Add <code>geom_diagonal</code>, <code>geom_diagonal_wide</code> and <code>geom_parallel_sets</code> for drawing parallel sets diagrams and other visualizations based on diagonals.</li>
 <li>Add <code>geom_shape</code> for drawing polygons with rounded corners and expanded/contracted sides. <code>geom_shape</code> replaces all <code>geom_polygon</code> internally.</li>
+<li>Added <code>geom_bspline_closed</code> to draw polygons defined as b-splines</li>
 <li>Add <code>geom_mark_[rect|circle|ellipse|hull]</code> to encircle a group of points and optionally add textual annotation to it</li>
-<li>Slimmed down the dependencies for the package. <code>plyr</code>, <code>lazyeval</code> and <code>dplyr</code> has all been removed</li>
-<li>Rewrite <code>geom_sina</code> to match <code>geom_violin</code> and allow for dodging</li>
+<li>Add <code>position_jitternormal</code> to jitter points based on a normal distribution
+(<a href='https://github.com/andrewheiss'>@andrewheiss</a>)</li>
 </ul>
 </div>
-    <div id="ggforce-0-1-1" class="section level1">
-<h1 class="page-header">
-<a href="#ggforce-0-1-1" class="anchor"></a>ggforce 0.1.1<small> 2016-11-28 </small>
-</h1>
-<div id="new-features" class="section level2">
+<div id="improvements" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#improvements" class="anchor"></a>Improvements</h2>
 <ul>
-<li>Zoom indicator styling can now be specified separetely for x and y zoom using <code>zoom.x</code> and <code>zoom.y</code> in theme (inherits from <code>zoom</code> that inherits from <code>strip.background</code>)</li>
+<li>
+<code>facet_[wrap|grid]_paginate</code> will now try to make panels on the last page the same size as on full pages (<a href='https://github.com/thomasp85/ggforce/issues/7'>#7</a>)</li>
+<li>
+<code>facet_zoom</code> now gains <code>xlim</code> and <code>ylim</code> arguments to control zoom range directly</li>
+<li>
+<code>facet_zoom</code> now gains <code>zoom.data</code> to control which data gets plotted in which panel</li>
+<li>Slimmed down the dependencies for the package. <code>plyr</code>, <code>lazyeval</code> and <code>dplyr</code> has all been removed</li>
+<li>Rewrite <code>geom_sina</code> to match <code>geom_violin</code> and allow for dodging</li>
+<li>Add <code>open</code>/<code>clamped</code> option to `geom_bspline</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Fix interpolation of <code>x</code> and <code>y</code> values in <code>geom_link2</code> (<a href='https://github.com/thomasp85'>@thomasp85</a> and
+<a href='https://github.com/lepennec'>@lepennec</a>)</li>
+<li>
+<code>stat_link</code> no longer replicates the group column</li>
+<li>arcs and links no longer rename aesthetics when only one aesthetic is present (<code>drop = FALSE</code>)</li>
+<li>
+<code>stat_bezier0</code> and <code>stat_bezier2</code> now return data in the expected format</li>
+<li>Fix bug with <code>n_pages</code> due to internal changes in ggplot2</li>
+<li>Fix bug in <code>facet_zoom</code> in combination with secondary y-axis where the space for the y-axis would become huge</li>
+<li>Correctly detect and error out when scales and coords does not work with <code>facet_zoom</code>
+</li>
+</ul>
+</div>
+</div>
+    <div id="ggforce-0-1-1" class="section level1">
+<h1 class="page-header">
+<a href="#ggforce-0-1-1" class="anchor"></a>ggforce 0.1.1<small> 2016-11-28 </small>
+</h1>
+<div id="new-features-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>New features</h2>
+<ul>
+<li>Zoom indicator styling can now be specified separetely for x and y zoom using <code>zoom.x</code> and <code>zoom.y</code> in theme (inherits from <code>zoom</code> that inherits from <code>strip.background</code>)</li>
+</ul>
+</div>
+<div id="bug-fixes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fix bug in <code>facet_wrap_paginate</code> that threw errors when using it with free scales (<a href='https://github.com/thomasp85/ggforce/issues/19'>#19</a>)</li>
 <li>Fixes bug in <code>facet_zoom</code> where y-axis would be incorrectly displayed when zooming on both axes without splitting the view (<a href='https://github.com/thomasp85/ggforce/issues/23'>#23</a>)</li>
@@ -181,9 +212,9 @@
 </li>
 </ul>
 </div>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <code>geom_bezier</code> for drawing quadratic and cubic beziers</li>
@@ -212,9 +243,9 @@
 <li>First commit</li>
 </ul>
 </div>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>New features</h2>
+<a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <code>geom_arc</code> / <code>stat_arc</code> for drawing circle segments</li>

@@ -11,7 +11,7 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/slate/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -124,13 +124,268 @@
       <col class="title" />
     </colgroup>
 
-    
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-shapes" class="hasAnchor"><a href="#section-shapes" class="anchor"></a>Shapes</h2>
+          <p class="section-desc"><p>Shapes are, in essence, anything with volume. These geoms allow you to draw differnt types of parameterised shapes, all taking advantage of the benefit of the <code>geom_shape</code> improvements to <code>geom_polygon</code>.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="geom_shape.html">geom_shape()</a></code> </p>
+        </td>
+        <td><p>Draw polygons with expansion/contraction and/or rounded corners</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_circle.html">stat_circle()</a></code> <code><a href="geom_circle.html">geom_circle()</a></code> </p>
+        </td>
+        <td><p>Circles based on center and radius</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_regon.html">stat_regon()</a></code> <code><a href="geom_regon.html">geom_regon()</a></code> </p>
+        </td>
+        <td><p>Draw regular polygons by specifying number of sides</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_arc_bar.html">stat_arc_bar()</a></code> <code><a href="geom_arc_bar.html">stat_pie()</a></code> <code><a href="geom_arc_bar.html">geom_arc_bar()</a></code> </p>
+        </td>
+        <td><p>Arcs and wedges as polygons</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_bspline_closed.html">stat_bspline_closed()</a></code> <code><a href="geom_bspline_closed.html">geom_bspline_closed()</a></code> <code><a href="geom_bspline_closed.html">geom_bspline_closed0()</a></code> </p>
+        </td>
+        <td><p>Create closed b-spline shapes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_diagonal_wide.html">stat_diagonal_wide()</a></code> <code><a href="geom_diagonal_wide.html">geom_diagonal_wide()</a></code> </p>
+        </td>
+        <td><p>Draw an area defined by an upper and lower diagonal</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_delvor.html">geom_voronoi_tile()</a></code> <code><a href="geom_delvor.html">geom_voronoi_segment()</a></code> <code><a href="geom_delvor.html">geom_delaunay_tile()</a></code> <code><a href="geom_delvor.html">geom_delaunay_segment()</a></code> <code><a href="geom_delvor.html">geom_delaunay_segment2()</a></code> <code><a href="geom_delvor.html">stat_delvor_summary()</a></code> </p>
+        </td>
+        <td><p>Voronoi tesselation and delaunay triangulation</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-lines" class="hasAnchor"><a href="#section-lines" class="anchor"></a>Lines</h2>
+          <p class="section-desc"><p>The different line geoms are all parameterised versions of different line types, greatly easing your pain when needing a special type of stroke. Many of them have several versions depending on whether you want to show gradients along the lines, interpolate between endpoint aesthetics, or simply have a barebone version.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="geom_link.html">stat_link()</a></code> <code><a href="geom_link.html">stat_link2()</a></code> <code><a href="geom_link.html">geom_link()</a></code> <code><a href="geom_link.html">geom_link2()</a></code> <code><a href="geom_link.html">geom_link0()</a></code> </p>
+        </td>
+        <td><p>Link points with paths</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_arc.html">stat_arc()</a></code> <code><a href="geom_arc.html">geom_arc()</a></code> <code><a href="geom_arc.html">stat_arc2()</a></code> <code><a href="geom_arc.html">geom_arc2()</a></code> <code><a href="geom_arc.html">stat_arc0()</a></code> <code><a href="geom_arc.html">geom_arc0()</a></code> </p>
+        </td>
+        <td><p>Arcs based on radius and radians</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_bezier.html">stat_bezier()</a></code> <code><a href="geom_bezier.html">geom_bezier()</a></code> <code><a href="geom_bezier.html">stat_bezier2()</a></code> <code><a href="geom_bezier.html">geom_bezier2()</a></code> <code><a href="geom_bezier.html">stat_bezier0()</a></code> <code><a href="geom_bezier.html">geom_bezier0()</a></code> </p>
+        </td>
+        <td><p>Create quadratic or cubic bezier curves</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_bspline.html">stat_bspline()</a></code> <code><a href="geom_bspline.html">geom_bspline()</a></code> <code><a href="geom_bspline.html">stat_bspline2()</a></code> <code><a href="geom_bspline.html">geom_bspline2()</a></code> <code><a href="geom_bspline.html">stat_bspline0()</a></code> <code><a href="geom_bspline.html">geom_bspline0()</a></code> </p>
+        </td>
+        <td><p>B-splines based on control points</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_diagonal.html">stat_diagonal()</a></code> <code><a href="geom_diagonal.html">geom_diagonal()</a></code> <code><a href="geom_diagonal.html">stat_diagonal2()</a></code> <code><a href="geom_diagonal.html">geom_diagonal2()</a></code> <code><a href="geom_diagonal.html">stat_diagonal0()</a></code> <code><a href="geom_diagonal.html">geom_diagonal0()</a></code> </p>
+        </td>
+        <td><p>Draw horizontal diagonals</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_parallel_sets.html">stat_parallel_sets()</a></code> <code><a href="geom_parallel_sets.html">geom_parallel_sets()</a></code> <code><a href="geom_parallel_sets.html">stat_parallel_sets_axes()</a></code> <code><a href="geom_parallel_sets.html">geom_parallel_sets_axes()</a></code> <code><a href="geom_parallel_sets.html">geom_parallel_sets_labels()</a></code> </p>
+        </td>
+        <td><p>Create Parallel Sets diagrams</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_spiro.html">stat_spiro()</a></code> <code><a href="geom_spiro.html">geom_spiro()</a></code> </p>
+        </td>
+        <td><p>Draw spirograms based on the radii of the different "wheels" involved</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_delvor.html">geom_voronoi_tile()</a></code> <code><a href="geom_delvor.html">geom_voronoi_segment()</a></code> <code><a href="geom_delvor.html">geom_delaunay_tile()</a></code> <code><a href="geom_delvor.html">geom_delaunay_segment()</a></code> <code><a href="geom_delvor.html">geom_delaunay_segment2()</a></code> <code><a href="geom_delvor.html">stat_delvor_summary()</a></code> </p>
+        </td>
+        <td><p>Voronoi tesselation and delaunay triangulation</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-annotation" class="hasAnchor"><a href="#section-annotation" class="anchor"></a>Annotation</h2>
+          <p class="section-desc"><p>Annotation is important for storytelling, and ggforce provides a family of geoms that makes it easy to draw attention to, and describe, features of the plot. They all work in the same way, but differ in the way they enclose the area you want to draw attention to.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="geom_mark_rect.html">geom_mark_rect()</a></code> </p>
+        </td>
+        <td><p>Annotate areas with rectangles</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_mark_circle.html">geom_mark_circle()</a></code> </p>
+        </td>
+        <td><p>Annotate areas with circles</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_mark_ellipse.html">geom_mark_ellipse()</a></code> </p>
+        </td>
+        <td><p>Annotate areas with ellipses</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_mark_hull.html">geom_mark_hull()</a></code> </p>
+        </td>
+        <td><p>Annotate areas with hulls</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-facets" class="hasAnchor"><a href="#section-facets" class="anchor"></a>Facets</h2>
+          <p class="section-desc"><p>Facets are one of the greatest things in ggplot2, and ggforce comes with more of the awesomeness, both with variants of <code>facet_grid</code> and <code>facet_wrap</code>, as well as completely new takes on faceting.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="facet_zoom.html">facet_zoom()</a></code> </p>
+        </td>
+        <td><p>Facet data for zoom with context</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="facet_wrap_paginate.html">facet_wrap_paginate()</a></code> </p>
+        </td>
+        <td><p>Split facet_wrap over multiple plots</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="facet_grid_paginate.html">facet_grid_paginate()</a></code> </p>
+        </td>
+        <td><p>Split facet_grid over multiple plots</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="facet_stereo.html">facet_stereo()</a></code> </p>
+        </td>
+        <td><p>Create a stereogram plot</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-scales" class="hasAnchor"><a href="#section-scales" class="anchor"></a>Scales</h2>
+          <p class="section-desc"><p>While separate packages comes with different palettes for already established scales, ggforce provides two completely new ones.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="scale_unit.html">scale_x_unit()</a></code> <code><a href="scale_unit.html">scale_y_unit()</a></code> </p>
+        </td>
+        <td><p>Position scales for units data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scale_depth.html">scale_depth()</a></code> <code><a href="scale_depth.html">scale_depth_continuous()</a></code> <code><a href="scale_depth.html">scale_depth_discrete()</a></code> </p>
+        </td>
+        <td><p>Scales for depth perception</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-transformations" class="hasAnchor"><a href="#section-transformations" class="anchor"></a>Transformations</h2>
+          <p class="section-desc"><p>Transformations can both be used to transform scales and coordinate systems but can also be used more broadly for describing specific types of spatial transformation of data.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="trans_reverser.html">trans_reverser()</a></code> </p>
+        </td>
+        <td><p>Reverse a transformation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="power_trans.html">power_trans()</a></code> </p>
+        </td>
+        <td><p>Create a power transformation object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="radial_trans.html">radial_trans()</a></code> </p>
+        </td>
+        <td><p>Create radial data in a cartesian coordinate system</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="linear_trans.html">linear_trans()</a></code> <code><a href="linear_trans.html">rotate()</a></code> <code><a href="linear_trans.html">stretch()</a></code> <code><a href="linear_trans.html">shear()</a></code> <code><a href="linear_trans.html">translate()</a></code> <code><a href="linear_trans.html">reflect()</a></code> </p>
+        </td>
+        <td><p>Create a custom linear transformation</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-misc" class="hasAnchor"><a href="#section-misc" class="anchor"></a>Misc</h2>
+          <p class="section-desc"><p>ggforce contains an assortment of various stuff that doesn’t fit into a bigger bucket. That doesn’t make it any less useful.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="geom_sina.html">stat_sina()</a></code> <code><a href="geom_sina.html">geom_sina()</a></code> </p>
+        </td>
+        <td><p>Sina plot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="position_jitternormal.html">position_jitternormal()</a></code> </p>
+        </td>
+        <td><p>Jitter points with normally distributed random noise</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ggforce-package.html">ggforce</a></code> </p>
+        </td>
+        <td><p>ggforce: Accelerating ggplot2</p></td>
+      </tr>
+    </tbody>
     </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#section-shapes">Shapes</a></li>
+      <li><a href="#section-lines">Lines</a></li>
+      <li><a href="#section-annotation">Annotation</a></li>
+      <li><a href="#section-facets">Facets</a></li>
+      <li><a href="#section-scales">Scales</a></li>
+      <li><a href="#section-transformations">Transformations</a></li>
+      <li><a href="#section-misc">Misc</a></li>
     </ul>
   </div>
 </div>
