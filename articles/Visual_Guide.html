@@ -225,19 +225,19 @@
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">    </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="Visual_Guide_files/figure-html/unnamed-chunk-5-3.png" width="700" style="display: block; margin: auto;"></p>
 </div>
-<div id="ellipsis" class="section level2">
+<div id="ellipse" class="section level2">
 <h2 class="hasAnchor">
-<a href="#ellipsis" class="anchor"></a>Ellipsis</h2>
+<a href="#ellipse" class="anchor"></a>Ellipse</h2>
 <p>As with circles it is possible to draw ellipses according to the coordinate system. It requires some more parameters than <code>geom_circle</code>, namely two radii and an angle:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># Basic usage</span></a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_ellipsis.html">geom_ellipsis</a></span>(<span class="kw">aes</span>(<span class="dt">x0 =</span> <span class="dv">0</span>, <span class="dt">y0 =</span> <span class="dv">0</span>, <span class="dt">a =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="dv">3</span>, <span class="dt">angle =</span> <span class="dv">0</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_ellipse.html">geom_ellipse</a></span>(<span class="kw">aes</span>(<span class="dt">x0 =</span> <span class="dv">0</span>, <span class="dt">y0 =</span> <span class="dv">0</span>, <span class="dt">a =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="dv">3</span>, <span class="dt">angle =</span> <span class="dv">0</span>)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="Visual_Guide_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># Rotation</span></a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co"># Note that it expects radians and rotates the ellipse counter-clockwise</span></a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/geom_ellipsis.html">geom_ellipsis</a></span>(<span class="kw">aes</span>(<span class="dt">x0 =</span> <span class="dv">0</span>, <span class="dt">y0 =</span> <span class="dv">0</span>, <span class="dt">a =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="dv">3</span>, <span class="dt">angle =</span> pi<span class="op">/</span><span class="dv">4</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/geom_ellipse.html">geom_ellipse</a></span>(<span class="kw">aes</span>(<span class="dt">x0 =</span> <span class="dv">0</span>, <span class="dt">y0 =</span> <span class="dv">0</span>, <span class="dt">a =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="dv">3</span>, <span class="dt">angle =</span> pi<span class="op">/</span><span class="dv">4</span>)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb15-5" data-line-number="5"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="Visual_Guide_files/figure-html/unnamed-chunk-6-2.png" width="700"></p>
 <p>Be aware that <code>ggplot2</code> contains a <code>stat_ellipse</code> which estimates uncertainty ellipses to points.</p>
@@ -730,7 +730,7 @@
 <li><a href="#shapes">Shapes</a></li>
       <li><a href="#arcs">Arcs</a></li>
       <li><a href="#circles">Circles</a></li>
-      <li><a href="#ellipsis">Ellipsis</a></li>
+      <li><a href="#ellipse">Ellipse</a></li>
       <li><a href="#links">Links</a></li>
       <li><a href="#beziers">Beziers</a></li>
       <li><a href="#diagonals">Diagonals</a></li>
