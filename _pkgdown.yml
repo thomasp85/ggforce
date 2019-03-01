@@ -103,5 +103,8 @@ reference:
     contents:
       - geom_sina
       - position_jitternormal
+      - gather_set_data
+      - n_pages
+      - theme_no_axes
       - ggforce-package
-      - ggproto-classes
+      - ggforce-extensions
