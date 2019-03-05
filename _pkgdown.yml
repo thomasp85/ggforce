@@ -1,0 +1,110 @@
+destination: docs
+url: https://ggforce.data-imaginist.com
+
+authors:
+  Thomas Lin Pedersen:
+    href: https://data-imaginist.com
+
+template:
+  params:
+    bootswatch: sandstone
+
+navbar:
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: Reference
+      href: reference/index.html
+    - text: News
+      menu:
+      - text: "Release notes"
+      - text: "Version 0.1.0"
+        href: https://www.data-imaginist.com/2016/announcing-ggforce/
+      - text: "------------------"
+      - text: "Change log"
+        href: news/index.html
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/thomasp85/ggforce
+
+reference:
+  - title: "Shapes"
+    desc: >
+      Shapes are, in essence, anything with volume. These geoms allow you to
+      draw differnt types of parameterised shapes, all taking advantage of the
+      benefit of the `geom_shape` improvements to `geom_polygon`.
+    contents:
+      - geom_shape
+      - geom_circle
+      - geom_ellipse
+      - geom_regon
+      - geom_arc_bar
+      - geom_bspline_closed
+      - geom_diagonal_wide
+      - geom_voronoi_tile
+  - title: "Lines"
+    desc: >
+      The different line geoms are all parameterised versions of different line
+      types, greatly easing your pain when needing a special type of stroke.
+      Many of them have several versions depending on whether you want to show
+      gradients along the lines, interpolate between endpoint aesthetics, or
+      simply have a barebone version.
+    contents:
+      - geom_link
+      - geom_arc
+      - geom_bezier
+      - geom_bspline
+      - geom_diagonal
+      - geom_parallel_sets
+      - geom_spiro
+      - geom_voronoi_segment
+  - title: "Annotation"
+    desc: >
+      Annotation is important for storytelling, and ggforce provides a family of
+      geoms that makes it easy to draw attention to, and describe, features of
+      the plot. They all work in the same way, but differ in the way they
+      enclose the area you want to draw attention to.
+    contents:
+      - geom_mark_rect
+      - geom_mark_circle
+      - geom_mark_ellipse
+      - geom_mark_hull
+  - title: "Facets"
+    desc: >
+      Facets are one of the greatest things in ggplot2, and ggforce comes with
+      more of the awesomeness, both with variants of `facet_grid` and
+      `facet_wrap`, as well as completely new takes on faceting.
+    contents:
+      - facet_zoom
+      - facet_wrap_paginate
+      - facet_grid_paginate
+      - facet_stereo
+  - title: "Scales"
+    desc: >
+      While separate packages comes with different palettes for already
+      established scales, ggforce provides two completely new ones.
+    contents:
+      - scale_x_unit
+      - scale_depth
+  - title: "Transformations"
+    desc: >
+      Transformations can both be used to transform scales and coordinate
+      systems but can also be used more broadly for describing specific types of
+      spatial transformation of data.
+    contents:
+      - trans_reverser
+      - power_trans
+      - radial_trans
+      - linear_trans
+  - title: "Misc"
+    desc: >
+      ggforce contains an assortment of various stuff that doesn't fit into a
+      bigger bucket. That doesn't make it any less useful.
+    contents:
+      - geom_sina
+      - position_jitternormal
+      - gather_set_data
+      - n_pages
+      - theme_no_axes
+      - ggforce-package
+      - ggforce-extensions

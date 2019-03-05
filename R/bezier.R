@@ -3,8 +3,7 @@
 #' This set of geoms makes it possible to connect points creating either
 #' quadratic or cubic beziers. bezier and bezier2 both work by calculating
 #' points along the bezier and connecting these to draw the curve. bezier0
-#' directly draws the bezier using bezierGrob and is thus probably more
-#' performant. In line with the [geom_link()] and
+#' directly draws the bezier using bezierGrob. In line with the [geom_link()] and
 #' [geom_link2()] differences geom_bezier creates the points, assign
 #' an index to each interpolated point and repeat the aesthetics for the start
 #' point, while geom_bezier2 interpolates the aesthetics between the start and
@@ -22,7 +21,7 @@
 #' geom_bezier2.
 #'
 #' @section Aesthetics:
-#' geom_link, geom_link2 and geom_lin0 understand the following aesthetics
+#' geom_bezier, geom_bezier2 and geom_bezier0 understand the following aesthetics
 #' (required aesthetics are in bold):
 #'
 #' - **x**
@@ -46,8 +45,6 @@
 #'
 #' @param n The number of points to create for each segment
 #'
-#' @author Thomas Lin Pedersen
-#'
 #' @name geom_bezier
 #' @rdname geom_bezier
 #'
@@ -56,7 +53,8 @@
 #'   x = c(1, 2, 3, 4, 4, 6, 6),
 #'   y = c(0, 2, 0, 0, 2, 2, 0),
 #'   type = rep(c('cubic', 'quadratic'), c(3, 4)),
-#'   point = c('end', 'control', 'end', 'end', 'control', 'control', 'end')
+#'   point = c('end', 'control', 'end', 'end', 'control', 'control', 'end'),
+#'   colour = letters[1:7]
 #' )
 #' help_lines <- data.frame(
 #'   x = c(1, 3, 4, 6),
@@ -64,21 +62,38 @@
 #'   y = 0,
 #'   yend = 2
 #' )
-#' ggplot() + geom_segment(aes(x = x, xend = xend, y = y, yend = yend),
-#'   data = help_lines,
-#'   arrow = arrow(length = unit(c(0, 0, 0.5, 0.5), 'cm')),
-#'   colour = 'grey'
-#' ) +
+#'
+#' # See how control points affect the bezier
+#' ggplot() +
+#'   geom_segment(aes(x = x, xend = xend, y = y, yend = yend),
+#'                data = help_lines,
+#'                arrow = arrow(length = unit(c(0, 0, 0.5, 0.5), 'cm')),
+#'                colour = 'grey') +
 #'   geom_bezier(aes(x = x, y = y, group = type, linetype = type),
-#'     data = beziers
-#'   ) +
-#'   geom_point(aes(x = x, y = y, colour = point), data = beziers)
+#'               data = beziers) +
+#'   geom_point(aes(x = x, y = y, colour = point),
+#'              data = beziers)
+#'
+#' # geom_bezier0 is less exact
+#' ggplot() +
+#'   geom_segment(aes(x = x, xend = xend, y = y, yend = yend),
+#'                data = help_lines,
+#'                arrow = arrow(length = unit(c(0, 0, 0.5, 0.5), 'cm')),
+#'                colour = 'grey') +
+#'   geom_bezier0(aes(x = x, y = y, group = type, linetype = type),
+#'                data = beziers) +
+#'   geom_point(aes(x = x, y = y, colour = point),
+#'              data = beziers)
+#'
+#' # Use geom_bezier2 to interpolate between endpoint aesthetics
+#' ggplot(beziers) +
+#'   geom_bezier2(aes(x = x, y = y, group = type, colour = colour))
+#'
 NULL
 
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBezier <- ggproto('StatBezier', Stat,
   compute_layer = function(self, data, params, panels) {
@@ -105,7 +120,6 @@ StatBezier <- ggproto('StatBezier', Stat,
   extra_params = c('na.rm', 'n')
 )
 #' @rdname geom_bezier
-#' @importFrom ggplot2 layer
 #' @export
 stat_bezier <- function(mapping = NULL, data = NULL, geom = 'path',
                         position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -117,7 +131,6 @@ stat_bezier <- function(mapping = NULL, data = NULL, geom = 'path',
   )
 }
 #' @rdname geom_bezier
-#' @importFrom ggplot2 layer
 #' @export
 geom_bezier <- function(mapping = NULL, data = NULL, stat = 'bezier',
                         position = 'identity', arrow = NULL, lineend = 'butt',
@@ -135,7 +148,6 @@ geom_bezier <- function(mapping = NULL, data = NULL, stat = 'bezier',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBezier2 <- ggproto('StatBezier2', Stat,
   compute_layer = function(self, data, params, panels) {
@@ -178,7 +190,6 @@ StatBezier2 <- ggproto('StatBezier2', Stat,
   extra_params = c('na.rm', 'n')
 )
 #' @rdname geom_bezier
-#' @importFrom ggplot2 layer
 #' @export
 stat_bezier2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
                          position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -190,7 +201,6 @@ stat_bezier2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
   )
 }
 #' @rdname geom_bezier
-#' @importFrom ggplot2 layer
 #' @export
 geom_bezier2 <- function(mapping = NULL, data = NULL, stat = 'bezier2',
                          position = 'identity', arrow = NULL, lineend = 'butt',
@@ -208,7 +218,6 @@ geom_bezier2 <- function(mapping = NULL, data = NULL, stat = 'bezier2',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBezier0 <- ggproto('StatBezier0', Stat,
   compute_layer = function(self, data, params, panels) {
@@ -234,7 +243,6 @@ StatBezier0 <- ggproto('StatBezier0', Stat,
 #' @format NULL
 #' @usage NULL
 #' @importFrom grid bezierGrob gpar
-#' @importFrom ggplot2 ggproto GeomPath alpha
 #' @export
 GeomBezier0 <- ggproto('GeomBezier0', GeomPath,
   draw_panel = function(data, panel_scales, coord, arrow = NULL,
@@ -255,7 +263,6 @@ GeomBezier0 <- ggproto('GeomBezier0', GeomPath,
   }
 )
 #' @rdname geom_bezier
-#' @importFrom ggplot2 layer
 #' @export
 stat_bezier0 <- function(mapping = NULL, data = NULL, geom = 'bezier0',
                          position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -267,7 +274,6 @@ stat_bezier0 <- function(mapping = NULL, data = NULL, geom = 'bezier0',
   )
 }
 #' @rdname geom_bezier
-#' @importFrom ggplot2 layer
 #' @export
 geom_bezier0 <- function(mapping = NULL, data = NULL, stat = 'bezier0',
                          position = 'identity', arrow = NULL, lineend = 'butt',

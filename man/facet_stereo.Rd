@@ -37,6 +37,7 @@ layer behind it. The depth experience is inaccurate and should not be used
 for conveying important data. Regard this more as a party-trick...
 }
 \examples{
+# You'll have to accept a warning about depth being an unknown aesthetic
 ggplot(mtcars) +
   geom_point(aes(mpg, disp, depth = cyl)) +
   facet_stereo()

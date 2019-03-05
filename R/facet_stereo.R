@@ -28,10 +28,10 @@
 #'
 #' @family ggforce facets
 #'
-#' @importFrom ggplot2 ggproto
 #' @export
 #'
 #' @examples
+#' # You'll have to accept a warning about depth being an unknown aesthetic
 #' ggplot(mtcars) +
 #'   geom_point(aes(mpg, disp, depth = cyl)) +
 #'   facet_stereo()
@@ -47,7 +47,6 @@ facet_stereo <- function(IPD = 63.5, panel.size = 200, shrink = TRUE) {
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Facet transform_position render_axes
 #' @importFrom scales rescale
 #' @importFrom gtable gtable_add_cols
 #' @export

@@ -49,8 +49,6 @@
 #' @param strength The proportion to move the control point along the x-axis
 #' towards the other end of the bezier curve
 #'
-#' @author Thomas Lin Pedersen
-#'
 #' @name geom_diagonal
 #' @rdname geom_diagonal
 #'
@@ -64,12 +62,35 @@
 #'
 #' ggplot(data) +
 #'   geom_diagonal(aes(x, y, xend = xend, yend = yend))
+#'
+#' # The standard version provides an index to create gradients
+#' ggplot(data) +
+#'   geom_diagonal(aes(x, y, xend = xend, yend = yend, alpha = stat(index)))
+#'
+#' # The 0 version uses bezierGrob under the hood for an approximation
+#' ggplot(data) +
+#'   geom_diagonal0(aes(x, y, xend = xend, yend = yend))
+#'
+#' # The 2 version allows you to interpolate between endpoint aesthetics
+#' data2 <- data.frame(
+#'   x = c(data$x, data$xend),
+#'   y = c(data$y, data$yend),
+#'   group = rep(1:10, 2),
+#'   colour = sample(letters[1:5], 20, TRUE)
+#' )
+#' ggplot(data2) +
+#'   geom_diagonal2(aes(x, y, group = group, colour = colour))
+#'
+#' # Use strength to control the steepness of the central region
+#' ggplot(data, aes(x, y, xend = xend, yend = yend)) +
+#'   geom_diagonal(strength = 0.75, colour = 'red') +
+#'   geom_diagonal(strength = 0.25, colour = 'blue')
+#'
 NULL
 
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatDiagonal <- ggproto('StatDiagonal', Stat,
   setup_data = function(data, params) {
@@ -92,7 +113,6 @@ StatDiagonal <- ggproto('StatDiagonal', Stat,
   extra_params = c('na.rm', 'n', 'strength')
 )
 #' @rdname geom_diagonal
-#' @importFrom ggplot2 layer
 #' @export
 stat_diagonal <- function(mapping = NULL, data = NULL, geom = 'path',
                           position = 'identity', n = 100, strength = 0.5,
@@ -105,7 +125,6 @@ stat_diagonal <- function(mapping = NULL, data = NULL, geom = 'path',
   )
 }
 #' @rdname geom_diagonal
-#' @importFrom ggplot2 layer GeomPath
 #' @export
 geom_diagonal <- function(mapping = NULL, data = NULL, stat = 'diagonal',
                           position = 'identity', n = 100,
@@ -120,19 +139,18 @@ geom_diagonal <- function(mapping = NULL, data = NULL, stat = 'diagonal',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatDiagonal2 <- ggproto('StatDiagonal2', Stat,
   compute_layer = function(self, data, params, panels) {
     if (is.null(data)) return(data)
+    data <- data[order(data$group), ]
     data <- add_controls(data, params$strength)
-    StatBezier2$compute_layer(data, params['n'], panels)
+    StatBezier2$compute_layer(data, params, panels)
   },
   required_aes = c('x', 'y'),
   extra_params = c('na.rm', 'n', 'strength')
 )
 #' @rdname geom_diagonal
-#' @importFrom ggplot2 layer
 #' @export
 stat_diagonal2 <- function(mapping = NULL, data = NULL,
                            geom = 'path_interpolate', position = 'identity',
@@ -145,7 +163,6 @@ stat_diagonal2 <- function(mapping = NULL, data = NULL,
   )
 }
 #' @rdname geom_diagonal
-#' @importFrom ggplot2 layer
 #' @export
 geom_diagonal2 <- function(mapping = NULL, data = NULL, stat = 'diagonal2',
                            position = 'identity', arrow = NULL, lineend = 'butt',
@@ -163,7 +180,6 @@ geom_diagonal2 <- function(mapping = NULL, data = NULL, stat = 'diagonal2',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatDiagonal0 <- ggproto('StatDiagonal0', Stat,
   compute_layer = function(self, data, params, panels) {
@@ -176,13 +192,13 @@ StatDiagonal0 <- ggproto('StatDiagonal0', Stat,
     data$xend <- NULL
     data$yend <- NULL
     data <- data[order(data$group), ]
-    add_controls(data, params$strength)
+    data <- add_controls(data, params$strength)
+    StatBezier0$compute_layer(data, params, panels)
   },
   required_aes = c('x', 'y', 'xend', 'yend'),
   extra_params = c('na.rm', 'strength')
 )
 #' @rdname geom_diagonal
-#' @importFrom ggplot2 layer
 #' @export
 stat_diagonal0 <- function(mapping = NULL, data = NULL, geom = 'bezier0',
                            position = 'identity', na.rm = FALSE,
@@ -195,7 +211,6 @@ stat_diagonal0 <- function(mapping = NULL, data = NULL, geom = 'bezier0',
   )
 }
 #' @rdname geom_diagonal
-#' @importFrom ggplot2 layer
 #' @export
 geom_diagonal0 <- function(mapping = NULL, data = NULL, stat = 'diagonal0',
                            position = 'identity', arrow = NULL, lineend = 'butt',

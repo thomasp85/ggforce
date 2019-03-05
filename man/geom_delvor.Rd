@@ -13,33 +13,34 @@
 \usage{
 geom_voronoi_tile(mapping = NULL, data = NULL, stat = "voronoi_tile",
   position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-09,
-  max.radius = NULL, normalize = FALSE, asp.ratio = 1,
-  by.group = FALSE, expand = 0, radius = 0, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  max.radius = NULL, normalize = FALSE, asp.ratio = 1, expand = 0,
+  radius = 0, show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_voronoi_segment(mapping = NULL, data = NULL,
   stat = "voronoi_segment", position = "identity", na.rm = FALSE,
-  bound = NULL, eps = 1e-09, normalize = FALSE, by.group = FALSE,
+  bound = NULL, eps = 1e-09, normalize = FALSE, asp.ratio = 1,
   show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_delaunay_tile(mapping = NULL, data = NULL,
   stat = "delaunay_tile", position = "identity", na.rm = FALSE,
-  bound = NULL, eps = 1e-09, normalize = FALSE, expand = 0,
-  radius = 0, show.legend = NA, inherit.aes = TRUE, ...)
+  bound = NULL, eps = 1e-09, normalize = FALSE, asp.ratio = 1,
+  expand = 0, radius = 0, show.legend = NA, inherit.aes = TRUE,
+  ...)
 
 geom_delaunay_segment(mapping = NULL, data = NULL,
   stat = "delaunay_segment", position = "identity", na.rm = FALSE,
-  bound = NULL, eps = 1e-09, normalize = normalize,
+  bound = NULL, eps = 1e-09, normalize = FALSE, asp.ratio = 1,
   show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_delaunay_segment2(mapping = NULL, data = NULL,
   stat = "delaunay_segment2", position = "identity", na.rm = FALSE,
-  bound = NULL, eps = 1e-09, normalize = FALSE, n = 100,
-  show.legend = NA, inherit.aes = TRUE, ...)
+  bound = NULL, eps = 1e-09, normalize = FALSE, asp.ratio = 1,
+  n = 100, show.legend = NA, inherit.aes = TRUE, ...)
 
 stat_delvor_summary(mapping = NULL, data = NULL, geom = "point",
   position = "identity", na.rm = FALSE, bound = NULL, eps = 1e-09,
-  normalize = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+  normalize = FALSE, asp.ratio = asp.ratio, show.legend = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -83,7 +84,7 @@ arise, it is possible that these may averted by adjusting the value of eps
 upward or downward.}
 
 \item{max.radius}{The maximum distance a tile can extend from the point of
-origin. Will in effect clip each til to a circle centered at the point with
+origin. Will in effect clip each tile to a circle centered at the point with
 the given radius. If \code{normalize = TRUE} the radius will be given relative to
 the normalized values}
 
@@ -95,9 +96,6 @@ The coordinates are transformed back after calculations.}
 
 \item{asp.ratio}{If \code{normalize = TRUE} the x values will be multiplied by this
 amount after normalization.}
-
-\item{by.group}{Should the tesselation be calculated based on the data
-grouping, or for all points in the panel (default to \code{FALSE})}
 
 \item{expand}{A numeric or unit vector of length one, specifying the
 expansion amount. Negative values will result in contraction instead. If the
@@ -183,35 +181,41 @@ the bounding box}
 
 \examples{
 # Voronoi
-ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+# You usually wants all points to take part in the same tesselation so set
+# the group aesthetic to a constant (-1L is just a convention)
+ggplot(iris, aes(Sepal.Length, Sepal.Width, group = -1L)) +
   geom_voronoi_tile(aes(fill = Species)) +
   geom_voronoi_segment() +
-  geom_text(aes(label = ..nsides.., size = ..vorarea..),
+  geom_text(aes(label = stat(nsides), size = stat(vorarea)),
     stat = 'delvor_summary', switch.centroid = TRUE
   )
 
-# Difference of normalize = TRUE
-ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+# Difference of normalize = TRUE (segment layer is calculated without
+# normalisation)
+ggplot(iris, aes(Sepal.Length, Sepal.Width, group = -1L)) +
   geom_voronoi_tile(aes(fill = Species), normalize = TRUE) +
-  geom_voronoi_segment(normalize = TRUE) +
-  geom_text(aes(label = ..nsides.., size = ..vorarea..),
-    stat = 'delvor_summary', switch.centroid = TRUE, normalize = TRUE
-  )
+  geom_voronoi_segment()
 
 # Set a max radius
-ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+ggplot(iris, aes(Sepal.Length, Sepal.Width, group = -1L)) +
   geom_voronoi_tile(aes(fill = Species), colour = 'black', max.radius = 0.25)
 
 # Set custom bounding polygon
 triangle <- cbind(c(3, 9, 6), c(1, 1, 6))
-ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+ggplot(iris, aes(Sepal.Length, Sepal.Width, group = -1L)) +
   geom_voronoi_tile(aes(fill = Species), colour = 'black', bound = triangle)
 
-# Delaunay triangles - interpolation of species
+# Use geom_shape functionality to round corners etc
+ggplot(iris, aes(Sepal.Length, Sepal.Width, group = -1L)) +
+  geom_voronoi_tile(aes(fill = Species), colour = 'black',
+                    expand = unit(-.5, 'mm'), radius = unit(2, 'mm'))
+
+# Delaunay triangles
 ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
-  geom_delaunay_tile(alpha = 0.3) +
-  geom_delaunay_segment2(aes(colour = Species, group = -1))
-}
-\author{
-Thomas Lin Pedersen
+  geom_delaunay_tile(alpha = 0.3, colour = 'black')
+
+# Use geom_delauney_segment2 to interpolate aestetics between end points
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+  geom_delaunay_segment2(aes(colour = Species, group = -1), size = 2,
+                         lineend = 'round')
 }

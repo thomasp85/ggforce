@@ -67,8 +67,8 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \item{n}{The number of points generated for each spline}
 
 \item{type}{Either \code{'clamped'} (default) or \code{'open'}. The former creates a
-knot sequence that ensures the splines starts and ends a the terminal control
-points.}
+knot sequence that ensures the splines starts and ends at the terminal
+control points.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -101,8 +101,7 @@ b-spline as a number of points along the spline and connects these with a
 path. The *2 version does the same but in addition interpolates aesthetics
 between each control point. This makes the *2 version considerably slower
 so it shouldn't be used unless needed. The *0 version uses
-\code{\link[grid:xsplineGrob]{grid::xsplineGrob()}} with \code{shape = 1} to approximate a
-b-spline for a high performant version.
+\code{\link[grid:xsplineGrob]{grid::xsplineGrob()}} with \code{shape = 1} to approximate a b-spline.
 }
 \section{Aesthetics}{
 
@@ -145,29 +144,30 @@ cp <- data.frame(
 # Now create some paths between them
 paths <- data.frame(
   ind = c(
-    7, 5, 8, 8, 5, 9, 9, 5, 6, 6, 5, 7, 7, 5, 1, 3, 15, 8, 5, 1, 3, 17, 9, 5, 1, 2, 19, 6, 5, 1, 4,
-    12, 7, 5, 1, 4, 10, 6, 5, 1, 2, 20
+    7, 5, 8, 8, 5, 9, 9, 5, 6, 6, 5, 7, 7, 5, 1, 3, 15, 8, 5, 1, 3, 17, 9, 5,
+    1, 2, 19, 6, 5, 1, 4, 12, 7, 5, 1, 4, 10, 6, 5, 1, 2, 20
   ),
   group = c(
-    1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8,
-    9, 9, 9, 9, 9, 10, 10, 10, 10, 10
+    1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7,
+    7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10
   )
 )
 paths$x <- cp$x[paths$ind]
 paths$y <- cp$y[paths$ind]
 paths$class <- cp$class[paths$ind]
 
-ggplot() +
-  geom_bspline(aes(x = x, y = y, group = group, colour = ..index..), data = paths) +
+ggplot(paths) +
+  geom_bspline(aes(x = x, y = y, group = group, colour = ..index..)) +
   geom_point(aes(x = x, y = y), data = cp, color = 'steelblue')
 
-ggplot() +
-  geom_bspline2(aes(x = x, y = y, group = group, colour = class), data = paths) +
+ggplot(paths) +
+  geom_bspline2(aes(x = x, y = y, group = group, colour = class)) +
   geom_point(aes(x = x, y = y), data = cp, color = 'steelblue')
 
-ggplot() +
-  geom_bspline0(aes(x = x, y = y, group = group), data = paths) +
+ggplot(paths) +
+  geom_bspline0(aes(x = x, y = y, group = group)) +
   geom_point(aes(x = x, y = y), data = cp, color = 'steelblue')
+
 }
 \author{
 Thomas Lin Pedersen. The C++ code for De Boor's algorithm has been

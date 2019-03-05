@@ -7,8 +7,7 @@
 #' path. The *2 version does the same but in addition interpolates aesthetics
 #' between each control point. This makes the *2 version considerably slower
 #' so it shouldn't be used unless needed. The *0 version uses
-#' [grid::xsplineGrob()] with `shape = 1` to approximate a
-#' b-spline for a high performant version.
+#' [grid::xsplineGrob()] with `shape = 1` to approximate a b-spline.
 #'
 #' @section Aesthetics:
 #' geom_bspline understand the following aesthetics (required aesthetics are in
@@ -35,8 +34,8 @@
 #'
 #' @param n The number of points generated for each spline
 #' @param type Either `'clamped'` (default) or `'open'`. The former creates a
-#' knot sequence that ensures the splines starts and ends a the terminal control
-#' points.
+#' knot sequence that ensures the splines starts and ends at the terminal
+#' control points.
 #'
 #' @author Thomas Lin Pedersen. The C++ code for De Boor's algorithm has been
 #' adapted from
@@ -58,40 +57,40 @@
 #'   ),
 #'   class = sample(letters[1:3], 21, replace = TRUE)
 #' )
-#' 
+#'
 #' # Now create some paths between them
 #' paths <- data.frame(
 #'   ind = c(
-#'     7, 5, 8, 8, 5, 9, 9, 5, 6, 6, 5, 7, 7, 5, 1, 3, 15, 8, 5, 1, 3, 17, 9, 5, 1, 2, 19, 6, 5, 1, 4,
-#'     12, 7, 5, 1, 4, 10, 6, 5, 1, 2, 20
+#'     7, 5, 8, 8, 5, 9, 9, 5, 6, 6, 5, 7, 7, 5, 1, 3, 15, 8, 5, 1, 3, 17, 9, 5,
+#'     1, 2, 19, 6, 5, 1, 4, 12, 7, 5, 1, 4, 10, 6, 5, 1, 2, 20
 #'   ),
 #'   group = c(
-#'     1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8,
-#'     9, 9, 9, 9, 9, 10, 10, 10, 10, 10
+#'     1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7,
+#'     7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10
 #'   )
 #' )
 #' paths$x <- cp$x[paths$ind]
 #' paths$y <- cp$y[paths$ind]
 #' paths$class <- cp$class[paths$ind]
-#' 
-#' ggplot() +
-#'   geom_bspline(aes(x = x, y = y, group = group, colour = ..index..), data = paths) +
+#'
+#' ggplot(paths) +
+#'   geom_bspline(aes(x = x, y = y, group = group, colour = ..index..)) +
 #'   geom_point(aes(x = x, y = y), data = cp, color = 'steelblue')
-#' 
-#' ggplot() +
-#'   geom_bspline2(aes(x = x, y = y, group = group, colour = class), data = paths) +
+#'
+#' ggplot(paths) +
+#'   geom_bspline2(aes(x = x, y = y, group = group, colour = class)) +
 #'   geom_point(aes(x = x, y = y), data = cp, color = 'steelblue')
-#' 
-#' ggplot() +
-#'   geom_bspline0(aes(x = x, y = y, group = group), data = paths) +
+#'
+#' ggplot(paths) +
+#'   geom_bspline0(aes(x = x, y = y, group = group)) +
 #'   geom_point(aes(x = x, y = y), data = cp, color = 'steelblue')
+#'
 NULL
 
 
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBspline <- ggproto('StatBspline', Stat,
   compute_layer = function(self, data, params, panels) {
@@ -116,7 +115,6 @@ StatBspline <- ggproto('StatBspline', Stat,
   extra_params = c('na.rm', 'n', 'type')
 )
 #' @rdname geom_bspline
-#' @importFrom ggplot2 layer
 #' @export
 stat_bspline <- function(mapping = NULL, data = NULL, geom = 'path',
                          position = 'identity', na.rm = FALSE, n = 100,
@@ -129,7 +127,6 @@ stat_bspline <- function(mapping = NULL, data = NULL, geom = 'path',
   )
 }
 #' @rdname geom_bspline
-#' @importFrom ggplot2 layer
 #' @export
 geom_bspline <- function(mapping = NULL, data = NULL, stat = 'bspline',
                          position = 'identity', arrow = NULL, n = 100,
@@ -147,7 +144,6 @@ geom_bspline <- function(mapping = NULL, data = NULL, stat = 'bspline',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatBspline2 <- ggproto('StatBspline2', Stat,
   compute_layer = function(self, data, params, panels) {
@@ -186,7 +182,6 @@ StatBspline2 <- ggproto('StatBspline2', Stat,
   extra_params = c('na.rm', 'n', 'type')
 )
 #' @rdname geom_bspline
-#' @importFrom ggplot2 layer
 #' @export
 stat_bspline2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
                           position = 'identity', na.rm = FALSE, n = 100,
@@ -199,7 +194,6 @@ stat_bspline2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate'
   )
 }
 #' @rdname geom_bspline
-#' @importFrom ggplot2 layer
 #' @export
 geom_bspline2 <- function(mapping = NULL, data = NULL, stat = 'bspline2',
                           position = 'identity', arrow = NULL, n = 100,
@@ -218,7 +212,6 @@ geom_bspline2 <- function(mapping = NULL, data = NULL, stat = 'bspline2',
 #' @format NULL
 #' @usage NULL
 #' @importFrom grid xsplineGrob gpar
-#' @importFrom ggplot2 ggproto GeomPath alpha
 #' @export
 GeomBspline0 <- ggproto('GeomBspline0', GeomPath,
   draw_panel = function(data, panel_scales, coord, arrow = NULL,
@@ -239,7 +232,6 @@ GeomBspline0 <- ggproto('GeomBspline0', GeomPath,
   }
 )
 #' @rdname geom_bspline
-#' @importFrom ggplot2 layer StatIdentity
 #' @export
 stat_bspline0 <- function(mapping = NULL, data = NULL, geom = 'bspline0',
                           position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -251,7 +243,6 @@ stat_bspline0 <- function(mapping = NULL, data = NULL, geom = 'bspline0',
   )
 }
 #' @rdname geom_bspline
-#' @importFrom ggplot2 layer
 #' @export
 geom_bspline0 <- function(mapping = NULL, data = NULL, stat = 'identity',
                           position = 'identity', arrow = NULL, lineend = 'butt',

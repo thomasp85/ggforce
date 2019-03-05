@@ -25,8 +25,6 @@
 #' @param strength The proportion to move the control point along the x-axis
 #' towards the other end of the bezier curve
 #'
-#' @author Thomas Lin Pedersen
-#'
 #' @name geom_diagonal_wide
 #' @rdname geom_diagonal_wide
 #'
@@ -39,12 +37,22 @@
 #'
 #' ggplot(data) +
 #'   geom_diagonal_wide(aes(x, y, group = group))
+#'
+#' # The strength control the steepness
+#' ggplot(data, aes(x, y, group = group)) +
+#'   geom_diagonal_wide(strength = 0.75, alpha = 0.5, fill = 'red') +
+#'   geom_diagonal_wide(strength = 0.25, alpha = 0.5, fill = 'blue')
+#'
+#' # The diagonal_wide geom uses geom_shape under the hood, so corner rounding
+#' # etc are all there
+#' ggplot(data) +
+#'   geom_diagonal_wide(aes(x, y, group = group), radius = unit(5, 'mm'))
+#'
 NULL
 
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatDiagonalWide <- ggproto('StatDiagonalWide', Stat,
   setup_data = function(data, params) {
@@ -69,7 +77,6 @@ StatDiagonalWide <- ggproto('StatDiagonalWide', Stat,
   extra_params = c('na.rm', 'n', 'strength')
 )
 #' @rdname geom_diagonal_wide
-#' @importFrom ggplot2 layer
 #' @export
 stat_diagonal_wide <- function(mapping = NULL, data = NULL, geom = 'shape',
                                position = 'identity', n = 100, strength = 0.5,
@@ -82,7 +89,6 @@ stat_diagonal_wide <- function(mapping = NULL, data = NULL, geom = 'shape',
   )
 }
 #' @rdname geom_diagonal_wide
-#' @importFrom ggplot2 layer
 #' @export
 geom_diagonal_wide <- function(mapping = NULL, data = NULL,
                                stat = 'diagonal_wide', position = 'identity',

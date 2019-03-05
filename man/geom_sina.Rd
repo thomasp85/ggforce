@@ -6,13 +6,13 @@
 \title{Sina plot}
 \usage{
 stat_sina(mapping = NULL, data = NULL, geom = "sina",
-  position = "identity", ..., binwidth = NULL, bins = NULL,
-  scale = TRUE, method = "density", maxwidth = NULL, adjust = 1,
-  bin_limit = 1, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "dodge", scale = "area", method = "density",
+  bw = "nrd0", kernel = "gaussian", maxwidth = NULL, adjust = 1,
+  bin_limit = 1, binwidth = NULL, bins = NULL, seed = NA, ...,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 geom_sina(mapping = NULL, data = NULL, stat = "sina",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
+  position = "dodge", ..., na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 }
 \arguments{
@@ -40,10 +40,58 @@ will be used as the layer data.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-\code{colour = "red"} or \code{size = 3}. They may also be parameters
-to the paired geom/stat.}
+\item{scale}{How should each sina be scaled. Corresponds to the \code{scale}
+parameter in \code{\link[ggplot2:geom_violin]{ggplot2::geom_violin()}}? Available are:
+\itemize{
+\item \code{'area'} for scaling by the largest density/bin among the different sinas
+\item \code{'count'} as above, but in addition scales by the maximum number of points
+in the different sinas.
+\item \code{'width'} Only scale according to the \code{maxwidth} parameter
+}
+
+For backwards compatibility it can also be a logical with \code{TRUE} meaning
+\code{area} and \code{FALSE} meaning \code{width}}
+
+\item{method}{Choose the method to spread the samples within the same
+bin along the x-axis. Available methods: "density", "counts" (can be
+abbreviated, e.g. "d"). See \code{Details}.}
+
+\item{bw}{the smoothing bandwidth to be used.  The kernels are scaled
+    such that this is the standard deviation of the smoothing kernel.
+    (Note this differs from the reference books cited below, and from S-PLUS.)
+
+    \code{bw} can also be a character string giving a rule to choose the
+    bandwidth.  See \code{\link{bw.nrd}}. \cr The default,
+    \code{"nrd0"}, has remained the default for historical and
+    compatibility reasons, rather than as a general recommendation,
+    where e.g., \code{"SJ"} would rather fit, see also Venables and
+    Ripley (2002).
+
+    The specified (or computed) value of \code{bw} is multiplied by
+    \code{adjust}.
+  }
+
+\item{kernel}{a character string giving the smoothing kernel
+    to be used. This must partially match one of \code{"gaussian"},
+    \code{"rectangular"}, \code{"triangular"}, \code{"epanechnikov"},
+    \code{"biweight"}, \code{"cosine"} or \code{"optcosine"}, with default
+    \code{"gaussian"}, and may be abbreviated to a unique prefix (single
+    letter).
+
+    \code{"cosine"} is smoother than \code{"optcosine"}, which is the
+    usual \sQuote{cosine} kernel in the literature and almost MSE-efficient.
+    However, \code{"cosine"} is the version used by S.
+  }
+
+\item{maxwidth}{Control the maximum width the points can spread into. Values
+between 0 and 1.}
+
+\item{adjust}{the bandwidth used is actually \code{adjust*bw}.
+    This makes it easy to specify values like \sQuote{half the default}
+    bandwidth.}
+
+\item{bin_limit}{If the samples within the same y-axis bin are more
+than \code{bin_limit}, the samples's X coordinates will be adjusted.}
 
 \item{binwidth}{The width of the bins. The default is to use \code{bins}
 bins that cover the range of the data. You should always override
@@ -52,22 +100,12 @@ stories in your data.}
 
 \item{bins}{Number of bins. Overridden by binwidth. Defaults to 50.}
 
-\item{scale}{Logical. When set to \code{TRUE} x-coordinate widths across all
-groups are scaled based on the densiest area in the plot.
-Default: \code{TRUE}}
+\item{seed}{A seed to set for the jitter to ensure a reproducible plot}
 
-\item{method}{Choose the method to spread the samples within the same
-bin along the x-axis. Available methods: "density", "counts" (can be
-abbreviated, e.g. "d"). See \code{Details}.}
-
-\item{maxwidth}{Control the maximum width the points can spread into. Values
-between 0 and 1.}
-
-\item{adjust}{Adjusts the bandwidth of the density kernel when
-\code{method == "density"} (see \code{\link[stats:density]{stats::density()}}).}
-
-\item{bin_limit}{If the samples within the same y-axis bin are more
-than \code{bin_limit}, the samples's X coordinates will be adjusted.}
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -98,11 +136,10 @@ samples to spread within:
 \itemize{
 \item{\code{method == "density"}
 
-A density kernel is estimated along the y-axis for every sample group. The
-borders are then defined by the density curve. Tuning parameter
-\code{adjust} can be used to control the density bandwidth in the same way
-it is used in \code{\link[stats:density]{stats::density()}}. }
-
+A density kernel is estimated along the y-axis for every sample group, and
+the samples are spread within that curve. In effect this means that points
+will be positioned randomly within a violin plot with the same parameters.
+}
 \item{\code{method == "counts"}:
 
 The borders are defined by the number of samples that occupy the same bin.
@@ -128,8 +165,9 @@ bold):
 
 
 \describe{
-\item{bin_counts}{sample counts per bin per group}
-\item{scaled}{adjusted x-coordinates}
+\item{density}{The density or sample counts per bin for each point}
+\item{scaled}{\code{density} scaled by the maximum density in each group}
+\item{n}{The number of points in the group the point belong to}
 }
 }
 
@@ -138,13 +176,20 @@ ggplot(midwest, aes(state, area)) + geom_point()
 
 # Boxplot and Violin plots convey information on the distribution but not the
 # number of samples, while Jitter does the opposite.
-ggplot(midwest, aes(state, area)) + geom_violin()
-ggplot(midwest, aes(state, area)) + geom_jitter()
+ggplot(midwest, aes(state, area)) +
+  geom_violin()
+
+ggplot(midwest, aes(state, area)) +
+  geom_jitter()
 
 # Sina does both!
-ggplot(midwest, aes(state, area)) + geom_violin() + geom_sina()
+ggplot(midwest, aes(state, area)) +
+  geom_violin() +
+  geom_sina()
 
-p <- ggplot(midwest, aes(state, popdensity)) + scale_y_log10()
+p <- ggplot(midwest, aes(state, popdensity)) +
+  scale_y_log10()
+
 p + geom_sina()
 
 # Colour the points based on the data set's columns
@@ -155,8 +200,9 @@ cols <- midwest$popdensity > 10000
 p + geom_sina(colour = cols + 1L)
 
 # Sina plots with continuous x:
-p <- ggplot(midwest, aes(cut_width(area, 0.02), popdensity)) + scale_y_log10()
-p + geom_sina()
+ggplot(midwest, aes(cut_width(area, 0.02), popdensity)) +
+  geom_sina() +
+  scale_y_log10()
 
 
 ### Sample gaussian distributions
@@ -188,12 +234,15 @@ df$Distribution <- factor(
 
 p <- ggplot(df, aes(Distribution, Value))
 p + geom_boxplot()
-p + geom_violin() + geom_sina()
+p + geom_violin() +
+  geom_sina()
 
 # By default, Sina plot scales the width of the class according to the width
 # of the class with the highest density. Turn group-wise scaling off with:
-p + geom_violin() + geom_sina(scale = FALSE)
+p +
+  geom_violin() +
+  geom_sina(scale = FALSE)
 }
 \author{
-Nikos Sidiropoulos
+Nikos Sidiropoulos, Claus Wilke, and Thomas Lin Pedersen
 }

@@ -45,14 +45,17 @@
 #'     alpha = 0.1
 #'   )
 position_jitternormal <- function(sd_x = NULL, sd_y = NULL) {
-  ggplot2::ggproto(NULL, PositionJitterNormal,
+  ggproto(NULL, PositionJitterNormal,
     sd_x = sd_x,
     sd_y = sd_y
   )
 }
-
-PositionJitterNormal <- ggplot2::ggproto('PositionJitterNormal',
-  ggplot2:::Position,
+#' @rdname ggforce-extensions
+#' @format NULL
+#' @usage NULL
+#' @export
+PositionJitterNormal <- ggproto('PositionJitterNormal',
+  Position,
   required_aes = c('x', 'y'),
 
   setup_params = function(self, data) {

@@ -15,7 +15,7 @@ NULL
 #' [ggplot2::geom_point()] and map a variable to the size scale
 #'
 #' @section Aesthetics:
-#' geom_arc understand the following aesthetics (required aesthetics are in
+#' geom_circle understand the following aesthetics (required aesthetics are in
 #' bold):
 #'
 #' - **x0**
@@ -39,10 +39,9 @@ NULL
 #'
 #' @param n The number of points on the generated path per full circle.
 #'
-#' @author Thomas Lin Pedersen
-#'
 #' @name geom_circle
 #' @rdname geom_circle
+#' @seealso [geom_arc_bar()] for drawing arcs with fill
 #'
 #' @examples
 #' # Lets make some data
@@ -60,14 +59,12 @@ NULL
 #' ggplot() +
 #'   geom_circle(aes(x0 = x0, y0 = y0, r = r, fill = r), data = circles) +
 #'   coord_fixed()
-#' @seealso [geom_arc_bar()] for drawing arcs with fill
 #'
 NULL
 
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom grid arcCurvature
 #' @export
 StatCircle <- ggproto('StatCircle', Stat,
@@ -80,7 +77,6 @@ StatCircle <- ggproto('StatCircle', Stat,
   required_aes = c('x0', 'y0', 'r')
 )
 #' @rdname geom_circle
-#' @importFrom ggplot2 layer
 #' @export
 stat_circle <- function(mapping = NULL, data = NULL, geom = 'circle',
                         position = 'identity', n = 360, na.rm = FALSE,
@@ -94,7 +90,6 @@ stat_circle <- function(mapping = NULL, data = NULL, geom = 'circle',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @export
 GeomCircle <- ggproto('GeomCircle', GeomShape,
   default_aes = list(
@@ -103,7 +98,6 @@ GeomCircle <- ggproto('GeomCircle', GeomShape,
   )
 )
 #' @rdname geom_circle
-#' @importFrom ggplot2 layer
 #' @inheritParams geom_shape
 #' @export
 geom_circle <- function(mapping = NULL, data = NULL, stat = 'circle',

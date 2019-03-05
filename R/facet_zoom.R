@@ -153,6 +153,9 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       match_id <- match(layer_data$PANEL, layout$PANEL)
 
       if (!is.null(x_scales)) {
+        if ('x' %in% layout$name && x_scales[[1]]$is_discrete()) {
+          stop('facet_zoom doesn\'t support zooming in discrete scales', call. = FALSE)
+        }
         x_vars <- intersect(x_scales[[1]]$aesthetics, names(layer_data))
         SCALE_X <- layout$SCALE_X[match_id]
 
@@ -165,6 +168,9 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       }
 
       if (!is.null(y_scales)) {
+        if ('y' %in% layout$name && y_scales[[1]]$is_discrete()) {
+          stop('facet_zoom doesn\'t support zooming in discrete scales', call. = FALSE)
+        }
         y_vars <- intersect(y_scales[[1]]$aesthetics, names(layer_data))
         SCALE_Y <- layout$SCALE_Y[match_id]
 
@@ -199,8 +205,11 @@ FacetZoom <- ggproto('FacetZoom', Facet,
     data$PANEL <- factor(data$PANEL, layout$PANEL)
     data
   },
-  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord,
-                           data, theme, params) {
+  draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord,
+                         data, theme, params) {
+    if (inherits(coord, 'CoordFlip')) {
+      stop('facet_zoom currently doesn\'t work with flipped scales', call. = FALSE)
+    }
     if (is.null(params$x) && is.null(params$xlim)) {
       params$horizontal <- TRUE
     } else if (is.null(params$y) && is.null(params$ylim)) {
@@ -308,11 +317,11 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       widths <- unit.c(
         unit(max_width(list(axes$y[[3]]$left, axes$y[[4]]$left)), 'cm'),
         unit(params$zoom.size, 'null'),
-        unit(max_height(list(axes$y[[3]]$right, axes$y[[4]]$right)), 'cm'),
+        unit(max_width(list(axes$y[[3]]$right, axes$y[[4]]$right)), 'cm'),
         space.x,
         unit(max_width(list(axes$y[[1]]$left, axes$y[[2]]$left)), 'cm'),
         unit(1, 'null'),
-        unit(max_height(list(axes$y[[1]]$right, axes$y[[2]]$right)), 'cm')
+        unit(max_width(list(axes$y[[1]]$right, axes$y[[2]]$right)), 'cm')
       )
       final$heights <- heights
       final$widths <- widths
@@ -339,7 +348,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
         widths <- unit.c(
           unit(max_width(list(axes$y[[1]]$left, axes$y[[2]]$left)), 'cm'),
           unit(1, 'null'),
-          unit(max_height(list(axes$y[[1]]$right, axes$y[[2]]$right)), 'cm')
+          unit(max_width(list(axes$y[[1]]$right, axes$y[[2]]$right)), 'cm')
         )
         final <- gtable_add_rows(panelGrobs[[1]], space)
         final <- rbind(final, panelGrobs[[2]], size = 'first')

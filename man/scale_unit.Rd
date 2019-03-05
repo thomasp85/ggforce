@@ -94,7 +94,7 @@ usually be added automatically. To override manually, use
 }
 \examples{
 library(units)
-gallon <- make_unit('gallon')
+gallon <- as_units('gallon')
 mtcars$consumption <- mtcars$mpg * with(ud_units, mi / gallon)
 mtcars$power <- mtcars$hp * with(ud_units, hp)
 

@@ -92,7 +92,7 @@ Determines how well the arc approximates a circle section}
 }
 \description{
 This set of stats and geoms makes it possible to draw circle segments based
-on a centre point, a radius and a start and end angle (in radians). These
+on a center point, a radius and a start and end angle (in radians). These
 functions are intended for cartesian coordinate systems and makes it possible
 to create circular plot types without using the
 \code{\link[ggplot2:coord_polar]{ggplot2::coord_polar()}} coordinate system.
@@ -140,16 +140,36 @@ arcs <- data.frame(
 )
 
 # Behold the arcs
-ggplot() + geom_arc(aes(
-  x0 = 0, y0 = 0, r = r, start = start, end = end,
-  linetype = factor(r)
-),
-data = arcs
+ggplot(arcs) +
+  geom_arc(aes(x0 = 0, y0 = 0, r = r, start = start, end = end,
+               linetype = factor(r)))
+
+# Use the calculated index to map values to position on the arc
+ggplot(arcs) +
+  geom_arc(aes(x0 = 0, y0 = 0, r = r, start = start, end = end,
+               size = stat(index)), lineend = 'round') +
+  scale_radius() # linear size scale
+
+# The 0 version maps directly to curveGrob instead of calculating the points
+# itself
+ggplot(arcs) +
+  geom_arc0(aes(x0 = 0, y0 = 0, r = r, start = start, end = end,
+                linetype = factor(r)))
+
+# The 2 version allows interpolation of aesthetics between the start and end
+# points
+arcs2 <- data.frame(
+  angle = c(arcs$start, arcs$end),
+  r = rep(arcs$r, 2),
+  group = rep(1:10, 2),
+  colour = sample(letters[1:5], 20, TRUE)
 )
+
+ggplot(arcs2) +
+  geom_arc2(aes(x0 = 0, y0 = 0, r = r, end = angle, group = group,
+                colour = colour), size = 2)
+
 }
 \seealso{
 \code{\link[=geom_arc_bar]{geom_arc_bar()}} for drawing arcs with fill
-}
-\author{
-Thomas Lin Pedersen
 }

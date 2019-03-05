@@ -9,13 +9,13 @@
 #'
 #' @return A modified version of base.theme
 #'
+#' @export
+#'
 #' @examples
 #' p <- ggplot() + geom_point(aes(x = wt, y = qsec), data = mtcars)
-#' 
+#'
 #' p + theme_no_axes()
 #' p + theme_no_axes(theme_grey())
-#' @importFrom ggplot2 theme_bw theme element_blank %+replace%
-#' @export
 #'
 theme_no_axes <- function(base.theme = theme_bw()) {
   base.theme %+replace%

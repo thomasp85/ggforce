@@ -39,8 +39,6 @@
 #' inside the outer gear. If `NULL` the number of revolutions to reach the
 #' starting position is calculated and used.
 #'
-#' @author Thomas Lin Pedersen
-#'
 #' @name geom_spiro
 #' @rdname geom_spiro
 #'
@@ -61,7 +59,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom MASS fractions
 #' @export
 StatSpiro <- ggproto('StatSpiro', Stat,
@@ -103,7 +100,6 @@ StatSpiro <- ggproto('StatSpiro', Stat,
 )
 
 #' @rdname geom_spiro
-#' @importFrom ggplot2 layer
 #' @export
 stat_spiro <- function(mapping = NULL, data = NULL, geom = 'path',
                        position = 'identity', na.rm = FALSE, n = 500,
@@ -117,7 +113,6 @@ stat_spiro <- function(mapping = NULL, data = NULL, geom = 'path',
 }
 
 #' @rdname geom_spiro
-#' @importFrom ggplot2 layer GeomPath
 #' @export
 geom_spiro <- function(mapping = NULL, data = NULL, stat = 'spiro',
                        position = 'identity', arrow = NULL, n = 500,

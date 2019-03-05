@@ -6,13 +6,17 @@
 #'
 #' @inheritParams ggplot2::continuous_scale
 #' @inheritParams ggplot2::scale_x_continuous
+#'
 #' @param unit A unit specification to use for the axis. If given, the values
 #' will be converted to this unit before plotting. An error will be thrown if
 #' the specified unit is incompatible with the unit of the data.
 #'
+#' @name scale_unit
+#' @aliases NULL
+#'
 #' @examples
 #' library(units)
-#' gallon <- make_unit('gallon')
+#' gallon <- as_units('gallon')
 #' mtcars$consumption <- mtcars$mpg * with(ud_units, mi / gallon)
 #' mtcars$power <- mtcars$hp * with(ud_units, hp)
 #'
@@ -29,14 +33,11 @@
 #' # Resolve units when transforming data
 #' ggplot(mtcars) +
 #'   geom_point(aes(power, 1 / consumption))
-#' @name scale_unit
-#' @aliases NULL
 NULL
 
 #' @rdname scale_unit
 #' @export
 #' @importFrom scales censor
-#' @importFrom ggplot2 waiver continuous_scale sec_axis
 scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
                          minor_breaks = waiver(), labels = waiver(),
                          limits = NULL, expand = waiver(), oob = censor,
@@ -58,7 +59,7 @@ scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
     class(unit),
     symbolic_units = ,
     'NULL' = unit,
-    character = units::make_unit(unit),
+    character = units::as_units(unit),
     units = units(unit),
     stop('unit must either be NULL or of class `units` or `symbolic_units`',
          call. = FALSE)
@@ -76,7 +77,6 @@ scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
 #' @rdname scale_unit
 #' @export
 #' @importFrom scales censor
-#' @importFrom ggplot2 waiver continuous_scale sec_axis
 scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
                          minor_breaks = waiver(), labels = waiver(),
                          limits = NULL, expand = waiver(), oob = censor,
@@ -98,7 +98,7 @@ scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
     class(unit),
     symbolic_units = ,
     'NULL' = unit,
-    character = units::make_unit(unit),
+    character = units::as_units(unit),
     units = units(unit),
     stop('unit must either be NULL or of class `units` or `symbolic_units`',
          call. = FALSE)
@@ -116,7 +116,6 @@ scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ScaleContinuousPosition ggproto_parent
 #' @export
 ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleContinuousPosition,
   unit = NULL,
@@ -154,6 +153,5 @@ ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleConti
 #' @rdname scale_unit
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 scale_type
 #' @export
 scale_type.units <- function(x) c('unit', 'continuous')

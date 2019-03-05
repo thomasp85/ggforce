@@ -49,8 +49,6 @@
 #'
 #' @param n The number of points to create for each segment
 #'
-#' @author Thomas Lin Pedersen
-#'
 #' @name geom_link
 #' @rdname geom_link
 #'
@@ -64,27 +62,25 @@
 #'   width = c(1, 10, 6, 2, 3),
 #'   colour = letters[1:5]
 #' )
-#' 
-#' ggplot() + geom_link(aes(
-#'   x = x, y = y, xend = xend, yend = yend,
-#'   colour = colour, alpha = ..index..,
-#'   size = ..index..
-#' ),
-#' data = lines
-#' )
-#' 
-#' ggplot() + geom_link2(aes(
-#'   x = x, y = y, colour = colour, size = width,
-#'   group = 1
-#' ),
-#' data = lines, lineend = 'round', n = 500
-#' )
+#'
+#' ggplot(lines) +
+#'   geom_link(aes(x = x, y = y, xend = xend, yend = yend, colour = colour,
+#'                 alpha = stat(index), size = stat(index)))
+#'
+#' ggplot(lines) +
+#'   geom_link2(aes(x = x, y = y, colour = colour, size = width, group = 1),
+#'              lineend = 'round', n = 500)
+#'
+#' # geom_link0 is simply an alias for geom_segment to put the link geoms in
+#' # line with the other line geoms with multiple versions. `index` is not
+#' # available here
+#' ggplot(lines) +
+#'   geom_link0(aes(x = x, y = y, xend = xend, yend = yend, colour = colour))
 NULL
 
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatLink <- ggproto('StatLink', Stat,
   compute_panel = function(data, scales, n = 100) {
@@ -103,7 +99,6 @@ StatLink <- ggproto('StatLink', Stat,
   required_aes = c('x', 'y', 'xend', 'yend')
 )
 #' @rdname geom_link
-#' @importFrom ggplot2 layer
 #' @export
 stat_link <- function(mapping = NULL, data = NULL, geom = 'path',
                       position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -117,7 +112,6 @@ stat_link <- function(mapping = NULL, data = NULL, geom = 'path',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom tweenr tween_t
 #' @export
 StatLink2 <- ggproto('StatLink2', Stat,
@@ -135,7 +129,8 @@ StatLink2 <- ggproto('StatLink2', Stat,
       if ('frame' %in% names(df)) interp$frame <- df$frame[1]
       nIndex <- seq_len(nrow(interp))
       if (any(extraCols)) {
-        cbind(interp, df[nIndex, extraCols], .interp = nIndex > nrow(df))
+        cbind(interp, df[nIndex, extraCols, drop = FALSE],
+              .interp = nIndex > nrow(df))
       } else {
         cbind(interp, .interp = nIndex > nrow(df))
       }
@@ -144,7 +139,6 @@ StatLink2 <- ggproto('StatLink2', Stat,
   required_aes = c('x', 'y')
 )
 #' @rdname geom_link
-#' @importFrom ggplot2 layer
 #' @export
 stat_link2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
                        position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -156,7 +150,6 @@ stat_link2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
   )
 }
 #' @rdname geom_link
-#' @importFrom ggplot2 layer
 #' @export
 geom_link <- function(mapping = NULL, data = NULL, stat = 'link',
                       position = 'identity', arrow = NULL, lineend = 'butt',
@@ -172,7 +165,6 @@ geom_link <- function(mapping = NULL, data = NULL, stat = 'link',
   )
 }
 #' @rdname geom_link
-#' @importFrom ggplot2 layer
 #' @export
 geom_link2 <- function(mapping = NULL, data = NULL, stat = 'link2',
                        position = 'identity', arrow = NULL, lineend = 'butt',
@@ -188,6 +180,5 @@ geom_link2 <- function(mapping = NULL, data = NULL, stat = 'link2',
   )
 }
 #' @rdname geom_link
-#' @importFrom ggplot2 geom_segment
 #' @export
 geom_link0 <- geom_segment

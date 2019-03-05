@@ -4,7 +4,7 @@ NULL
 #' Arcs based on radius and radians
 #'
 #' This set of stats and geoms makes it possible to draw circle segments based
-#' on a centre point, a radius and a start and end angle (in radians). These
+#' on a center point, a radius and a start and end angle (in radians). These
 #' functions are intended for cartesian coordinate systems and makes it possible
 #' to create circular plot types without using the
 #' [ggplot2::coord_polar()] coordinate system.
@@ -46,10 +46,9 @@ NULL
 #' @param ncp the number of control points used to draw the arc with curveGrob.
 #' Determines how well the arc approximates a circle section
 #'
-#' @author Thomas Lin Pedersen
-#'
 #' @name geom_arc
 #' @rdname geom_arc
+#' @seealso [geom_arc_bar()] for drawing arcs with fill
 #'
 #' @examples
 #' # Lets make some data
@@ -58,22 +57,42 @@ NULL
 #'   end = seq(0, 2 * pi, length.out = 11)[-1],
 #'   r = rep(1:2, 5)
 #' )
-#' 
+#'
 #' # Behold the arcs
-#' ggplot() + geom_arc(aes(
-#'   x0 = 0, y0 = 0, r = r, start = start, end = end,
-#'   linetype = factor(r)
-#' ),
-#' data = arcs
+#' ggplot(arcs) +
+#'   geom_arc(aes(x0 = 0, y0 = 0, r = r, start = start, end = end,
+#'                linetype = factor(r)))
+#'
+#' # Use the calculated index to map values to position on the arc
+#' ggplot(arcs) +
+#'   geom_arc(aes(x0 = 0, y0 = 0, r = r, start = start, end = end,
+#'                size = stat(index)), lineend = 'round') +
+#'   scale_radius() # linear size scale
+#'
+#' # The 0 version maps directly to curveGrob instead of calculating the points
+#' # itself
+#' ggplot(arcs) +
+#'   geom_arc0(aes(x0 = 0, y0 = 0, r = r, start = start, end = end,
+#'                 linetype = factor(r)))
+#'
+#' # The 2 version allows interpolation of aesthetics between the start and end
+#' # points
+#' arcs2 <- data.frame(
+#'   angle = c(arcs$start, arcs$end),
+#'   r = rep(arcs$r, 2),
+#'   group = rep(1:10, 2),
+#'   colour = sample(letters[1:5], 20, TRUE)
 #' )
-#' @seealso [geom_arc_bar()] for drawing arcs with fill
+#'
+#' ggplot(arcs2) +
+#'   geom_arc2(aes(x0 = 0, y0 = 0, r = r, end = angle, group = group,
+#'                 colour = colour), size = 2)
 #'
 NULL
 
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatArc <- ggproto('StatArc', Stat,
   compute_panel = function(data, scales, n = 360) {
@@ -83,7 +102,6 @@ StatArc <- ggproto('StatArc', Stat,
   required_aes = c('x0', 'y0', 'r', 'start', 'end')
 )
 #' @rdname geom_arc
-#' @importFrom ggplot2 layer
 #' @export
 stat_arc <- function(mapping = NULL, data = NULL, geom = 'arc',
                      position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -97,7 +115,6 @@ stat_arc <- function(mapping = NULL, data = NULL, geom = 'arc',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto GeomPath
 #' @importFrom grid curveGrob gList gpar
 #' @export
 GeomArc <- ggproto('GeomArc', GeomPath,
@@ -106,7 +123,6 @@ GeomArc <- ggproto('GeomArc', GeomPath,
   )
 )
 #' @rdname geom_arc
-#' @importFrom ggplot2 layer
 #' @export
 geom_arc <- function(mapping = NULL, data = NULL, stat = 'arc',
                      position = 'identity', n = 360, arrow = NULL,
@@ -121,7 +137,6 @@ geom_arc <- function(mapping = NULL, data = NULL, stat = 'arc',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatArc2 <- ggproto('StatArc2', Stat,
   compute_panel = function(data, scales, n = 360) {
@@ -131,7 +146,6 @@ StatArc2 <- ggproto('StatArc2', Stat,
   required_aes = c('x0', 'y0', 'r', 'group', 'end')
 )
 #' @rdname geom_arc
-#' @importFrom ggplot2 layer
 #' @export
 stat_arc2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
                       position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -143,7 +157,6 @@ stat_arc2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
   )
 }
 #' @rdname geom_arc
-#' @importFrom ggplot2 layer
 #' @export
 geom_arc2 <- function(mapping = NULL, data = NULL, stat = 'arc2',
                       position = 'identity', n = 360, arrow = NULL,
@@ -158,7 +171,6 @@ geom_arc2 <- function(mapping = NULL, data = NULL, stat = 'arc2',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom grid arcCurvature
 #' @export
 StatArc0 <- ggproto('StatArc0', Stat,
@@ -175,7 +187,6 @@ StatArc0 <- ggproto('StatArc0', Stat,
   required_aes = c('x0', 'y0', 'r', 'start', 'end')
 )
 #' @rdname geom_arc
-#' @importFrom ggplot2 layer
 #' @export
 stat_arc0 <- function(mapping = NULL, data = NULL, geom = 'arc0',
                       position = 'identity', na.rm = FALSE, show.legend = NA,
@@ -189,7 +200,6 @@ stat_arc0 <- function(mapping = NULL, data = NULL, geom = 'arc0',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Geom draw_key_path .pt alpha
 #' @importFrom grid curveGrob  gList gpar
 #' @export
 GeomArc0 <- ggproto('GeomArc0', Geom,
@@ -224,7 +234,6 @@ GeomArc0 <- ggproto('GeomArc0', Geom,
   }
 )
 #' @rdname geom_arc
-#' @importFrom ggplot2 layer
 #' @export
 geom_arc0 <- function(mapping = NULL, data = NULL, stat = 'arc0',
                       position = 'identity', ncp = 5, arrow = NULL,

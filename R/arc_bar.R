@@ -52,8 +52,6 @@ NULL
 #'
 #' @param sep The separation between arcs in pie/donut charts
 #'
-#' @author Thomas Lin Pedersen
-#'
 #' @name geom_arc_bar
 #' @rdname geom_arc_bar
 #' @seealso [geom_arc()] for drawing arcs as lines
@@ -68,8 +66,14 @@ NULL
 #'
 #' # Behold the arcs
 #' ggplot(arcs) +
-#' geom_arc_bar(aes(x0 = 0, y0 = 0, r0 = r - 1, r = r, start = start, end = end,
-#'                  fill = r))
+#'   geom_arc_bar(aes(x0 = 0, y0 = 0, r0 = r - 1, r = r, start = start,
+#'                    end = end, fill = r))
+#'
+#' # geom_arc_bar uses geom_shape to draw the arcs, so you have all the
+#' # possibilities of that as well, e.g. rounding of corners
+#' ggplot(arcs) +
+#'   geom_arc_bar(aes(x0 = 0, y0 = 0, r0 = r - 1, r = r, start = start,
+#'                    end = end, fill = r), radius = unit(4, 'mm'))
 #'
 #' # If you got values for a pie chart, use stat_pie
 #' states <- c(
@@ -102,7 +106,6 @@ NULL
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatArcBar <- ggproto('StatArcBar', Stat,
   compute_panel = function(data, scales, n = 360) {
@@ -112,7 +115,6 @@ StatArcBar <- ggproto('StatArcBar', Stat,
   required_aes = c('x0', 'y0', 'r0', 'r', 'start', 'end')
 )
 #' @rdname geom_arc_bar
-#' @importFrom ggplot2 layer
 #' @export
 stat_arc_bar <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
                          position = 'identity', n = 360, na.rm = FALSE,
@@ -126,7 +128,6 @@ stat_arc_bar <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatPie <- ggproto('StatPie', Stat,
   compute_panel = function(data, scales, n = 360, sep = 0) {
@@ -150,7 +151,6 @@ StatPie <- ggproto('StatPie', Stat,
   default_aes = aes(explode = NULL)
 )
 #' @rdname geom_arc_bar
-#' @importFrom ggplot2 layer
 #' @export
 stat_pie <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
                      position = 'identity', n = 360, sep = 0, na.rm = FALSE,
@@ -164,7 +164,6 @@ stat_pie <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @export
 GeomArcBar <- ggproto('GeomArcBar', GeomShape,
   default_aes = list(
@@ -173,7 +172,6 @@ GeomArcBar <- ggproto('GeomArcBar', GeomShape,
   )
 )
 #' @rdname geom_arc_bar
-#' @importFrom ggplot2 layer
 #' @inheritParams geom_shape
 #' @export
 geom_arc_bar <- function(mapping = NULL, data = NULL, stat = 'arc_bar',
@@ -183,7 +181,7 @@ geom_arc_bar <- function(mapping = NULL, data = NULL, stat = 'arc_bar',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomArcBar,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, ...)
+    params = list(na.rm = na.rm, n = n, expand = expand, radius = radius, ...)
   )
 }
 
