@@ -5,7 +5,7 @@
 \title{Annotate areas with ellipses}
 \usage{
 geom_mark_ellipse(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", expand = unit(5, "mm"), radius = 0,
+  position = "identity", expand = unit(5, "mm"), radius = expand,
   n = 100, tol = 0.01, label.margin = margin(2, 2, 2, 2, "mm"),
   label.width = NULL, label.minwidth = unit(50, "mm"),
   label.hjust = 0, label.fontsize = 12, label.family = "",
