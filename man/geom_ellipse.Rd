@@ -2,14 +2,14 @@
 % Please edit documentation in R/ellipse.R
 \name{geom_ellipse}
 \alias{geom_ellipse}
-\alias{stat_ellipse}
+\alias{stat_ellip}
 \title{Draw (super)ellipses based on the coordinate system scale}
 \usage{
-stat_ellipse(mapping = NULL, data = NULL, geom = "circle",
+stat_ellip(mapping = NULL, data = NULL, geom = "circle",
   position = "identity", n = 360, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 
-geom_ellipse(mapping = NULL, data = NULL, stat = "ellipse",
+geom_ellipse(mapping = NULL, data = NULL, stat = "ellip",
   position = "identity", n = 360, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }

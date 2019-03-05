@@ -61,7 +61,7 @@ NULL
 #' @format NULL
 #' @usage NULL
 #' @export
-StatEllipse <- ggproto('StatEllipse', Stat,
+StatEllip <- ggproto('StatEllip', Stat,
   setup_data = function(data, params) {
     data$m1 <- ifelse(is.null(data$m1), 2, data$m1)
     data$m2 <- ifelse(is.null(data$m2), data$m1, data$m2)
@@ -88,11 +88,11 @@ StatEllipse <- ggproto('StatEllipse', Stat,
 )
 #' @rdname geom_ellipse
 #' @export
-stat_ellipse <- function(mapping = NULL, data = NULL, geom = 'circle',
+stat_ellip <- function(mapping = NULL, data = NULL, geom = 'circle',
                          position = 'identity', n = 360, na.rm = FALSE,
                          show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
-    stat = StatEllipse, data = data, mapping = mapping, geom = geom,
+    stat = StatEllip, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(na.rm = na.rm, n = n, ...)
   )
@@ -100,7 +100,7 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = 'circle',
 
 #' @rdname geom_ellipse
 #' @export
-geom_ellipse <- function(mapping = NULL, data = NULL, stat = 'ellipse',
+geom_ellipse <- function(mapping = NULL, data = NULL, stat = 'ellip',
                          position = 'identity', n = 360, na.rm = FALSE,
                          show.legend = NA, inherit.aes = TRUE, ...) {
   layer(

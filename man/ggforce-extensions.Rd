@@ -31,7 +31,7 @@
 \alias{StatDiagonal2}
 \alias{StatDiagonal0}
 \alias{StatDiagonalWide}
-\alias{StatEllipse}
+\alias{StatEllip}
 \alias{FacetGridPaginate}
 \alias{FacetStereo}
 \alias{FacetWrapPaginate}
