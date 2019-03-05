@@ -168,11 +168,7 @@ StatBspline2 <- ggproto('StatBspline2', Stat,
     paths$.interp[pathIndex] <- FALSE
     if (any(extraCols)) {
       for (i in names(data)[extraCols]) {
-        paths[[i]] <- NA
-        if (is.factor(data[[i]])) {
-          paths[[i]] <- as.factor(paths[[i]])
-          levels(paths[[i]]) <- levels(data[[i]])
-        }
+        paths[[i]] <- data[[i]][1]
         paths[[i]][pathIndex] <- data[, i]
       }
     }

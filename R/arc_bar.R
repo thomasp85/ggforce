@@ -242,7 +242,7 @@ arcPaths2 <- function(data, n) {
   fullCirc <- n / (2 * pi)
   extraData <- setdiff(names(data), c('r', 'x0', 'y0', 'end', 'group', 'PANEL'))
   hasExtra <- length(extraData) != 0
-  extraTemplate <- data[NA, extraData, drop = FALSE][1, , drop = FALSE]
+  extraTemplate <- data[1, extraData, drop = FALSE]
   paths <- lapply(split(seq_len(nrow(data)), data$group), function(i) {
     if (length(i) != 2) {
       stop('Arcs must be defined by two end points', call. = FALSE)

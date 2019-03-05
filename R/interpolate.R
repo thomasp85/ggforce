@@ -97,8 +97,7 @@ interpolateDataFrame <- function(data) {
         all(is.na(data[[i]]))) {
       next
     }
-    if (any(!is.na(data[[i]][data$.interp])) &&
-        length(unique(data[[i]][data$.interp])) > 1) {
+    if (length(unique(data[[i]][data$.interp])) > 1) {
       next
     }
     interpValues <- split(data[[i]][!data$.interp], data$group[!data$.interp])

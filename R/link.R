@@ -117,7 +117,8 @@ stat_link <- function(mapping = NULL, data = NULL, geom = 'path',
 StatLink2 <- ggproto('StatLink2', Stat,
   compute_panel = function(data, scales, n = 100) {
     extraCols <- !names(data) %in% c('x', 'y', 'group', 'PANEL', 'frame')
-    dapply(data, 'group', function(df) {
+    extraCols <- names(data)[extraCols]
+    data <- dapply(data, 'group', function(df) {
       n_group <- n * (nrow(df) - 1) + 1
       interp <- tween_t(list(df$x, df$y), n_group)
       interp <- data.frame(x = interp[[1]], y = interp[[2]])
@@ -128,13 +129,15 @@ StatLink2 <- ggproto('StatLink2', Stat,
       )
       if ('frame' %in% names(df)) interp$frame <- df$frame[1]
       nIndex <- seq_len(nrow(interp))
-      if (any(extraCols)) {
+      if (length(extraCols) > 0) {
         cbind(interp, df[nIndex, extraCols, drop = FALSE],
               .interp = nIndex > nrow(df))
       } else {
         cbind(interp, .interp = nIndex > nrow(df))
       }
     })
+    data[data$.interp, extraCols] <- data[1, extraCols, drop = FALSE]
+    data
   },
   required_aes = c('x', 'y')
 )

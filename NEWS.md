@@ -44,6 +44,7 @@
   the y-axis would become huge
 - Correctly detect and error out when scales and coords does not work with 
   `facet_zoom`
+- The *2 versions of line geoms no longer adds an `NA` to guides.
 
 # ggforce 0.1.1
 
