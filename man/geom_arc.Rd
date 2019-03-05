@@ -134,16 +134,18 @@ bold):
 \examples{
 # Lets make some data
 arcs <- data.frame(
-  start = seq(0, 2*pi, length.out=11)[-11],
-  end = seq(0, 2*pi, length.out=11)[-1],
+  start = seq(0, 2 * pi, length.out = 11)[-11],
+  end = seq(0, 2 * pi, length.out = 11)[-1],
   r = rep(1:2, 5)
 )
 
 # Behold the arcs
-ggplot() + geom_arc(aes(x0=0, y0=0, r=r, start=start, end=end,
-                        linetype=factor(r)),
-                    data=arcs)
-
+ggplot() + geom_arc(aes(
+  x0 = 0, y0 = 0, r = r, start = start, end = end,
+  linetype = factor(r)
+),
+data = arcs
+)
 }
 \seealso{
 \code{\link[=geom_arc_bar]{geom_arc_bar()}} for drawing arcs with fill

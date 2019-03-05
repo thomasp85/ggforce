@@ -58,9 +58,9 @@ or \code{label.minwidth} decide}
 the size of the label exceeds this, the the description is allowed to fill as
 much as the label}
 
-\item{label.hjust}{The horizontal justification for the annotation. If it contains
-two elements the first will be used for the label and the second for the
-description.}
+\item{label.hjust}{The horizontal justification for the annotation. If it
+contains two elements the first will be used for the label and the second for
+the description.}
 
 \item{label.fontsize}{The size of the text for the annotation. If it contains
 two elements the first will be used for the label and the second for the

@@ -95,21 +95,20 @@ usually be added automatically. To override manually, use
 \examples{
 library(units)
 gallon <- make_unit('gallon')
-mtcars$consumption <- mtcars$mpg * with(ud_units, mi/gallon)
+mtcars$consumption <- mtcars$mpg * with(ud_units, mi / gallon)
 mtcars$power <- mtcars$hp * with(ud_units, hp)
 
 # Use units encoded into the data
 ggplot(mtcars) +
-    geom_point(aes(power, consumption))
+  geom_point(aes(power, consumption))
 
 # Convert units on the fly during plotting
 ggplot(mtcars) +
-    geom_point(aes(power, consumption)) +
-    scale_x_unit(unit = 'W') +
-    scale_y_unit(unit = 'km/l')
+  geom_point(aes(power, consumption)) +
+  scale_x_unit(unit = 'W') +
+  scale_y_unit(unit = 'km/l')
 
 # Resolve units when transforming data
 ggplot(mtcars) +
-    geom_point(aes(power, 1/consumption))
-
+  geom_point(aes(power, 1 / consumption))
 }

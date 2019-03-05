@@ -87,7 +87,7 @@ Ellipse khachiyan(Eigen::MatrixXd points, double tol) {
 
     double error = 1;
     double max, step;
-    Eigen::MatrixXd X, A;
+    Eigen::MatrixXd X, A, V;
     Eigen::VectorXd M, u_tmp, c;
     Eigen::VectorXd::Index max_i;
     Eigen::VectorXd u(N);
@@ -104,13 +104,21 @@ Ellipse khachiyan(Eigen::MatrixXd points, double tol) {
         u = u_tmp;
     }
     A = (1.0/d) * (points * u.asDiagonal() * points.adjoint() - (points * u)*(points * u).adjoint() ).inverse();
-    Eigen::JacobiSVD<Eigen::MatrixXd> svd_A(A, Eigen::ComputeThinV);
     c = points * u;
     enc.x = c[0];
     enc.y = c[1];
+
+    Eigen::JacobiSVD<Eigen::MatrixXd> svd_A(A, Eigen::ComputeThinV);
     enc.a = 1.0/std::sqrt(float(svd_A.singularValues()[1]));
     enc.b = 1.0/std::sqrt(float(svd_A.singularValues()[0]));
-    enc.rad = std::asin(float(svd_A.matrixV()(1,1)));
+    V = svd_A.matrixV();
+    if (V(0, 1) == V(1, 0)) {
+        enc.rad = std::asin(float(V(1, 1)));
+    } else if (V(0, 1) < V(1, 0)) {
+        enc.rad = std::asin(-float(V(0, 0)));
+    } else {
+        enc.rad = std::asin(float(V(0, 0)));
+    }
     return enc;
 }
 

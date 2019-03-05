@@ -35,14 +35,13 @@
 #' ggplot(mtcars) +
 #'   geom_point(aes(mpg, disp, depth = cyl)) +
 #'   facet_stereo()
-#'
 facet_stereo <- function(IPD = 63.5, panel.size = 200, shrink = TRUE) {
-    ggproto(NULL, FacetStereo,
-            shrink = shrink,
-            params = list(
-                IPD = IPD, panel.size = panel.size
-            )
+  ggproto(NULL, FacetStereo,
+    shrink = shrink,
+    params = list(
+      IPD = IPD, panel.size = panel.size
     )
+  )
 }
 
 #' @rdname ggforce-extensions
@@ -52,75 +51,91 @@ facet_stereo <- function(IPD = 63.5, panel.size = 200, shrink = TRUE) {
 #' @importFrom scales rescale
 #' @importFrom gtable gtable_add_cols
 #' @export
-FacetStereo <- ggproto("FacetStereo", Facet,
-    compute_layout = function(data, params) {
-        data.frame(PANEL = c(1L, 2L), SCALE_X = 1L, SCALE_Y = 1L)
-    },
-    map_data = function(data, layout, params) {
-        if (empty(data)) {
-            return(cbind(data, PANEL = integer(0)))
-        }
-        rbind(
-            cbind(data, PANEL = 1L),
-            cbind(data, PANEL = 2L)
-        )
-    },
-    finish_data = function(data, layout, x_scales, y_scales, params) {
-        if ('depth' %in% names(data)) {
-            if ('.interp' %in% names(data)) {
-                data$depth2 <- do.call(rbind, lapply(split(data, data$PANEL), interpolateDataFrame))$depth
-            } else {
-                data$depth2 <- data$depth
-            }
-            group_order <- order(sapply(split(data$depth2, data$group), quantile, probs = 0.9, na.rm = TRUE))
-            data <- do.call(rbind, split(data, data$group)[group_order])
-            data[data$group == -1, ] <- data[data$group == -1, ][order(data$depth2[data$group == -1]), ]
-            data$group[data$group != -1] <- match(data$group[data$group != -1], unique(data$group[data$group != -1]))
-            x_range <- x_scales[[1]]$dimension(expand_default(x_scales[[1]]))
-            k <- ifelse(data$PANEL == 1, -1, 1) * params$IPD/2
-            x_transform <- function(d) {
-                h <- rescale(d, to = c(-1, 1) * params$panel.size/2, from = x_range)
-                new_pos <- h + (h - k) * data$depth2
-                rescale(new_pos, to = x_range, from = c(-1, 1) * params$panel.size/2)
-            }
-            data <- transform_position(data, x_transform)
-            data$depth2 <- NULL
-        }
-        data
-    },
-    draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord,
-                           data, theme, params) {
-        axes <- render_axes(ranges, ranges, coord, theme, FALSE)
-        panelGrobs <- create_panels(panels, axes$x, axes$y)
-        spacing <- theme$panel.spacing.x %||% theme$panel.spacing
-        panel <- gtable_add_cols(panelGrobs[[1]], spacing)
-        cbind(panel, panelGrobs[[2]], size = 'first')
-    },
-    draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
-        panel_dim <-  find_panel(panels)
-
-        xlab_height_top <- grobHeight(labels$x[[1]])
-        panels <- gtable_add_rows(panels, xlab_height_top, pos = 0)
-        panels <- gtable_add_grob(panels, labels$x[[1]], name = "xlab-t",
-                                  l = panel_dim$l, r = panel_dim$r, t = 1, clip = "off")
-
-        xlab_height_bottom <- grobHeight(labels$x[[2]])
-        panels <- gtable_add_rows(panels, xlab_height_bottom, pos = -1)
-        panels <- gtable_add_grob(panels, labels$x[[2]], name = "xlab-b",
-                                  l = panel_dim$l, r = panel_dim$r, t = -1, clip = "off")
-
-        panel_dim <-  find_panel(panels)
-
-        ylab_width_left <- grobWidth(labels$y[[1]])
-        panels <- gtable_add_cols(panels, ylab_width_left, pos = 0)
-        panels <- gtable_add_grob(panels, labels$y[[1]], name = "ylab-l",
-                                  l = 1, b = panel_dim$b, t = panel_dim$t, clip = "off")
-
-        ylab_width_right <- grobWidth(labels$y[[2]])
-        panels <- gtable_add_cols(panels, ylab_width_right, pos = -1)
-        panels <- gtable_add_grob(panels, labels$y[[2]], name = "ylab-r",
-                                  l = -1, b = panel_dim$b, t = panel_dim$t, clip = "off")
-
-        panels
+FacetStereo <- ggproto('FacetStereo', Facet,
+  compute_layout = function(data, params) {
+    data.frame(PANEL = c(1L, 2L), SCALE_X = 1L, SCALE_Y = 1L)
+  },
+  map_data = function(data, layout, params) {
+    if (empty(data)) {
+      return(cbind(data, PANEL = integer(0)))
     }
+    rbind(
+      cbind(data, PANEL = 1L),
+      cbind(data, PANEL = 2L)
+    )
+  },
+  finish_data = function(data, layout, x_scales, y_scales, params) {
+    if ('depth' %in% names(data)) {
+      if ('.interp' %in% names(data)) {
+        data$depth2 <- do.call(
+          rbind,
+          lapply(split(data, data$PANEL), interpolateDataFrame)
+        )$depth
+      } else {
+        data$depth2 <- data$depth
+      }
+      group_order <- order(
+        sapply(split(data$depth2, data$group), quantile, probs = 0.9,
+               na.rm = TRUE)
+      )
+      data <- do.call(rbind, split(data, data$group)[group_order])
+      data[data$group == -1, ] <- data[data$group == -1, ][order(data$depth2[data$group == -1]), ]
+      data$group[data$group != -1] <- match(data$group[data$group != -1],
+                                            unique(data$group[data$group != -1]))
+      x_range <- x_scales[[1]]$dimension(expand_default(x_scales[[1]]))
+      k <- ifelse(data$PANEL == 1, -1, 1) * params$IPD / 2
+      x_transform <- function(d) {
+        h <- rescale(d, to = c(-1, 1) * params$panel.size / 2, from = x_range)
+        new_pos <- h + (h - k) * data$depth2
+        rescale(new_pos, to = x_range, from = c(-1, 1) * params$panel.size / 2)
+      }
+      data <- transform_position(data, x_transform)
+      data$depth2 <- NULL
+    }
+    data
+  },
+  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord,
+                           data, theme, params) {
+    axes <- render_axes(ranges, ranges, coord, theme, FALSE)
+    panelGrobs <- create_panels(panels, axes$x, axes$y)
+    spacing <- theme$panel.spacing.x %||% theme$panel.spacing
+    panel <- gtable_add_cols(panelGrobs[[1]], spacing)
+    cbind(panel, panelGrobs[[2]], size = 'first')
+  },
+  draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data,
+                         theme, labels, params) {
+    panel_dim <- find_panel(panels)
+
+    xlab_height_top <- grobHeight(labels$x[[1]])
+    panels <- gtable_add_rows(panels, xlab_height_top, pos = 0)
+    panels <- gtable_add_grob(panels, labels$x[[1]],
+      name = 'xlab-t',
+      l = panel_dim$l, r = panel_dim$r, t = 1, clip = 'off'
+    )
+
+    xlab_height_bottom <- grobHeight(labels$x[[2]])
+    panels <- gtable_add_rows(panels, xlab_height_bottom, pos = -1)
+    panels <- gtable_add_grob(panels, labels$x[[2]],
+      name = 'xlab-b',
+      l = panel_dim$l, r = panel_dim$r, t = -1, clip = 'off'
+    )
+
+    panel_dim <- find_panel(panels)
+
+    ylab_width_left <- grobWidth(labels$y[[1]])
+    panels <- gtable_add_cols(panels, ylab_width_left, pos = 0)
+    panels <- gtable_add_grob(panels, labels$y[[1]],
+      name = 'ylab-l',
+      l = 1, b = panel_dim$b, t = panel_dim$t, clip = 'off'
+    )
+
+    ylab_width_right <- grobWidth(labels$y[[2]])
+    panels <- gtable_add_cols(panels, ylab_width_right, pos = -1)
+    panels <- gtable_add_grob(panels, labels$y[[2]],
+      name = 'ylab-r',
+      l = -1, b = panel_dim$b, t = panel_dim$t, clip = 'off'
+    )
+
+    panels
+  }
 )

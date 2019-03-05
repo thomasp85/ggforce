@@ -40,7 +40,6 @@ for conveying important data. Regard this more as a party-trick...
 ggplot(mtcars) +
   geom_point(aes(mpg, disp, depth = cyl)) +
   facet_stereo()
-
 }
 \seealso{
 Other ggforce facets: \code{\link{facet_grid_paginate}},

@@ -159,7 +159,7 @@ p <- ggplot(midwest, aes(cut_width(area, 0.02), popdensity)) + scale_y_log10()
 p + geom_sina()
 
 
-###Sample gaussian distributions
+### Sample gaussian distributions
 # Unimodal
 a <- rnorm(500, 6, 1)
 b <- rnorm(400, 5, 1.5)
@@ -171,15 +171,20 @@ c <- c(rnorm(200, 3, .7), rnorm(50, 7, 0.4))
 d <- c(rnorm(200, 2, 0.7), rnorm(300, 5.5, 0.4), rnorm(100, 8, 0.4))
 
 df <- data.frame(
-  "Distribution" = c(rep("Unimodal 1", length(a)),
-                     rep("Unimodal 2", length(b)),
-                     rep("Bimodal", length(c)),
-                     rep("Trimodal", length(d))),
-  "Value" = c(a, b, c, d))
+  'Distribution' = c(
+    rep('Unimodal 1', length(a)),
+    rep('Unimodal 2', length(b)),
+    rep('Bimodal', length(c)),
+    rep('Trimodal', length(d))
+  ),
+  'Value' = c(a, b, c, d)
+)
 
 # Reorder levels
-df$Distribution <- factor(df$Distribution,
-                          levels(df$Distribution)[c(3, 4, 1, 2)])
+df$Distribution <- factor(
+  df$Distribution,
+  levels(df$Distribution)[c(3, 4, 1, 2)]
+)
 
 p <- ggplot(df, aes(Distribution, Value))
 p + geom_boxplot()

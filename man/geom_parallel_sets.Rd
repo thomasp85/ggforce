@@ -133,7 +133,6 @@ ggplot(data, aes(x, id = id, split = y, value = value)) +
   geom_parallel_sets(aes(fill = Sex), alpha = 0.3, axis.width = 0.1) +
   geom_parallel_sets_axes(axis.width = 0.1) +
   geom_parallel_sets_labels(colour = 'white')
-
 }
 \author{
 Thomas Lin Pedersen

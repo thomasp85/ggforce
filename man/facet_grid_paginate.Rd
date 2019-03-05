@@ -82,8 +82,7 @@ fall back to the standard \code{facet_grid} functionality.
 # Draw a small section of the grid
 ggplot(diamonds) +
   geom_point(aes(carat, price), alpha = 0.1) +
-  facet_grid_paginate(color~cut:clarity, ncol = 3, nrow = 3, page = 4)
-
+  facet_grid_paginate(color ~ cut:clarity, ncol = 3, nrow = 3, page = 4)
 }
 \seealso{
 Other ggforce facets: \code{\link{facet_stereo}},

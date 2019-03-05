@@ -48,18 +48,18 @@ NULL
 #' # Lets make some data
 #' circles <- data.frame(
 #'   x0 = rep(1:3, 3),
-#'   y0 =  rep(1:3, each=3),
+#'   y0 = rep(1:3, each = 3),
 #'   r = seq(0.1, 1, length.out = 9)
 #' )
 #'
 #' # Behold the some circles
-#' ggplot() + geom_circle(aes(x0=x0, y0=y0, r=r, fill=r), data=circles)
+#' ggplot() +
+#'   geom_circle(aes(x0 = x0, y0 = y0, r = r, fill = r), data = circles)
 #'
 #' # Use coord_fixed to ensure true circularity
-#' ggplot() + geom_circle(aes(x0=x0, y0=y0, r=r, fill=r), data=circles) +
+#' ggplot() +
+#'   geom_circle(aes(x0 = x0, y0 = y0, r = r, fill = r), data = circles) +
 #'   coord_fixed()
-#'
-#'
 #' @seealso [geom_arc_bar()] for drawing arcs with fill
 #'
 NULL
@@ -71,25 +71,25 @@ NULL
 #' @importFrom grid arcCurvature
 #' @export
 StatCircle <- ggproto('StatCircle', Stat,
-    compute_panel = function(data, scales, n = 360) {
-        data$start <- 0
-        data$end <- 2*pi
-        arcPaths(data, n + 1)
-    },
+  compute_panel = function(data, scales, n = 360) {
+    data$start <- 0
+    data$end <- 2 * pi
+    arcPaths(data, n + 1)
+  },
 
-    required_aes = c('x0', 'y0', 'r')
+  required_aes = c('x0', 'y0', 'r')
 )
 #' @rdname geom_circle
 #' @importFrom ggplot2 layer
 #' @export
-stat_circle  <- function(mapping = NULL, data = NULL, geom = "circle",
-                      position = "identity", n = 360, na.rm = FALSE, show.legend = NA,
-                      inherit.aes = TRUE, ...) {
-    layer(
-        stat = StatCircle, data = data, mapping = mapping, geom = geom,
-        position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-        params = list(na.rm = na.rm, n = n, ...)
-    )
+stat_circle <- function(mapping = NULL, data = NULL, geom = 'circle',
+                        position = 'identity', n = 360, na.rm = FALSE,
+                        show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    stat = StatCircle, data = data, mapping = mapping, geom = geom,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, n = n, ...)
+  )
 }
 #' @rdname ggforce-extensions
 #' @format NULL
@@ -97,16 +97,22 @@ stat_circle  <- function(mapping = NULL, data = NULL, geom = "circle",
 #' @importFrom ggplot2 ggproto
 #' @export
 GeomCircle <- ggproto('GeomCircle', GeomShape,
-    default_aes = list(colour = 'black', fill = NA, size = 0.5, linetype = 1, alpha = NA)
+  default_aes = list(
+    colour = 'black', fill = NA, size = 0.5, linetype = 1,
+    alpha = NA
+  )
 )
 #' @rdname geom_circle
 #' @importFrom ggplot2 layer
 #' @inheritParams geom_shape
 #' @export
-geom_circle <- function(mapping = NULL, data = NULL, stat = "circle",
-                        position = "identity", n = 360, expand = 0, radius = 0, na.rm = FALSE,
-                        show.legend = NA, inherit.aes = TRUE, ...) {
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomCircle,
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(n = n, na.rm = na.rm, ...))
+geom_circle <- function(mapping = NULL, data = NULL, stat = 'circle',
+                        position = 'identity', n = 360, expand = 0, radius = 0,
+                        na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+                        ...) {
+  layer(
+    data = data, mapping = mapping, stat = stat, geom = GeomCircle,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(n = n, na.rm = na.rm, ...)
+  )
 }

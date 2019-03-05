@@ -108,14 +108,13 @@ ggplot() +
 # Rotation
 # Note that it expects radians and rotates the ellipse counter-clockwise
 ggplot() +
-  geom_ellipsis(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = pi/4)) +
+  geom_ellipsis(aes(x0 = 0, y0 = 0, a = 10, b = 3, angle = pi / 4)) +
   coord_fixed()
 
 # Draw a super ellipse
 ggplot() +
   geom_ellipsis(aes(x0 = 0, y0 = 0, a = 6, b = 3, angle = 75, m1 = 3)) +
   coord_fixed()
-
 }
 \author{
 Thomas Lin Pedersen
