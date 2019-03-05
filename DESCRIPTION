@@ -20,13 +20,13 @@ Depends:
     R (>= 3.3.0)
 Imports:
     grDevices (>= 3.3.0),
-    grid (>= 3.5.0),
+    grid (>= 3.3.0),
     gtable (>= 0.2.0),
-    MASS (>= 7.3.45),
-    polyclip (>= 1.9.1),
+    MASS (>= 7.3-45),
+    polyclip (>= 1.5-6),
     Rcpp (>= 0.12.2),
     rlang (>= 0.3.0),
-    scales (>= 1.0.0),
+    scales (>= 0.5.0),
     stats (>= 3.3.0),
     tweenr (>= 0.1.5)
 LinkingTo: Rcpp, RcppEigen
@@ -40,7 +40,7 @@ Suggests:
     sessioninfo,
     units (>= 0.4-6)
 VignetteBuilder: knitr
-Collate: 
+Collate:
     'RcppExports.R'
     'aaa.R'
     'shape.R'
