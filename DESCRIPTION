@@ -19,7 +19,7 @@ Description: The aim of 'ggplot2' is to aid in visual data investigations. This
     extension system so using 'ggforce' should be a stable experience.
 URL: https://github.com/thomasp85/ggforce
 BugReports: https://github.com/thomasp85/ggforce/issues
-License: GPL (>=2)
+License: MIT + file LICENSE
 LazyData: TRUE
 Encoding: UTF-8
 Depends:
