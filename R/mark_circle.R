@@ -64,6 +64,9 @@
 #' @param label.fontface The font face used for the annotation. If it contains
 #' two elements the first will be used for the label and the second for the
 #' description.
+#' @param label.lineheight The height of a line as a multipler of the fontsize.
+#' If it contains two elements the first will be used for the label and the
+#' second for the description.
 #' @param label.hjust The horizontal justification for the annotation. If it
 #' contains two elements the first will be used for the label and the second for
 #' the description.
@@ -148,6 +151,7 @@ GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
                         label.fontsize = 12, label.family = '',
                         label.fontface = c('bold', 'plain'),
                         label.fill = 'white', label.colour = 'black',
+                        label.lineheight = 1,
                         con.colour = 'black', con.size = 0.5, con.type = 'elbow',
                         con.linetype = 1, con.border = 'one',
                         con.cap = unit(3, 'mm'), con.arrow = NULL) {
@@ -190,7 +194,8 @@ GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
         fill = label.fill,
         fontface = label.fontface,
         fontfamily = label.family,
-        fontsize = label.fontsize
+        fontsize = label.fontsize,
+        lineheight = label.lineheight
       ),
       con.gp = gpar(
         col = con.colour,
@@ -222,7 +227,7 @@ geom_mark_circle <- function(mapping = NULL, data = NULL, stat = 'identity',
                              label.margin = margin(2, 2, 2, 2, 'mm'),
                              label.width = NULL, label.minwidth = unit(50, 'mm'),
                              label.hjust = 0, label.fontsize = 12,
-                             label.family = '',
+                             label.family = '', label.lineheight = 1,
                              label.fontface = c('bold', 'plain'),
                              label.fill = 'white', label.colour = 'black',
                              label.buffer = unit(10, 'mm'), con.colour = 'black',
@@ -249,6 +254,7 @@ geom_mark_circle <- function(mapping = NULL, data = NULL, stat = 'identity',
       label.minwidth = label.minwidth,
       label.fontsize = label.fontsize,
       label.family = label.family,
+      label.lineheight = label.lineheight,
       label.fontface = label.fontface,
       label.hjust = label.hjust,
       label.fill = label.fill,

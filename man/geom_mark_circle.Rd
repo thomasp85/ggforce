@@ -9,12 +9,12 @@ geom_mark_circle(mapping = NULL, data = NULL, stat = "identity",
   n = 100, label.margin = margin(2, 2, 2, 2, "mm"),
   label.width = NULL, label.minwidth = unit(50, "mm"),
   label.hjust = 0, label.fontsize = 12, label.family = "",
-  label.fontface = c("bold", "plain"), label.fill = "white",
-  label.colour = "black", label.buffer = unit(10, "mm"),
-  con.colour = "black", con.size = 0.5, con.type = "elbow",
-  con.linetype = 1, con.border = "one", con.cap = unit(3, "mm"),
-  con.arrow = NULL, ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  label.lineheight = 1, label.fontface = c("bold", "plain"),
+  label.fill = "white", label.colour = "black",
+  label.buffer = unit(10, "mm"), con.colour = "black",
+  con.size = 0.5, con.type = "elbow", con.linetype = 1,
+  con.border = "one", con.cap = unit(3, "mm"), con.arrow = NULL, ...,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -72,6 +72,10 @@ description.}
 \item{label.family}{The font family used for the annotation. If it contains
 two elements the first will be used for the label and the second for the
 description.}
+
+\item{label.lineheight}{The height of a line as a multipler of the fontsize.
+If it contains two elements the first will be used for the label and the
+second for the description.}
 
 \item{label.fontface}{The font face used for the annotation. If it contains
 two elements the first will be used for the label and the second for the
