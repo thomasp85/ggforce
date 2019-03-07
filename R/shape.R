@@ -69,7 +69,7 @@ NULL
 GeomShape <- ggproto('GeomShape', GeomPolygon,
   draw_panel = function(data, panel_params, coord, expand = 0, radius = 0) {
     n <- nrow(data)
-    if (n == 1) {
+    if (n == 1 && expand == 0) {
       return(zeroGrob())
     }
     munched <- coord_munch(coord, data, panel_params)
@@ -182,60 +182,49 @@ makeContent.shape <- function(x) {
   expand <- expand - radius
   if (expand != 0) {
     if (!is.null(poly$polygon)) {
-      poly$polygon <- unlist(
-        lapply(poly$polygon, polyoffset, delta = expand, jointype = 'miter',
-               miterlim = 1000),
-        recursive = FALSE
-      )
+      poly$polygon <- lapply(poly$polygon, polyoffset, delta = expand,
+                             jointype = 'miter', miterlim = 1000)
     }
     if (expand > 0) {
       if (!is.null(poly$line)) {
-        poly$line <- unlist(
-          lapply(poly$line, polylineoffset, delta = expand, jointype = 'square',
-                 endtype = 'opensquare'),
-          recursive = FALSE
-        )
+        poly$line <- lapply(poly$line, polylineoffset, delta = expand,
+                            jointype = 'square', endtype = 'opensquare')
       }
       poly$point <- pointoffset(poly$point, expand, type = 'square')
     }
   }
   if (radius != 0) {
     if (!is.null(poly$polygon)) {
-      poly$polygon <- unlist(
-        lapply(poly$polygon, polyoffset, delta = radius, jointype = 'round'),
-        recursive = FALSE
-      )
+      not_empty <- lengths(poly$polygon) != 0
+      poly$polygon[not_empty] <- lapply(poly$polygon[not_empty], polyoffset,
+                                        delta = radius, jointype = 'round')
     }
     if (expand > 0) {
       if (!is.null(poly$line)) {
-        poly$line <- unlist(
-          lapply(poly$line, polyoffset, delta = radius, jointype = 'round'),
-          recursive = FALSE
-        )
+        not_empty <- lengths(poly$line) != 0
+        poly$line[not_empty] <- lapply(poly$line[not_empty], polyoffset,
+                                       delta = radius, jointype = 'round')
       }
       if (!is.null(poly$point)) {
-        poly$point <- unlist(
-          lapply(poly$point, polyoffset, delta = radius, jointype = 'round'),
-          recursive = FALSE
-        )
+        not_empty <- lengths(poly$point) != 0
+        poly$point[not_empty] <- lapply(poly$point[not_empty], polyoffset,
+                                        delta = radius, jointype = 'round')
       }
     } else {
       if (!is.null(poly$line)) {
-        poly$line <- unlist(
-          lapply(poly$line, polylineoffset, delta = radius, jointype = 'round',
-                 endtype = 'openround'),
-          recursive = FALSE
-        )
+        poly$line <- lapply(poly$line, polylineoffset, delta = radius,
+                            jointype = 'round', endtype = 'openround')
       }
       poly$point <- pointoffset(poly$point, radius, type = 'circle')
     }
   }
-  polygons[type == 'polygon'] <- poly$polygon
-  polygons[type == 'line'] <- poly$line
-  polygons[type == 'point'] <- poly$point
+  polygons[type == 'polygon'] <- lapply(poly$polygon, function(d) if (length(d) == 0) list() else d[[1]])
+  polygons[type == 'line'] <- lapply(poly$line, function(d) if (length(d) == 0) list() else d[[1]])
+  polygons[type == 'point'] <- lapply(poly$point, function(d) if (length(d) == 0) list() else d[[1]])
   x$id <- rep(seq_along(polygons), sapply(polygons, function(p) length(p$x)))
   x_new <- unlist(lapply(polygons, `[[`, 'x'))
   y_new <- unlist(lapply(polygons, `[[`, 'y'))
+  if (length(x_new) == 0) return(nullGrob())
   x$x <- unit(x_new, 'mm')
   x$y <- unit(y_new, 'mm')
   x$cl <- 'polygon'
@@ -253,7 +242,7 @@ pointoffset <- function(A, delta, type) {
                  rep(seq_along(A), each = 4))
       y <- split(rep(sapply(A, `[[`, 'y'), each = 4) + square$y,
                  rep(seq_along(A), each = 4))
-      Map(list, x = x, y = y)
+      lapply(Map(list, x = x, y = y), list)
     },
     circle = {
       detail <- 100
@@ -263,7 +252,7 @@ pointoffset <- function(A, delta, type) {
                  rep(seq_along(A), each = detail))
       y <- split(rep(sapply(A, `[[`, 'y'), each = detail) + circle$y,
                  rep(seq_along(A), each = detail))
-      Map(list, x = x, y = y)
+      lapply(Map(list, x = x, y = y), list)
     }
   )
 }
