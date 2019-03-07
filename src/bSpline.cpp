@@ -62,7 +62,7 @@ NumericMatrix splinePath(NumericVector x, NumericVector y, int degree, std::vect
 }
 // [[Rcpp::export]]
 List getSplines(NumericVector x, NumericVector y, IntegerVector id,
-                int detail, std::string type) {
+                int detail, std::string type = "clamped") {
   std::vector<int> nControls;
   std::vector<int> pathID;
   nControls.push_back(1);

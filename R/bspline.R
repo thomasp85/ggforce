@@ -96,7 +96,8 @@ StatBspline <- ggproto('StatBspline', Stat,
   compute_layer = function(self, data, params, panels) {
     if (is.null(data)) return(data)
     data <- data[order(data$group), ]
-    paths <- getSplines(data$x, data$y, data$group, params$n, params$type)
+    paths <- getSplines(data$x, data$y, data$group, params$n,
+                        params$type %||% 'clamped')
     paths <- data.frame(
       x = paths$paths[, 1], y = paths$paths[, 2],
       group = paths$pathID
@@ -150,7 +151,8 @@ StatBspline2 <- ggproto('StatBspline2', Stat,
     if (is.null(data)) return(data)
     data <- data[order(data$group), ]
     nControls <- table(data$group)
-    paths <- getSplines(data$x, data$y, data$group, params$n, params$type)
+    paths <- getSplines(data$x, data$y, data$group, params$n,
+                        params$type %||% 'clamped')
     paths <- data.frame(
       x = paths$paths[, 1], y = paths$paths[, 2],
       group = paths$pathID

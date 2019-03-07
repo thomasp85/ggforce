@@ -5,7 +5,7 @@ splinePath <- function(x, y, degree, knots, detail, type) {
     .Call('_ggforce_splinePath', PACKAGE = 'ggforce', x, y, degree, knots, detail, type)
 }
 
-getSplines <- function(x, y, id, detail, type) {
+getSplines <- function(x, y, id, detail, type = "clamped") {
     .Call('_ggforce_getSplines', PACKAGE = 'ggforce', x, y, id, detail, type)
 }
 
