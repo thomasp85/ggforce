@@ -141,9 +141,11 @@ labelboxGrob <- function(label, x = unit(0.5, 'npc'), y = unit(0.5, 'npc'),
   lab_height <- as_mm(grobHeight(lab_grob), width = FALSE)
   desc_height <- as_mm(grobHeight(desc_grob), width = FALSE)
   sep_height <- if (lab_height > 0 && desc_height > 0) {
-    as_mm(unit(1, 'lines'), width = FALSE) / 2
-  } else {
+    pad[1]
+  } else if (lab_height > 0) {
     as_mm(grobDescent(lab_grob))
+  } else {
+    0
   }
   vp <- viewport(
     x = x,
