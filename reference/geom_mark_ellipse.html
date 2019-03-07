@@ -70,7 +70,7 @@ hull consisting of 1000 points)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggforce</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -146,12 +146,12 @@ hull consisting of 1000 points).</p>
   <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>tol</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>label.margin</span> <span class='kw'>=</span> <span class='fu'>margin</span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='st'>"mm"</span>),
   <span class='kw'>label.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label.minwidth</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>50</span>, <span class='st'>"mm"</span>),
   <span class='kw'>label.hjust</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>label.fontsize</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>label.family</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>label.fontface</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"bold"</span>, <span class='st'>"plain"</span>), <span class='kw'>label.fill</span> <span class='kw'>=</span> <span class='st'>"white"</span>,
-  <span class='kw'>label.colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label.buffer</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>10</span>, <span class='st'>"mm"</span>),
-  <span class='kw'>con.colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>con.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>con.type</span> <span class='kw'>=</span> <span class='st'>"elbow"</span>,
-  <span class='kw'>con.linetype</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>con.border</span> <span class='kw'>=</span> <span class='st'>"one"</span>, <span class='kw'>con.cap</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>3</span>, <span class='st'>"mm"</span>),
-  <span class='kw'>con.arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>label.lineheight</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label.fontface</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"bold"</span>, <span class='st'>"plain"</span>),
+  <span class='kw'>label.fill</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>label.colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>label.buffer</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>10</span>, <span class='st'>"mm"</span>), <span class='kw'>con.colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>con.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>con.type</span> <span class='kw'>=</span> <span class='st'>"elbow"</span>, <span class='kw'>con.linetype</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>con.border</span> <span class='kw'>=</span> <span class='st'>"one"</span>, <span class='kw'>con.cap</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>3</span>, <span class='st'>"mm"</span>), <span class='kw'>con.arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -239,6 +239,12 @@ description.</p></td>
       <td><p>The font family used for the annotation. If it contains
 two elements the first will be used for the label and the second for the
 description.</p></td>
+    </tr>
+    <tr>
+      <th>label.lineheight</th>
+      <td><p>The height of a line as a multipler of the fontsize.
+If it contains two elements the first will be used for the label and the
+second for the description.</p></td>
     </tr>
     <tr>
       <th>label.fontface</th>

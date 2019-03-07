@@ -66,7 +66,7 @@ computations are based on the deldir::deldir() package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggforce</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -352,7 +352,7 @@ the bounding box</p></dd>
 <span class='co'># Use geom_shape functionality to round corners etc</span>
 <span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Sepal.Length</span>, <span class='no'>Sepal.Width</span>, <span class='kw'>group</span> <span class='kw'>=</span> -<span class='fl'>1L</span>)) +
   <span class='fu'>geom_voronoi_tile</span>(<span class='fu'>aes</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>Species</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'black'</span>,
-                    <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>unit</span>(-<span class='fl'>.5</span>, <span class='st'>'mm'</span>), <span class='kw'>radius</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>2</span>, <span class='st'>'mm'</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: stat_voronoi_tile: dropping duplicated points</span></div><div class='output co'>#&gt; <span class='warning'>Warning: number of items to replace is not a multiple of replacement length</span></div><div class='img'><img src='geom_delvor-5.png' alt='' width='700' height='433' /></div><div class='input'>
+                    <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>unit</span>(-<span class='fl'>.5</span>, <span class='st'>'mm'</span>), <span class='kw'>radius</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>2</span>, <span class='st'>'mm'</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: stat_voronoi_tile: dropping duplicated points</span></div><div class='img'><img src='geom_delvor-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Delaunay triangles</span>
 <span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Sepal.Length</span>, <span class='no'>Sepal.Width</span>)) +
   <span class='fu'>geom_delaunay_tile</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.3</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'black'</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: stat_delaunay_tile: dropping duplicated points</span></div><div class='img'><img src='geom_delvor-6.png' alt='' width='700' height='433' /></div><div class='input'>
