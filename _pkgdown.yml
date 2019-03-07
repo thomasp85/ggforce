@@ -18,6 +18,8 @@ navbar:
     - text: News
       menu:
       - text: "Release notes"
+      - text: "Version 0.2.0"
+        href: https://www.data-imaginist.com/2019/the-ggforce-awakens-again/
       - text: "Version 0.1.0"
         href: https://www.data-imaginist.com/2016/announcing-ggforce/
       - text: "------------------"
