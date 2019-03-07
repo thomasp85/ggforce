@@ -93,6 +93,8 @@ NULL
 #' @export
 GeomMarkHull <- ggproto('GeomMarkHull', GeomShape,
   setup_data = function(self, data, params) {
+    try_require('concaveman', snake_class(self))
+
     if (!is.null(data$filter)) {
       self$removed <- data[!data$filter, c('x', 'y', 'PANEL')]
       data <- data[data$filter, ]
@@ -111,10 +113,6 @@ GeomMarkHull <- ggproto('GeomMarkHull', GeomShape,
                         con.colour = 'black', con.size = 0.5, con.type = 'elbow',
                         con.linetype = 1, con.border = 'one',
                         con.cap = unit(3, 'mm'), con.arrow = NULL) {
-    if (!requireNamespace('concaveman', quietly = TRUE)) {
-      stop('The concaveman package is required to use geom_mark_hull',
-           call. = FALSE)
-    }
     if (nrow(data) == 0) return(zeroGrob())
 
     coords <- coord$transform(data, panel_params)

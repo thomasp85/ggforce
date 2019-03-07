@@ -133,9 +133,12 @@ NULL
 #' @importFrom scales rescale
 #' @export
 StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
+  setup_params = function(self, data, params) {
+    try_require('deldir', snake_class(self))
+    params
+  },
   compute_group = function(self, data, scales, bound = NULL, eps = 1e-9,
                            max.radius = NULL, normalize = FALSE, asp.ratio = 1) {
-    require_deldir()
     data$group <- paste0(seq_len(nrow(data)), ':', data$group)
     if (any(duplicated(data[, c('x', 'y')]))) {
       warning('stat_voronoi_tile: dropping duplicated points', call. = FALSE)
@@ -210,9 +213,12 @@ geom_voronoi_tile <- function(mapping = NULL, data = NULL, stat = 'voronoi_tile'
 #' @importFrom scales rescale
 #' @export
 StatVoronoiSegment <- ggproto('StatVoronoiSegment', Stat,
+  setup_params = function(self, data, params) {
+    try_require('deldir', snake_class(self))
+    params
+  },
   compute_group = function(self, data, scales, bound = NULL, eps = 1e-9,
                            normalize = FALSE, asp.ratio = 1) {
-    require_deldir()
     if (any(duplicated(data[, c('x', 'y')]))) {
       warning('stat_voronoi_segment: dropping duplicated points', call. = FALSE)
     }
@@ -267,9 +273,12 @@ geom_voronoi_segment <- function(mapping = NULL, data = NULL,
 #' @importFrom scales rescale
 #' @export
 StatDelaunayTile <- ggproto('StatDelaunayTile', Stat,
+  setup_params = function(self, data, params) {
+    try_require('deldir', snake_class(self))
+    params
+  },
   compute_panel = function(data, scales, bound = NULL, eps = 1e-9,
                            normalize = FALSE, asp.ratio = 1) {
-    require_deldir()
     if (normalize) {
       x_range <- range(data$x, na.rm = TRUE, finite = TRUE)
       y_range <- range(data$y, na.rm = TRUE, finite = TRUE)
@@ -328,9 +337,12 @@ geom_delaunay_tile <- function(mapping = NULL, data = NULL,
 #' @importFrom scales rescale
 #' @export
 StatDelaunaySegment <- ggproto('StatDelaunaySegment', Stat,
+  setup_params = function(self, data, params) {
+    try_require('deldir', snake_class(self))
+    params
+  },
   compute_group = function(data, scales, bound = NULL, eps = 1e-9,
                            normalize = FALSE, asp.ratio = 1) {
-    require_deldir()
     if (any(duplicated(data[, c('x', 'y')]))) {
       warning('stat_delaunay_segment: dropping duplicated points',
               call. = FALSE)
@@ -387,9 +399,12 @@ geom_delaunay_segment <- function(mapping = NULL, data = NULL,
 #' @importFrom scales rescale
 #' @export
 StatDelaunaySegment2 <- ggproto('StatDelaunaySegment2', Stat,
+  setup_params = function(self, data, params) {
+    try_require('deldir', snake_class(self))
+    params
+  },
   compute_group = function(data, scales, bound = NULL, eps = 1e-9, n = 100,
                            normalize = FALSE, asp.ratio = 1) {
-    require_deldir()
     if (any(duplicated(data[, c('x', 'y')]))) {
       warning('stat_delaunay_segment2: dropping duplicated points',
               call. = FALSE)
@@ -448,10 +463,13 @@ geom_delaunay_segment2 <- function(mapping = NULL, data = NULL,
 #' @importFrom scales rescale
 #' @export
 StatDelvorSummary <- ggproto('StatDelvorSummary', Stat,
+  setup_params = function(self, data, params) {
+    try_require('deldir', snake_class(self))
+    params
+  },
   compute_group = function(data, scales, bound = NULL, eps = 1e-9,
                            switch.centroid = FALSE, normalize = FALSE,
                            asp.ratio = 1) {
-    require_deldir()
     if (any(duplicated(data[, c('x', 'y')]))) {
       warning('stat_delvor_summary: dropping duplicated points',
               call. = FALSE)
@@ -509,14 +527,8 @@ stat_delvor_summary <- function(mapping = NULL, data = NULL, geom = 'point',
 
 
 # HELPERS -----------------------------------------------------------------
-require_deldir <- function() {
-  if (!requireNamespace('deldir', quietly = TRUE)) {
-    stop('The delauney-based geoms and stats require the deldir package',
-         call. = FALSE)
-  }
-}
 to_tile <- function(object) {
-  require_deldir()
+  try_require('deldir', 'to_tile')
   tiles <- rbind(
     structure(object$dirsgs[, c(1:2, 5)], names = c('x', 'y', 'group')),
     structure(object$dirsgs[, c(1:2, 6)], names = c('x', 'y', 'group')),

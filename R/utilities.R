@@ -214,3 +214,51 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
     new_data_frame(modify_list(unclass(vars), unclass(res)))
   }))
 }
+
+# Test whether package `package` is available. `fun` provides
+# the name of the ggplot2 function that uses this package, and is
+# used only to produce a meaningful error message if the
+# package is not available.
+try_require <- function(package, fun) {
+  if (requireNamespace(package, quietly = TRUE)) {
+    return(invisible())
+  }
+
+  stop("Package `", package, "` required for `", fun , "`.\n",
+       "Please install and try again.", call. = FALSE)
+}
+# Use chartr() for safety since toupper() fails to convert i to I in Turkish locale
+lower_ascii <- "abcdefghijklmnopqrstuvwxyz"
+upper_ascii <- "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+to_lower_ascii <- function(x) chartr(upper_ascii, lower_ascii, x)
+to_upper_ascii <- function(x) chartr(lower_ascii, upper_ascii, x)
+
+tolower <- function(x) {
+  stop('Please use `to_lower_ascii()`, which works fine in all locales.', call. = FALSE)
+}
+
+toupper <- function(x) {
+  stop('Please use `to_upper_ascii()`, which works fine in all locales.', call. = FALSE)
+}
+
+# Convert a snake_case string to camelCase
+camelize <- function(x, first = FALSE) {
+  x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
+  if (first) x <- firstUpper(x)
+  x
+}
+
+snakeize <- function(x) {
+  x <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", x)
+  x <- gsub(".", "_", x, fixed = TRUE)
+  x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
+  to_lower_ascii(x)
+}
+
+firstUpper <- function(s) {
+  paste0(to_upper_ascii(substring(s, 1, 1)), substring(s, 2))
+}
+
+snake_class <- function(x) {
+  snakeize(class(x)[1])
+}

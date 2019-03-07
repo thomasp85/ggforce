@@ -43,9 +43,7 @@ scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
                          limits = NULL, expand = waiver(), oob = censor,
                          na.value = NA_real_, trans = 'identity',
                          position = 'bottom', sec.axis = waiver()) {
-  if (!requireNamespace('units', quietly = TRUE)) {
-    stop('The units package is required for this functionality', call. = FALSE)
-  }
+  try_require('units', 'scale_x_unit')
   sc <- continuous_scale(
     c('x', 'xmin', 'xmax', 'xend', 'xintercept', 'xmin_final', 'xmax_final',
       'xlower', 'xmiddle', 'xupper'),
@@ -82,9 +80,7 @@ scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
                          limits = NULL, expand = waiver(), oob = censor,
                          na.value = NA_real_, trans = 'identity',
                          position = 'left', sec.axis = waiver()) {
-  if (!requireNamespace('units', quietly = TRUE)) {
-    stop('The units package is required for this functionality', call. = FALSE)
-  }
+  try_require('units', 'scale_y_unit')
   sc <- continuous_scale(
     c('y', 'ymin', 'ymax', 'yend', 'yintercept', 'ymin_final', 'ymax_final',
       'lower', 'middle', 'upper'),
@@ -121,10 +117,6 @@ ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleConti
   unit = NULL,
 
   train = function(self, x) {
-    if (!requireNamespace('units', quietly = TRUE)) {
-      stop('The units package is required for this functionality',
-           call. = FALSE)
-    }
     if (length(x) == 0) return()
     if (!is.null(self$unit)) {
       units(x) <- units::as_units(1, self$unit)
@@ -143,10 +135,6 @@ ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleConti
     ggproto_parent(ScaleContinuousPosition, self)$map(x, limits)
   },
   make_title = function(self, title) {
-    if (!requireNamespace('units', quietly = TRUE)) {
-      stop('The units package is required for this functionality',
-           call. = FALSE)
-    }
     units::make_unit_label(title, units::as_units(1, self$unit))
   }
 )
