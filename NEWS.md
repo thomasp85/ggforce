@@ -1,4 +1,4 @@
-# ggforce 0.1.1.99
+# ggforce 0.2.0
 
 ## New features
 - `linear_trans` for composing linear transformation using `rotate`, `stretch`, 
