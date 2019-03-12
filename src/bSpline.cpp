@@ -44,7 +44,12 @@ NumericMatrix splinePath(NumericVector x, NumericVector y, int degree, std::vect
     controls.push_back(controls[2]);
   }
   NumericMatrix res(detail, 2);
-  double zJump = (knots[knots.size()-1-degree] - knots[degree]) / double(detail-1);
+  double zJump = (knots[knots.size()-1-degree] - knots[degree]);
+  if (type == "clamped") {
+    zJump /= double(detail-1);
+  } else {
+    zJump /= double(detail);
+  }
   double z;
   Point point;
   for (int i = 0; i < detail; i++) {
