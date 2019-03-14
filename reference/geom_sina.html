@@ -334,25 +334,20 @@ bold):</p><ul>
 <span class='co'># Sina does both!</span>
 <span class='fu'>ggplot</span>(<span class='no'>midwest</span>, <span class='fu'>aes</span>(<span class='no'>state</span>, <span class='no'>area</span>)) +
   <span class='fu'>geom_violin</span>() +
-  <span class='fu'>geom_sina</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_sina()`:</span>
-#&gt; <span class='warning'>Please use `to_lower_ascii()`, which works fine in all locales.</span></div><div class='img'><img src='geom_sina-4.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_sina</span>()</div><div class='img'><img src='geom_sina-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot</span>(<span class='no'>midwest</span>, <span class='fu'>aes</span>(<span class='no'>state</span>, <span class='no'>popdensity</span>)) +
   <span class='fu'>scale_y_log10</span>()
 
-<span class='no'>p</span> + <span class='fu'>geom_sina</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_sina()`:</span>
-#&gt; <span class='warning'>Please use `to_lower_ascii()`, which works fine in all locales.</span></div><div class='img'><img src='geom_sina-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>geom_sina</span>()</div><div class='img'><img src='geom_sina-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Colour the points based on the data set's columns</span>
-<span class='no'>p</span> + <span class='fu'>geom_sina</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>inmetro</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_sina()`:</span>
-#&gt; <span class='warning'>Please use `to_lower_ascii()`, which works fine in all locales.</span></div><div class='img'><img src='geom_sina-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>geom_sina</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>inmetro</span>))</div><div class='img'><img src='geom_sina-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or any other way</span>
 <span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='no'>midwest</span>$<span class='no'>popdensity</span> <span class='kw'>&gt;</span> <span class='fl'>10000</span>
-<span class='no'>p</span> + <span class='fu'>geom_sina</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>cols</span> + <span class='fl'>1L</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_sina()`:</span>
-#&gt; <span class='warning'>Please use `to_lower_ascii()`, which works fine in all locales.</span></div><div class='img'><img src='geom_sina-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>geom_sina</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>cols</span> + <span class='fl'>1L</span>)</div><div class='img'><img src='geom_sina-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Sina plots with continuous x:</span>
 <span class='fu'>ggplot</span>(<span class='no'>midwest</span>, <span class='fu'>aes</span>(<span class='fu'>cut_width</span>(<span class='no'>area</span>, <span class='fl'>0.02</span>), <span class='no'>popdensity</span>)) +
   <span class='fu'>geom_sina</span>() +
-  <span class='fu'>scale_y_log10</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_sina()`:</span>
-#&gt; <span class='warning'>Please use `to_lower_ascii()`, which works fine in all locales.</span></div><div class='img'><img src='geom_sina-8.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>scale_y_log10</span>()</div><div class='img'><img src='geom_sina-8.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'>### Sample gaussian distributions</span>
 <span class='co'># Unimodal</span>
@@ -383,14 +378,12 @@ bold):</p><ul>
 
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot</span>(<span class='no'>df</span>, <span class='fu'>aes</span>(<span class='no'>Distribution</span>, <span class='no'>Value</span>))
 <span class='no'>p</span> + <span class='fu'>geom_boxplot</span>()</div><div class='img'><img src='geom_sina-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_violin</span>() +
-  <span class='fu'>geom_sina</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_sina()`:</span>
-#&gt; <span class='warning'>Please use `to_lower_ascii()`, which works fine in all locales.</span></div><div class='img'><img src='geom_sina-10.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_sina</span>()</div><div class='img'><img src='geom_sina-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># By default, Sina plot scales the width of the class according to the width</span>
 <span class='co'># of the class with the highest density. Turn group-wise scaling off with:</span>
 <span class='no'>p</span> +
   <span class='fu'>geom_violin</span>() +
-  <span class='fu'>geom_sina</span>(<span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_sina()`:</span>
-#&gt; <span class='warning'>Please use `to_lower_ascii()`, which works fine in all locales.</span></div><div class='img'><img src='geom_sina-11.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>geom_sina</span>(<span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='geom_sina-11.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
