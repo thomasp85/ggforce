@@ -1,5 +1,8 @@
 # ggforce (development version)
 
+
+#ggforce 0.2.1
+
 - Fixed a bug in the calculation of open and closed b-splines, where the
   interval would exceed the defined region and result in an out-of-bounds memory
   error
