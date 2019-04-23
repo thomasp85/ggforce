@@ -1,4 +1,4 @@
-# ggforce (development version)
+# ggforce 0.2.2
 
 - Fixed a regression in `geom_sina()` where the computation would fail with a
   warning due to `tolower()` being masked (#134, #135).
