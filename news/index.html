@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggforce</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -120,6 +120,18 @@
       
     </div>
 
+    <div id="ggforce-0-2-2" class="section level1">
+<h1 class="page-header">
+<a href="#ggforce-0-2-2" class="anchor"></a>ggforce 0.2.2<small> Unreleased </small>
+</h1>
+<ul>
+<li>Fixed a regression in <code><a href="../reference/geom_sina.html">geom_sina()</a></code> where the computation would fail with a warning due to <code><a href="https://www.rdocumentation.org/packages/base/topics/chartr">tolower()</a></code> being masked (#134, #135).</li>
+</ul>
+<p>#ggforce 0.2.1</p>
+<ul>
+<li>Fixed a bug in the calculation of open and closed b-splines, where the interval would exceed the defined region and result in an out-of-bounds memory error</li>
+</ul>
+</div>
     <div id="ggforce-0-2-0" class="section level1">
 <h1 class="page-header">
 <a href="#ggforce-0-2-0" class="anchor"></a>ggforce 0.2.0<small> 2019-03-07 </small>
@@ -274,6 +286,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#ggforce-0-2-2">0.2.2</a></li>
         <li><a href="#ggforce-0-2-0">0.2.0</a></li>
         <li><a href="#ggforce-0-1-1">0.1.1</a></li>
         <li><a href="#ggforce-0-1-0">0.1.0</a></li>
