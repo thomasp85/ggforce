@@ -43,6 +43,7 @@ reference:
       - geom_arc_bar
       - geom_bspline_closed
       - geom_diagonal_wide
+      - geom_parallel_sets
       - geom_voronoi_tile
   - title: "Lines"
     desc: >
@@ -57,7 +58,6 @@ reference:
       - geom_bezier
       - geom_bspline
       - geom_diagonal
-      - geom_parallel_sets
       - geom_spiro
       - geom_voronoi_segment
   - title: "Annotation"
