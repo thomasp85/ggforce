@@ -1,16 +1,3 @@
-#' ggforce: Accelerating ggplot2
-#'
-#' This package contains a range of useful stats, geoms, trans and utilities to
-#' get more out of ggplot2. Many of the additions are mainly aimed at developers
-#' wanting to develop new visualizations using ggplot2 rather than statisticians
-#' wanting to understand their data.
-#'
-#' @author Thomas Lin Pedersen
-#'
-#' @docType package
-#' @name ggforce
-#' @rdname ggforce-package
-#'
 #' @useDynLib ggforce
 #' @import ggplot2
 #' @importFrom Rcpp sourceCpp
