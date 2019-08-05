@@ -10,7 +10,7 @@ facet_grid_paginate(facets, margins = FALSE, scales = "fixed",
   nrow = NULL, page = 1, byrow = TRUE)
 }
 \arguments{
-\item{facets}{This argument is soft-deprecated, please us \code{rows}
+\item{facets}{This argument is soft-deprecated, please use \code{rows}
 and \code{cols} instead.}
 
 \item{margins}{Either a logical value or a character
