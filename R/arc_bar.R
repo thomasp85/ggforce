@@ -209,7 +209,7 @@ arcPaths <- function(data, n) {
         )
       }
     }
-    path$group <- i
+    path$group <- paste0(data$group[i], '_', i)
     path$index <- seq(0, 1, length.out = nrow(path))
     path <- cbind(path, data[rep(i, nrow(path)), extraData, drop = FALSE])
   })

@@ -98,7 +98,7 @@ StatDiagonal <- ggproto('StatDiagonal', Stat,
   },
   compute_layer = function(self, data, params, panels) {
     if (is.null(data)) return(data)
-    data$group <- seq_len(nrow(data))
+    data$group <- paste0(data$group, '_', seq_len(nrow(data)))
     end <- data
     end$x <- end$xend
     end$y <- end$yend

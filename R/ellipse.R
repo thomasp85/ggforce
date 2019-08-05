@@ -69,7 +69,7 @@ StatEllip <- ggproto('StatEllip', Stat,
   },
   compute_layer = function(self, data, params, layout) {
     if (is.null(data)) return(data)
-    data$group <- seq_len(nrow(data))
+    data$group <- paste0(data$group, '_', seq_len(nrow(data)))
     n_ellipses <- nrow(data)
     data <- data[rep(seq_len(n_ellipses), each = params$n), ]
     points <- rep(seq(0, 2 * pi, length.out = params$n + 1)[seq_len(params$n)],

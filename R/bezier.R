@@ -104,10 +104,11 @@ StatBezier <- ggproto('StatBezier', Stat,
       stop('Only support for quadratic and cubic beziers')
     }
     data <- data[order(data$group), ]
-    paths <- getBeziers(data$x, data$y, data$group, params$n)
+    groups <- unique(data$group)
+    paths <- getBeziers(data$x, data$y, match(data$group, groups), params$n)
     paths <- data.frame(
       x = paths$paths[, 1], y = paths$paths[, 2],
-      group = paths$pathID
+      group = groups[paths$pathID]
     )
     paths$index <- rep(seq(0, 1, length.out = params$n), length(nControls))
     dataIndex <- rep(match(unique(data$group), data$group), each = params$n)
@@ -158,10 +159,11 @@ StatBezier2 <- ggproto('StatBezier2', Stat,
     if (min(controlRange) < 3 || max(controlRange) > 4) {
       stop('Only support for quadratic and cubic beziers')
     }
-    paths <- getBeziers(data$x, data$y, data$group, params$n)
+    groups <- unique(data$group)
+    paths <- getBeziers(data$x, data$y, match(data$group, groups), params$n)
     paths <- data.frame(
       x = paths$paths[, 1], y = paths$paths[, 2],
-      group = paths$pathID
+      group = groups[paths$pathID]
     )
     paths$index <- rep(seq(0, 1, length.out = params$n), length(nControls))
     dataIndex <- rep(match(unique(data$group), data$group), each = params$n)

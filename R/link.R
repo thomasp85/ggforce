@@ -90,7 +90,7 @@ StatLink <- ggproto('StatLink', Stat,
         x = seq(data$x[i], data$xend[i], length.out = n),
         y = seq(data$y[i], data$yend[i], length.out = n),
         index = seq(0, 1, length.out = n),
-        group = i
+        group = paste0(data$group[i], '_', i)
       )
       cbind(path, data[rep(i, n), extraCols, drop = FALSE])
     })

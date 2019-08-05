@@ -1,5 +1,8 @@
 # ggforce (development version)
 
+- Stats should now always keep the old group variable (potentially with 
+  something added), making them work with gganimate
+
 # ggforce 0.2.2
 
 - Fixed a regression in `geom_sina()` where the computation would fail with a
