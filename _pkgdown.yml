@@ -77,6 +77,7 @@ reference:
       more of the awesomeness, both with variants of `facet_grid` and
       `facet_wrap`, as well as completely new takes on faceting.
     contents:
+      - facet_matrix
       - facet_zoom
       - facet_wrap_paginate
       - facet_grid_paginate
@@ -104,6 +105,9 @@ reference:
       bigger bucket. That doesn't make it any less useful.
     contents:
       - geom_sina
+      - geom_autopoint
+      - geom_autodensity
+      - position_auto
       - position_jitternormal
       - gather_set_data
       - n_pages
