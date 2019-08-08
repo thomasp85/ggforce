@@ -79,6 +79,7 @@ reference:
     contents:
       - facet_matrix
       - facet_zoom
+      - facet_row
       - facet_wrap_paginate
       - facet_grid_paginate
       - facet_stereo

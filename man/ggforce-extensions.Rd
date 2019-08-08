@@ -2,11 +2,12 @@
 % Please edit documentation in R/shape.R, R/arc_bar.R, R/arc.R, R/autodensity.R,
 %   R/autohistogram.R, R/bezier.R, R/bspline.R, R/bspline_closed.R, R/circle.R,
 %   R/diagonal.R, R/diagonal_wide.R, R/ellipse.R, R/facet_grid_paginate.R,
-%   R/facet_matrix.R, R/facet_stereo.R, R/facet_wrap_paginate.R, R/facet_zoom.R,
-%   R/ggproto-classes.R, R/interpolate.R, R/link.R, R/mark_circle.R,
-%   R/mark_ellipse.R, R/mark_hull.R, R/mark_rect.R, R/parallel_sets.R,
-%   R/position-jitternormal.R, R/position_auto.R, R/position_floatstack.R,
-%   R/regon.R, R/scale-unit.R, R/sina.R, R/spiro.R, R/voronoi.R
+%   R/facet_matrix.R, R/facet_row.R, R/facet_stereo.R, R/facet_wrap_paginate.R,
+%   R/facet_zoom.R, R/ggproto-classes.R, R/interpolate.R, R/link.R,
+%   R/mark_circle.R, R/mark_ellipse.R, R/mark_hull.R, R/mark_rect.R,
+%   R/parallel_sets.R, R/position-jitternormal.R, R/position_auto.R,
+%   R/position_floatstack.R, R/regon.R, R/scale-unit.R, R/sina.R, R/spiro.R,
+%   R/voronoi.R
 \docType{data}
 \name{GeomShape}
 \alias{GeomShape}
@@ -39,6 +40,8 @@
 \alias{StatEllip}
 \alias{FacetGridPaginate}
 \alias{FacetMatrix}
+\alias{FacetRow}
+\alias{FacetCol}
 \alias{FacetStereo}
 \alias{FacetWrapPaginate}
 \alias{FacetZoom}

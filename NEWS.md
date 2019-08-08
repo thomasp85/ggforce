@@ -7,6 +7,8 @@
   type of positional scales in the panel
 - Added `geom_autohistogram()` and `geom_autodensity()` for facilitating 
   distribution plots along the diagonal in a `facet_matrix()` plot.
+- Added `facet_row()` and `facet_col` to have one-dimensional `facet_wrap()` 
+  with possibility of variable sizing.
 - Stats should now always keep the old group variable (potentially with 
   something added), making them work with gganimate
 - Removed the *Visual Guide* vignette to reduce compilation time. See the

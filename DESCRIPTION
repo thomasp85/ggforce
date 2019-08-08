@@ -65,6 +65,7 @@ Collate:
     'ellipse.R'
     'facet_grid_paginate.R'
     'facet_matrix.R'
+    'facet_row.R'
     'facet_stereo.R'
     'facet_wrap_paginate.R'
     'facet_zoom.R'
