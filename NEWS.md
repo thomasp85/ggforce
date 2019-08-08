@@ -1,7 +1,17 @@
 # ggforce (development version)
 
+- Added `facet_matrix()` in order to facet different data columns into different
+  rows and columns in a grid, in order to make e.g. scatterplot matrices and 
+  pairs plot
+- Added `geom_autopoint()` and `position_auto()` to jitter points based on the
+  type of positional scales in the panel
+- Added `geom_autohistogram()` and `geom_autodensity()` for facilitating 
+  distribution plots along the diagonal in a `facet_matrix()` plot.
 - Stats should now always keep the old group variable (potentially with 
   something added), making them work with gganimate
+- Removed the *Visual Guide* vignette to reduce compilation time. See the
+  website for an overview of all functionality with compiled examples 
+  (https://ggforce.data-imaginist.com)
 
 # ggforce 0.2.2
 

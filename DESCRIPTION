@@ -35,7 +35,10 @@ Imports:
     rlang,
     polyclip,
     stats,
-    grDevices
+    grDevices,
+    tidyselect,
+    withr,
+    utils
 LinkingTo: Rcpp, RcppEigen
 RoxygenNote: 6.1.1
 Suggests:
@@ -53,6 +56,9 @@ Collate:
     'shape.R'
     'arc_bar.R'
     'arc.R'
+    'autodensity.R'
+    'autohistogram.R'
+    'autopoint.R'
     'bezier.R'
     'bspline.R'
     'bspline_closed.R'
@@ -61,6 +67,7 @@ Collate:
     'diagonal_wide.R'
     'ellipse.R'
     'facet_grid_paginate.R'
+    'facet_matrix.R'
     'facet_stereo.R'
     'facet_wrap_paginate.R'
     'facet_zoom.R'
@@ -75,6 +82,8 @@ Collate:
     'mark_rect.R'
     'parallel_sets.R'
     'position-jitternormal.R'
+    'position_auto.R'
+    'position_floatstack.R'
     'regon.R'
     'scale-depth.R'
     'scale-unit.R'
