@@ -145,14 +145,14 @@ aesthetics given by each row in the data." />
     <div class="ref-description">
     
     <p>This set of geoms makes it possible to connect points using straight lines.
-Before you think <code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/geom_segment'>ggplot2::geom_segment()</a></code> and
-<code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/geom_path'>ggplot2::geom_path()</a></code>, these functions have some additional tricks
+Before you think <code><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>ggplot2::geom_segment()</a></code> and
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>ggplot2::geom_path()</a></code>, these functions have some additional tricks
 up their sleeves. geom_link connects two points in the same way as
-<code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/geom_segment'>ggplot2::geom_segment()</a></code> but does so by interpolating multiple
+<code><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>ggplot2::geom_segment()</a></code> but does so by interpolating multiple
 points between the two. An additional column called index is added to the
 data with a sequential progression of the interpolated points. This can be
 used to map color or size to the direction of the link. geom_link2 uses the
-same syntax as <code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/geom_path'>ggplot2::geom_path()</a></code> but interpolates between the
+same syntax as <code><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>ggplot2::geom_path()</a></code> but interpolates between the
 aesthetics given by each row in the data.</p>
     
     </div>
@@ -201,7 +201,8 @@ data. All objects will be fortified to produce a data frame. See
 <code>fortify()</code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
-will be used as the layer data.</p></td>
+will be used as the layer data. A <code>function</code> can be created
+from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
     </tr>
     <tr>
       <th>geom</th>

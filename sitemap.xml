@@ -7,6 +7,9 @@
     <loc>https://ggforce.data-imaginist.com/reference/facet_grid_paginate.html</loc>
   </url>
   <url>
+    <loc>https://ggforce.data-imaginist.com/reference/facet_matrix.html</loc>
+  </url>
+  <url>
     <loc>https://ggforce.data-imaginist.com/reference/facet_stereo.html</loc>
   </url>
   <url>
@@ -23,6 +26,12 @@
   </url>
   <url>
     <loc>https://ggforce.data-imaginist.com/reference/geom_arc_bar.html</loc>
+  </url>
+  <url>
+    <loc>https://ggforce.data-imaginist.com/reference/geom_autohistogram.html</loc>
+  </url>
+  <url>
+    <loc>https://ggforce.data-imaginist.com/reference/geom_autopoint.html</loc>
   </url>
   <url>
     <loc>https://ggforce.data-imaginist.com/reference/geom_bezier.html</loc>
@@ -94,6 +103,9 @@
     <loc>https://ggforce.data-imaginist.com/reference/n_pages.html</loc>
   </url>
   <url>
+    <loc>https://ggforce.data-imaginist.com/reference/position_auto.html</loc>
+  </url>
+  <url>
     <loc>https://ggforce.data-imaginist.com/reference/position_jitternormal.html</loc>
   </url>
   <url>
@@ -113,8 +125,5 @@
   </url>
   <url>
     <loc>https://ggforce.data-imaginist.com/reference/trans_reverser.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/articles/Visual_Guide.html</loc>
   </url>
 </urlset>

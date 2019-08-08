@@ -143,7 +143,7 @@ ggplot2::coord_polar() coordinate system." />
 on a center point, a radius and a start and end angle (in radians). These
 functions are intended for cartesian coordinate systems and makes it possible
 to create circular plot types without using the
-<code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/coord_polar'>ggplot2::coord_polar()</a></code> coordinate system.</p>
+<code><a href='https://ggplot2.tidyverse.org/reference/coord_polar.html'>ggplot2::coord_polar()</a></code> coordinate system.</p>
     
     </div>
 
@@ -192,7 +192,8 @@ data. All objects will be fortified to produce a data frame. See
 <code>fortify()</code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
-will be used as the layer data.</p></td>
+will be used as the layer data. A <code>function</code> can be created
+from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
     </tr>
     <tr>
       <th>geom</th>
