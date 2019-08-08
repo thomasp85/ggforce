@@ -42,14 +42,11 @@ Imports:
 LinkingTo: Rcpp, RcppEigen
 RoxygenNote: 6.1.1
 Suggests:
-    knitr,
-    rmarkdown,
     sessioninfo,
     concaveman,
     deldir,
     reshape2,
     units (>= 0.4-6)
-VignetteBuilder: knitr
 Collate: 
     'RcppExports.R'
     'aaa.R'
