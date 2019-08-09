@@ -1,11 +1,23 @@
 ## Test environments
-* local OS X install, R 3.5.1
-* ubuntu 14.04 (on travis-ci), R 3.5.1
+* local OS X install, R 3.6.0
+* ubuntu 14.04 (on travis-ci), R 3.6.0
 * win-builder (devel and release)
 
 ## R CMD check results
 
 0 errors | 0 warnings | 0 note
 
-This is a very minor patch release with no external changes - reverse dependency 
-check has not been run for that reason...
+## revdepcheck results
+
+We checked 21 reverse dependencies (19 from CRAN + 2 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 3 packages
+
+Issues with CRAN packages are summarised below.
+
+### Failed to check
+
+* circumplex (NA)
+* RxODE      (NA)
+* units      (NA)
