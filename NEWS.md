@@ -1,3 +1,5 @@
+# ggforce (development version)
+
 # ggforce 0.3.0
 
 - Added `facet_matrix()` in order to facet different data columns into different
