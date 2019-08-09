@@ -97,6 +97,7 @@ ggplot(mpg) +
   geom_autodensity() +
   facet_matrix(vars(drv:fl), layer.diag = 2)
 
+\donttest{
 # Show continuous panels in upper triangle as contours and rest as binned
 ggplot(mpg) +
   geom_autopoint() +
@@ -105,6 +106,7 @@ ggplot(mpg) +
   geom_bin2d(aes(x = .panel_x, y = .panel_y)) +
   facet_matrix(vars(drv:fl), layer.lower = 1, layer.diag = 2,
                layer.continuous = -4, layer.discrete = -3, layer.mixed = -3)
+}
 
 # Make asymmetric grid
 ggplot(mpg) +
