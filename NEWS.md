@@ -1,4 +1,4 @@
-# ggforce (development version)
+# ggforce 0.3.0
 
 - Added `facet_matrix()` in order to facet different data columns into different
   rows and columns in a grid, in order to make e.g. scatterplot matrices and 
