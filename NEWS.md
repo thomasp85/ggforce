@@ -20,7 +20,7 @@
 - Fixed a regression in `geom_sina()` where the computation would fail with a
   warning due to `tolower()` being masked (#134, #135).
 
-#ggforce 0.2.1
+# ggforce 0.2.1
 
 - Fixed a bug in the calculation of open and closed b-splines, where the
   interval would exceed the defined region and result in an out-of-bounds memory

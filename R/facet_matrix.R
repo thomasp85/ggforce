@@ -58,15 +58,11 @@
 #'   geom_point(aes(x = .panel_x, y = .panel_y)) +
 #'   facet_matrix(vars(displ, cty, hwy))
 #'
-#' # Switch the diagonal and alternate the axes
+#' # Switch the diagonal, alternate the axes and style strips as axis labels
 #' ggplot(mpg) +
 #'   geom_point(aes(x = .panel_x, y = .panel_y)) +
-#'   facet_matrix(vars(displ, cty, hwy), flip.rows = TRUE, alternate.axes = TRUE)
-#'
-#' # Style strips as axis labels
-#' ggplot(mpg) +
-#'   geom_point(aes(x = .panel_x, y = .panel_y)) +
-#'   facet_matrix(vars(displ, cty, hwy), switch = 'both') +
+#'   facet_matrix(vars(displ, cty, hwy), flip.rows = TRUE,
+#'                alternate.axes = TRUE, switch = 'both') +
 #'   theme(strip.background = element_blank(),
 #'         strip.placement = 'outside',
 #'         strip.text = element_text(size = 12))
