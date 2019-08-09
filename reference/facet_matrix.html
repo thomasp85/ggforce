@@ -81,7 +81,7 @@ data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggforce</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -245,38 +245,35 @@ scale types</p></div>
 <span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
   <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.panel_y</span>)) +
   <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>displ</span>, <span class='no'>cty</span>, <span class='no'>hwy</span>))</div><div class='img'><img src='facet_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Switch the diagonal and alternate the axes</span>
+<span class='co'># Switch the diagonal, alternate the axes and style strips as axis labels</span>
 <span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
   <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.panel_y</span>)) +
-  <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>displ</span>, <span class='no'>cty</span>, <span class='no'>hwy</span>), <span class='kw'>flip.rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alternate.axes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='facet_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Style strips as axis labels</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.panel_y</span>)) +
-  <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>displ</span>, <span class='no'>cty</span>, <span class='no'>hwy</span>), <span class='kw'>switch</span> <span class='kw'>=</span> <span class='st'>'both'</span>) +
+  <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>displ</span>, <span class='no'>cty</span>, <span class='no'>hwy</span>), <span class='kw'>flip.rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+               <span class='kw'>alternate.axes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>switch</span> <span class='kw'>=</span> <span class='st'>'both'</span>) +
   <span class='fu'>theme</span>(<span class='kw'>strip.background</span> <span class='kw'>=</span> <span class='fu'>element_blank</span>(),
         <span class='kw'>strip.placement</span> <span class='kw'>=</span> <span class='st'>'outside'</span>,
-        <span class='kw'>strip.text</span> <span class='kw'>=</span> <span class='fu'>element_text</span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>12</span>))</div><div class='img'><img src='facet_matrix-3.png' alt='' width='700' height='433' /></div><div class='input'>
+        <span class='kw'>strip.text</span> <span class='kw'>=</span> <span class='fu'>element_text</span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>12</span>))</div><div class='img'><img src='facet_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Mix discrete and continuous columns. Use geom_autopoint for scale-based jitter</span>
 <span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
   <span class='fu'><a href='geom_autopoint.html'>geom_autopoint</a></span>() +
-  <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>drv</span>:<span class='no'>fl</span>))</div><div class='img'><img src='facet_matrix-4.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>drv</span>:<span class='no'>fl</span>))</div><div class='img'><img src='facet_matrix-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Have a special diagonal layer</span>
 <span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
   <span class='fu'><a href='geom_autopoint.html'>geom_autopoint</a></span>() +
   <span class='fu'><a href='geom_autohistogram.html'>geom_autodensity</a></span>() +
-  <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>drv</span>:<span class='no'>fl</span>), <span class='kw'>layer.diag</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='facet_matrix-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Show continuous panels in upper triangle as contours and rest as binned</span>
+  <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>drv</span>:<span class='no'>fl</span>), <span class='kw'>layer.diag</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='facet_matrix-4.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='input'><span class='co'># Show continuous panels in upper triangle as contours and rest as binned</span>
 <span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
   <span class='fu'><a href='geom_autopoint.html'>geom_autopoint</a></span>() +
   <span class='fu'><a href='geom_autohistogram.html'>geom_autodensity</a></span>() +
   <span class='fu'>geom_density2d</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.panel_y</span>)) +
   <span class='fu'>geom_bin2d</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.panel_y</span>)) +
   <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>drv</span>:<span class='no'>fl</span>), <span class='kw'>layer.lower</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>layer.diag</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-               <span class='kw'>layer.continuous</span> <span class='kw'>=</span> -<span class='fl'>4</span>, <span class='kw'>layer.discrete</span> <span class='kw'>=</span> -<span class='fl'>3</span>, <span class='kw'>layer.mixed</span> <span class='kw'>=</span> -<span class='fl'>3</span>)</div><div class='img'><img src='facet_matrix-6.png' alt='' width='700' height='433' /></div><div class='input'>
+               <span class='kw'>layer.continuous</span> <span class='kw'>=</span> -<span class='fl'>4</span>, <span class='kw'>layer.discrete</span> <span class='kw'>=</span> -<span class='fl'>3</span>, <span class='kw'>layer.mixed</span> <span class='kw'>=</span> -<span class='fl'>3</span>)</div><div class='img'><img src='facet_matrix-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Make asymmetric grid</span>
 <span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
   <span class='fu'>geom_boxplot</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.panel_y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>)) +
-  <span class='fu'>facet_matrix</span>(<span class='kw'>rows</span> <span class='kw'>=</span> <span class='fu'>vars</span>(<span class='no'>cty</span>, <span class='no'>hwy</span>), <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'>vars</span>(<span class='no'>drv</span>, <span class='no'>fl</span>))</div><div class='img'><img src='facet_matrix-7.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>facet_matrix</span>(<span class='kw'>rows</span> <span class='kw'>=</span> <span class='fu'>vars</span>(<span class='no'>cty</span>, <span class='no'>hwy</span>), <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'>vars</span>(<span class='no'>drv</span>, <span class='no'>fl</span>))</div><div class='img'><img src='facet_matrix-6.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

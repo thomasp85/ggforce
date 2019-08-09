@@ -70,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggforce</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -130,6 +130,19 @@
       
     </div>
 
+    <div id="ggforce-0-3-0" class="section level1">
+<h1 class="page-header">
+<a href="#ggforce-0-3-0" class="anchor"></a>ggforce 0.3.0<small> Unreleased </small>
+</h1>
+<ul>
+<li>Added <code><a href="../reference/facet_matrix.html">facet_matrix()</a></code> in order to facet different data columns into different rows and columns in a grid, in order to make e.g. scatterplot matrices and pairs plot</li>
+<li>Added <code><a href="../reference/geom_autopoint.html">geom_autopoint()</a></code> and <code><a href="../reference/position_auto.html">position_auto()</a></code> to jitter points based on the type of positional scales in the panel</li>
+<li>Added <code><a href="../reference/geom_autohistogram.html">geom_autohistogram()</a></code> and <code><a href="../reference/geom_autohistogram.html">geom_autodensity()</a></code> for facilitating distribution plots along the diagonal in a <code><a href="../reference/facet_matrix.html">facet_matrix()</a></code> plot.</li>
+<li>Added <code><a href="../reference/facet_row.html">facet_row()</a></code> and <code>facet_col</code> to have one-dimensional <code>facet_wrap()</code> with possibility of variable sizing.</li>
+<li>Stats should now always keep the old group variable (potentially with something added), making them work with gganimate</li>
+<li>Removed the <em>Visual Guide</em> vignette to reduce compilation time. See the website for an overview of all functionality with compiled examples (<a href="https://ggforce.data-imaginist.com" class="uri">https://ggforce.data-imaginist.com</a>)</li>
+</ul>
+</div>
     <div id="ggforce-0-2-2" class="section level1">
 <h1 class="page-header">
 <a href="#ggforce-0-2-2" class="anchor"></a>ggforce 0.2.2<small> 2019-04-23 </small>
@@ -137,7 +150,11 @@
 <ul>
 <li>Fixed a regression in <code><a href="../reference/geom_sina.html">geom_sina()</a></code> where the computation would fail with a warning due to <code><a href="https://www.rdocumentation.org/packages/base/topics/chartr">tolower()</a></code> being masked (#134, #135).</li>
 </ul>
-<p>#ggforce 0.2.1</p>
+</div>
+    <div id="ggforce-0-2-1" class="section level1">
+<h1 class="page-header">
+<a href="#ggforce-0-2-1" class="anchor"></a>ggforce 0.2.1<small> 2019-03-12 </small>
+</h1>
 <ul>
 <li>Fixed a bug in the calculation of open and closed b-splines, where the interval would exceed the defined region and result in an out-of-bounds memory error</li>
 </ul>
@@ -296,7 +313,9 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#ggforce-0-3-0">0.3.0</a></li>
         <li><a href="#ggforce-0-2-2">0.2.2</a></li>
+        <li><a href="#ggforce-0-2-1">0.2.1</a></li>
         <li><a href="#ggforce-0-2-0">0.2.0</a></li>
         <li><a href="#ggforce-0-1-1">0.1.1</a></li>
         <li><a href="#ggforce-0-1-0">0.1.0</a></li>
