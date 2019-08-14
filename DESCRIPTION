@@ -45,6 +45,7 @@ Suggests:
     sessioninfo,
     concaveman,
     deldir,
+    latex2exp,
     reshape2,
     units (>= 0.4-6),
     covr
@@ -73,6 +74,7 @@ Collate:
     'ggforce-package.R'
     'ggproto-classes.R'
     'interpolate.R'
+    'labeller.R'
     'link.R'
     'mark_circle.R'
     'mark_ellipse.R'
