@@ -64,6 +64,7 @@ Collate:
     'diagonal.R'
     'diagonal_wide.R'
     'ellipse.R'
+    'errorbar.R'
     'facet_grid_paginate.R'
     'facet_matrix.R'
     'facet_row.R'
