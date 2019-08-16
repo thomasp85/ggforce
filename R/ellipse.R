@@ -71,8 +71,8 @@ StatEllip <- ggproto('StatEllip', Stat,
     if (is.null(data)) return(data)
     data$group <- make.unique(as.character(data$group))
     n_ellipses <- nrow(data)
-    data <- data[rep(seq_len(n_ellipses), each = params$n), ]
-    points <- rep(seq(0, 2 * pi, length.out = params$n + 1)[seq_len(params$n)],
+    data <- data[rep(seq_len(n_ellipses), each = n), ]
+    points <- rep(seq(0, 2 * pi, length.out = params$n + 1)[seq_len(n)],
                   n_ellipses)
     cos_p <- cos(points)
     sin_p <- sin(points)
