@@ -77,7 +77,7 @@ that to ensure a symmetric appearance." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggforce</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
       </span>
     </div>
 
@@ -260,16 +260,19 @@ bold):</p><ul>
     <pre class="examples"><div class='input'><span class='co'># Basic usage</span>
 <span class='fu'>ggplot</span>() +
   <span class='fu'>geom_ellipse</span>(<span class='fu'>aes</span>(<span class='kw'>x0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>0</span>)) +
-  <span class='fu'>coord_fixed</span>()</div><div class='img'><img src='geom_ellipse-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>coord_fixed</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_ellip()`:</span>
+#&gt; <span class='warning'>object 'params' not found</span></div><div class='img'><img src='geom_ellipse-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Rotation</span>
 <span class='co'># Note that it expects radians and rotates the ellipse counter-clockwise</span>
 <span class='fu'>ggplot</span>() +
   <span class='fu'>geom_ellipse</span>(<span class='fu'>aes</span>(<span class='kw'>x0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='no'>pi</span> / <span class='fl'>4</span>)) +
-  <span class='fu'>coord_fixed</span>()</div><div class='img'><img src='geom_ellipse-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>coord_fixed</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_ellip()`:</span>
+#&gt; <span class='warning'>object 'params' not found</span></div><div class='img'><img src='geom_ellipse-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Draw a super ellipse</span>
 <span class='fu'>ggplot</span>() +
   <span class='fu'>geom_ellipse</span>(<span class='fu'>aes</span>(<span class='kw'>x0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>angle</span> <span class='kw'>=</span> -<span class='no'>pi</span> / <span class='fl'>3</span>, <span class='kw'>m1</span> <span class='kw'>=</span> <span class='fl'>3</span>)) +
-  <span class='fu'>coord_fixed</span>()</div><div class='img'><img src='geom_ellipse-3.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>coord_fixed</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_ellip()`:</span>
+#&gt; <span class='warning'>object 'params' not found</span></div><div class='img'><img src='geom_ellipse-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
