@@ -96,9 +96,9 @@ StatDiagonal <- ggproto('StatDiagonal', Stat,
   setup_data = function(data, params) {
     data
   },
-  compute_layer = function(self, data, params, panels) {
+  compute_panel = function(data, scales, n = 100, strength = 0.5) {
     if (is.null(data)) return(data)
-    data$group <- paste0(data$group, '_', seq_len(nrow(data)))
+    data$group <- make.unique(as.character(data$group))
     end <- data
     end$x <- end$xend
     end$y <- end$yend
@@ -106,8 +106,8 @@ StatDiagonal <- ggproto('StatDiagonal', Stat,
     data$xend <- NULL
     data$yend <- NULL
     data <- data[order(data$group), ]
-    data <- add_controls(data, params$strength)
-    StatBezier$compute_layer(data, params['n'], panels)
+    data <- add_controls(data, strength)
+    StatBezier$compute_panel(data, scales, n)
   },
   required_aes = c('x', 'y', 'xend', 'yend'),
   extra_params = c('na.rm', 'n', 'strength')
@@ -182,9 +182,9 @@ geom_diagonal2 <- function(mapping = NULL, data = NULL, stat = 'diagonal2',
 #' @usage NULL
 #' @export
 StatDiagonal0 <- ggproto('StatDiagonal0', Stat,
-  compute_layer = function(self, data, params, panels) {
+  compute_panel = function(data, scales, strength = 0.5) {
     if (is.null(data)) return(data)
-    data$group <- seq_len(nrow(data))
+    data$group <- make.unique(as.character(data$group))
     end <- data
     end$x <- end$xend
     end$y <- end$yend
@@ -192,8 +192,8 @@ StatDiagonal0 <- ggproto('StatDiagonal0', Stat,
     data$xend <- NULL
     data$yend <- NULL
     data <- data[order(data$group), ]
-    data <- add_controls(data, params$strength)
-    StatBezier0$compute_layer(data, params, panels)
+    data <- add_controls(data, strength)
+    StatBezier0$compute_panel(data, scales)
   },
   required_aes = c('x', 'y', 'xend', 'yend'),
   extra_params = c('na.rm', 'strength')

@@ -218,6 +218,9 @@ GeomBspline0 <- ggproto('GeomBspline0', GeomPath,
                           type = 'clamped', lineend = 'butt', linejoin = 'round',
                           linemitre = 1, na.rm = FALSE) {
     coords <- coord$transform(data, panel_scales)
+    if (!is.integer(coords$group)) {
+      coords$group <- match(coords$group, unique(coords$group))
+    }
     startPoint <- match(unique(coords$group), coords$group)
     xsplineGrob(coords$x, coords$y,
       id = coords$group, default.units = 'native',

@@ -67,8 +67,8 @@ StatDiagonalWide <- ggproto('StatDiagonalWide', Stat,
     upper <- data[c(FALSE, TRUE, FALSE, TRUE), ]
     lower <- add_controls(lower, strength)
     upper <- add_controls(upper[rev(seq_len(nrow(upper))), ], strength)
-    lower <- StatBezier$compute_layer(lower, list(n = n))
-    upper <- StatBezier$compute_layer(upper, list(n = n))
+    lower <- StatBezier$compute_panel(lower, scales, n)
+    upper <- StatBezier$compute_panel(upper, scales, n)
     diagonals <- rbind(lower, upper)
     diagonals$index <- NULL
     diagonals[order(diagonals$group), ]

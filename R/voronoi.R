@@ -277,7 +277,7 @@ StatDelaunayTile <- ggproto('StatDelaunayTile', Stat,
     try_require('deldir', snake_class(self))
     params
   },
-  compute_panel = function(data, scales, bound = NULL, eps = 1e-9,
+  compute_group = function(data, scales, bound = NULL, eps = 1e-9,
                            normalize = FALSE, asp.ratio = 1) {
     if (normalize) {
       x_range <- range(data$x, na.rm = TRUE, finite = TRUE)
@@ -296,7 +296,7 @@ StatDelaunayTile <- ggproto('StatDelaunayTile', Stat,
       vor <- deldir::deldir(d$x, d$y, rw = bound, eps = eps,
                             suppressMsge = TRUE)
       d <- to_triangle(vor)
-      d$group <- match(d$group, unique(d$group))
+      d$group <- paste(data$group[1], '_', match(d$group, unique(d$group)))
       d
     })
     for (i in seq_len(length(data) - 1) + 1) {

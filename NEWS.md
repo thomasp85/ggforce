@@ -1,5 +1,7 @@
 # ggforce (development version)
 
+- Better fix for gganimate compatibility (#157)
+
 # ggforce 0.3.0
 
 - Added `facet_matrix()` in order to facet different data columns into different

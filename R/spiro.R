@@ -62,25 +62,25 @@ NULL
 #' @importFrom MASS fractions
 #' @export
 StatSpiro <- ggproto('StatSpiro', Stat,
-  compute_layer = function(self, data, params, panels) {
+  compute_panel = function(data, scales, n = 500, revolutions = NULL) {
     if (is.null(data)) return(data)
     if (is.null(data$outer)) data$outer <- FALSE
     if (is.null(data$x0)) data$x0 <- 0
     if (is.null(data$y0)) data$y0 <- 0
     n_spiro <- nrow(data)
-    data$group <- paste0(data$group, '_', seq_len(n_spiro))
-    if (is.null(params$revolutions)) {
+    data$group <- make.unique(as.character(data$group))
+    if (is.null(revolutions)) {
       revo <- attr(fractions(data$r / data$R), 'fracs')
       revo <- as.numeric(sub('/.*$', '', revo))
     } else {
-      revo <- params$revolutions
+      revo <- revolutions
     }
-    data <- data[rep(seq_len(n_spiro), params$n * revo), ]
+    data <- data[rep(seq_len(n_spiro), n * revo), ]
     data$rho <- unlist(lapply(revo, function(r) {
-      seq(0, 2 * pi * r, length.out = params$n * r)
+      seq(0, 2 * pi * r, length.out = n * r)
     }))
     data$index <- unlist(lapply(revo, function(r) {
-      seq(0, 1, length.out = params$n * r)
+      seq(0, 1, length.out = n * r)
     }))
     data$x <- data$x0 + ifelse(
       data$outer,

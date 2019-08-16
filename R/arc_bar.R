@@ -190,7 +190,8 @@ arcPaths <- function(data, n) {
   data <- data[data$start != data$end, ]
   data$nControl <- ceiling(n / (2 * pi) * abs(data$end - data$start))
   data$nControl[data$nControl < 3] <- 3
-  extraData <- !names(data) %in% c('r0', 'r', 'start', 'end')
+  extraData <- !names(data) %in% c('r0', 'r', 'start', 'end', 'group')
+  data$group <- make.unique(as.character(data$group))
   paths <- lapply(seq_len(nrow(data)), function(i) {
     path <- data.frame(
       a = seq(data$start[i], data$end[i], length.out = data$nControl[i]),
@@ -209,7 +210,7 @@ arcPaths <- function(data, n) {
         )
       }
     }
-    path$group <- paste0(data$group[i], '_', i)
+    path$group <- data$group[i]
     path$index <- seq(0, 1, length.out = nrow(path))
     path <- cbind(path, data[rep(i, nrow(path)), extraData, drop = FALSE])
   })

@@ -104,7 +104,9 @@ GeomMarkRect <- ggproto('GeomMarkRect', GeomShape,
     if (nrow(data) == 0) return(zeroGrob())
 
     coords <- coord$transform(data, panel_params)
-
+    if (!is.integer(coords$group)) {
+      coords$group <- match(coords$group, unique(coords$group))
+    }
     coords <- coords[order(coords$group), ]
 
     # For gpar(), there is one entry per polygon (not one entry per point).
