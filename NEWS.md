@@ -1,4 +1,4 @@
-# ggforce (development version)
+# ggforce 0.3.1
 
 - Better fix for gganimate compatibility (#157)
 
