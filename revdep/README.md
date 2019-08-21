@@ -10,16 +10,15 @@
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |Europe/Copenhagen            |
-|date     |2019-08-09                   |
+|date     |2019-08-20                   |
 
 # Dependencies
 
-|package |old   |new        |Δ  |
-|:-------|:-----|:----------|:--|
-|ggforce |0.2.2 |0.2.2.9000 |*  |
-|digest  |NA    |0.6.20     |*  |
-|pillar  |NA    |1.4.2      |*  |
-|Rcpp    |NA    |1.0.2      |*  |
+|package |old   |new    |Δ  |
+|:-------|:-----|:------|:--|
+|ggforce |0.3.0 |0.3.1  |*  |
+|digest  |NA    |0.6.20 |*  |
+|pillar  |NA    |1.4.2  |*  |
 
 # Revdeps
 

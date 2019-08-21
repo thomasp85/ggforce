@@ -96,6 +96,28 @@ NULL
 #' @usage NULL
 #' @export
 StatBezier <- ggproto('StatBezier', Stat,
+  # .Deprecated - remove after next release
+  compute_layer = function(self, data, params, layout) {
+    if (is.null(data)) return(data)
+    data <- remove_missing(data, params$na.rm,
+                           c(self$required_aes, self$non_missing_aes),
+                           snake_class(self),
+                           finite = TRUE
+    )
+
+    # Trim off extra parameters
+    params <- params[intersect(names(params), self$parameters())]
+
+    args <- c(list(data = quote(data), scales = quote(scales)), params)
+    dapply(data, "PANEL", function(data) {
+      scales <- layout$get_scales(data$PANEL[1])
+      tryCatch(do.call(self$compute_panel, args), error = function(e) {
+        warning("Computation failed in `", snake_class(self), "()`:\n",
+                e$message, call. = FALSE)
+        new_data_frame()
+      })
+    })
+  },
   compute_panel = function(data, scales, n = 100) {
     if (is.null(data)) return(data)
     nControls <- table(data$group)
@@ -218,6 +240,28 @@ geom_bezier2 <- function(mapping = NULL, data = NULL, stat = 'bezier2',
 #' @usage NULL
 #' @export
 StatBezier0 <- ggproto('StatBezier0', Stat,
+  # .Deprecated - remove after next release
+  compute_layer = function(self, data, params, layout) {
+    if (is.null(data)) return(data)
+    data <- remove_missing(data, params$na.rm,
+                           c(self$required_aes, self$non_missing_aes),
+                           snake_class(self),
+                           finite = TRUE
+    )
+
+    # Trim off extra parameters
+    params <- params[intersect(names(params), self$parameters())]
+
+    args <- c(list(data = quote(data), scales = quote(scales)), params)
+    dapply(data, "PANEL", function(data) {
+      scales <- layout$get_scales(data$PANEL[1])
+      tryCatch(do.call(self$compute_panel, args), error = function(e) {
+        warning("Computation failed in `", snake_class(self), "()`:\n",
+                e$message, call. = FALSE)
+        new_data_frame()
+      })
+    })
+  },
   compute_panel = function(data, scales) {
     if (is.null(data)) return(data)
     data <- data[order(data$group), ]
