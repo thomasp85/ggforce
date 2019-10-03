@@ -16,7 +16,7 @@ Description: The aim of 'ggplot2' is to aid in visual data investigations. This
     'ggforce' aims to be a collection of mainly new stats and geoms that fills
     this gap. All additional functionality is aimed to come through the official
     extension system so using 'ggforce' should be a stable experience.
-URL: https://ggforce.data-imaginist.com
+URL: https://ggforce.data-imaginist.com, https://github.com/thomasp85/ggforce
 BugReports: https://github.com/thomasp85/ggforce/issues
 License: MIT + file LICENSE
 LazyData: TRUE
@@ -92,3 +92,4 @@ Collate:
     'utilities.R'
     'voronoi.R'
 Roxygen: list(markdown = TRUE)
+Remotes: tidyverse/ggplot2
