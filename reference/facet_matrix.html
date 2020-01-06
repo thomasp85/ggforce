@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,8 +41,8 @@
 
 
 
-<meta property="og:title" content="Facet by different data columns — facet_matrix" />
 
+<meta property="og:title" content="Facet by different data columns — facet_matrix" />
 <meta property="og:description" content="The facet_matrix() facet allows you to put different data columns into
 different rows and columns in a grid of panels. If the same data columns are
 present in both the rows and the columns of the grid, and used together with
@@ -49,9 +53,9 @@ capabilities, as any combination of data columns can be plotted against each
 other using any type of geom. Layers should use the .panel_x and .panel_y
 placeholders to map aesthetics to, in order to access the row and column
 data." />
-
 <meta property="og:image" content="https://ggforce.data-imaginist.com/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -63,6 +67,7 @@ data." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -105,6 +110,9 @@ data." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.data-imaginist.com/2019/a-flurry-of-facets/">Version 0.3.0</a>
+    </li>
+    <li>
       <a href="https://www.data-imaginist.com/2019/the-ggforce-awakens-again/">Version 0.2.0</a>
     </li>
     <li>
@@ -117,7 +125,6 @@ data." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/thomasp85/ggforce">
@@ -132,18 +139,18 @@ data." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Facet by different data columns</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggforce/blob/master/R/facet_matrix.R'><code>R/facet_matrix.R</code></a></small>
     <div class="hidden name"><code>facet_matrix.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>The <code>facet_matrix()</code> facet allows you to put different data columns into
 different rows and columns in a grid of panels. If the same data columns are
 present in both the rows and the columns of the grid, and used together with
@@ -154,14 +161,13 @@ capabilities, as any combination of data columns can be plotted against each
 other using any type of geom. Layers should use the <code>.panel_x</code> and <code>.panel_y</code>
 placeholders to map aesthetics to, in order to access the row and column
 data.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>facet_matrix</span>(<span class='no'>rows</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='no'>rows</span>, <span class='kw'>shrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>switch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>flip.rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>alternate.axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>layer.lower</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>layer.diag</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>layer.upper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>layer.continuous</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>layer.discrete</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>layer.mixed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>grid.y.diag</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -224,7 +230,7 @@ and will thus not use the y-scale. Removing the y gridlines can indicate
 this.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Due to the special nature of this faceting it slightly breaks the
@@ -232,13 +238,11 @@ ggplot2 API, in that any positional scale settings are ignored. This is
 because each row and column in the grid will potentially have very different
 scale types and it is not currently possible to have multiple different scale
 specifications in the same plot object.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='geom_autopoint.html'>geom_autopoint</a>, <a href='geom_autohistogram.html'>geom_autohistogram</a>, <a href='geom_autohistogram.html'>geom_autodensity</a>, and
 <a href='position_auto.html'>position_auto</a> for geoms and positions that adapts to different positional
 scale types</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Standard use:</span>
@@ -262,14 +266,16 @@ scale types</p></div>
   <span class='fu'><a href='geom_autopoint.html'>geom_autopoint</a></span>() +
   <span class='fu'><a href='geom_autohistogram.html'>geom_autodensity</a></span>() +
   <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>drv</span>:<span class='no'>fl</span>), <span class='kw'>layer.diag</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='facet_matrix-4.png' alt='' width='700' height='433' /></div><div class='input'>
-</div><div class='input'><span class='co'># Show continuous panels in upper triangle as contours and rest as binned</span>
+<span class='co'># \donttest{</span>
+<span class='co'># Show continuous panels in upper triangle as contours and rest as binned</span>
 <span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
   <span class='fu'><a href='geom_autopoint.html'>geom_autopoint</a></span>() +
   <span class='fu'><a href='geom_autohistogram.html'>geom_autodensity</a></span>() +
   <span class='fu'>geom_density2d</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.panel_y</span>)) +
   <span class='fu'>geom_bin2d</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.panel_y</span>)) +
   <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>drv</span>:<span class='no'>fl</span>), <span class='kw'>layer.lower</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>layer.diag</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-               <span class='kw'>layer.continuous</span> <span class='kw'>=</span> -<span class='fl'>4</span>, <span class='kw'>layer.discrete</span> <span class='kw'>=</span> -<span class='fl'>3</span>, <span class='kw'>layer.mixed</span> <span class='kw'>=</span> -<span class='fl'>3</span>)</div><div class='img'><img src='facet_matrix-5.png' alt='' width='700' height='433' /></div><div class='input'>
+               <span class='kw'>layer.continuous</span> <span class='kw'>=</span> -<span class='fl'>4</span>, <span class='kw'>layer.discrete</span> <span class='kw'>=</span> -<span class='fl'>3</span>, <span class='kw'>layer.mixed</span> <span class='kw'>=</span> -<span class='fl'>3</span>)</div><div class='img'><img src='facet_matrix-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+
 <span class='co'># Make asymmetric grid</span>
 <span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
   <span class='fu'>geom_boxplot</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.panel_y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>)) +
@@ -280,16 +286,14 @@ scale types</p></div>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#note">Note</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -297,13 +301,16 @@ scale types</p></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

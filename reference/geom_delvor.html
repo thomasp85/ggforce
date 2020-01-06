@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,15 +41,15 @@
 
 
 
-<meta property="og:title" content="Voronoi tesselation and delaunay triangulation — geom_voronoi" />
 
+<meta property="og:title" content="Voronoi tesselation and delaunay triangulation — geom_voronoi" />
 <meta property="og:description" content="This set of geoms and stats allows you to display voronoi tesselation and
 delaunay triangulation, both as polygons and as line segments. Furthermore
 it lets you augment your point data with related summary statistics. The
 computations are based on the deldir::deldir() package." />
-
 <meta property="og:image" content="https://ggforce.data-imaginist.com/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -57,6 +61,7 @@ computations are based on the deldir::deldir() package." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -99,6 +104,9 @@ computations are based on the deldir::deldir() package." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.data-imaginist.com/2019/a-flurry-of-facets/">Version 0.3.0</a>
+    </li>
+    <li>
       <a href="https://www.data-imaginist.com/2019/the-ggforce-awakens-again/">Version 0.2.0</a>
     </li>
     <li>
@@ -111,7 +119,6 @@ computations are based on the deldir::deldir() package." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/thomasp85/ggforce">
@@ -126,23 +133,22 @@ computations are based on the deldir::deldir() package." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Voronoi tesselation and delaunay triangulation</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggforce/blob/master/R/voronoi.R'><code>R/voronoi.R</code></a></small>
     <div class="hidden name"><code>geom_delvor.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>This set of geoms and stats allows you to display voronoi tesselation and
 delaunay triangulation, both as polygons and as line segments. Furthermore
 it lets you augment your point data with related summary statistics. The
-computations are based on the <code><a href='https://www.rdocumentation.org/packages/deldir/topics/deldir'>deldir::deldir()</a></code> package.</p>
-    
+computations are based on the <code><a href='https://rdrr.io/pkg/deldir/man/deldir.html'>deldir::deldir()</a></code> package.</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_voronoi_tile</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"voronoi_tile"</span>,
@@ -175,7 +181,7 @@ computations are based on the <code><a href='https://www.rdocumentation.org/pack
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>bound</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>eps</span> <span class='kw'>=</span> <span class='fl'>1e-09</span>,
   <span class='kw'>normalize</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>asp.ratio</span> <span class='kw'>=</span> <span class='no'>asp.ratio</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -293,11 +299,12 @@ to the paired geom/stat.</p></td>
       <td><p>The geometric object to use display the data</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
-    <p>geom_voronoi_tile and geom_delaunay_tile understand the following aesthetics
+
+<p>geom_voronoi_tile and geom_delaunay_tile understand the following aesthetics
 (required aesthetics are in bold):</p><ul>
 <li><p><strong>x</strong></p></li>
 <li><p><strong>y</strong></p></li>
@@ -307,7 +314,8 @@ to the paired geom/stat.</p></td>
 <li><p>linetype</p></li>
 <li><p>size</p></li>
 </ul>
-    <p>geom_voronoi_segment, geom_delaunay_segment, and geom_delaunay_segment2
+
+<p>geom_voronoi_segment, geom_delaunay_segment, and geom_delaunay_segment2
 understand the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p><strong>x</strong></p></li>
 <li><p><strong>y</strong></p></li>
@@ -316,11 +324,12 @@ understand the following aesthetics (required aesthetics are in bold):</p><ul>
 <li><p>linetype</p></li>
 <li><p>size</p></li>
 </ul>
-    
+
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
-    <p>stat_delvor_summary computes the following variables:</p><dl class='dl-horizontal'>
+
+<p>stat_delvor_summary computes the following variables:</p><dl class='dl-horizontal'>
 <dt>x, y</dt><dd><p>If <code>switch.centroid = TRUE</code> this will be the coordinates for
 the voronoi tile centroid, otherwise it is the original point</p></dd>
 <dt>xcent, ycent</dt><dd><p>If <code>switch.centroid = FALSE</code> this will be the
@@ -337,8 +346,9 @@ triangles</p></dd>
 the bounding box</p></dd>
 <dt>vorarea</dt><dd><p>The area of the voronoi tile associated with the point</p></dd>
 <dt>vorprop</dt><dd><p><code>vorarea</code> divided by the sum of all voronoi tiles</p></dd>
+
 </dl>
-    
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Voronoi</span>
@@ -359,7 +369,7 @@ the bounding box</p></dd>
 <span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Sepal.Length</span>, <span class='no'>Sepal.Width</span>, <span class='kw'>group</span> <span class='kw'>=</span> -<span class='fl'>1L</span>)) +
   <span class='fu'>geom_voronoi_tile</span>(<span class='fu'>aes</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>Species</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'black'</span>, <span class='kw'>max.radius</span> <span class='kw'>=</span> <span class='fl'>0.25</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: stat_voronoi_tile: dropping duplicated points</span></div><div class='img'><img src='geom_delvor-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Set custom bounding polygon</span>
-<span class='no'>triangle</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>cbind</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>9</span>, <span class='fl'>6</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>6</span>))
+<span class='no'>triangle</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>9</span>, <span class='fl'>6</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>6</span>))
 <span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Sepal.Length</span>, <span class='no'>Sepal.Width</span>, <span class='kw'>group</span> <span class='kw'>=</span> -<span class='fl'>1L</span>)) +
   <span class='fu'>geom_voronoi_tile</span>(<span class='fu'>aes</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>Species</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'black'</span>, <span class='kw'>bound</span> <span class='kw'>=</span> <span class='no'>triangle</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: stat_voronoi_tile: dropping duplicated points</span></div><div class='img'><img src='geom_delvor-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use geom_shape functionality to round corners etc</span>
@@ -378,16 +388,14 @@ the bounding box</p></dd>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#computed-variables">Computed variables</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -395,13 +403,16 @@ the bounding box</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
