@@ -1,5 +1,7 @@
 # ggforce (development version)
 
+- Cnages to comply with latest ggplot2 release
+
 # ggforce 0.3.1
 
 - Better fix for gganimate compatibility (#157)

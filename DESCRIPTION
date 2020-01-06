@@ -91,5 +91,6 @@ Collate:
     'trans_linear.R'
     'utilities.R'
     'voronoi.R'
+    'zzz.R'
 Roxygen: list(markdown = TRUE)
 Remotes: tidyverse/ggplot2

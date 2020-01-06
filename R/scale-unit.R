@@ -51,7 +51,7 @@ scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
     name = name, breaks = breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
     expand = expand, oob = oob, na.value = na.value, trans = trans,
-    guide = 'none', position = position, super = ScaleContinuousPositionUnit
+    guide = default_axis_guide, position = position, super = ScaleContinuousPositionUnit
   )
   sc$unit <- switch(
     class(unit),
@@ -88,7 +88,7 @@ scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
     name = name, breaks = breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
     expand = expand, oob = oob, na.value = na.value, trans = trans,
-    guide = 'none', position = position, super = ScaleContinuousPositionUnit
+    guide = default_axis_guide, position = position, super = ScaleContinuousPositionUnit
   )
   sc$unit <- switch(
     class(unit),

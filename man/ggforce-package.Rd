@@ -70,6 +70,7 @@ ggplot() + geom_link(aes(
 Useful links:
 \itemize{
   \item \url{https://ggforce.data-imaginist.com}
+  \item \url{https://github.com/thomasp85/ggforce}
   \item Report bugs at \url{https://github.com/thomasp85/ggforce/issues}
 }
 
