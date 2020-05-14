@@ -377,7 +377,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
     zoom_element_y <- calc_element("ggforce.zoom.area.y", theme)
     
     if (!(is.null(params$x) && is.null(params$xlim)) &&
-        params$show.area && !inherits(theme$zoom.x, 'element_blank')) {
+        params$show.area && !inherits(zoom_element_x, 'element_blank')) {
       zoom_prop <- rescale(x_scales[[2]]$dimension(expansion(x_scales[[2]])),
         from = x_scales[[1]]$dimension(expansion(x_scales[[1]]))
       )
@@ -393,7 +393,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       x_back <- zeroGrob()
     }
     if (!(is.null(params$y) && is.null(params$ylim)) &&
-        params$show.area && !inherits(theme$zoom.y, 'element_blank')) {
+        params$show.area && !inherits(zoom_element_y, 'element_blank')) {
       zoom_prop <- rescale(y_scales[[2]]$dimension(expansion(y_scales[[2]])),
         from = y_scales[[1]]$dimension(expansion(y_scales[[1]]))
       )
