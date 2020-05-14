@@ -215,15 +215,16 @@ FacetZoom <- ggproto('FacetZoom', Facet,
     } else if (is.null(params$y) && is.null(params$ylim)) {
       params$horizontal <- FALSE
     }
-    if (is.null(theme[['zoom']])) {
-      theme$zoom <- theme$strip.background
-    }
-    if (is.null(theme$zoom.x)) {
-      theme$zoom.x <- theme$zoom
-    }
-    if (is.null(theme$zoom.y)) {
-      theme$zoom.y <- theme$zoom
-    }
+    
+    # Set alpha on parent fill, which allows users to apply their own alpha
+    parent <- calc_element("strip.background", theme)
+    parent$fill <- alpha(parent$fill, 0.5)
+    theme$strip.background <- parent
+
+    # Calculate zoom elements
+    zoom_element_x <- calc_element("ggforce.zoom.funnel.x", theme)
+    zoom_element_y <- calc_element("ggforce.zoom.funnel.y", theme)
+    
     # Construct the panels
     axes <- render_axes(ranges, ranges, coord, theme, FALSE)
     panelGrobs <- create_panels(panels, axes$x, axes$y)
@@ -234,26 +235,23 @@ FacetZoom <- ggproto('FacetZoom', Facet,
     }
 
     if ('y' %in% layout$name) {
-      if (!inherits(theme$zoom.y, 'element_blank')) {
+      if (!inherits(zoom_element_y, 'element_blank')) {
         zoom_prop <- rescale(y_scales[[2]]$dimension(expansion(y_scales[[2]])),
           from = y_scales[[1]]$dimension(expansion(y_scales[[1]]))
         )
+        # Make grob for the gpar
+        zoom_gp <- unclass(element_grob(zoom_element_y)[["gp"]])
         indicator <- polygonGrob(
           c(1, 1, 0, 0),
           c(zoom_prop, 1, 0),
-          gp = gpar(col = NA, fill = alpha(theme$zoom.y$fill, 0.5))
+          gp = do.call(gpar, within(zoom_gp, col <- NA))
         )
         lines <- segmentsGrob(
           y0 = c(0, 1),
           x0 = c(0, 0),
           y1 = zoom_prop,
           x1 = c(1, 1),
-          gp = gpar(
-            col = theme$zoom.y$colour,
-            lty = theme$zoom.y$linetype,
-            lwd = theme$zoom.y$size,
-            lineend = 'round'
-          )
+          gp = do.call(gpar, within(zoom_gp, lineend <- 'round'))
         )
         indicator_h <- grobTree(indicator, lines)
       } else {
@@ -261,26 +259,22 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       }
     }
     if ('x' %in% layout$name) {
-      if (!inherits(theme$zoom.x, 'element_blank')) {
+      if (!inherits(zoom_element_x, 'element_blank')) {
         zoom_prop <- rescale(x_scales[[2]]$dimension(expansion(x_scales[[2]])),
           from = x_scales[[1]]$dimension(expansion(x_scales[[1]]))
         )
+        zoom_gp <- unclass(element_grob(zoom_element_x)[["gp"]])
         indicator <- polygonGrob(
           c(zoom_prop, 1, 0),
           c(1, 1, 0, 0),
-          gp = gpar(col = NA, fill = alpha(theme$zoom.x$fill, 0.5))
+          gp = do.call(gpar, within(zoom_gp, col <- NA))
         )
         lines <- segmentsGrob(
           x0 = c(0, 1),
           y0 = c(0, 0),
           x1 = zoom_prop,
           y1 = c(1, 1),
-          gp = gpar(
-            col = theme$zoom.x$colour,
-            lty = theme$zoom.x$linetype,
-            lwd = theme$zoom.x$size,
-            lineend = 'round'
-          )
+          gp = do.call(gpar, within(zoom_gp, lineend <- 'round'))
         )
         indicator_v <- grobTree(indicator, lines)
       } else {
@@ -361,30 +355,28 @@ FacetZoom <- ggproto('FacetZoom', Facet,
     final
   },
   draw_back = function(data, layout, x_scales, y_scales, theme, params) {
-    if (is.null(theme[['zoom']])) {
-      theme$zoom <- theme$strip.background
-    }
-    if (is.null(theme$zoom.x)) {
-      theme$zoom.x <- theme$zoom
-    }
-    if (is.null(theme$zoom.y)) {
-      theme$zoom.y <- theme$zoom
-    }
+    
+    # Set alpha on parent fill, which allows users to apply their own alpha
+    parent <- calc_element("strip.background", theme)
+    parent$fill <- alpha(parent$fill, 0.5)
+    theme$strip.background <- parent
+    
+    # Calculate zoom elements
+    zoom_element_x <- calc_element("ggforce.zoom.area.x", theme)
+    zoom_element_y <- calc_element("ggforce.zoom.area.y", theme)
+    
     if (!(is.null(params$x) && is.null(params$xlim)) &&
         params$show.area && !inherits(theme$zoom.x, 'element_blank')) {
       zoom_prop <- rescale(x_scales[[2]]$dimension(expansion(x_scales[[2]])),
         from = x_scales[[1]]$dimension(expansion(x_scales[[1]]))
       )
+      zoom_gp <- unclass(element_grob(zoom_element_x)[["gp"]])
       x_back <- grobTree(
         rectGrob(x = mean(zoom_prop), y = 0.5, width = diff(zoom_prop),
                  height = 1,
-                 gp = gpar(col = NA, fill = alpha(theme$zoom.x$fill, 0.5))),
-        segmentsGrob(zoom_prop, c(0, 0), zoom_prop, c(1, 1), gp = gpar(
-          col = theme$zoom.x$colour,
-          lty = theme$zoom.x$linetype,
-          lwd = theme$zoom.x$size,
-          lineend = 'round'
-        ))
+                 gp = do.call(gpar, within(zoom_gp, col <- NA))),
+        segmentsGrob(zoom_prop, c(0, 0), zoom_prop, c(1, 1), 
+                     gp = do.call(gpar, within(zoom_gp, lineend <- 'round')))
       )
     } else {
       x_back <- zeroGrob()
@@ -394,17 +386,13 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       zoom_prop <- rescale(y_scales[[2]]$dimension(expansion(y_scales[[2]])),
         from = y_scales[[1]]$dimension(expansion(y_scales[[1]]))
       )
+      zoom_gp <- unclass(element_grob(zoom_element_y)[["gp"]])
       y_back <- grobTree(
         rectGrob(y = mean(zoom_prop), x = 0.5, height = diff(zoom_prop),
                  width = 1,
-                 gp = gpar(col = NA, fill = alpha(theme$zoom.y$fill, 0.5))),
+                 gp = do.call(gpar, within(zoom_gp, col <- NA))),
         segmentsGrob(y0 = zoom_prop, x0 = c(0, 0), y1 = zoom_prop, x1 = c(1, 1),
-                     gp = gpar(col = theme$zoom.y$colour,
-                               lty = theme$zoom.y$linetype,
-                               lwd = theme$zoom.y$size,
-                               lineend = 'round'
-                             )
-                     )
+                     gp = do.call(gpar, within(zoom_gp, lineend <- 'round')))
       )
     } else {
       y_back <- zeroGrob()
