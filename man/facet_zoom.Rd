@@ -4,9 +4,19 @@
 \alias{facet_zoom}
 \title{Facet data for zoom with context}
 \usage{
-facet_zoom(x, y, xy, zoom.data, xlim = NULL, ylim = NULL,
-  split = FALSE, horizontal = TRUE, zoom.size = 2,
-  show.area = TRUE, shrink = TRUE)
+facet_zoom(
+  x,
+  y,
+  xy,
+  zoom.data,
+  xlim = NULL,
+  ylim = NULL,
+  split = FALSE,
+  horizontal = TRUE,
+  zoom.size = 2,
+  show.area = TRUE,
+  shrink = TRUE
+)
 }
 \arguments{
 \item{x, y, xy}{An expression evaluating to a logical vector that determines
@@ -44,6 +54,20 @@ will be indicated on the full dataset panel for reference. It is possible to
 zoom in on both the x and y axis at the same time. If this is done it is
 possible to both get each zoom separately and combined or just combined.
 }
+\details{
+The looks of the zooming indicators can be controlled by using
+setting the appropriate elements in \code{theme()}. The theme elements are
+defined with \code{element_rect()} and affect the following parts:
+\itemize{
+\item \code{ggforce.zoom}: All zooming indicators, both funnels and areas.
+\item \code{ggforce.zoom.funnel}: The funnel in between the panels.
+\item \code{ggforce.zoom.funnel.(x|y)}: To seperate funnels originating from the
+x- or y-axis.
+\item \code{ggforce.zoom.area}: The area on the panel indicating the limits.
+\item \code{ggforce.zoom.area.(x|y)}: To indicate ranges on the x- and y-axis
+seperately.
+}
+}
 \examples{
 # Zoom in on the versicolor species on the x-axis
 ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
@@ -76,8 +100,9 @@ ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
   facet_zoom(x = Species == 'versicolor', zoom.data = Species == 'versicolor')
 }
 \seealso{
-Other ggforce facets: \code{\link{facet_grid_paginate}},
-  \code{\link{facet_stereo}},
-  \code{\link{facet_wrap_paginate}}
+Other ggforce facets: 
+\code{\link{facet_grid_paginate}()},
+\code{\link{facet_stereo}()},
+\code{\link{facet_wrap_paginate}()}
 }
 \concept{ggforce facets}

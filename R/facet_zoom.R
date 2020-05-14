@@ -29,7 +29,18 @@
 #'
 #' @param show.area Should the zoom area be drawn below the data points on the
 #' full data panel? Defaults to `TRUE`.
-#'
+#' 
+#' @details The looks of the zooming indicators can be controlled by using
+#'   setting the appropriate elements in `theme()`. The theme elements are
+#'   defined with `element_rect()` and affect the following parts:
+#'   * `ggforce.zoom`: All zooming indicators, both funnels and areas.
+#'   * `ggforce.zoom.funnel`: The funnel in between the panels.
+#'   * `ggforce.zoom.funnel.(x|y)`: To seperate funnels originating from the 
+#'   x- or y-axis.
+#'   * `ggforce.zoom.area`: The area on the panel indicating the limits.
+#'   * `ggforce.zoom.area.(x|y)`: To indicate ranges on the x- and y-axis 
+#'   seperately.
+#'   
 #' @inheritParams ggplot2::facet_wrap
 #'
 #' @family ggforce facets
