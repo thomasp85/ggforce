@@ -1,6 +1,7 @@
 # ggforce (development version)
 
-- Cnages to comply with latest ggplot2 release
+- Changes to comply with latest ggplot2 release
+- `facet_zoom()` zoom indicators now have their own theme elements (#98)
 
 # ggforce 0.3.1
 
