@@ -162,37 +162,37 @@ of the groups, so performance issues should be rare (it can easily handle a
 hull consisting of 1000 points).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_mark_ellipse</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>5</span>, <span class='st'>"mm"</span>),
-  <span class='kw'>radius</span> <span class='kw'>=</span> <span class='no'>expand</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>tol</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
-  <span class='kw'>label.margin</span> <span class='kw'>=</span> <span class='fu'>margin</span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='st'>"mm"</span>),
-  <span class='kw'>label.width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>label.minwidth</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>50</span>, <span class='st'>"mm"</span>),
-  <span class='kw'>label.hjust</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>label.fontsize</span> <span class='kw'>=</span> <span class='fl'>12</span>,
-  <span class='kw'>label.family</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>label.lineheight</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>label.fontface</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bold"</span>, <span class='st'>"plain"</span>),
-  <span class='kw'>label.fill</span> <span class='kw'>=</span> <span class='st'>"white"</span>,
-  <span class='kw'>label.colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>label.buffer</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>10</span>, <span class='st'>"mm"</span>),
-  <span class='kw'>con.colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>con.size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>con.type</span> <span class='kw'>=</span> <span class='st'>"elbow"</span>,
-  <span class='kw'>con.linetype</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>con.border</span> <span class='kw'>=</span> <span class='st'>"one"</span>,
-  <span class='kw'>con.cap</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>3</span>, <span class='st'>"mm"</span>),
-  <span class='kw'>con.arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_mark_ellipse.html'>geom_mark_ellipse</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"identity"</span>,
+  position = <span class='st'>"identity"</span>,
+  expand = <span class='fu'>unit</span>(<span class='fl'>5</span>, <span class='st'>"mm"</span>),
+  radius = <span class='kw'>expand</span>,
+  n = <span class='fl'>100</span>,
+  tol = <span class='fl'>0.01</span>,
+  label.margin = <span class='fu'>margin</span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='st'>"mm"</span>),
+  label.width = <span class='kw'>NULL</span>,
+  label.minwidth = <span class='fu'>unit</span>(<span class='fl'>50</span>, <span class='st'>"mm"</span>),
+  label.hjust = <span class='fl'>0</span>,
+  label.fontsize = <span class='fl'>12</span>,
+  label.family = <span class='st'>""</span>,
+  label.lineheight = <span class='fl'>1</span>,
+  label.fontface = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bold"</span>, <span class='st'>"plain"</span>),
+  label.fill = <span class='st'>"white"</span>,
+  label.colour = <span class='st'>"black"</span>,
+  label.buffer = <span class='fu'>unit</span>(<span class='fl'>10</span>, <span class='st'>"mm"</span>),
+  con.colour = <span class='st'>"black"</span>,
+  con.size = <span class='fl'>0.5</span>,
+  con.type = <span class='st'>"elbow"</span>,
+  con.linetype = <span class='fl'>1</span>,
+  con.border = <span class='st'>"one"</span>,
+  con.cap = <span class='fu'>unit</span>(<span class='fl'>3</span>, <span class='st'>"mm"</span>),
+  con.arrow = <span class='kw'>NULL</span>,
+  <span class='kw'>...</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -421,40 +421,40 @@ removed data.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other mark geoms: 
-<code><a href='geom_mark_circle.html'>geom_mark_circle</a>()</code>,
-<code><a href='geom_mark_hull.html'>geom_mark_hull</a>()</code>,
-<code><a href='geom_mark_rect.html'>geom_mark_rect</a>()</code></p></div>
+<code><a href='https://ggforce.data-imaginist.com/reference/geom_mark_circle.html'>geom_mark_circle</a>()</code>,
+<code><a href='https://ggforce.data-imaginist.com/reference/geom_mark_hull.html'>geom_mark_hull</a>()</code>,
+<code><a href='https://ggforce.data-imaginist.com/reference/geom_mark_rect.html'>geom_mark_rect</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Petal.Length</span>, <span class='no'>Petal.Width</span>)) +
-  <span class='fu'>geom_mark_ellipse</span>(<span class='fu'>aes</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>Species</span>, <span class='kw'>filter</span> <span class='kw'>=</span> <span class='no'>Species</span> <span class='kw'>!=</span> <span class='st'>'versicolor'</span>)) +
+    <pre class="examples"><div class='input'><span class='fu'>ggplot</span>(<span class='kw'>iris</span>, <span class='fu'>aes</span>(<span class='kw'>Petal.Length</span>, <span class='kw'>Petal.Width</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_mark_ellipse.html'>geom_mark_ellipse</a></span>(<span class='fu'>aes</span>(fill = <span class='kw'>Species</span>, filter = <span class='kw'>Species</span> != <span class='st'>'versicolor'</span>)) <span class='op'>+</span>
   <span class='fu'>geom_point</span>()</div><div class='img'><img src='geom_mark_ellipse-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Add annotation</span>
-<span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Petal.Length</span>, <span class='no'>Petal.Width</span>)) +
-  <span class='fu'>geom_mark_ellipse</span>(<span class='fu'>aes</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>Species</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
+<span class='fu'>ggplot</span>(<span class='kw'>iris</span>, <span class='fu'>aes</span>(<span class='kw'>Petal.Length</span>, <span class='kw'>Petal.Width</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_mark_ellipse.html'>geom_mark_ellipse</a></span>(<span class='fu'>aes</span>(fill = <span class='kw'>Species</span>, label = <span class='kw'>Species</span>)) <span class='op'>+</span>
   <span class='fu'>geom_point</span>()</div><div class='img'><img src='geom_mark_ellipse-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Long descriptions are automatically wrapped to fit into the width</span>
-<span class='no'>iris</span>$<span class='no'>desc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+<span class='kw'>iris</span><span class='op'>$</span><span class='kw'>desc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
   <span class='st'>'A super Iris - and it knows it'</span>,
   <span class='st'>'Pretty mediocre Iris, but give it a couple of years and it might surprise you'</span>,
   <span class='st'>"You'll never guess what this Iris does every Sunday"</span>
-)[<span class='no'>iris</span>$<span class='no'>Species</span>]
+)[<span class='kw'>iris</span><span class='op'>$</span><span class='kw'>Species</span>]
 
-<span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Petal.Length</span>, <span class='no'>Petal.Width</span>)) +
-  <span class='fu'>geom_mark_ellipse</span>(<span class='fu'>aes</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>Species</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>Species</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='no'>desc</span>,
-                        <span class='kw'>filter</span> <span class='kw'>=</span> <span class='no'>Species</span> <span class='kw'>==</span> <span class='st'>'setosa'</span>)) +
+<span class='fu'>ggplot</span>(<span class='kw'>iris</span>, <span class='fu'>aes</span>(<span class='kw'>Petal.Length</span>, <span class='kw'>Petal.Width</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_mark_ellipse.html'>geom_mark_ellipse</a></span>(<span class='fu'>aes</span>(fill = <span class='kw'>Species</span>, label = <span class='kw'>Species</span>, description = <span class='kw'>desc</span>,
+                        filter = <span class='kw'>Species</span> <span class='op'>==</span> <span class='st'>'setosa'</span>)) <span class='op'>+</span>
   <span class='fu'>geom_point</span>()</div><div class='img'><img src='geom_mark_ellipse-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change the buffer size to move labels farther away (or closer) from the</span>
 <span class='co'># marks</span>
-<span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Petal.Length</span>, <span class='no'>Petal.Width</span>)) +
-  <span class='fu'>geom_mark_ellipse</span>(<span class='fu'>aes</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>Species</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>Species</span>),
-                    <span class='kw'>label.buffer</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>40</span>, <span class='st'>'mm'</span>)) +
+<span class='fu'>ggplot</span>(<span class='kw'>iris</span>, <span class='fu'>aes</span>(<span class='kw'>Petal.Length</span>, <span class='kw'>Petal.Width</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_mark_ellipse.html'>geom_mark_ellipse</a></span>(<span class='fu'>aes</span>(fill = <span class='kw'>Species</span>, label = <span class='kw'>Species</span>),
+                    label.buffer = <span class='fu'>unit</span>(<span class='fl'>40</span>, <span class='st'>'mm'</span>)) <span class='op'>+</span>
   <span class='fu'>geom_point</span>()</div><div class='img'><img src='geom_mark_ellipse-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The connector is capped a bit before it reaches the mark, but this can be</span>
 <span class='co'># controlled</span>
-<span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Petal.Length</span>, <span class='no'>Petal.Width</span>)) +
-  <span class='fu'>geom_mark_ellipse</span>(<span class='fu'>aes</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>Species</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>Species</span>),
-                    <span class='kw'>con.cap</span> <span class='kw'>=</span> <span class='fl'>0</span>) +
+<span class='fu'>ggplot</span>(<span class='kw'>iris</span>, <span class='fu'>aes</span>(<span class='kw'>Petal.Length</span>, <span class='kw'>Petal.Width</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_mark_ellipse.html'>geom_mark_ellipse</a></span>(<span class='fu'>aes</span>(fill = <span class='kw'>Species</span>, label = <span class='kw'>Species</span>),
+                    con.cap = <span class='fl'>0</span>) <span class='op'>+</span>
   <span class='fu'>geom_point</span>()</div><div class='img'><img src='geom_mark_ellipse-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -471,7 +471,7 @@ removed data.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

@@ -162,11 +162,11 @@ exceed ~0.3 as it would get hard for the eyes to consolidate the two
 pictures.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_depth</span>(<span class='no'>...</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.3</span>))
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/scale_depth.html'>scale_depth</a></span>(<span class='kw'>...</span>, range = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.3</span>))
 
-<span class='fu'>scale_depth_continuous</span>(<span class='no'>...</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.3</span>))
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/scale_depth.html'>scale_depth_continuous</a></span>(<span class='kw'>...</span>, range = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.3</span>))
 
-<span class='fu'>scale_depth_discrete</span>(<span class='no'>...</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.3</span>))</pre>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/scale_depth.html'>scale_depth_discrete</a></span>(<span class='kw'>...</span>, range = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.3</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,10 +184,10 @@ and the paper plane.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ggplot</span>(<span class='no'>mtcars</span>) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>mpg</span>, <span class='no'>disp</span>, <span class='kw'>depth</span> <span class='kw'>=</span> <span class='no'>cyl</span>)) +
-  <span class='fu'>scale_depth</span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>0.1</span>, <span class='fl'>0.25</span>)) +
-  <span class='fu'><a href='facet_stereo.html'>facet_stereo</a></span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: depth</span></div><div class='img'><img src='scale_depth-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>ggplot</span>(<span class='kw'>mtcars</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>mpg</span>, <span class='kw'>disp</span>, depth = <span class='kw'>cyl</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/scale_depth.html'>scale_depth</a></span>(range = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>0.1</span>, <span class='fl'>0.25</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_stereo.html'>facet_stereo</a></span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring unknown aesthetics: depth</span></div><div class='img'><img src='scale_depth-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -203,7 +203,7 @@ and the paper plane.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

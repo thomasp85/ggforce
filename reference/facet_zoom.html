@@ -156,18 +156,18 @@ zoom in on both the x and y axis at the same time. If this is done it is
 possible to both get each zoom separately and combined or just combined.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>facet_zoom</span>(
-  <span class='no'>x</span>,
-  <span class='no'>y</span>,
-  <span class='no'>xy</span>,
-  <span class='no'>zoom.data</span>,
-  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>split</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>horizontal</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>zoom.size</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>show.area</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>shrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_zoom.html'>facet_zoom</a></span>(
+  <span class='kw'>x</span>,
+  <span class='kw'>y</span>,
+  <span class='kw'>xy</span>,
+  <span class='kw'>zoom.data</span>,
+  xlim = <span class='kw'>NULL</span>,
+  ylim = <span class='kw'>NULL</span>,
+  split = <span class='fl'>FALSE</span>,
+  horizontal = <span class='fl'>TRUE</span>,
+  zoom.size = <span class='fl'>2</span>,
+  show.area = <span class='fl'>TRUE</span>,
+  shrink = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -222,35 +222,35 @@ before statistical summary.</p></td>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other ggforce facets: 
-<code><a href='facet_grid_paginate.html'>facet_grid_paginate</a>()</code>,
-<code><a href='facet_stereo.html'>facet_stereo</a>()</code>,
-<code><a href='facet_wrap_paginate.html'>facet_wrap_paginate</a>()</code></p></div>
+<code><a href='https://ggforce.data-imaginist.com/reference/facet_grid_paginate.html'>facet_grid_paginate</a>()</code>,
+<code><a href='https://ggforce.data-imaginist.com/reference/facet_stereo.html'>facet_stereo</a>()</code>,
+<code><a href='https://ggforce.data-imaginist.com/reference/facet_wrap_paginate.html'>facet_wrap_paginate</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Zoom in on the versicolor species on the x-axis</span>
-<span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Petal.Length</span>, <span class='no'>Petal.Width</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
-  <span class='fu'>geom_point</span>() +
-  <span class='fu'>facet_zoom</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Species</span> <span class='kw'>==</span> <span class='st'>'versicolor'</span>)</div><div class='img'><img src='facet_zoom-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>iris</span>, <span class='fu'>aes</span>(<span class='kw'>Petal.Length</span>, <span class='kw'>Petal.Width</span>, colour = <span class='kw'>Species</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_zoom.html'>facet_zoom</a></span>(x = <span class='kw'>Species</span> <span class='op'>==</span> <span class='st'>'versicolor'</span>)</div><div class='img'><img src='facet_zoom-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Zoom in on versicolor on both axes</span>
-<span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Petal.Length</span>, <span class='no'>Petal.Width</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
-  <span class='fu'>geom_point</span>() +
-  <span class='fu'>facet_zoom</span>(<span class='kw'>xy</span> <span class='kw'>=</span> <span class='no'>Species</span> <span class='kw'>==</span> <span class='st'>'versicolor'</span>)</div><div class='img'><img src='facet_zoom-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>iris</span>, <span class='fu'>aes</span>(<span class='kw'>Petal.Length</span>, <span class='kw'>Petal.Width</span>, colour = <span class='kw'>Species</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_zoom.html'>facet_zoom</a></span>(xy = <span class='kw'>Species</span> <span class='op'>==</span> <span class='st'>'versicolor'</span>)</div><div class='img'><img src='facet_zoom-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use different zoom criteria on each axis</span>
-<span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Petal.Length</span>, <span class='no'>Petal.Width</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
-  <span class='fu'>geom_point</span>() +
-  <span class='fu'>facet_zoom</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Species</span> <span class='kw'>!=</span> <span class='st'>'setosa'</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Species</span> <span class='kw'>==</span> <span class='st'>'versicolor'</span>)</div><div class='img'><img src='facet_zoom-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>iris</span>, <span class='fu'>aes</span>(<span class='kw'>Petal.Length</span>, <span class='kw'>Petal.Width</span>, colour = <span class='kw'>Species</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_zoom.html'>facet_zoom</a></span>(x = <span class='kw'>Species</span> != <span class='st'>'setosa'</span>, y = <span class='kw'>Species</span> <span class='op'>==</span> <span class='st'>'versicolor'</span>)</div><div class='img'><img src='facet_zoom-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Get each axis zoom separately as well</span>
-<span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Petal.Length</span>, <span class='no'>Petal.Width</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
-  <span class='fu'>geom_point</span>() +
-  <span class='fu'>facet_zoom</span>(<span class='kw'>xy</span> <span class='kw'>=</span> <span class='no'>Species</span> <span class='kw'>==</span> <span class='st'>'versicolor'</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='facet_zoom-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>iris</span>, <span class='fu'>aes</span>(<span class='kw'>Petal.Length</span>, <span class='kw'>Petal.Width</span>, colour = <span class='kw'>Species</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_zoom.html'>facet_zoom</a></span>(xy = <span class='kw'>Species</span> <span class='op'>==</span> <span class='st'>'versicolor'</span>, split = <span class='fl'>TRUE</span>)</div><div class='img'><img src='facet_zoom-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Define the zoom area directly</span>
-<span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Petal.Length</span>, <span class='no'>Petal.Width</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
-  <span class='fu'>geom_point</span>() +
-  <span class='fu'>facet_zoom</span>(<span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>))</div><div class='img'><img src='facet_zoom-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>iris</span>, <span class='fu'>aes</span>(<span class='kw'>Petal.Length</span>, <span class='kw'>Petal.Width</span>, colour = <span class='kw'>Species</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_zoom.html'>facet_zoom</a></span>(xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>))</div><div class='img'><img src='facet_zoom-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Selectively show data in the zoom panel</span>
-<span class='fu'>ggplot</span>(<span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='no'>Petal.Length</span>, <span class='no'>Petal.Width</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
-  <span class='fu'>geom_point</span>() +
-  <span class='fu'>facet_zoom</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Species</span> <span class='kw'>==</span> <span class='st'>'versicolor'</span>, <span class='kw'>zoom.data</span> <span class='kw'>=</span> <span class='no'>Species</span> <span class='kw'>==</span> <span class='st'>'versicolor'</span>)</div><div class='img'><img src='facet_zoom-6.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot</span>(<span class='kw'>iris</span>, <span class='fu'>aes</span>(<span class='kw'>Petal.Length</span>, <span class='kw'>Petal.Width</span>, colour = <span class='kw'>Species</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_zoom.html'>facet_zoom</a></span>(x = <span class='kw'>Species</span> <span class='op'>==</span> <span class='st'>'versicolor'</span>, zoom.data = <span class='kw'>Species</span> <span class='op'>==</span> <span class='st'>'versicolor'</span>)</div><div class='img'><img src='facet_zoom-6.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -266,7 +266,7 @@ before statistical summary.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

@@ -153,7 +153,7 @@ grid::xsplineGrob() with shape = 1 to approximate a b-spline." />
 
     <div class="ref-description">
     <p>This set of stats and geoms makes it possible to draw b-splines based on a
-set of control points. As with <code><a href='geom_bezier.html'>geom_bezier()</a></code> there exists several
+set of control points. As with <code><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>geom_bezier()</a></code> there exists several
 versions each having there own strengths. The base version calculates the
 b-spline as a number of points along the spline and connects these with a
 path. The *2 version does the same but in addition interpolates aesthetics
@@ -162,86 +162,86 @@ so it shouldn't be used unless needed. The *0 version uses
 <code><a href='https://rdrr.io/r/grid/grid.xspline.html'>grid::xsplineGrob()</a></code> with <code>shape = 1</code> to approximate a b-spline.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_bspline</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"path"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"clamped"</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline.html'>stat_bspline</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"path"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  n = <span class='fl'>100</span>,
+  type = <span class='st'>"clamped"</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_bspline</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"bspline"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"clamped"</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline.html'>geom_bspline</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"bspline"</span>,
+  position = <span class='st'>"identity"</span>,
+  arrow = <span class='kw'>NULL</span>,
+  n = <span class='fl'>100</span>,
+  type = <span class='st'>"clamped"</span>,
+  lineend = <span class='st'>"butt"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>stat_bspline2</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"path_interpolate"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"clamped"</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline.html'>stat_bspline2</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"path_interpolate"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  n = <span class='fl'>100</span>,
+  type = <span class='st'>"clamped"</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_bspline2</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"bspline2"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"clamped"</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline.html'>geom_bspline2</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"bspline2"</span>,
+  position = <span class='st'>"identity"</span>,
+  arrow = <span class='kw'>NULL</span>,
+  n = <span class='fl'>100</span>,
+  type = <span class='st'>"clamped"</span>,
+  lineend = <span class='st'>"butt"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>stat_bspline0</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"bspline0"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"clamped"</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline.html'>stat_bspline0</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"bspline0"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  type = <span class='st'>"clamped"</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_bspline0</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"clamped"</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline.html'>geom_bspline0</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"identity"</span>,
+  position = <span class='st'>"identity"</span>,
+  arrow = <span class='kw'>NULL</span>,
+  lineend = <span class='st'>"butt"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  type = <span class='st'>"clamped"</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -349,52 +349,56 @@ bold):</p><ul>
     
 
 
-<dl'>
+<dl>
 <dt>x, y</dt><dd><p>The coordinates for the path describing the spline</p></dd>
 <dt>index</dt><dd><p>The progression along the interpolation mapped between 0 and 1</p></dd>
 
 </dl>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Thomas Lin Pedersen. The C++ code for De Boor's algorithm has been
+adapted from
+<a href='https://chi3x10.wordpress.com/2009/10/18/de-boor-algorithm-in-c/'>Jason Yu-Tseh Chi implementation</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Define some control points</span>
-<span class='no'>cp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
-    <span class='fl'>0</span>, -<span class='fl'>5</span>, -<span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>2.5</span>, <span class='fl'>5</span>, <span class='fl'>7.5</span>, <span class='fl'>5</span>, <span class='fl'>2.5</span>, <span class='fl'>5</span>, <span class='fl'>7.5</span>, <span class='fl'>5</span>, -<span class='fl'>2.5</span>, -<span class='fl'>5</span>, -<span class='fl'>7.5</span>, -<span class='fl'>5</span>,
-    -<span class='fl'>2.5</span>, -<span class='fl'>5</span>, -<span class='fl'>7.5</span>, -<span class='fl'>5</span>
+<span class='kw'>cp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+    <span class='fl'>0</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>2.5</span>, <span class='fl'>5</span>, <span class='fl'>7.5</span>, <span class='fl'>5</span>, <span class='fl'>2.5</span>, <span class='fl'>5</span>, <span class='fl'>7.5</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2.5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>7.5</span>, <span class='op'>-</span><span class='fl'>5</span>,
+    <span class='op'>-</span><span class='fl'>2.5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>7.5</span>, <span class='op'>-</span><span class='fl'>5</span>
   ),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
-    <span class='fl'>0</span>, -<span class='fl'>5</span>, <span class='fl'>5</span>, -<span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>7.5</span>, <span class='fl'>5</span>, <span class='fl'>2.5</span>, -<span class='fl'>5</span>, -<span class='fl'>7.5</span>, -<span class='fl'>5</span>, -<span class='fl'>2.5</span>, <span class='fl'>5</span>, <span class='fl'>7.5</span>, <span class='fl'>5</span>, <span class='fl'>2.5</span>,
-    -<span class='fl'>5</span>, -<span class='fl'>7.5</span>, -<span class='fl'>5</span>, -<span class='fl'>2.5</span>
+  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+    <span class='fl'>0</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>7.5</span>, <span class='fl'>5</span>, <span class='fl'>2.5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>7.5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2.5</span>, <span class='fl'>5</span>, <span class='fl'>7.5</span>, <span class='fl'>5</span>, <span class='fl'>2.5</span>,
+    <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>7.5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2.5</span>
   ),
-  <span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fl'>21</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  class = <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>], <span class='fl'>21</span>, replace = <span class='fl'>TRUE</span>)
 )
 
 <span class='co'># Now create some paths between them</span>
-<span class='no'>paths</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>ind</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+<span class='kw'>paths</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  ind = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
     <span class='fl'>7</span>, <span class='fl'>5</span>, <span class='fl'>8</span>, <span class='fl'>8</span>, <span class='fl'>5</span>, <span class='fl'>9</span>, <span class='fl'>9</span>, <span class='fl'>5</span>, <span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>5</span>, <span class='fl'>7</span>, <span class='fl'>7</span>, <span class='fl'>5</span>, <span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>15</span>, <span class='fl'>8</span>, <span class='fl'>5</span>, <span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>17</span>, <span class='fl'>9</span>, <span class='fl'>5</span>,
     <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>19</span>, <span class='fl'>6</span>, <span class='fl'>5</span>, <span class='fl'>1</span>, <span class='fl'>4</span>, <span class='fl'>12</span>, <span class='fl'>7</span>, <span class='fl'>5</span>, <span class='fl'>1</span>, <span class='fl'>4</span>, <span class='fl'>10</span>, <span class='fl'>6</span>, <span class='fl'>5</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>20</span>
   ),
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+  group = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
     <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>7</span>, <span class='fl'>7</span>,
     <span class='fl'>7</span>, <span class='fl'>7</span>, <span class='fl'>7</span>, <span class='fl'>8</span>, <span class='fl'>8</span>, <span class='fl'>8</span>, <span class='fl'>8</span>, <span class='fl'>8</span>, <span class='fl'>9</span>, <span class='fl'>9</span>, <span class='fl'>9</span>, <span class='fl'>9</span>, <span class='fl'>9</span>, <span class='fl'>10</span>, <span class='fl'>10</span>, <span class='fl'>10</span>, <span class='fl'>10</span>, <span class='fl'>10</span>
   )
 )
-<span class='no'>paths</span>$<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>cp</span>$<span class='no'>x</span>[<span class='no'>paths</span>$<span class='no'>ind</span>]
-<span class='no'>paths</span>$<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>cp</span>$<span class='no'>y</span>[<span class='no'>paths</span>$<span class='no'>ind</span>]
-<span class='no'>paths</span>$<span class='no'>class</span> <span class='kw'>&lt;-</span> <span class='no'>cp</span>$<span class='no'>class</span>[<span class='no'>paths</span>$<span class='no'>ind</span>]
+<span class='kw'>paths</span><span class='op'>$</span><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='kw'>cp</span><span class='op'>$</span><span class='kw'>x</span>[<span class='kw'>paths</span><span class='op'>$</span><span class='kw'>ind</span>]
+<span class='kw'>paths</span><span class='op'>$</span><span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='kw'>cp</span><span class='op'>$</span><span class='kw'>y</span>[<span class='kw'>paths</span><span class='op'>$</span><span class='kw'>ind</span>]
+<span class='kw'>paths</span><span class='op'>$</span><span class='kw'>class</span> <span class='op'>&lt;-</span> <span class='kw'>cp</span><span class='op'>$</span><span class='kw'>class</span>[<span class='kw'>paths</span><span class='op'>$</span><span class='kw'>ind</span>]
 
-<span class='fu'>ggplot</span>(<span class='no'>paths</span>) +
-  <span class='fu'>geom_bspline</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>..index..</span>)) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>cp</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>'steelblue'</span>)</div><div class='img'><img src='geom_bspline-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>ggplot</span>(<span class='no'>paths</span>) +
-  <span class='fu'>geom_bspline2</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>)) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>cp</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>'steelblue'</span>)</div><div class='img'><img src='geom_bspline-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>ggplot</span>(<span class='no'>paths</span>) +
-  <span class='fu'>geom_bspline0</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>)) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>cp</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>'steelblue'</span>)</div><div class='img'><img src='geom_bspline-3.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>ggplot</span>(<span class='kw'>paths</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline.html'>geom_bspline</a></span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>, group = <span class='kw'>group</span>, colour = <span class='kw'>..index..</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>), data = <span class='kw'>cp</span>, color = <span class='st'>'steelblue'</span>)</div><div class='img'><img src='geom_bspline-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>paths</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline.html'>geom_bspline2</a></span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>, group = <span class='kw'>group</span>, colour = <span class='kw'>class</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>), data = <span class='kw'>cp</span>, color = <span class='st'>'steelblue'</span>)</div><div class='img'><img src='geom_bspline-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>paths</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline.html'>geom_bspline0</a></span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>, group = <span class='kw'>group</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>), data = <span class='kw'>cp</span>, color = <span class='st'>'steelblue'</span>)</div><div class='img'><img src='geom_bspline-3.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -410,7 +414,7 @@ bold):</p><ul>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

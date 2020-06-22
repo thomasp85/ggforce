@@ -150,7 +150,7 @@ that to ensure a symmetric appearance." />
     </div>
 
     <div class="ref-description">
-    <p>This is a generalisation of <code><a href='geom_circle.html'>geom_circle()</a></code> that allows you to draw
+    <p>This is a generalisation of <code><a href='https://ggforce.data-imaginist.com/reference/geom_circle.html'>geom_circle()</a></code> that allows you to draw
 ellipses at a specified angle and center relative to the coordinate system.
 Apart from letting you draw regular ellipsis, the stat is using the
 generalised formula for superellipses which can be utilised by setting the
@@ -158,28 +158,28 @@ generalised formula for superellipses which can be utilised by setting the
 that to ensure a symmetric appearance.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_ellip</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"circle"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>360</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_ellipse.html'>stat_ellip</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"circle"</span>,
+  position = <span class='st'>"identity"</span>,
+  n = <span class='fl'>360</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_ellipse</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"ellip"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>360</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_ellipse.html'>geom_ellipse</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"ellip"</span>,
+  position = <span class='st'>"identity"</span>,
+  n = <span class='fl'>360</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -279,7 +279,7 @@ bold):</p><ul>
     
 
 
-<dl'>
+<dl>
 <dt>x, y</dt><dd><p>The coordinates for the points along the ellipse</p></dd>
 
 </dl>
@@ -287,17 +287,17 @@ bold):</p><ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Basic usage</span>
-<span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_ellipse</span>(<span class='fu'>aes</span>(<span class='kw'>x0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>0</span>)) +
+<span class='fu'>ggplot</span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_ellipse.html'>geom_ellipse</a></span>(<span class='fu'>aes</span>(x0 = <span class='fl'>0</span>, y0 = <span class='fl'>0</span>, a = <span class='fl'>10</span>, b = <span class='fl'>3</span>, angle = <span class='fl'>0</span>)) <span class='op'>+</span>
   <span class='fu'>coord_fixed</span>()</div><div class='img'><img src='geom_ellipse-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Rotation</span>
 <span class='co'># Note that it expects radians and rotates the ellipse counter-clockwise</span>
-<span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_ellipse</span>(<span class='fu'>aes</span>(<span class='kw'>x0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='no'>pi</span> / <span class='fl'>4</span>)) +
+<span class='fu'>ggplot</span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_ellipse.html'>geom_ellipse</a></span>(<span class='fu'>aes</span>(x0 = <span class='fl'>0</span>, y0 = <span class='fl'>0</span>, a = <span class='fl'>10</span>, b = <span class='fl'>3</span>, angle = <span class='kw'>pi</span> <span class='op'>/</span> <span class='fl'>4</span>)) <span class='op'>+</span>
   <span class='fu'>coord_fixed</span>()</div><div class='img'><img src='geom_ellipse-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Draw a super ellipse</span>
-<span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_ellipse</span>(<span class='fu'>aes</span>(<span class='kw'>x0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>angle</span> <span class='kw'>=</span> -<span class='no'>pi</span> / <span class='fl'>3</span>, <span class='kw'>m1</span> <span class='kw'>=</span> <span class='fl'>3</span>)) +
+<span class='fu'>ggplot</span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_ellipse.html'>geom_ellipse</a></span>(<span class='fu'>aes</span>(x0 = <span class='fl'>0</span>, y0 = <span class='fl'>0</span>, a = <span class='fl'>6</span>, b = <span class='fl'>3</span>, angle = <span class='op'>-</span><span class='kw'>pi</span> <span class='op'>/</span> <span class='fl'>3</span>, m1 = <span class='fl'>3</span>)) <span class='op'>+</span>
   <span class='fu'>coord_fixed</span>()</div><div class='img'><img src='geom_ellipse-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -314,7 +314,7 @@ bold):</p><ul>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

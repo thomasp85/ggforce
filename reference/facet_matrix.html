@@ -154,7 +154,7 @@ data." />
     </div>
 
     <div class="ref-description">
-    <p>The <code>facet_matrix()</code> facet allows you to put different data columns into
+    <p>The <code><a href='https://ggforce.data-imaginist.com/reference/facet_matrix.html'>facet_matrix()</a></code> facet allows you to put different data columns into
 different rows and columns in a grid of panels. If the same data columns are
 present in both the rows and the columns of the grid, and used together with
 <code><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>ggplot2::geom_point()</a></code> it is also known as a scatterplot matrix, and if
@@ -166,20 +166,20 @@ placeholders to map aesthetics to, in order to access the row and column
 data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>facet_matrix</span>(
-  <span class='no'>rows</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='no'>rows</span>,
-  <span class='kw'>shrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>switch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>flip.rows</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>alternate.axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>layer.lower</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>layer.diag</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>layer.upper</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>layer.continuous</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>layer.discrete</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>layer.mixed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>grid.y.diag</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_matrix.html'>facet_matrix</a></span>(
+  <span class='kw'>rows</span>,
+  cols = <span class='kw'>rows</span>,
+  shrink = <span class='fl'>TRUE</span>,
+  switch = <span class='kw'>NULL</span>,
+  flip.rows = <span class='fl'>FALSE</span>,
+  alternate.axes = <span class='fl'>FALSE</span>,
+  layer.lower = <span class='kw'>NULL</span>,
+  layer.diag = <span class='kw'>NULL</span>,
+  layer.upper = <span class='kw'>NULL</span>,
+  layer.continuous = <span class='kw'>NULL</span>,
+  layer.discrete = <span class='kw'>NULL</span>,
+  layer.mixed = <span class='kw'>NULL</span>,
+  grid.y.diag = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -254,47 +254,46 @@ scale types and it is not currently possible to have multiple different scale
 specifications in the same plot object.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='geom_autopoint.html'>geom_autopoint</a>, <a href='geom_autohistogram.html'>geom_autohistogram</a>, <a href='geom_autohistogram.html'>geom_autodensity</a>, and
-<a href='position_auto.html'>position_auto</a> for geoms and positions that adapts to different positional
+    <div class='dont-index'><p><a href='https://ggforce.data-imaginist.com/reference/geom_autopoint.html'>geom_autopoint</a>, <a href='https://ggforce.data-imaginist.com/reference/geom_autohistogram.html'>geom_autohistogram</a>, <a href='https://ggforce.data-imaginist.com/reference/geom_autohistogram.html'>geom_autodensity</a>, and
+<a href='https://ggforce.data-imaginist.com/reference/position_auto.html'>position_auto</a> for geoms and positions that adapts to different positional
 scale types</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Standard use:</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.panel_y</span>)) +
-  <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>displ</span>, <span class='no'>cty</span>, <span class='no'>hwy</span>))</div><div class='img'><img src='facet_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(x = <span class='kw'>.panel_x</span>, y = <span class='kw'>.panel_y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_matrix.html'>facet_matrix</a></span>(<span class='fu'>vars</span>(<span class='kw'>displ</span>, <span class='kw'>cty</span>, <span class='kw'>hwy</span>))</div><div class='img'><img src='facet_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Switch the diagonal, alternate the axes and style strips as axis labels</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.panel_y</span>)) +
-  <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>displ</span>, <span class='no'>cty</span>, <span class='no'>hwy</span>), <span class='kw'>flip.rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-               <span class='kw'>alternate.axes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>switch</span> <span class='kw'>=</span> <span class='st'>'both'</span>) +
-  <span class='fu'>theme</span>(<span class='kw'>strip.background</span> <span class='kw'>=</span> <span class='fu'>element_blank</span>(),
-        <span class='kw'>strip.placement</span> <span class='kw'>=</span> <span class='st'>'outside'</span>,
-        <span class='kw'>strip.text</span> <span class='kw'>=</span> <span class='fu'>element_text</span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>12</span>))</div><div class='img'><img src='facet_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(x = <span class='kw'>.panel_x</span>, y = <span class='kw'>.panel_y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_matrix.html'>facet_matrix</a></span>(<span class='fu'>vars</span>(<span class='kw'>displ</span>, <span class='kw'>cty</span>, <span class='kw'>hwy</span>), flip.rows = <span class='fl'>TRUE</span>,
+               alternate.axes = <span class='fl'>TRUE</span>, switch = <span class='st'>'both'</span>) <span class='op'>+</span>
+  <span class='fu'>theme</span>(strip.background = <span class='fu'>element_blank</span>(),
+        strip.placement = <span class='st'>'outside'</span>,
+        strip.text = <span class='fu'>element_text</span>(size = <span class='fl'>12</span>))</div><div class='img'><img src='facet_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Mix discrete and continuous columns. Use geom_autopoint for scale-based jitter</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
-  <span class='fu'><a href='geom_autopoint.html'>geom_autopoint</a></span>() +
-  <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>drv</span>:<span class='no'>fl</span>))</div><div class='img'><img src='facet_matrix-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_autopoint.html'>geom_autopoint</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_matrix.html'>facet_matrix</a></span>(<span class='fu'>vars</span>(<span class='kw'>drv</span><span class='op'>:</span><span class='kw'>fl</span>))</div><div class='img'><img src='facet_matrix-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Have a special diagonal layer</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
-  <span class='fu'><a href='geom_autopoint.html'>geom_autopoint</a></span>() +
-  <span class='fu'><a href='geom_autohistogram.html'>geom_autodensity</a></span>() +
-  <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>drv</span>:<span class='no'>fl</span>), <span class='kw'>layer.diag</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='facet_matrix-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_autopoint.html'>geom_autopoint</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_autohistogram.html'>geom_autodensity</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_matrix.html'>facet_matrix</a></span>(<span class='fu'>vars</span>(<span class='kw'>drv</span><span class='op'>:</span><span class='kw'>fl</span>), layer.diag = <span class='fl'>2</span>)</div><div class='img'><img src='facet_matrix-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># Show continuous panels in upper triangle as contours and rest as binned</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
-  <span class='fu'><a href='geom_autopoint.html'>geom_autopoint</a></span>() +
-  <span class='fu'><a href='geom_autohistogram.html'>geom_autodensity</a></span>() +
-  <span class='fu'>geom_density2d</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.panel_y</span>)) +
-  <span class='fu'>geom_bin2d</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.panel_y</span>)) +
-  <span class='fu'>facet_matrix</span>(<span class='fu'>vars</span>(<span class='no'>drv</span>:<span class='no'>fl</span>), <span class='kw'>layer.lower</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>layer.diag</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-               <span class='kw'>layer.continuous</span> <span class='kw'>=</span> -<span class='fl'>4</span>, <span class='kw'>layer.discrete</span> <span class='kw'>=</span> -<span class='fl'>3</span>, <span class='kw'>layer.mixed</span> <span class='kw'>=</span> -<span class='fl'>3</span>)</div><div class='img'><img src='facet_matrix-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_autopoint.html'>geom_autopoint</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_autohistogram.html'>geom_autodensity</a></span>() <span class='op'>+</span>
+  <span class='fu'>geom_density2d</span>(<span class='fu'>aes</span>(x = <span class='kw'>.panel_x</span>, y = <span class='kw'>.panel_y</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_bin2d</span>(<span class='fu'>aes</span>(x = <span class='kw'>.panel_x</span>, y = <span class='kw'>.panel_y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_matrix.html'>facet_matrix</a></span>(<span class='fu'>vars</span>(<span class='kw'>drv</span><span class='op'>:</span><span class='kw'>fl</span>), layer.lower = <span class='fl'>1</span>, layer.diag = <span class='fl'>2</span>,
+               layer.continuous = <span class='op'>-</span><span class='fl'>4</span>, layer.discrete = <span class='op'>-</span><span class='fl'>3</span>, layer.mixed = <span class='op'>-</span><span class='fl'>3</span>)</div><div class='img'><img src='facet_matrix-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># Make asymmetric grid</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
-  <span class='fu'>geom_boxplot</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.panel_y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>.panel_x</span>)) +
-  <span class='fu'>facet_matrix</span>(<span class='kw'>rows</span> <span class='kw'>=</span> <span class='fu'>vars</span>(<span class='no'>cty</span>, <span class='no'>hwy</span>), <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'>vars</span>(<span class='no'>drv</span>, <span class='no'>fl</span>))</div><div class='img'><img src='facet_matrix-6.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span>
+  <span class='fu'>geom_boxplot</span>(<span class='fu'>aes</span>(x = <span class='kw'>.panel_x</span>, y = <span class='kw'>.panel_y</span>, group = <span class='kw'>.panel_x</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_matrix.html'>facet_matrix</a></span>(rows = <span class='fu'>vars</span>(<span class='kw'>cty</span>, <span class='kw'>hwy</span>), cols = <span class='fu'>vars</span>(<span class='kw'>drv</span>, <span class='kw'>fl</span>))</div><div class='img'><img src='facet_matrix-6.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -310,7 +309,7 @@ scale types</p></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

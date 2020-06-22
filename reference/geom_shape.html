@@ -162,17 +162,17 @@ back to <code>geom_polygon</code> so there is no performance penality in using t
 instead of <code>geom_polygon</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_shape</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>radius</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_shape.html'>geom_shape</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"identity"</span>,
+  position = <span class='st'>"identity"</span>,
+  expand = <span class='fl'>0</span>,
+  radius = <span class='fl'>0</span>,
+  <span class='kw'>...</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -271,24 +271,27 @@ bold):</p><ul>
 <li><p>alpha</p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Thomas Lin Pedersen</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>shape</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1</span>, <span class='fl'>0.75</span>, <span class='fl'>0.25</span>, <span class='fl'>0</span>),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>, <span class='fl'>0.75</span>, <span class='fl'>0.25</span>)
+    <pre class="examples"><div class='input'><span class='kw'>shape</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>1</span>, <span class='fl'>0.75</span>, <span class='fl'>0.25</span>, <span class='fl'>0</span>),
+  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>, <span class='fl'>0.75</span>, <span class='fl'>0.25</span>)
 )
 <span class='co'># Expand and round</span>
-<span class='fu'>ggplot</span>(<span class='no'>shape</span>, <span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)) +
-  <span class='fu'>geom_shape</span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>1</span>, <span class='st'>'cm'</span>), <span class='kw'>radius</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>0.5</span>, <span class='st'>'cm'</span>)) +
-  <span class='fu'>geom_polygon</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>'red'</span>)</div><div class='img'><img src='geom_shape-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>shape</span>, <span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_shape.html'>geom_shape</a></span>(expand = <span class='fu'>unit</span>(<span class='fl'>1</span>, <span class='st'>'cm'</span>), radius = <span class='fu'>unit</span>(<span class='fl'>0.5</span>, <span class='st'>'cm'</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_polygon</span>(fill = <span class='st'>'red'</span>)</div><div class='img'><img src='geom_shape-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Contract</span>
-<span class='fu'>ggplot</span>(<span class='no'>shape</span>, <span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)) +
-  <span class='fu'>geom_polygon</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>'red'</span>) +
-  <span class='fu'>geom_shape</span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>unit</span>(-<span class='fl'>1</span>, <span class='st'>'cm'</span>))</div><div class='img'><img src='geom_shape-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>shape</span>, <span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_polygon</span>(fill = <span class='st'>'red'</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_shape.html'>geom_shape</a></span>(expand = <span class='fu'>unit</span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='st'>'cm'</span>))</div><div class='img'><img src='geom_shape-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Only round corners</span>
-<span class='fu'>ggplot</span>(<span class='no'>shape</span>, <span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)) +
-  <span class='fu'>geom_polygon</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>'red'</span>) +
-  <span class='fu'>geom_shape</span>(<span class='kw'>radius</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>1</span>, <span class='st'>'cm'</span>))</div><div class='img'><img src='geom_shape-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot</span>(<span class='kw'>shape</span>, <span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_polygon</span>(fill = <span class='st'>'red'</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_shape.html'>geom_shape</a></span>(radius = <span class='fu'>unit</span>(<span class='fl'>1</span>, <span class='st'>'cm'</span>))</div><div class='img'><img src='geom_shape-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -304,7 +307,7 @@ bold):</p><ul>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

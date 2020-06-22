@@ -154,7 +154,7 @@ position jitters points using a normal distribution instead, resulting in
 more circular clusters.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>position_jitternormal</span>(<span class='kw'>sd_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sd_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/position_jitternormal.html'>position_jitternormal</a></span>(sd_x = <span class='kw'>NULL</span>, sd_y = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,29 +173,29 @@ the categories.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Example data</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>1500</span>, <span class='fl'>TRUE</span>),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>1500</span>, <span class='fl'>TRUE</span>)
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>1500</span>, <span class='fl'>TRUE</span>),
+  y = <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>1500</span>, <span class='fl'>TRUE</span>)
 )
 
 <span class='co'># position_jitter results in rectangular clusters</span>
-<span class='fu'>ggplot</span>(<span class='no'>df</span>, <span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)) +
-  <span class='fu'>geom_point</span>(<span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>position_jitter</span>())</div><div class='img'><img src='position_jitternormal-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>df</span>, <span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(position = <span class='fu'>position_jitter</span>())</div><div class='img'><img src='position_jitternormal-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># geom_jitternormal results in more circular clusters</span>
-<span class='fu'>ggplot</span>(<span class='no'>df</span>, <span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)) +
-  <span class='fu'>geom_point</span>(<span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>position_jitternormal</span>())</div><div class='img'><img src='position_jitternormal-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>df</span>, <span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(position = <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/position_jitternormal.html'>position_jitternormal</a></span>())</div><div class='img'><img src='position_jitternormal-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can adjust the standard deviations along both axes</span>
 <span class='co'># Tighter circles</span>
-<span class='fu'>ggplot</span>(<span class='no'>df</span>, <span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)) +
-  <span class='fu'>geom_point</span>(<span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>position_jitternormal</span>(<span class='kw'>sd_x</span> <span class='kw'>=</span> <span class='fl'>0.08</span>, <span class='kw'>sd_y</span> <span class='kw'>=</span> <span class='fl'>0.08</span>))</div><div class='img'><img src='position_jitternormal-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>df</span>, <span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(position = <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/position_jitternormal.html'>position_jitternormal</a></span>(sd_x = <span class='fl'>0.08</span>, sd_y = <span class='fl'>0.08</span>))</div><div class='img'><img src='position_jitternormal-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Oblong shapes</span>
-<span class='fu'>ggplot</span>(<span class='no'>df</span>, <span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)) +
-  <span class='fu'>geom_point</span>(<span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>position_jitternormal</span>(<span class='kw'>sd_x</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>sd_y</span> <span class='kw'>=</span> <span class='fl'>0.08</span>))</div><div class='img'><img src='position_jitternormal-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>df</span>, <span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(position = <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/position_jitternormal.html'>position_jitternormal</a></span>(sd_x = <span class='fl'>0.2</span>, sd_y = <span class='fl'>0.08</span>))</div><div class='img'><img src='position_jitternormal-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Only add random noise to one dimension</span>
-<span class='fu'>ggplot</span>(<span class='no'>df</span>, <span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)) +
+<span class='fu'>ggplot</span>(<span class='kw'>df</span>, <span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>)) <span class='op'>+</span>
   <span class='fu'>geom_point</span>(
-    <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>position_jitternormal</span>(<span class='kw'>sd_x</span> <span class='kw'>=</span> <span class='fl'>0.15</span>, <span class='kw'>sd_y</span> <span class='kw'>=</span> <span class='fl'>0</span>),
-    <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>
+    position = <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/position_jitternormal.html'>position_jitternormal</a></span>(sd_x = <span class='fl'>0.15</span>, sd_y = <span class='fl'>0</span>),
+    alpha = <span class='fl'>0.1</span>
   )</div><div class='img'><img src='position_jitternormal-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -212,7 +212,7 @@ the categories.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

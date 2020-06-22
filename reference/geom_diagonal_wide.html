@@ -147,35 +147,35 @@ the diagonal functions in ggforce, the wide diagonal variant is horizontal." />
     </div>
 
     <div class="ref-description">
-    <p>The <code>geom_diagonal_wide()</code> function draws a <em>thick</em> diagonal, that is, a
-polygon confined between a lower and upper <a href='geom_diagonal.html'>diagonal</a>. As with
+    <p>The <code><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal_wide.html'>geom_diagonal_wide()</a></code> function draws a <em>thick</em> diagonal, that is, a
+polygon confined between a lower and upper <a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>diagonal</a>. As with
 the diagonal functions in <code>ggforce</code>, the wide diagonal variant is horizontal.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_diagonal_wide</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"shape"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal_wide.html'>stat_diagonal_wide</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"shape"</span>,
+  position = <span class='st'>"identity"</span>,
+  n = <span class='fl'>100</span>,
+  strength = <span class='fl'>0.5</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_diagonal_wide</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"diagonal_wide"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal_wide.html'>geom_diagonal_wide</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"diagonal_wide"</span>,
+  position = <span class='st'>"identity"</span>,
+  n = <span class='fl'>100</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  strength = <span class='fl'>0.5</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -272,23 +272,22 @@ layer, as a string.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>2</span>),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>5</span>),
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>)
+    <pre class="examples"><div class='input'><span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>2</span>),
+  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>5</span>),
+  group = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>)
 )
 
-<span class='fu'>ggplot</span>(<span class='no'>data</span>) +
-  <span class='fu'>geom_diagonal_wide</span>(<span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>))</div><div class='img'><img src='geom_diagonal_wide-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>data</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal_wide.html'>geom_diagonal_wide</a></span>(<span class='fu'>aes</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>group</span>))</div><div class='img'><img src='geom_diagonal_wide-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The strength control the steepness</span>
-<span class='fu'>ggplot</span>(<span class='no'>data</span>, <span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>)) +
-  <span class='fu'>geom_diagonal_wide</span>(<span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>'red'</span>) +
-  <span class='fu'>geom_diagonal_wide</span>(<span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>'blue'</span>)</div><div class='img'><img src='geom_diagonal_wide-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>data</span>, <span class='fu'>aes</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>group</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal_wide.html'>geom_diagonal_wide</a></span>(strength = <span class='fl'>0.75</span>, alpha = <span class='fl'>0.5</span>, fill = <span class='st'>'red'</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal_wide.html'>geom_diagonal_wide</a></span>(strength = <span class='fl'>0.25</span>, alpha = <span class='fl'>0.5</span>, fill = <span class='st'>'blue'</span>)</div><div class='img'><img src='geom_diagonal_wide-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The diagonal_wide geom uses geom_shape under the hood, so corner rounding</span>
 <span class='co'># etc are all there</span>
-<span class='fu'>ggplot</span>(<span class='no'>data</span>) +
-  <span class='fu'>geom_diagonal_wide</span>(<span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>), <span class='kw'>radius</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>5</span>, <span class='st'>'mm'</span>))</div><div class='img'><img src='geom_diagonal_wide-3.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>ggplot</span>(<span class='kw'>data</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal_wide.html'>geom_diagonal_wide</a></span>(<span class='fu'>aes</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>group</span>), radius = <span class='fu'>unit</span>(<span class='fl'>5</span>, <span class='st'>'mm'</span>))</div><div class='img'><img src='geom_diagonal_wide-3.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -304,7 +303,7 @@ layer, as a string.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

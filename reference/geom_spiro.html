@@ -156,31 +156,31 @@ potential practicality of this geom is slim and it excists mainly for fun and
 art.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_spiro</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"path"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>500</span>,
-  <span class='kw'>revolutions</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_spiro.html'>stat_spiro</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"path"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  n = <span class='fl'>500</span>,
+  revolutions = <span class='kw'>NULL</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_spiro</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"spiro"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>500</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_spiro.html'>geom_spiro</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"spiro"</span>,
+  position = <span class='st'>"identity"</span>,
+  arrow = <span class='kw'>NULL</span>,
+  n = <span class='fl'>500</span>,
+  lineend = <span class='st'>"butt"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -293,7 +293,7 @@ aesthetics are in bold):</p><ul>
     
 
 
-<dl'>
+<dl>
 <dt>x, y</dt><dd><p>The coordinates for the path describing the spirogram</p></dd>
 <dt>index</dt><dd><p>The progression along the spirogram mapped between 0 and 1</p></dd>
 
@@ -302,14 +302,14 @@ aesthetics are in bold):</p><ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Basic usage</span>
-<span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_spiro</span>(<span class='fu'>aes</span>(<span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>5</span>))</div><div class='img'><img src='geom_spiro-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_spiro.html'>geom_spiro</a></span>(<span class='fu'>aes</span>(R = <span class='fl'>10</span>, r = <span class='fl'>3</span>, d = <span class='fl'>5</span>))</div><div class='img'><img src='geom_spiro-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Only draw a portion</span>
-<span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_spiro</span>(<span class='fu'>aes</span>(<span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>5</span>), <span class='kw'>revolutions</span> <span class='kw'>=</span> <span class='fl'>1.2</span>)</div><div class='img'><img src='geom_spiro-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_spiro.html'>geom_spiro</a></span>(<span class='fu'>aes</span>(R = <span class='fl'>10</span>, r = <span class='fl'>3</span>, d = <span class='fl'>5</span>), revolutions = <span class='fl'>1.2</span>)</div><div class='img'><img src='geom_spiro-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Let the inner gear circle the outside of the outer gear</span>
-<span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_spiro</span>(<span class='fu'>aes</span>(<span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>outer</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='img'><img src='geom_spiro-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot</span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_spiro.html'>geom_spiro</a></span>(<span class='fu'>aes</span>(R = <span class='fl'>10</span>, r = <span class='fl'>3</span>, d = <span class='fl'>5</span>, outer = <span class='fl'>TRUE</span>))</div><div class='img'><img src='geom_spiro-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -325,7 +325,7 @@ aesthetics are in bold):</p><ul>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

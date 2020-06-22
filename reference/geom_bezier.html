@@ -155,87 +155,87 @@ end points." />
     <p>This set of geoms makes it possible to connect points creating either
 quadratic or cubic beziers. bezier and bezier2 both work by calculating
 points along the bezier and connecting these to draw the curve. bezier0
-directly draws the bezier using bezierGrob. In line with the <code><a href='geom_link.html'>geom_link()</a></code> and
-<code><a href='geom_link.html'>geom_link2()</a></code> differences geom_bezier creates the points, assign
+directly draws the bezier using bezierGrob. In line with the <code><a href='https://ggforce.data-imaginist.com/reference/geom_link.html'>geom_link()</a></code> and
+<code><a href='https://ggforce.data-imaginist.com/reference/geom_link.html'>geom_link2()</a></code> differences geom_bezier creates the points, assign
 an index to each interpolated point and repeat the aesthetics for the start
 point, while geom_bezier2 interpolates the aesthetics between the start and
 end points.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_bezier</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"path"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>stat_bezier</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"path"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  n = <span class='fl'>100</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_bezier</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"bezier"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>geom_bezier</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"bezier"</span>,
+  position = <span class='st'>"identity"</span>,
+  arrow = <span class='kw'>NULL</span>,
+  lineend = <span class='st'>"butt"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  n = <span class='fl'>100</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>stat_bezier2</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"path_interpolate"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>stat_bezier2</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"path_interpolate"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  n = <span class='fl'>100</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_bezier2</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"bezier2"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>geom_bezier2</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"bezier2"</span>,
+  position = <span class='st'>"identity"</span>,
+  arrow = <span class='kw'>NULL</span>,
+  lineend = <span class='st'>"butt"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  n = <span class='fl'>100</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>stat_bezier0</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"bezier0"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>stat_bezier0</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"bezier0"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_bezier0</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"bezier0"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>geom_bezier0</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"bezier0"</span>,
+  position = <span class='st'>"identity"</span>,
+  arrow = <span class='kw'>NULL</span>,
+  lineend = <span class='st'>"butt"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -348,7 +348,7 @@ geom_bezier2.</p>
     
 
 
-<dl'>
+<dl>
 <dt>x, y</dt><dd><p>The interpolated point coordinates</p></dd>
 <dt>index</dt><dd><p>The progression along the interpolation mapped between 0 and 1</p></dd>
 
@@ -356,44 +356,43 @@ geom_bezier2.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>beziers</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>6</span>, <span class='fl'>6</span>),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>0</span>),
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'cubic'</span>, <span class='st'>'quadratic'</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>)),
-  <span class='kw'>point</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'end'</span>, <span class='st'>'control'</span>, <span class='st'>'end'</span>, <span class='st'>'end'</span>, <span class='st'>'control'</span>, <span class='st'>'control'</span>, <span class='st'>'end'</span>),
-  <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>7</span>]
+    <pre class="examples"><div class='input'><span class='kw'>beziers</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>6</span>, <span class='fl'>6</span>),
+  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>0</span>),
+  type = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'cubic'</span>, <span class='st'>'quadratic'</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>)),
+  point = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'end'</span>, <span class='st'>'control'</span>, <span class='st'>'end'</span>, <span class='st'>'end'</span>, <span class='st'>'control'</span>, <span class='st'>'control'</span>, <span class='st'>'end'</span>),
+  colour = <span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>]
 )
-<span class='no'>help_lines</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>6</span>),
-  <span class='kw'>xend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>yend</span> <span class='kw'>=</span> <span class='fl'>2</span>
+<span class='kw'>help_lines</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>6</span>),
+  xend = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>),
+  y = <span class='fl'>0</span>,
+  yend = <span class='fl'>2</span>
 )
 
 <span class='co'># See how control points affect the bezier</span>
-<span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_segment</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>xend</span> <span class='kw'>=</span> <span class='no'>xend</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='no'>yend</span>),
-               <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>help_lines</span>,
-               <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='fu'>arrow</span>(<span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>0.5</span>), <span class='st'>'cm'</span>)),
-               <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'grey'</span>) +
-  <span class='fu'>geom_bezier</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>type</span>, <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='no'>type</span>),
-              <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>beziers</span>) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>point</span>),
-             <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>beziers</span>)</div><div class='img'><img src='geom_bezier-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>() <span class='op'>+</span>
+  <span class='fu'>geom_segment</span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, xend = <span class='kw'>xend</span>, y = <span class='kw'>y</span>, yend = <span class='kw'>yend</span>),
+               data = <span class='kw'>help_lines</span>,
+               arrow = <span class='fu'>arrow</span>(length = <span class='fu'>unit</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>0.5</span>), <span class='st'>'cm'</span>)),
+               colour = <span class='st'>'grey'</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>geom_bezier</a></span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>, group = <span class='kw'>type</span>, linetype = <span class='kw'>type</span>),
+              data = <span class='kw'>beziers</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>, colour = <span class='kw'>point</span>),
+             data = <span class='kw'>beziers</span>)</div><div class='img'><img src='geom_bezier-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># geom_bezier0 is less exact</span>
-<span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_segment</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>xend</span> <span class='kw'>=</span> <span class='no'>xend</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='no'>yend</span>),
-               <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>help_lines</span>,
-               <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='fu'>arrow</span>(<span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>0.5</span>), <span class='st'>'cm'</span>)),
-               <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'grey'</span>) +
-  <span class='fu'>geom_bezier0</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>type</span>, <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='no'>type</span>),
-               <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>beziers</span>) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>point</span>),
-             <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>beziers</span>)</div><div class='img'><img src='geom_bezier-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>() <span class='op'>+</span>
+  <span class='fu'>geom_segment</span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, xend = <span class='kw'>xend</span>, y = <span class='kw'>y</span>, yend = <span class='kw'>yend</span>),
+               data = <span class='kw'>help_lines</span>,
+               arrow = <span class='fu'>arrow</span>(length = <span class='fu'>unit</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>0.5</span>), <span class='st'>'cm'</span>)),
+               colour = <span class='st'>'grey'</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>geom_bezier0</a></span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>, group = <span class='kw'>type</span>, linetype = <span class='kw'>type</span>),
+               data = <span class='kw'>beziers</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>, colour = <span class='kw'>point</span>),
+             data = <span class='kw'>beziers</span>)</div><div class='img'><img src='geom_bezier-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use geom_bezier2 to interpolate between endpoint aesthetics</span>
-<span class='fu'>ggplot</span>(<span class='no'>beziers</span>) +
-  <span class='fu'>geom_bezier2</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>type</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>colour</span>))</div><div class='img'><img src='geom_bezier-3.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>ggplot</span>(<span class='kw'>beziers</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>geom_bezier2</a></span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>, group = <span class='kw'>type</span>, colour = <span class='kw'>colour</span>))</div><div class='img'><img src='geom_bezier-3.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -409,7 +408,7 @@ geom_bezier2.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

@@ -164,24 +164,24 @@ either side of the panel. However you look at it it is the best of both world
 if you just need one dimension.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>facet_row</span>(
-  <span class='no'>facets</span>,
-  <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
-  <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
-  <span class='kw'>shrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='st'>"label_value"</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>strip.position</span> <span class='kw'>=</span> <span class='st'>"top"</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_row.html'>facet_row</a></span>(
+  <span class='kw'>facets</span>,
+  scales = <span class='st'>"fixed"</span>,
+  space = <span class='st'>"fixed"</span>,
+  shrink = <span class='fl'>TRUE</span>,
+  labeller = <span class='st'>"label_value"</span>,
+  drop = <span class='fl'>TRUE</span>,
+  strip.position = <span class='st'>"top"</span>
 )
 
-<span class='fu'>facet_col</span>(
-  <span class='no'>facets</span>,
-  <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
-  <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
-  <span class='kw'>shrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='st'>"label_value"</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>strip.position</span> <span class='kw'>=</span> <span class='st'>"top"</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_row.html'>facet_col</a></span>(
+  <span class='kw'>facets</span>,
+  scales = <span class='st'>"fixed"</span>,
+  space = <span class='st'>"fixed"</span>,
+  shrink = <span class='fl'>TRUE</span>,
+  labeller = <span class='st'>"label_value"</span>,
+  drop = <span class='fl'>TRUE</span>,
+  strip.position = <span class='st'>"top"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -244,21 +244,20 @@ either of the four sides by setting <code>strip.position = c("top",
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Standard use</span>
-<span class='fu'>ggplot</span>(<span class='no'>mtcars</span>) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>disp</span>, <span class='no'>mpg</span>)) +
-  <span class='fu'>facet_col</span>(~<span class='no'>gear</span>)</div><div class='img'><img src='facet_row-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># It retains the ability to have unique scales for each panel</span>
-<span class='fu'>ggplot</span>(<span class='no'>mtcars</span>) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>disp</span>, <span class='no'>mpg</span>)) +
-  <span class='fu'>facet_col</span>(~<span class='no'>gear</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>'free'</span>)</div><div class='img'><img src='facet_row-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>mtcars</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>disp</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_row.html'>facet_col</a></span>(<span class='op'>~</span><span class='kw'>gear</span>)</div><div class='img'><img src='facet_row-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># It retains the ability to have unique scales for each panel</span>
+<span class='fu'>ggplot</span>(<span class='kw'>mtcars</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>disp</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_row.html'>facet_col</a></span>(<span class='op'>~</span><span class='kw'>gear</span>, scales = <span class='st'>'free'</span>)</div><div class='img'><img src='facet_row-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># But can have free sizing along the stacking dimension</span>
-<span class='fu'>ggplot</span>(<span class='no'>mtcars</span>) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>disp</span>, <span class='no'>mpg</span>)) +
-  <span class='fu'>facet_col</span>(~<span class='no'>gear</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>'free'</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>'free'</span>)</div><div class='img'><img src='facet_row-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>mtcars</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>disp</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_row.html'>facet_col</a></span>(<span class='op'>~</span><span class='kw'>gear</span>, scales = <span class='st'>'free'</span>, space = <span class='st'>'free'</span>)</div><div class='img'><img src='facet_row-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># And you can position the strip where-ever you like</span>
-<span class='fu'>ggplot</span>(<span class='no'>mtcars</span>) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>disp</span>, <span class='no'>mpg</span>)) +
-  <span class='fu'>facet_col</span>(~<span class='no'>gear</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>'free'</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>'free'</span>, <span class='kw'>strip.position</span> <span class='kw'>=</span> <span class='st'>'bottom'</span>)</div><div class='img'><img src='facet_row-4.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>ggplot</span>(<span class='kw'>mtcars</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>disp</span>, <span class='kw'>mpg</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_row.html'>facet_col</a></span>(<span class='op'>~</span><span class='kw'>gear</span>, scales = <span class='st'>'free'</span>, space = <span class='st'>'free'</span>, strip.position = <span class='st'>'bottom'</span>)</div><div class='img'><img src='facet_row-4.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -274,7 +273,7 @@ either of the four sides by setting <code>strip.position = c("top",
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

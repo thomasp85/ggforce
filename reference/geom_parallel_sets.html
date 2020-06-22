@@ -154,70 +154,70 @@ order the representation can be thought of as a Sankey Diagram. If each
 variable is a point in time it will resemble an alluvial diagram.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_parallel_sets</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"shape"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>axis.width</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_parallel_sets.html'>stat_parallel_sets</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"shape"</span>,
+  position = <span class='st'>"identity"</span>,
+  n = <span class='fl'>100</span>,
+  strength = <span class='fl'>0.5</span>,
+  sep = <span class='fl'>0.05</span>,
+  axis.width = <span class='fl'>0</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_parallel_sets</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"parallel_sets"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>axis.width</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_parallel_sets.html'>geom_parallel_sets</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"parallel_sets"</span>,
+  position = <span class='st'>"identity"</span>,
+  n = <span class='fl'>100</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  sep = <span class='fl'>0.05</span>,
+  strength = <span class='fl'>0.5</span>,
+  axis.width = <span class='fl'>0</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>stat_parallel_sets_axes</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"parallel_sets_axes"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>axis.width</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_parallel_sets.html'>stat_parallel_sets_axes</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"parallel_sets_axes"</span>,
+  position = <span class='st'>"identity"</span>,
+  sep = <span class='fl'>0.05</span>,
+  axis.width = <span class='fl'>0</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_parallel_sets_axes</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"parallel_sets_axes"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_parallel_sets.html'>geom_parallel_sets_axes</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"parallel_sets_axes"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_parallel_sets_labels</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"parallel_sets_axes"</span>,
-  <span class='kw'>angle</span> <span class='kw'>=</span> -<span class='fl'>90</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_parallel_sets.html'>geom_parallel_sets_labels</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"parallel_sets_axes"</span>,
+  angle = <span class='op'>-</span><span class='fl'>90</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -318,7 +318,7 @@ for such as plot is to have each categorical variable in a separate column
 and then have a column giving the amount/magnitude of the combination of
 levels in the row. This representation is unfortunately not fitting for the
 <code>ggplot2</code> API which needs every position encoding in the same column. To make
-it easier to work with <code>ggforce</code> provides a helper <code><a href='gather_set_data.html'>gather_set_data()</a></code>, which
+it easier to work with <code>ggforce</code> provides a helper <code><a href='https://ggforce.data-imaginist.com/reference/gather_set_data.html'>gather_set_data()</a></code>, which
 takes care of the transformation.</p>
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
@@ -338,15 +338,18 @@ takes care of the transformation.</p>
 <li><p>lineend</p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Thomas Lin Pedersen</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>reshape2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/reshape2/man/melt.html'>melt</a></span>(<span class='no'>Titanic</span>)
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gather_set_data.html'>gather_set_data</a></span>(<span class='no'>data</span>, <span class='fl'>1</span>:<span class='fl'>4</span>)
+    <pre class="examples"><div class='input'><span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='kw'>reshape2</span>::<span class='fu'><a href='https://rdrr.io/pkg/reshape2/man/melt.html'>melt</a></span>(<span class='kw'>Titanic</span>)
+<span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/gather_set_data.html'>gather_set_data</a></span>(<span class='kw'>data</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>)
 
-<span class='fu'>ggplot</span>(<span class='no'>data</span>, <span class='fu'>aes</span>(<span class='no'>x</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='no'>id</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>value</span>)) +
-  <span class='fu'>geom_parallel_sets</span>(<span class='fu'>aes</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>Sex</span>), <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.3</span>, <span class='kw'>axis.width</span> <span class='kw'>=</span> <span class='fl'>0.1</span>) +
-  <span class='fu'>geom_parallel_sets_axes</span>(<span class='kw'>axis.width</span> <span class='kw'>=</span> <span class='fl'>0.1</span>) +
-  <span class='fu'>geom_parallel_sets_labels</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'white'</span>)</div><div class='img'><img src='geom_parallel_sets-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot</span>(<span class='kw'>data</span>, <span class='fu'>aes</span>(<span class='kw'>x</span>, id = <span class='kw'>id</span>, split = <span class='kw'>y</span>, value = <span class='kw'>value</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_parallel_sets.html'>geom_parallel_sets</a></span>(<span class='fu'>aes</span>(fill = <span class='kw'>Sex</span>), alpha = <span class='fl'>0.3</span>, axis.width = <span class='fl'>0.1</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_parallel_sets.html'>geom_parallel_sets_axes</a></span>(axis.width = <span class='fl'>0.1</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_parallel_sets.html'>geom_parallel_sets_labels</a></span>(colour = <span class='st'>'white'</span>)</div><div class='img'><img src='geom_parallel_sets-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -362,7 +365,7 @@ takes care of the transformation.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

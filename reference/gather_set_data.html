@@ -150,7 +150,7 @@ that can be used by geom_parallel_sets." />
 that can be used by geom_parallel_sets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gather_set_data</span>(<span class='no'>data</span>, <span class='no'>x</span>, <span class='kw'>id_name</span> <span class='kw'>=</span> <span class='st'>"id"</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/gather_set_data.html'>gather_set_data</a></span>(<span class='kw'>data</span>, <span class='kw'>x</span>, id_name = <span class='st'>"id"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -175,8 +175,8 @@ the row.</p></td>
     <p>A data.frame</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>reshape2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/reshape2/man/melt.html'>melt</a></span>(<span class='no'>Titanic</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>gather_set_data</span>(<span class='no'>data</span>, <span class='fl'>1</span>:<span class='fl'>4</span>))</div><div class='output co'>#&gt;   Class    Sex   Age Survived value id     x    y
+    <pre class="examples"><div class='input'><span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='kw'>reshape2</span>::<span class='fu'><a href='https://rdrr.io/pkg/reshape2/man/melt.html'>melt</a></span>(<span class='kw'>Titanic</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/gather_set_data.html'>gather_set_data</a></span>(<span class='kw'>data</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>))</div><div class='output co'>#&gt;   Class    Sex   Age Survived value id     x    y
 #&gt; 1   1st   Male Child       No     0  1 Class  1st
 #&gt; 2   2nd   Male Child       No     0  2 Class  2nd
 #&gt; 3   3rd   Male Child       No    35  3 Class  3rd
@@ -198,7 +198,7 @@ the row.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

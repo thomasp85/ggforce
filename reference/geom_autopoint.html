@@ -150,19 +150,19 @@ combination of position scale types." />
     <div class="ref-description">
     <p>This geom is a specialisation of <code><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>ggplot2::geom_point()</a></code> with two changes. It
 defaults to mapping <code>x</code> and <code>y</code> to <code>.panel_x</code> and <code>.panel_y</code> respectively,
-and it defaults to using <code><a href='position_auto.html'>position_auto()</a></code> to jitter the points based on the
+and it defaults to using <code><a href='https://ggforce.data-imaginist.com/reference/position_auto.html'>position_auto()</a></code> to jitter the points based on the
 combination of position scale types.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_autopoint</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_autopoint.html'>geom_autopoint</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"identity"</span>,
+  position = <span class='st'>"auto"</span>,
+  <span class='kw'>...</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -230,21 +230,20 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='facet_matrix.html'>facet_matrix</a> for how to lay out scatterplot matrices and
-<a href='position_auto.html'>position_auto</a> for information about the position adjustments</p></div>
+    <div class='dont-index'><p><a href='https://ggforce.data-imaginist.com/reference/facet_matrix.html'>facet_matrix</a> for how to lay out scatterplot matrices and
+<a href='https://ggforce.data-imaginist.com/reference/position_auto.html'>position_auto</a> for information about the position adjustments</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Continuous vs continuous: No jitter</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) + <span class='fu'>geom_autopoint</span>(<span class='fu'>aes</span>(<span class='no'>cty</span>, <span class='no'>hwy</span>))</div><div class='img'><img src='geom_autopoint-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_autopoint.html'>geom_autopoint</a></span>(<span class='fu'>aes</span>(<span class='kw'>cty</span>, <span class='kw'>hwy</span>))</div><div class='img'><img src='geom_autopoint-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Continuous vs discrete: sina jitter</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) + <span class='fu'>geom_autopoint</span>(<span class='fu'>aes</span>(<span class='no'>cty</span>, <span class='no'>drv</span>))</div><div class='img'><img src='geom_autopoint-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_autopoint.html'>geom_autopoint</a></span>(<span class='fu'>aes</span>(<span class='kw'>cty</span>, <span class='kw'>drv</span>))</div><div class='img'><img src='geom_autopoint-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Discrete vs discrete: disc-jitter</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) + <span class='fu'>geom_autopoint</span>(<span class='fu'>aes</span>(<span class='no'>fl</span>, <span class='no'>drv</span>))</div><div class='img'><img src='geom_autopoint-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_autopoint.html'>geom_autopoint</a></span>(<span class='fu'>aes</span>(<span class='kw'>fl</span>, <span class='kw'>drv</span>))</div><div class='img'><img src='geom_autopoint-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Used with facet_matrix (x and y are automatically mapped)</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) +
-  <span class='fu'>geom_autopoint</span>() +
-  <span class='fu'><a href='facet_matrix.html'>facet_matrix</a></span>(<span class='fu'>vars</span>(<span class='no'>drv</span>:<span class='no'>fl</span>))</div><div class='img'><img src='geom_autopoint-4.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_autopoint.html'>geom_autopoint</a></span>() <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_matrix.html'>facet_matrix</a></span>(<span class='fu'>vars</span>(<span class='kw'>drv</span><span class='op'>:</span><span class='kw'>fl</span>))</div><div class='img'><img src='geom_autopoint-4.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -260,7 +259,7 @@ the default plot specification, e.g. <code><a href='https://ggplot2.tidyverse.or
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

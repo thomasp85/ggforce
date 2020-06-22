@@ -156,39 +156,39 @@ knots. The *0 version uses the <code><a href='https://rdrr.io/r/grid/grid.xsplin
 way as the base version (expand, contract, etc).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_bspline_closed</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"shape"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline_closed.html'>stat_bspline_closed</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"shape"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  n = <span class='fl'>100</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_bspline_closed</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"bspline"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline_closed.html'>geom_bspline_closed</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"bspline"</span>,
+  position = <span class='st'>"identity"</span>,
+  n = <span class='fl'>100</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_bspline_closed0</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline_closed.html'>geom_bspline_closed0</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"identity"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -282,35 +282,40 @@ are in bold):</p><ul>
     
 
 
-<dl'>
+<dl>
 <dt>x, y</dt><dd><p>The coordinates for the path describing the spline</p></dd>
 <dt>index</dt><dd><p>The progression along the interpolation mapped between 0 and 1</p></dd>
 
 </dl>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Thomas Lin Pedersen. The C++ code for De Boor's algorithm has been
+adapted from
+<a href='https://chi3x10.wordpress.com/2009/10/18/de-boor-algorithm-in-c/'>Jason Yu-Tseh Chi implementation</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Create 6 random control points</span>
-<span class='no'>controls</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>6</span>),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>6</span>)
+<span class='kw'>controls</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>6</span>),
+  y = <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>6</span>)
 )
 
-<span class='fu'>ggplot</span>(<span class='no'>controls</span>, <span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
-  <span class='fu'>geom_polygon</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'grey'</span>) +
-  <span class='fu'>geom_point</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'red'</span>) +
-  <span class='fu'>geom_bspline_closed</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='geom_bspline_closed-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>controls</span>, <span class='fu'>aes</span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_polygon</span>(fill = <span class='fl'>NA</span>, colour = <span class='st'>'grey'</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(colour = <span class='st'>'red'</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline_closed.html'>geom_bspline_closed</a></span>(alpha = <span class='fl'>0.5</span>)</div><div class='img'><img src='geom_bspline_closed-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The 0 version approximates the correct shape</span>
-<span class='fu'>ggplot</span>(<span class='no'>controls</span>, <span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
-  <span class='fu'>geom_polygon</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'grey'</span>) +
-  <span class='fu'>geom_point</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'red'</span>) +
-  <span class='fu'>geom_bspline_closed0</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='geom_bspline_closed-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>controls</span>, <span class='fu'>aes</span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_polygon</span>(fill = <span class='fl'>NA</span>, colour = <span class='st'>'grey'</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(colour = <span class='st'>'red'</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline_closed.html'>geom_bspline_closed0</a></span>(alpha = <span class='fl'>0.5</span>)</div><div class='img'><img src='geom_bspline_closed-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># But only the standard version supports geom_shape operations</span>
 <span class='co'># Be aware of self-intersections though</span>
-<span class='fu'>ggplot</span>(<span class='no'>controls</span>, <span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
-  <span class='fu'>geom_polygon</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'grey'</span>) +
-  <span class='fu'>geom_point</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'red'</span>) +
-  <span class='fu'>geom_bspline_closed</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>2</span>, <span class='st'>'cm'</span>))</div><div class='img'><img src='geom_bspline_closed-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot</span>(<span class='kw'>controls</span>, <span class='fu'>aes</span>(<span class='kw'>x</span>, <span class='kw'>y</span>)) <span class='op'>+</span>
+  <span class='fu'>geom_polygon</span>(fill = <span class='fl'>NA</span>, colour = <span class='st'>'grey'</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(colour = <span class='st'>'red'</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bspline_closed.html'>geom_bspline_closed</a></span>(alpha = <span class='fl'>0.5</span>, expand = <span class='fu'>unit</span>(<span class='fl'>2</span>, <span class='st'>'cm'</span>))</div><div class='img'><img src='geom_bspline_closed-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -326,7 +331,7 @@ are in bold):</p><ul>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

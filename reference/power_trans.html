@@ -150,7 +150,7 @@ a power transformation (x^n)." />
 a power transformation (x^n).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>power_trans</span>(<span class='no'>n</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/power_trans.html'>power_trans</a></span>(<span class='kw'>n</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,17 +167,17 @@ a power transformation (x^n).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Power of 5 transformations</span>
-<span class='no'>trans</span> <span class='kw'>&lt;-</span> <span class='fu'>power_trans</span>(<span class='fl'>2</span>)
-<span class='no'>trans</span>$<span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1]   1   4   9  16  25  36  49  64  81 100</div><div class='input'>
+<span class='kw'>trans</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/power_trans.html'>power_trans</a></span>(<span class='fl'>2</span>)
+<span class='kw'>trans</span><span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1]   1   4   9  16  25  36  49  64  81 100</div><div class='input'>
 <span class='co'># Cubic root transformation</span>
-<span class='no'>trans</span> <span class='kw'>&lt;-</span> <span class='fu'>power_trans</span>(<span class='fl'>1</span> / <span class='fl'>3</span>)
-<span class='no'>trans</span>$<span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] 1.000000 1.259921 1.442250 1.587401 1.709976 1.817121 1.912931 2.000000
+<span class='kw'>trans</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/power_trans.html'>power_trans</a></span>(<span class='fl'>1</span> <span class='op'>/</span> <span class='fl'>3</span>)
+<span class='kw'>trans</span><span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] 1.000000 1.259921 1.442250 1.587401 1.709976 1.817121 1.912931 2.000000
 #&gt;  [9] 2.080084 2.154435</div><div class='input'>
 <span class='co'># Use it in a plot</span>
-<span class='fu'>ggplot</span>() +
-  <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>)) +
-  <span class='fu'>scale_x_continuous</span>(<span class='kw'>trans</span> <span class='kw'>=</span> <span class='fu'>power_trans</span>(<span class='fl'>2</span>),
-                     <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>))</div><div class='img'><img src='power_trans-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot</span>() <span class='op'>+</span>
+  <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(x = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>)) <span class='op'>+</span>
+  <span class='fu'>scale_x_continuous</span>(trans = <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/power_trans.html'>power_trans</a></span>(<span class='fl'>2</span>),
+                     expand = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>))</div><div class='img'><img src='power_trans-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -193,7 +193,7 @@ a power transformation (x^n).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

@@ -155,89 +155,89 @@ forwards the actual bezier calculations to geom_bezier()." />
 perpendicularly towards the center in either the x or y direction a fixed
 amount. The versions provided here calculates horizontal diagonals meaning
 that the x coordinate is moved to achieve the control point. The
-<code>geom_diagonal()</code> and <code>stat_diagonal()</code> functions are simply helpers that
+<code><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>geom_diagonal()</a></code> and <code><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>stat_diagonal()</a></code> functions are simply helpers that
 takes care of calculating the position of the control points and then
-forwards the actual bezier calculations to <code><a href='geom_bezier.html'>geom_bezier()</a></code>.</p>
+forwards the actual bezier calculations to <code><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>geom_bezier()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_diagonal</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"path"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>stat_diagonal</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"path"</span>,
+  position = <span class='st'>"identity"</span>,
+  n = <span class='fl'>100</span>,
+  strength = <span class='fl'>0.5</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_diagonal</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"diagonal"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>geom_diagonal</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"diagonal"</span>,
+  position = <span class='st'>"identity"</span>,
+  n = <span class='fl'>100</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  strength = <span class='fl'>0.5</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>stat_diagonal2</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"path_interpolate"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>stat_diagonal2</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"path_interpolate"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  n = <span class='fl'>100</span>,
+  strength = <span class='fl'>0.5</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_diagonal2</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"diagonal2"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>geom_diagonal2</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"diagonal2"</span>,
+  position = <span class='st'>"identity"</span>,
+  arrow = <span class='kw'>NULL</span>,
+  lineend = <span class='st'>"butt"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  n = <span class='fl'>100</span>,
+  strength = <span class='fl'>0.5</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>stat_diagonal0</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"bezier0"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>stat_diagonal0</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  geom = <span class='st'>"bezier0"</span>,
+  position = <span class='st'>"identity"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  strength = <span class='fl'>0.5</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>geom_diagonal0</span>(
-  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"diagonal0"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>geom_diagonal0</a></span>(
+  mapping = <span class='kw'>NULL</span>,
+  data = <span class='kw'>NULL</span>,
+  stat = <span class='st'>"diagonal0"</span>,
+  position = <span class='st'>"identity"</span>,
+  arrow = <span class='kw'>NULL</span>,
+  lineend = <span class='st'>"butt"</span>,
+  na.rm = <span class='fl'>FALSE</span>,
+  show.legend = <span class='fl'>NA</span>,
+  inherit.aes = <span class='fl'>TRUE</span>,
+  strength = <span class='fl'>0.5</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -358,7 +358,7 @@ layer, as a string.</p></td>
     
 
 
-<dl'>
+<dl>
 <dt>x, y</dt><dd><p>The interpolated point coordinates</p></dd>
 <dt>index</dt><dd><p>The progression along the interpolation mapped between 0 and 1</p></dd>
 
@@ -366,35 +366,34 @@ layer, as a string.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>,
-  <span class='kw'>xend</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>,
-  <span class='kw'>yend</span> <span class='kw'>=</span> <span class='fl'>2</span>:<span class='fl'>11</span>
+    <pre class="examples"><div class='input'><span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>),
+  y = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>,
+  xend = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>,
+  yend = <span class='fl'>2</span><span class='op'>:</span><span class='fl'>11</span>
 )
 
-<span class='fu'>ggplot</span>(<span class='no'>data</span>) +
-  <span class='fu'>geom_diagonal</span>(<span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>xend</span> <span class='kw'>=</span> <span class='no'>xend</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='no'>yend</span>))</div><div class='img'><img src='geom_diagonal-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>data</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>geom_diagonal</a></span>(<span class='fu'>aes</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, xend = <span class='kw'>xend</span>, yend = <span class='kw'>yend</span>))</div><div class='img'><img src='geom_diagonal-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The standard version provides an index to create gradients</span>
-<span class='fu'>ggplot</span>(<span class='no'>data</span>) +
-  <span class='fu'>geom_diagonal</span>(<span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>xend</span> <span class='kw'>=</span> <span class='no'>xend</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='no'>yend</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'>stat</span>(<span class='no'>index</span>)))</div><div class='img'><img src='geom_diagonal-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>data</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>geom_diagonal</a></span>(<span class='fu'>aes</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, xend = <span class='kw'>xend</span>, yend = <span class='kw'>yend</span>, alpha = <span class='fu'>stat</span>(<span class='kw'>index</span>)))</div><div class='img'><img src='geom_diagonal-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The 0 version uses bezierGrob under the hood for an approximation</span>
-<span class='fu'>ggplot</span>(<span class='no'>data</span>) +
-  <span class='fu'>geom_diagonal0</span>(<span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>xend</span> <span class='kw'>=</span> <span class='no'>xend</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='no'>yend</span>))</div><div class='img'><img src='geom_diagonal-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>data</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>geom_diagonal0</a></span>(<span class='fu'>aes</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, xend = <span class='kw'>xend</span>, yend = <span class='kw'>yend</span>))</div><div class='img'><img src='geom_diagonal-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The 2 version allows you to interpolate between endpoint aesthetics</span>
-<span class='no'>data2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>data</span>$<span class='no'>x</span>, <span class='no'>data</span>$<span class='no'>xend</span>),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>data</span>$<span class='no'>y</span>, <span class='no'>data</span>$<span class='no'>yend</span>),
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>2</span>),
-  <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>5</span>], <span class='fl'>20</span>, <span class='fl'>TRUE</span>)
+<span class='kw'>data2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>data</span><span class='op'>$</span><span class='kw'>x</span>, <span class='kw'>data</span><span class='op'>$</span><span class='kw'>xend</span>),
+  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>data</span><span class='op'>$</span><span class='kw'>y</span>, <span class='kw'>data</span><span class='op'>$</span><span class='kw'>yend</span>),
+  group = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>2</span>),
+  colour = <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>], <span class='fl'>20</span>, <span class='fl'>TRUE</span>)
 )
-<span class='fu'>ggplot</span>(<span class='no'>data2</span>) +
-  <span class='fu'>geom_diagonal2</span>(<span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>colour</span>))</div><div class='img'><img src='geom_diagonal-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>data2</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>geom_diagonal2</a></span>(<span class='fu'>aes</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, group = <span class='kw'>group</span>, colour = <span class='kw'>colour</span>))</div><div class='img'><img src='geom_diagonal-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use strength to control the steepness of the central region</span>
-<span class='fu'>ggplot</span>(<span class='no'>data</span>, <span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>xend</span> <span class='kw'>=</span> <span class='no'>xend</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='no'>yend</span>)) +
-  <span class='fu'>geom_diagonal</span>(<span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'red'</span>) +
-  <span class='fu'>geom_diagonal</span>(<span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'blue'</span>)</div><div class='img'><img src='geom_diagonal-5.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>ggplot</span>(<span class='kw'>data</span>, <span class='fu'>aes</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, xend = <span class='kw'>xend</span>, yend = <span class='kw'>yend</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>geom_diagonal</a></span>(strength = <span class='fl'>0.75</span>, colour = <span class='st'>'red'</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_diagonal.html'>geom_diagonal</a></span>(strength = <span class='fl'>0.25</span>, colour = <span class='st'>'blue'</span>)</div><div class='img'><img src='geom_diagonal-5.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -410,7 +409,7 @@ layer, as a string.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

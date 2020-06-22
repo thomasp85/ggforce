@@ -152,34 +152,34 @@ usually be added automatically. To override manually, use
 <code>scale_*_unit</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_x_unit</span>(
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>unit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
-  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>,
-  <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'>waiver</span>()
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/scale_unit.html'>scale_x_unit</a></span>(
+  name = <span class='fu'>waiver</span>(),
+  breaks = <span class='fu'>waiver</span>(),
+  unit = <span class='kw'>NULL</span>,
+  minor_breaks = <span class='fu'>waiver</span>(),
+  labels = <span class='fu'>waiver</span>(),
+  limits = <span class='kw'>NULL</span>,
+  expand = <span class='fu'>waiver</span>(),
+  oob = <span class='kw'>censor</span>,
+  na.value = <span class='fl'>NA_real_</span>,
+  trans = <span class='st'>"identity"</span>,
+  position = <span class='st'>"bottom"</span>,
+  sec.axis = <span class='fu'>waiver</span>()
 )
 
-<span class='fu'>scale_y_unit</span>(
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>unit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
-  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"left"</span>,
-  <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'>waiver</span>()
+<span class='fu'><a href='https://ggforce.data-imaginist.com/reference/scale_unit.html'>scale_y_unit</a></span>(
+  name = <span class='fu'>waiver</span>(),
+  breaks = <span class='fu'>waiver</span>(),
+  unit = <span class='kw'>NULL</span>,
+  minor_breaks = <span class='fu'>waiver</span>(),
+  labels = <span class='fu'>waiver</span>(),
+  limits = <span class='kw'>NULL</span>,
+  expand = <span class='fu'>waiver</span>(),
+  oob = <span class='kw'>censor</span>,
+  na.value = <span class='fl'>NA_real_</span>,
+  trans = <span class='st'>"identity"</span>,
+  position = <span class='st'>"left"</span>,
+  sec.axis = <span class='fu'>waiver</span>()
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -293,21 +293,21 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>units</span>)</div><div class='output co'>#&gt; <span class='message'>udunits system database from /usr/share/xml/udunits</span></div><div class='input'><span class='no'>gallon</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/units/man/as_units.html'>as_units</a></span>(<span class='st'>'gallon'</span>)
-<span class='no'>mtcars</span>$<span class='no'>consumption</span> <span class='kw'>&lt;-</span> <span class='no'>mtcars</span>$<span class='no'>mpg</span> * <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>ud_units</span>, <span class='no'>mi</span> / <span class='no'>gallon</span>)
-<span class='no'>mtcars</span>$<span class='no'>power</span> <span class='kw'>&lt;-</span> <span class='no'>mtcars</span>$<span class='no'>hp</span> * <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>ud_units</span>, <span class='no'>hp</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/r-quantities/units'>units</a></span>)</div><div class='output co'>#&gt; <span class='message'>udunits system database from /Users/runner/runners/2.263.0/work/_temp/Library/units/share/udunits</span></div><div class='input'><span class='kw'>gallon</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/units/man/as_units.html'>as_units</a></span>(<span class='st'>'gallon'</span>)
+<span class='kw'>mtcars</span><span class='op'>$</span><span class='kw'>consumption</span> <span class='op'>&lt;-</span> <span class='kw'>mtcars</span><span class='op'>$</span><span class='kw'>mpg</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='kw'>ud_units</span>, <span class='kw'>mi</span> <span class='op'>/</span> <span class='kw'>gallon</span>)
+<span class='kw'>mtcars</span><span class='op'>$</span><span class='kw'>power</span> <span class='op'>&lt;-</span> <span class='kw'>mtcars</span><span class='op'>$</span><span class='kw'>hp</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='kw'>ud_units</span>, <span class='kw'>hp</span>)
 
 <span class='co'># Use units encoded into the data</span>
-<span class='fu'>ggplot</span>(<span class='no'>mtcars</span>) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>power</span>, <span class='no'>consumption</span>))</div><div class='img'><img src='scale_unit-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>mtcars</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>power</span>, <span class='kw'>consumption</span>))</div><div class='img'><img src='scale_unit-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Convert units on the fly during plotting</span>
-<span class='fu'>ggplot</span>(<span class='no'>mtcars</span>) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>power</span>, <span class='no'>consumption</span>)) +
-  <span class='fu'>scale_x_unit</span>(<span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>'W'</span>) +
-  <span class='fu'>scale_y_unit</span>(<span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>'km/l'</span>)</div><div class='img'><img src='scale_unit-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>mtcars</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>power</span>, <span class='kw'>consumption</span>)) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/scale_unit.html'>scale_x_unit</a></span>(unit = <span class='st'>'W'</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/scale_unit.html'>scale_y_unit</a></span>(unit = <span class='st'>'km/l'</span>)</div><div class='img'><img src='scale_unit-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Resolve units when transforming data</span>
-<span class='fu'>ggplot</span>(<span class='no'>mtcars</span>) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>power</span>, <span class='fl'>1</span> / <span class='no'>consumption</span>))</div><div class='img'><img src='scale_unit-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot</span>(<span class='kw'>mtcars</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>power</span>, <span class='fl'>1</span> <span class='op'>/</span> <span class='kw'>consumption</span>))</div><div class='img'><img src='scale_unit-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -323,7 +323,7 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

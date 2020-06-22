@@ -160,7 +160,7 @@ along the other dimension (like a sina plot). If neither are discrete it will
 not do any jittering.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>position_auto</span>(<span class='kw'>jitter.width</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/position_auto.html'>position_auto</a></span>(jitter.width = <span class='fl'>0.75</span>, bw = <span class='st'>"nrd0"</span>, scale = <span class='fl'>TRUE</span>, seed = <span class='fl'>NA</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,18 +187,17 @@ points in the group</p></td>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='geom_autopoint.html'>geom_autopoint</a> for a point geom that uses auto-position by default</p></div>
+    <div class='dont-index'><p><a href='https://ggforce.data-imaginist.com/reference/geom_autopoint.html'>geom_autopoint</a> for a point geom that uses auto-position by default</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Continuous vs continuous: No jitter</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) + <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>cty</span>, <span class='no'>hwy</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>'auto'</span>)</div><div class='img'><img src='position_auto-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span> <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>cty</span>, <span class='kw'>hwy</span>), position = <span class='st'>'auto'</span>)</div><div class='img'><img src='position_auto-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Continuous vs discrete: sina jitter</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) + <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>cty</span>, <span class='no'>drv</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>'auto'</span>)</div><div class='img'><img src='position_auto-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span> <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>cty</span>, <span class='kw'>drv</span>), position = <span class='st'>'auto'</span>)</div><div class='img'><img src='position_auto-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Discrete vs discrete: disc-jitter</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) + <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>fl</span>, <span class='no'>drv</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>'auto'</span>)</div><div class='img'><img src='position_auto-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span> <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>fl</span>, <span class='kw'>drv</span>), position = <span class='st'>'auto'</span>)</div><div class='img'><img src='position_auto-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Don't scale the jitter based on group size</span>
-<span class='fu'>ggplot</span>(<span class='no'>mpg</span>) + <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>cty</span>, <span class='no'>drv</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>position_auto</span>(<span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>))</div><div class='img'><img src='position_auto-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ggplot</span>(<span class='no'>mpg</span>) + <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>fl</span>, <span class='no'>drv</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>position_auto</span>(<span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>))</div><div class='img'><img src='position_auto-5.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span> <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>cty</span>, <span class='kw'>drv</span>), position = <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/position_auto.html'>position_auto</a></span>(scale = <span class='fl'>FALSE</span>))</div><div class='img'><img src='position_auto-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ggplot</span>(<span class='kw'>mpg</span>) <span class='op'>+</span> <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>fl</span>, <span class='kw'>drv</span>), position = <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/position_auto.html'>position_auto</a></span>(scale = <span class='fl'>FALSE</span>))</div><div class='img'><img src='position_auto-5.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -214,7 +213,7 @@ points in the group</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

@@ -156,20 +156,20 @@ automatically only plot the correct panels. Usually this will be put in a
 loop to render all pages one by one.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>facet_grid_paginate</span>(
-  <span class='no'>facets</span>,
-  <span class='kw'>margins</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
-  <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
-  <span class='kw'>shrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='st'>"label_value"</span>,
-  <span class='kw'>as.table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>switch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>page</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_grid_paginate.html'>facet_grid_paginate</a></span>(
+  <span class='kw'>facets</span>,
+  margins = <span class='fl'>FALSE</span>,
+  scales = <span class='st'>"fixed"</span>,
+  space = <span class='st'>"fixed"</span>,
+  shrink = <span class='fl'>TRUE</span>,
+  labeller = <span class='st'>"label_value"</span>,
+  as.table = <span class='fl'>TRUE</span>,
+  switch = <span class='kw'>NULL</span>,
+  drop = <span class='fl'>TRUE</span>,
+  ncol = <span class='kw'>NULL</span>,
+  nrow = <span class='kw'>NULL</span>,
+  page = <span class='fl'>1</span>,
+  byrow = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -267,18 +267,18 @@ will be shown, regardless of whether or not they appear in the data.</p></td>
 fall back to the standard <code>facet_grid</code> functionality.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='n_pages.html'>n_pages()</a></code> to compute the total number of pages in a paginated
+    <div class='dont-index'><p><code><a href='https://ggforce.data-imaginist.com/reference/n_pages.html'>n_pages()</a></code> to compute the total number of pages in a paginated
 faceted plot</p>
 <p>Other ggforce facets: 
-<code><a href='facet_stereo.html'>facet_stereo</a>()</code>,
-<code><a href='facet_wrap_paginate.html'>facet_wrap_paginate</a>()</code>,
-<code><a href='facet_zoom.html'>facet_zoom</a>()</code></p></div>
+<code><a href='https://ggforce.data-imaginist.com/reference/facet_stereo.html'>facet_stereo</a>()</code>,
+<code><a href='https://ggforce.data-imaginist.com/reference/facet_wrap_paginate.html'>facet_wrap_paginate</a>()</code>,
+<code><a href='https://ggforce.data-imaginist.com/reference/facet_zoom.html'>facet_zoom</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Draw a small section of the grid</span>
-<span class='fu'>ggplot</span>(<span class='no'>diamonds</span>) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>carat</span>, <span class='no'>price</span>), <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>) +
-  <span class='fu'>facet_grid_paginate</span>(<span class='no'>color</span> ~ <span class='no'>cut</span>:<span class='no'>clarity</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>page</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='img'><img src='facet_grid_paginate-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>ggplot</span>(<span class='kw'>diamonds</span>) <span class='op'>+</span>
+  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>carat</span>, <span class='kw'>price</span>), alpha = <span class='fl'>0.1</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/facet_grid_paginate.html'>facet_grid_paginate</a></span>(<span class='kw'>color</span> <span class='op'>~</span> <span class='kw'>cut</span><span class='op'>:</span><span class='kw'>clarity</span>, ncol = <span class='fl'>3</span>, nrow = <span class='fl'>3</span>, page = <span class='fl'>4</span>)</div><div class='img'><img src='facet_grid_paginate-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -294,7 +294,7 @@ faceted plot</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

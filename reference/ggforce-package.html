@@ -169,58 +169,66 @@ The aim of 'ggplot2' is to aid in visual data investigations. This
 </ul>
 
 </div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p><strong>Maintainer</strong>: Thomas Lin Pedersen <a href='mailto:thomasp85@gmail.com'>thomasp85@gmail.com</a> (<a href='https://orcid.org/0000-0002-5147-4711'>ORCID</a>)</p>
+<p>Other contributors:</p><ul>
+<li><p>RStudio [copyright holder]</p></li>
+</ul>
+
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>rocketData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>)
+    <pre class="examples"><div class='input'><span class='kw'>rocketData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>),
+  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>)
 )
-<span class='no'>rocketData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>500</span>) - <span class='fl'>1</span>, <span class='kw'>function</span>(<span class='no'>i</span>) {
-  <span class='no'>rocketData</span>$<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>rocketData</span>$<span class='no'>y</span> - <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='no'>i</span> / <span class='fl'>500</span>)
-  <span class='no'>rocketData</span>$<span class='no'>group</span> <span class='kw'>&lt;-</span> <span class='no'>i</span> + <span class='fl'>1</span>
-  <span class='no'>rocketData</span>
+<span class='kw'>rocketData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='kw'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>500</span>) <span class='op'>-</span> <span class='fl'>1</span>, <span class='fu'>function</span>(<span class='kw'>i</span>) {
+  <span class='kw'>rocketData</span><span class='op'>$</span><span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='kw'>rocketData</span><span class='op'>$</span><span class='kw'>y</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='kw'>i</span> <span class='op'>/</span> <span class='fl'>500</span>)
+  <span class='kw'>rocketData</span><span class='op'>$</span><span class='kw'>group</span> <span class='op'>&lt;-</span> <span class='kw'>i</span> <span class='op'>+</span> <span class='fl'>1</span>
+  <span class='kw'>rocketData</span>
 }))
-<span class='no'>rocketData2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2.25</span>, <span class='fl'>2</span>),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2.5</span>, <span class='fl'>3</span>)
+<span class='kw'>rocketData2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  x = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2.25</span>, <span class='fl'>2</span>),
+  y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2.5</span>, <span class='fl'>3</span>)
 )
-<span class='no'>rocketData2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>500</span>) - <span class='fl'>1</span>, <span class='kw'>function</span>(<span class='no'>i</span>) {
-  <span class='no'>rocketData2</span>$<span class='no'>x</span>[<span class='fl'>2</span>] <span class='kw'>&lt;-</span> <span class='no'>rocketData2</span>$<span class='no'>x</span>[<span class='fl'>2</span>] - <span class='no'>i</span> * <span class='fl'>0.25</span> / <span class='fl'>500</span>
-  <span class='no'>rocketData2</span>$<span class='no'>group</span> <span class='kw'>&lt;-</span> <span class='no'>i</span> + <span class='fl'>1</span> + <span class='fl'>500</span>
-  <span class='no'>rocketData2</span>
+<span class='kw'>rocketData2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='kw'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>500</span>) <span class='op'>-</span> <span class='fl'>1</span>, <span class='fu'>function</span>(<span class='kw'>i</span>) {
+  <span class='kw'>rocketData2</span><span class='op'>$</span><span class='kw'>x</span>[<span class='fl'>2</span>] <span class='op'>&lt;-</span> <span class='kw'>rocketData2</span><span class='op'>$</span><span class='kw'>x</span>[<span class='fl'>2</span>] <span class='op'>-</span> <span class='kw'>i</span> <span class='op'>*</span> <span class='fl'>0.25</span> <span class='op'>/</span> <span class='fl'>500</span>
+  <span class='kw'>rocketData2</span><span class='op'>$</span><span class='kw'>group</span> <span class='op'>&lt;-</span> <span class='kw'>i</span> <span class='op'>+</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='fl'>500</span>
+  <span class='kw'>rocketData2</span>
 }))
 
-<span class='fu'>ggplot</span>() + <span class='fu'><a href='geom_link.html'>geom_link</a></span>(<span class='fu'>aes</span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>xend</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>..index..</span>,
-  <span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>..index..</span>
-), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'goldenrod'</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>500</span>) +
-  <span class='fu'><a href='geom_bezier.html'>geom_bezier</a></span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>..index..</span>),
-    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>rocketData</span>
-  ) +
-  <span class='fu'><a href='geom_bezier.html'>geom_bezier</a></span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>..index..</span>),
-    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>rocketData</span>
-  ) +
-  <span class='fu'><a href='geom_bezier.html'>geom_bezier</a></span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fl'>1</span>),
-    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>rocketData2</span>
-  ) +
-  <span class='fu'><a href='geom_bezier.html'>geom_bezier</a></span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fl'>1</span>),
-    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>rocketData2</span>
-  ) +
-  <span class='fu'>geom_text</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1.65</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1.65</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'ggplot2'</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>45</span>),
-    <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'white'</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>15</span>
-  ) +
-  <span class='fu'>coord_fixed</span>() +
-  <span class='fu'>scale_x_reverse</span>() +
-  <span class='fu'>scale_y_reverse</span>() +
-  <span class='fu'>scale_alpha</span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0</span>), <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>'none'</span>) +
+<span class='fu'>ggplot</span>() <span class='op'>+</span> <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_link.html'>geom_link</a></span>(<span class='fu'>aes</span>(
+  x = <span class='fl'>2</span>, y = <span class='fl'>2</span>, xend = <span class='fl'>3</span>, yend = <span class='fl'>3</span>, alpha = <span class='kw'>..index..</span>,
+  size = <span class='kw'>..index..</span>
+), colour = <span class='st'>'goldenrod'</span>, n = <span class='fl'>500</span>) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>geom_bezier</a></span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>, group = <span class='kw'>group</span>, colour = <span class='kw'>..index..</span>),
+    data = <span class='kw'>rocketData</span>
+  ) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>geom_bezier</a></span>(<span class='fu'>aes</span>(x = <span class='kw'>y</span>, y = <span class='kw'>x</span>, group = <span class='kw'>group</span>, colour = <span class='kw'>..index..</span>),
+    data = <span class='kw'>rocketData</span>
+  ) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>geom_bezier</a></span>(<span class='fu'>aes</span>(x = <span class='kw'>x</span>, y = <span class='kw'>y</span>, group = <span class='kw'>group</span>, colour = <span class='fl'>1</span>),
+    data = <span class='kw'>rocketData2</span>
+  ) <span class='op'>+</span>
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_bezier.html'>geom_bezier</a></span>(<span class='fu'>aes</span>(x = <span class='kw'>y</span>, y = <span class='kw'>x</span>, group = <span class='kw'>group</span>, colour = <span class='fl'>1</span>),
+    data = <span class='kw'>rocketData2</span>
+  ) <span class='op'>+</span>
+  <span class='fu'>geom_text</span>(<span class='fu'>aes</span>(x = <span class='fl'>1.65</span>, y = <span class='fl'>1.65</span>, label = <span class='st'>'ggplot2'</span>, angle = <span class='fl'>45</span>),
+    colour = <span class='st'>'white'</span>, size = <span class='fl'>15</span>
+  ) <span class='op'>+</span>
+  <span class='fu'>coord_fixed</span>() <span class='op'>+</span>
+  <span class='fu'>scale_x_reverse</span>() <span class='op'>+</span>
+  <span class='fu'>scale_y_reverse</span>() <span class='op'>+</span>
+  <span class='fu'>scale_alpha</span>(range = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0</span>), guide = <span class='st'>'none'</span>) <span class='op'>+</span>
   <span class='fu'>scale_size_continuous</span>(
-    <span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>0.1</span>), <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>'exp'</span>,
-    <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>'none'</span>
-  ) +
-  <span class='fu'>scale_color_continuous</span>(<span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>'none'</span>) +
-  <span class='fu'>xlab</span>(<span class='st'>''</span>) + <span class='fu'>ylab</span>(<span class='st'>''</span>) +
-  <span class='fu'>ggtitle</span>(<span class='st'>'ggforce: Accelerating ggplot2'</span>) +
-  <span class='fu'>theme</span>(<span class='kw'>plot.title</span> <span class='kw'>=</span> <span class='fu'>element_text</span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>20</span>))</div><div class='img'><img src='ggforce-package-1.png' alt='' width='700' height='433' /></div></pre>
+    range = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>0.1</span>), trans = <span class='st'>'exp'</span>,
+    guide = <span class='st'>'none'</span>
+  ) <span class='op'>+</span>
+  <span class='fu'>scale_color_continuous</span>(guide = <span class='st'>'none'</span>) <span class='op'>+</span>
+  <span class='fu'>xlab</span>(<span class='st'>''</span>) <span class='op'>+</span> <span class='fu'>ylab</span>(<span class='st'>''</span>) <span class='op'>+</span>
+  <span class='fu'>ggtitle</span>(<span class='st'>'ggforce: Accelerating ggplot2'</span>) <span class='op'>+</span>
+  <span class='fu'>theme</span>(plot.title = <span class='fu'>element_text</span>(size = <span class='fl'>20</span>))</div><div class='img'><img src='ggforce-package-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -236,7 +244,7 @@ The aim of 'ggplot2' is to aid in visual data investigations. This
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
