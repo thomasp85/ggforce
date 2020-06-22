@@ -194,6 +194,10 @@ geom_mark_hull <- function(mapping = NULL, data = NULL, stat = 'identity',
                            con.border = 'one', con.cap = unit(3, 'mm'),
                            con.arrow = NULL, ..., na.rm = FALSE,
                            show.legend = NA, inherit.aes = TRUE) {
+  if (!requireNamespace('concaveman', quietly = TRUE)) {
+    warning('The concaveman package is required for geom_mark_hull', call. = FALSE)
+    return(invisible())
+  }
   layer(
     data = data,
     mapping = mapping,

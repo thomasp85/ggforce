@@ -1,6 +1,7 @@
 # ggforce (development version)
 
-- Cnages to comply with latest ggplot2 release
+- Changes to comply with latest ggplot2 release
+- Make sure ggforce pass test even if concaveman is not available
 
 # ggforce 0.3.1
 
