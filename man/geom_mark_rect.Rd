@@ -4,21 +4,40 @@
 \alias{geom_mark_rect}
 \title{Annotate areas with rectangles}
 \usage{
-geom_mark_rect(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", expand = unit(5, "mm"), radius = unit(2.5,
-  "mm"), label.margin = margin(2, 2, 2, 2, "mm"), label.width = NULL,
-  label.minwidth = unit(50, "mm"), label.hjust = 0,
-  label.fontsize = 12, label.family = "", label.lineheight = 1,
-  label.fontface = c("bold", "plain"), label.fill = "white",
-  label.colour = "black", label.buffer = unit(10, "mm"),
-  con.colour = "black", con.size = 0.5, con.type = "elbow",
-  con.linetype = 1, con.border = "one", con.cap = unit(3, "mm"),
-  con.arrow = NULL, ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_mark_rect(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  expand = unit(5, "mm"),
+  radius = unit(2.5, "mm"),
+  label.margin = margin(2, 2, 2, 2, "mm"),
+  label.width = NULL,
+  label.minwidth = unit(50, "mm"),
+  label.hjust = 0,
+  label.fontsize = 12,
+  label.family = "",
+  label.lineheight = 1,
+  label.fontface = c("bold", "plain"),
+  label.fill = "white",
+  label.colour = "black",
+  label.buffer = unit(10, "mm"),
+  con.colour = "black",
+  con.size = 0.5,
+  con.type = "elbow",
+  con.linetype = 1,
+  con.border = "one",
+  con.cap = unit(3, "mm"),
+  con.arrow = NULL,
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
-\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
+\code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
@@ -26,11 +45,11 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
 options:
 
 If \code{NULL}, the default, the data is inherited from the plot
-data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
 
 A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-\code{\link[=fortify]{fortify()}} for which variables will be created.
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
@@ -51,7 +70,7 @@ plot area width.}
 \item{radius}{As \code{expand} but specifying the corner radius.}
 
 \item{label.margin}{The margin around the annotation boxes, given by a call
-to \code{\link[ggplot2:margin]{ggplot2::margin()}}}
+to \code{\link[ggplot2:element]{ggplot2::margin()}}}
 
 \item{label.width}{A fixed width for the label. Set to \code{NULL} to let the text
 or \code{label.minwidth} decide}
@@ -108,7 +127,7 @@ on all sides), or \code{"none"} (not going to explain that one)}
 \item{con.arrow}{An arrow specification for the connection using
 \code{\link[grid:arrow]{grid::arrow()}} for the end pointing towards the mark}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -125,12 +144,12 @@ display.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 }
 \description{
 This geom lets you annotate sets of points via rectangles. The rectangles are
 simply scaled to the range of the data and as with the the other
-\code{geom_mark_*()} geoms expanded and have rounded corners.
+\verb{geom_mark_*()} geoms expanded and have rounded corners.
 }
 \section{Aesthetics}{
 
@@ -153,7 +172,7 @@ in bold):
 
 \section{Annotation}{
 
-All \code{geom_mark_*} allows you to put descriptive textboxes connected to the
+All \verb{geom_mark_*} allows you to put descriptive textboxes connected to the
 mark on the plot, using the \code{label} and \code{description} aesthetics. The
 textboxes are automatically placed close to the mark, but without obscuring
 any of the datapoints in the layer. The placement is dynamic so if you resize
@@ -169,7 +188,7 @@ buffer region around the marks.
 Often marks are used to draw attention to, or annotate specific features of
 the plot and it is thus not desirable to have marks around everything. While
 it is possible to simply pre-filter the data used for the mark layer, the
-\code{geom_mark_*} geoms also comes with a dedicated \code{filter} aesthetic that, if
+\verb{geom_mark_*} geoms also comes with a dedicated \code{filter} aesthetic that, if
 set, will remove all rows where it evalutates to \code{FALSE}. There are
 multiple benefits of using this instead of prefiltering. First, you don't
 have to change your data source, making your code more adaptable for
@@ -215,8 +234,9 @@ ggplot(iris, aes(Petal.Length, Petal.Width)) +
   geom_point()
 }
 \seealso{
-Other mark geoms: \code{\link{geom_mark_circle}},
-  \code{\link{geom_mark_ellipse}},
-  \code{\link{geom_mark_hull}}
+Other mark geoms: 
+\code{\link{geom_mark_circle}()},
+\code{\link{geom_mark_ellipse}()},
+\code{\link{geom_mark_hull}()}
 }
 \concept{mark geoms}

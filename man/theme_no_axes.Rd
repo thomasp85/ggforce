@@ -8,7 +8,7 @@ theme_no_axes(base.theme = theme_bw())
 }
 \arguments{
 \item{base.theme}{The theme to use as a base for the new theme. Defaults to
-\code{\link[ggplot2:theme_bw]{ggplot2::theme_bw()}}.}
+\code{\link[ggplot2:ggtheme]{ggplot2::theme_bw()}}.}
 }
 \value{
 A modified version of base.theme

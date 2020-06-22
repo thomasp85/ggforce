@@ -6,15 +6,35 @@
 \alias{scale_type.units}
 \title{Position scales for units data}
 \usage{
-scale_x_unit(name = waiver(), breaks = waiver(), unit = NULL,
-  minor_breaks = waiver(), labels = waiver(), limits = NULL,
-  expand = waiver(), oob = censor, na.value = NA_real_,
-  trans = "identity", position = "bottom", sec.axis = waiver())
+scale_x_unit(
+  name = waiver(),
+  breaks = waiver(),
+  unit = NULL,
+  minor_breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  oob = censor,
+  na.value = NA_real_,
+  trans = "identity",
+  position = "bottom",
+  sec.axis = waiver()
+)
 
-scale_y_unit(name = waiver(), breaks = waiver(), unit = NULL,
-  minor_breaks = waiver(), labels = waiver(), limits = NULL,
-  expand = waiver(), oob = censor, na.value = NA_real_,
-  trans = "identity", position = "left", sec.axis = waiver())
+scale_y_unit(
+  name = waiver(),
+  breaks = waiver(),
+  unit = NULL,
+  minor_breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  oob = censor,
+  na.value = NA_real_,
+  trans = "identity",
+  position = "left",
+  sec.axis = waiver()
+)
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
@@ -29,7 +49,7 @@ omitted.}
 \link[scales:trans_new]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}})
+as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}})
 }}
 
 \item{unit}{A unit specification to use for the axis. If given, the values
@@ -64,12 +84,12 @@ Use \code{NA} to refer to the existing minimum or maximum
 new limits
 Note that setting limits on positional scales will \strong{remove} data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
-(see \code{\link[=coord_cartesian]{coord_cartesian()}}).
+(see \code{\link[ggplot2:coord_cartesian]{coord_cartesian()}}).
 }}
 
 \item{expand}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
+away from the axes. Use the convenience function \code{\link[ggplot2:expansion]{expansion()}}
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
@@ -78,10 +98,10 @@ expand the scale by 5\% on each side for continuous variables, and by
 \itemize{
 \item Function that handles limits outside of the scale limits
 (out of bounds).
-\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
-\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infitite values into range.
+\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
 
 \item{na.value}{Missing values will be replaced with this value.}
@@ -101,12 +121,12 @@ transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
 
-\item{sec.axis}{\code{\link[=sec_axis]{sec_axis()}} is used to specify a secondary axis.}
+\item{sec.axis}{\code{\link[ggplot2:sec_axis]{sec_axis()}} is used to specify a secondary axis.}
 }
 \description{
 These are the default scales for the units class. These will
 usually be added automatically. To override manually, use
-\code{scale_*_unit}.
+\verb{scale_*_unit}.
 }
 \examples{
 library(units)

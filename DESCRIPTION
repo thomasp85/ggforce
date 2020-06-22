@@ -39,7 +39,7 @@ Imports:
     withr,
     utils
 LinkingTo: Rcpp, RcppEigen
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0.9000
 Suggests:
     sessioninfo,
     concaveman,

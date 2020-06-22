@@ -8,7 +8,7 @@ position_jitternormal(sd_x = NULL, sd_y = NULL)
 }
 \arguments{
 \item{sd_x, sd_y}{Standard deviation to add along the x and y axes. The
-function uses \code{\link[stats:rnorm]{stats::rnorm()}} with \code{mean = 0} behind the scenes.
+function uses \code{\link[stats:Normal]{stats::rnorm()}} with \code{mean = 0} behind the scenes.
 
 If omitted, defaults to 0.15. As with \code{\link[ggplot2:geom_jitter]{ggplot2::geom_jitter()}}, categorical
 data is aligned on the integers, so a standard deviation of more than 0.2

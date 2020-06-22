@@ -5,19 +5,41 @@
 \alias{stat_sina}
 \title{Sina plot}
 \usage{
-stat_sina(mapping = NULL, data = NULL, geom = "sina",
-  position = "dodge", scale = "area", method = "density",
-  bw = "nrd0", kernel = "gaussian", maxwidth = NULL, adjust = 1,
-  bin_limit = 1, binwidth = NULL, bins = NULL, seed = NA, ...,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+stat_sina(
+  mapping = NULL,
+  data = NULL,
+  geom = "sina",
+  position = "dodge",
+  scale = "area",
+  method = "density",
+  bw = "nrd0",
+  kernel = "gaussian",
+  maxwidth = NULL,
+  adjust = 1,
+  bin_limit = 1,
+  binwidth = NULL,
+  bins = NULL,
+  seed = NA,
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_sina(mapping = NULL, data = NULL, stat = "sina",
-  position = "dodge", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_sina(
+  mapping = NULL,
+  data = NULL,
+  stat = "sina",
+  position = "dodge",
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
-\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
+\code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
@@ -25,11 +47,11 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
 options:
 
 If \code{NULL}, the default, the data is inherited from the plot
-data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
 
 A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-\code{\link[=fortify]{fortify()}} for which variables will be created.
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
@@ -62,7 +84,7 @@ abbreviated, e.g. "d"). See \code{Details}.}
     (Note this differs from the reference books cited below, and from S-PLUS.)
 
     \code{bw} can also be a character string giving a rule to choose the
-    bandwidth.  See \code{\link{bw.nrd}}. \cr The default,
+    bandwidth.  See \code{\link[stats]{bw.nrd}}. \cr The default,
     \code{"nrd0"}, has remained the default for historical and
     compatibility reasons, rather than as a general recommendation,
     where e.g., \code{"SJ"} would rather fit, see also Venables and
@@ -103,7 +125,7 @@ stories in your data.}
 
 \item{seed}{A seed to set for the jitter to ensure a reproducible plot}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -120,7 +142,7 @@ display.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}

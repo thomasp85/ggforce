@@ -4,10 +4,21 @@
 \alias{facet_matrix}
 \title{Facet by different data columns}
 \usage{
-facet_matrix(rows, cols = rows, shrink = TRUE, switch = NULL,
-  flip.rows = FALSE, alternate.axes = FALSE, layer.lower = NULL,
-  layer.diag = NULL, layer.upper = NULL, layer.continuous = NULL,
-  layer.discrete = NULL, layer.mixed = NULL, grid.y.diag = TRUE)
+facet_matrix(
+  rows,
+  cols = rows,
+  shrink = TRUE,
+  switch = NULL,
+  flip.rows = FALSE,
+  alternate.axes = FALSE,
+  layer.lower = NULL,
+  layer.diag = NULL,
+  layer.upper = NULL,
+  layer.continuous = NULL,
+  layer.discrete = NULL,
+  layer.mixed = NULL,
+  grid.y.diag = TRUE
+)
 }
 \arguments{
 \item{rows, cols}{A specification of the data columns to put in the rows and

@@ -6,7 +6,7 @@
 \alias{ggforce-package}
 \title{ggforce: Accelerating 'ggplot2'}
 \description{
-\if{html}{\figure{logo.png}{options: align='right'}}
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 The aim of 'ggplot2' is to aid in visual data investigations. This
     focus has led to a lack of facilities for composing specialised plots.
@@ -76,7 +76,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Thomas Lin Pedersen \email{thomasp85@gmail.com} (0000-0002-5147-4711)
+\strong{Maintainer}: Thomas Lin Pedersen \email{thomasp85@gmail.com} (\href{https://orcid.org/0000-0002-5147-4711}{ORCID})
 
 Other contributors:
 \itemize{

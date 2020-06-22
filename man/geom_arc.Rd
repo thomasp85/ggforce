@@ -9,33 +9,86 @@
 \alias{geom_arc0}
 \title{Arcs based on radius and radians}
 \usage{
-stat_arc(mapping = NULL, data = NULL, geom = "arc",
-  position = "identity", na.rm = FALSE, show.legend = NA, n = 360,
-  inherit.aes = TRUE, ...)
+stat_arc(
+  mapping = NULL,
+  data = NULL,
+  geom = "arc",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  n = 360,
+  inherit.aes = TRUE,
+  ...
+)
 
-geom_arc(mapping = NULL, data = NULL, stat = "arc",
-  position = "identity", n = 360, arrow = NULL, lineend = "butt",
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+geom_arc(
+  mapping = NULL,
+  data = NULL,
+  stat = "arc",
+  position = "identity",
+  n = 360,
+  arrow = NULL,
+  lineend = "butt",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 
-stat_arc2(mapping = NULL, data = NULL, geom = "path_interpolate",
-  position = "identity", na.rm = FALSE, show.legend = NA, n = 360,
-  inherit.aes = TRUE, ...)
+stat_arc2(
+  mapping = NULL,
+  data = NULL,
+  geom = "path_interpolate",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  n = 360,
+  inherit.aes = TRUE,
+  ...
+)
 
-geom_arc2(mapping = NULL, data = NULL, stat = "arc2",
-  position = "identity", n = 360, arrow = NULL, lineend = "butt",
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+geom_arc2(
+  mapping = NULL,
+  data = NULL,
+  stat = "arc2",
+  position = "identity",
+  n = 360,
+  arrow = NULL,
+  lineend = "butt",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 
-stat_arc0(mapping = NULL, data = NULL, geom = "arc0",
-  position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+stat_arc0(
+  mapping = NULL,
+  data = NULL,
+  geom = "arc0",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 
-geom_arc0(mapping = NULL, data = NULL, stat = "arc0",
-  position = "identity", ncp = 5, arrow = NULL, lineend = "butt",
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+geom_arc0(
+  mapping = NULL,
+  data = NULL,
+  stat = "arc0",
+  position = "identity",
+  ncp = 5,
+  arrow = NULL,
+  lineend = "butt",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
-\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
+\code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
@@ -43,11 +96,11 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
 options:
 
 If \code{NULL}, the default, the data is inherited from the plot
-data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
 
 A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-\code{\link[=fortify]{fortify()}} for which variables will be created.
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
@@ -74,9 +127,9 @@ arc would cover a full circle}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}

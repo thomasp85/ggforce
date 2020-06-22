@@ -4,8 +4,7 @@
 \alias{position_auto}
 \title{Jitter based on scale types}
 \usage{
-position_auto(jitter.width = 0.75, bw = "nrd0", scale = TRUE,
-  seed = NA)
+position_auto(jitter.width = 0.75, bw = "nrd0", scale = TRUE, seed = NA)
 }
 \arguments{
 \item{jitter.width}{The maximal width of the jitter}

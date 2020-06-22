@@ -4,10 +4,21 @@
 \alias{facet_grid_paginate}
 \title{Split facet_grid over multiple plots}
 \usage{
-facet_grid_paginate(facets, margins = FALSE, scales = "fixed",
-  space = "fixed", shrink = TRUE, labeller = "label_value",
-  as.table = TRUE, switch = NULL, drop = TRUE, ncol = NULL,
-  nrow = NULL, page = 1, byrow = TRUE)
+facet_grid_paginate(
+  facets,
+  margins = FALSE,
+  scales = "fixed",
+  space = "fixed",
+  shrink = TRUE,
+  labeller = "label_value",
+  as.table = TRUE,
+  switch = NULL,
+  drop = TRUE,
+  ncol = NULL,
+  nrow = NULL,
+  page = 1,
+  byrow = TRUE
+)
 }
 \arguments{
 \item{facets}{This argument is soft-deprecated, please use \code{rows}
@@ -41,9 +52,9 @@ column corresponds to one factor. Thus there will be more than
 one with \code{vars(cyl, am)}. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
-for compatibility with \code{\link[=labeller]{labeller()}}. You can use different labeling
-functions for different kind of labels, for example use \code{\link[=label_parsed]{label_parsed()}} for
-formatting facet labels. \code{\link[=label_value]{label_value()}} is used by default,
+for compatibility with \code{\link[ggplot2:labeller]{labeller()}}. You can use different labeling
+functions for different kind of labels, for example use \code{\link[ggplot2:labellers]{label_parsed()}} for
+formatting facet labels. \code{\link[ggplot2:labellers]{label_value()}} is used by default,
 check it for more details and pointers to other options.}
 
 \item{as.table}{If \code{TRUE}, the default, the facets are laid out like
@@ -89,8 +100,9 @@ ggplot(diamonds) +
 \code{\link[=n_pages]{n_pages()}} to compute the total number of pages in a paginated
 faceted plot
 
-Other ggforce facets: \code{\link{facet_stereo}},
-  \code{\link{facet_wrap_paginate}},
-  \code{\link{facet_zoom}}
+Other ggforce facets: 
+\code{\link{facet_stereo}()},
+\code{\link{facet_wrap_paginate}()},
+\code{\link{facet_zoom}()}
 }
 \concept{ggforce facets}

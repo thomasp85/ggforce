@@ -8,32 +8,76 @@
 \alias{geom_link0}
 \title{Link points with paths}
 \usage{
-stat_link(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", na.rm = FALSE, show.legend = NA, n = 100,
-  inherit.aes = TRUE, ...)
+stat_link(
+  mapping = NULL,
+  data = NULL,
+  geom = "path",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  n = 100,
+  inherit.aes = TRUE,
+  ...
+)
 
-stat_link2(mapping = NULL, data = NULL, geom = "path_interpolate",
-  position = "identity", na.rm = FALSE, show.legend = NA, n = 100,
-  inherit.aes = TRUE, ...)
+stat_link2(
+  mapping = NULL,
+  data = NULL,
+  geom = "path_interpolate",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  n = 100,
+  inherit.aes = TRUE,
+  ...
+)
 
-geom_link(mapping = NULL, data = NULL, stat = "link",
-  position = "identity", arrow = NULL, lineend = "butt",
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, n = 100,
-  ...)
+geom_link(
+  mapping = NULL,
+  data = NULL,
+  stat = "link",
+  position = "identity",
+  arrow = NULL,
+  lineend = "butt",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  n = 100,
+  ...
+)
 
-geom_link2(mapping = NULL, data = NULL, stat = "link2",
-  position = "identity", arrow = NULL, lineend = "butt",
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, n = 100,
-  ...)
+geom_link2(
+  mapping = NULL,
+  data = NULL,
+  stat = "link2",
+  position = "identity",
+  arrow = NULL,
+  lineend = "butt",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  n = 100,
+  ...
+)
 
-geom_link0(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., arrow = NULL, arrow.fill = NULL,
-  lineend = "butt", linejoin = "round", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+geom_link0(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  arrow = NULL,
+  arrow.fill = NULL,
+  lineend = "butt",
+  linejoin = "round",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
-\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
+\code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
@@ -41,11 +85,11 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
 options:
 
 If \code{NULL}, the default, the data is inherited from the plot
-data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
 
 A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-\code{\link[=fortify]{fortify()}} for which variables will be created.
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
@@ -71,9 +115,9 @@ display.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
