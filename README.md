@@ -3,12 +3,13 @@
 
 # ggforce <img src="man/figures/logo.png" width="121px" height="140px" align="right" style="padding-left:10px;background-color:white;" />
 
-[![Travis-CI Build
-Status](https://travis-ci.org/thomasp85/ggforce.svg?branch=master)](https://travis-ci.org/thomasp85/ggforce)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/thomasp85/ggforce?branch=master&svg=true)](https://ci.appveyor.com/project/thomasp85/ggforce)
+<!-- badges: start -->
+
+[![R build
+status](https://github.com/thomasp85/ggforce/workflows/R-CMD-check/badge.svg)](https://github.com/thomasp85/ggforce/actions)
 [![CRAN\_Release\_Badge](http://www.r-pkg.org/badges/version-ago/ggforce)](https://CRAN.R-project.org/package=ggforce)
 [![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/ggforce)](https://CRAN.R-project.org/package=ggforce)
+<!-- badges: end -->
 
 *Accelerating ggplot2*
 

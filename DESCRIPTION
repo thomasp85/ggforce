@@ -45,7 +45,8 @@ Suggests:
     concaveman,
     deldir,
     reshape2,
-    units (>= 0.4-6)
+    units (>= 0.4-6),
+    covr
 Collate: 
     'RcppExports.R'
     'aaa.R'
