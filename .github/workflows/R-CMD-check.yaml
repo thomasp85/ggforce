@@ -65,6 +65,13 @@ jobs:
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
 
+      - name: Install system dependencies (mac)
+        if: runner.os == 'macOS'
+        env:
+          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
+        run: |
+          brew install v8
+
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)

@@ -20,6 +20,10 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@master
 
+      - name: Install system dependencies
+        run: |
+          brew install v8
+
       - name: Query dependencies
         run: |
           install.packages('remotes')
