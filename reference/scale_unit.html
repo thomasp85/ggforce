@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -46,8 +50,7 @@
 <meta property="og:description" content="These are the default scales for the units class. These will
 usually be added automatically. To override manually, use
 scale_*_unit." />
-<meta property="og:image" content="https://ggforce.data-imaginist.com/logo.png" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="https://ggforce.data-imaginist.com/logo.svg" />
 
 
 
@@ -65,7 +68,7 @@ scale_*_unit." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -149,15 +152,35 @@ usually be added automatically. To override manually, use
 <code>scale_*_unit</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_x_unit</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>unit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>, <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
-  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>, <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'>waiver</span>())
+    <pre class="usage"><span class='fu'>scale_x_unit</span>(
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>unit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>,
+  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
+  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>,
+  <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'>waiver</span>()
+)
 
-<span class='fu'>scale_y_unit</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>unit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>, <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
-  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"left"</span>, <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'>waiver</span>())</pre>
+<span class='fu'>scale_y_unit</span>(
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>unit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
+  <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>,
+  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
+  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"left"</span>,
+  <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'>waiver</span>()
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -217,14 +240,14 @@ Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 new limits
 Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
-(see <code>coord_cartesian()</code>).</p></li>
+(see <code><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>expand</th>
       <td><p>For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function <code>expansion()</code>
+away from the axes. Use the convenience function <code><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expansion()</a></code>
 to generate the values for the <code>expand</code> argument. The defaults are to
 expand the scale by 5% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.</p></td>
@@ -234,10 +257,10 @@ expand the scale by 5% on each side for continuous variables, and by
       <td><p>One of:</p><ul>
 <li><p>Function that handles limits outside of the scale limits
 (out of bounds).</p></li>
-<li><p>The default (<code><a href='https://scales.r-lib.org//reference/censor.html'>scales::censor()</a></code>) replaces out of
+<li><p>The default (<code><a href='https://scales.r-lib.org//reference/oob.html'>scales::censor()</a></code>) replaces out of
 bounds values with <code>NA</code>.</p></li>
-<li><p><code><a href='https://scales.r-lib.org//reference/squish.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
-<li><p><code><a href='https://scales.r-lib.org//reference/squish_infinite.html'>scales::squish_infinite()</a></code> for squishing infitite values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org//reference/oob.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org//reference/oob.html'>scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -264,7 +287,7 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
     </tr>
     <tr>
       <th>sec.axis</th>
-      <td><p><code>sec_axis()</code> is used to specify a secondary axis.</p></td>
+      <td><p><code><a href='https://ggplot2.tidyverse.org/reference/sec_axis.html'>sec_axis()</a></code> is used to specify a secondary axis.</p></td>
     </tr>
     </table>
 
@@ -286,13 +309,10 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
 <span class='fu'>ggplot</span>(<span class='no'>mtcars</span>) +
   <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>power</span>, <span class='fl'>1</span> / <span class='no'>consumption</span>))</div><div class='img'><img src='scale_unit-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -303,7 +323,7 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
