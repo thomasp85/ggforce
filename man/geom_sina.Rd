@@ -79,39 +79,19 @@ For backwards compatibility it can also be a logical with \code{TRUE} meaning
 bin along the x-axis. Available methods: "density", "counts" (can be
 abbreviated, e.g. "d"). See \code{Details}.}
 
-\item{bw}{the smoothing bandwidth to be used.  The kernels are scaled
-    such that this is the standard deviation of the smoothing kernel.
-    (Note this differs from the reference books cited below, and from S-PLUS.)
+\item{bw}{The smoothing bandwidth to be used.
+If numeric, the standard deviation of the smoothing kernel.
+If character, a rule to choose the bandwidth, as listed in
+\code{\link[stats:bandwidth]{stats::bw.nrd()}}.}
 
-    \code{bw} can also be a character string giving a rule to choose the
-    bandwidth.  See \code{\link[stats]{bw.nrd}}. \cr The default,
-    \code{"nrd0"}, has remained the default for historical and
-    compatibility reasons, rather than as a general recommendation,
-    where e.g., \code{"SJ"} would rather fit, see also Venables and
-    Ripley (2002).
-
-    The specified (or computed) value of \code{bw} is multiplied by
-    \code{adjust}.
-  }
-
-\item{kernel}{a character string giving the smoothing kernel
-    to be used. This must partially match one of \code{"gaussian"},
-    \code{"rectangular"}, \code{"triangular"}, \code{"epanechnikov"},
-    \code{"biweight"}, \code{"cosine"} or \code{"optcosine"}, with default
-    \code{"gaussian"}, and may be abbreviated to a unique prefix (single
-    letter).
-
-    \code{"cosine"} is smoother than \code{"optcosine"}, which is the
-    usual \sQuote{cosine} kernel in the literature and almost MSE-efficient.
-    However, \code{"cosine"} is the version used by S.
-  }
+\item{kernel}{Kernel. See list of available kernels in \code{\link[=density]{density()}}.}
 
 \item{maxwidth}{Control the maximum width the points can spread into. Values
 between 0 and 1.}
 
-\item{adjust}{the bandwidth used is actually \code{adjust*bw}.
-    This makes it easy to specify values like \sQuote{half the default}
-    bandwidth.}
+\item{adjust}{A multiplicate bandwidth adjustment. This makes it possible
+to adjust the bandwidth while still using the a bandwidth estimator.
+For example, \code{adjust = 1/2} means use half of the default bandwidth.}
 
 \item{bin_limit}{If the samples within the same y-axis bin are more
 than \code{bin_limit}, the samples's X coordinates will be adjusted.}

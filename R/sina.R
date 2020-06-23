@@ -34,7 +34,7 @@
 #'
 #' @inheritParams ggplot2::geom_path
 #' @inheritParams ggplot2::stat_identity
-#' @inheritParams stats::density
+#' @inheritParams ggplot2::stat_density
 #'
 #' @param scale How should each sina be scaled. Corresponds to the `scale`
 #' parameter in [ggplot2::geom_violin()]? Available are:

@@ -14,8 +14,6 @@
 #' @param range The relative range as related to the distance between the eyes
 #' and the paper plane.
 #'
-#' @inheritParams ggplot2::continuous_scale
-#'
 #' @export
 #' @importFrom scales rescale_pal
 #'

@@ -94,4 +94,3 @@ Collate:
     'voronoi.R'
     'zzz.R'
 Roxygen: list(markdown = TRUE)
-Remotes: tidyverse/ggplot2
