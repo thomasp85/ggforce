@@ -123,7 +123,11 @@ labelboxGrob <- function(label, x = unit(0.5, 'npc'), y = unit(0.5, 'npc'),
   if (!is.null(width)) {
     final_width <- max(width, min.width) - pad[2] - pad[4]
   } else {
-    final_width <- max(as_mm(grobWidth(lab_grob)), min.width) - pad[2] - pad[4]
+    if (as_mm(grobWidth(lab_grob)) > (min.width - pad[2] - pad[4])) {
+      final_width <- as_mm(grobWidth(lab_grob)) + pad[2] + pad[4]
+    } else {
+      final_width <- max(as_mm(grobWidth(lab_grob)), min.width) - pad[2] - pad[4]
+    }
   }
   if (!is.null(description) && !is.na(description)) {
     description <- wrap_text(description, gps$desc, final_width)
@@ -131,7 +135,11 @@ labelboxGrob <- function(label, x = unit(0.5, 'npc'), y = unit(0.5, 'npc'),
     desc_grob <- textGrob(description, x = just[1], y = just[2], just = just,
                           gp = gps$desc)
     if (is.null(width)) {
-      final_width <- min(final_width, as_mm(grobWidth(desc_grob)))
+      final_width_desc <- min(final_width, as_mm(grobWidth(desc_grob)))
+      final_width <- as_mm(grobWidth(lab_grob))
+      if (final_width < final_width_desc) {
+        final_width <- final_width_desc
+      }
     }
   } else {
     desc_grob <- nullGrob()
