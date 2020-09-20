@@ -119,8 +119,8 @@ facet_matrix <- function(rows, cols = rows, shrink = TRUE, switch = NULL,
 #' @rdname ggforce-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom tidyselect vars_select
-#' @importFrom rlang caller_env rep_along
+#' @importFrom tidyselect eval_select
+#' @importFrom rlang caller_env quo rep_along
 #' @export
 FacetMatrix <- ggproto('FacetMatrix', FacetGrid,
   setup_data = function(data, params) {
@@ -132,11 +132,11 @@ FacetMatrix <- ggproto('FacetMatrix', FacetGrid,
   },
   setup_params = function(data, params) {
     rows <- lapply(data, function(d) {
-      vars_select(names(d), !!!params$row_vars)
+      names(eval_select(quo(c(!!!params$row_vars)), d))
     })
     rows <- unique(unlist(rows))
     cols <- lapply(data, function(d) {
-      vars_select(names(d), !!!params$col_vars)
+      names(eval_select(quo(c(!!!params$col_vars)), d))
     })
     cols <- unique(unlist(cols))
     if (length(rows) == 0 || length(cols) == 0) {
