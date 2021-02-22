@@ -5,8 +5,7 @@
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/thomasp85/ggforce/workflows/R-CMD-check/badge.svg)](https://github.com/thomasp85/ggforce/actions)
+[![R-CMD-check](https://github.com/thomasp85/ggforce/workflows/R-CMD-check/badge.svg)](https://github.com/thomasp85/ggforce/actions)
 [![CRAN\_Release\_Badge](http://www.r-pkg.org/badges/version-ago/ggforce)](https://CRAN.R-project.org/package=ggforce)
 [![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/ggforce)](https://CRAN.R-project.org/package=ggforce)
 <!-- badges: end -->
