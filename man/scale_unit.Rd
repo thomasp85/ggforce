@@ -130,9 +130,8 @@ usually be added automatically. To override manually, use
 }
 \examples{
 library(units)
-gallon <- as_units('gallon')
-mtcars$consumption <- mtcars$mpg * with(ud_units, mi / gallon)
-mtcars$power <- mtcars$hp * with(ud_units, hp)
+mtcars$consumption <- set_units(mtcars$mpg, mi / gallon)
+mtcars$power <- set_units(mtcars$hp, hp)
 
 # Use units encoded into the data
 ggplot(mtcars) +
