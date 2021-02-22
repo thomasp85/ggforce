@@ -1,5 +1,7 @@
 # ggforce (development version)
 
+- Changed documentation to comply with new units package
+
 # ggforce 0.3.2
 
 - Changes to comply with latest ggplot2 release
