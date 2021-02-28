@@ -107,7 +107,7 @@ StatLink <- ggproto('StatLink', Stat,
   },
   compute_panel = function(data, scales, n = 100) {
     extraCols <- !names(data) %in% c('x', 'y', 'xend', 'yend', 'group', 'PANEL')
-    data$group <- make.unique(as.character(data$group))
+    data$group <- make_unique(as.character(data$group))
     data <- lapply(seq_len(nrow(data)), function(i) {
       path <- data.frame(
         x = seq(data$x[i], data$xend[i], length.out = n),
