@@ -29,6 +29,9 @@
 #'
 #' @param show.area Should the zoom area be drawn below the data points on the
 #' full data panel? Defaults to `TRUE`.
+#' 
+#' @param zoom.left Should the zoom area be drawn left to the full data panel? 
+#' Defaults to `TRUE`
 #'
 #' @inheritParams ggplot2::facet_wrap
 #'
@@ -69,7 +72,7 @@
 #'   facet_zoom(x = Species == 'versicolor', zoom.data = Species == 'versicolor')
 facet_zoom <- function(x, y, xy, zoom.data, xlim = NULL, ylim = NULL,
                        split = FALSE, horizontal = TRUE, zoom.size = 2,
-                       show.area = TRUE, shrink = TRUE) {
+                       show.area = TRUE, shrink = TRUE, zoom.left = TRUE) {
   x <- if (missing(x)) if (missing(xy)) NULL else enquo(xy) else enquo(x)
   y <- if (missing(y)) if (missing(xy)) NULL else enquo(xy) else enquo(y)
   zoom.data <- if (missing(zoom.data)) NULL else enquo(zoom.data)
@@ -83,7 +86,7 @@ facet_zoom <- function(x, y, xy, zoom.data, xlim = NULL, ylim = NULL,
     params = list(
       x = x, y = y, xlim = xlim, ylim = ylim, split = split,
       zoom.data = zoom.data, zoom.size = zoom.size, show.area = show.area,
-      horizontal = horizontal
+      horizontal = horizontal, zoom.left = zoom.left
     )
   )
 }
@@ -239,15 +242,15 @@ FacetZoom <- ggproto('FacetZoom', Facet,
           from = y_scales[[1]]$dimension(expansion(y_scales[[1]]))
         )
         indicator <- polygonGrob(
-          c(1, 1, 0, 0),
+          ifelse(rep(params$zoom.left, 4),c(1, 1, 0, 0), c(0, 0, 1, 1)),
           c(zoom_prop, 1, 0),
           gp = gpar(col = NA, fill = alpha(theme$zoom.y$fill, 0.5))
         )
         lines <- segmentsGrob(
           y0 = c(0, 1),
-          x0 = c(0, 0),
+          x0 =ifelse(rep(params$zoom.left, 2), c(0, 0), c(1, 1)),
           y1 = zoom_prop,
-          x1 = c(1, 1),
+          x1 = ifelse(rep(params$zoom.left, 2), c(1, 1), c(0, 0)),
           gp = gpar(
             col = theme$zoom.y$colour,
             lty = theme$zoom.y$linetype,
@@ -295,10 +298,10 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       space.y <- theme$panel.spacing.y
       if (is.null(space.y)) space.y <- theme$panel.spacing
       space.y <- unit(5 * as.numeric(convertUnit(space.y, 'cm')), 'cm')
-      final <- gtable_add_cols(panelGrobs[[3]], space.x)
-      final <- cbind(final, panelGrobs[[1]], size = 'first')
-      final_tmp <- gtable_add_cols(panelGrobs[[4]], space.x)
-      final_tmp <- cbind(final_tmp, panelGrobs[[2]], size = 'first')
+      final <- gtable_add_cols(panelGrobs[[ifelse(params$zoom.left,3,1)]], space.x)
+      final <- cbind(final, panelGrobs[[ifelse(params$zoom.left,1,3)]], size = 'first')
+      final_tmp <- gtable_add_cols(panelGrobs[[ifelse(params$zoom.left,4,2)]], space.x)
+      final_tmp <- cbind(final_tmp, panelGrobs[[ifelse(params$zoom.left,2,4)]], size = 'first')
       final <- gtable_add_rows(final, space.y)
       final <- rbind(final, final_tmp, size = 'first')
       final <- gtable_add_grob(final, list(indicator_h, indicator_h), c(2, 6), 3,
@@ -315,13 +318,17 @@ FacetZoom <- ggproto('FacetZoom', Facet,
         unit(max_height(list(axes$x[[2]]$bottom, axes$x[[4]]$bottom)), 'cm')
       )
       widths <- unit.c(
-        unit(max_width(list(axes$y[[3]]$left, axes$y[[4]]$left)), 'cm'),
+        unit(max_width(list(axes$y[[ifelse(params$zoom.left,3,1)]]$left, 
+                            axes$y[[ifelse(params$zoom.left,4,2)]]$left)), 'cm'),
         unit(params$zoom.size, 'null'),
-        unit(max_width(list(axes$y[[3]]$right, axes$y[[4]]$right)), 'cm'),
+        unit(max_width(list(axes$y[[ifelse(params$zoom.left,3,1)]]$right, 
+                            axes$y[[ifelse(params$zoom.left,4,2)]]$right)), 'cm'),
         space.x,
-        unit(max_width(list(axes$y[[1]]$left, axes$y[[2]]$left)), 'cm'),
+        unit(max_width(list(axes$y[[ifelse(params$zoom.left,1,3)]]$left, 
+                            axes$y[[ifelse(params$zoom.left,2,4)]]$left)), 'cm'),
         unit(1, 'null'),
-        unit(max_width(list(axes$y[[1]]$right, axes$y[[2]]$right)), 'cm')
+        unit(max_width(list(axes$y[[ifelse(params$zoom.left,1,3)]]$right, 
+                            axes$y[[ifelse(params$zoom.left,2,4)]]$right)), 'cm')
       )
       final$heights <- heights
       final$widths <- widths
@@ -335,8 +342,8 @@ FacetZoom <- ggproto('FacetZoom', Facet,
           unit(1, 'null'),
           unit(max_height(list(axes$x[[1]]$bottom, axes$x[[2]]$bottom)), 'cm')
         )
-        final <- gtable_add_cols(panelGrobs[[2]], space)
-        final <- cbind(final, panelGrobs[[1]], size = 'first')
+        final <- gtable_add_cols(panelGrobs[[ifelse(params$zoom.left,2,1)]], space)
+        final <- cbind(final, panelGrobs[[ifelse(params$zoom.left,1,2)]], size = 'first')
         final$heights <- heights
         final$widths[panel_cols(final)$l] <- unit(c(params$zoom.size, 1), 'null')
         final <- gtable_add_grob(final, indicator_h, 2, 3, 2, 5, z = -Inf,
