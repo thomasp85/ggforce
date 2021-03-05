@@ -46,6 +46,9 @@ full data panel? Defaults to \code{TRUE}.}
 \item{shrink}{If \code{TRUE}, will shrink scales to fit output of
 statistics, not raw data. If \code{FALSE}, will be range of raw data
 before statistical summary.}
+
+\item{zoom.left}{Should the zoom are be drawn left to the full data panel?
+Defaults to \code{True}}
 }
 \description{
 This facetting provides the means to zoom in on a subset of the data, while
