@@ -1,4 +1,4 @@
-# ggforce (development version)
+# ggforce 0.3.3
 
 - Changed documentation to comply with new units package
 
