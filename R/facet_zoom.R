@@ -301,7 +301,8 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       final <- gtable_add_cols(panelGrobs[[ifelse(params$zoom.left, 3, 1)]], space.x)
       final <- cbind(final, panelGrobs[[ifelse(params$zoom.left, 1, 3)]], size = 'first')
       final_tmp <- gtable_add_cols(panelGrobs[[ifelse(params$zoom.left, 4, 2)]], space.x)
-      final_tmp <- cbind(final_tmp, panelGrobs[[ifelse(params$zoom.left, 2, 4)]], size = 'first')      final <- gtable_add_rows(final, space.y)
+      final_tmp <- cbind(final_tmp, panelGrobs[[ifelse(params$zoom.left, 2, 4)]], size = 'first')      
+      final <- gtable_add_rows(final, space.y)
       final <- rbind(final, final_tmp, size = 'first')
       final <- gtable_add_grob(final, list(indicator_h, indicator_h), c(2, 6), 3,
                                c(2, 6), 5, z = -Inf, name = 'zoom-indicator')
