@@ -1,11 +1,12 @@
-This is a small patch release that allows ggforce to pass check, even when V8 is
-not available, as requested by CRAN. It does not contain any breaking changes
-or new features beyond this small change
+This is a small patch release that updates the units examples to work with the
+recent version. There are no new features or breaking changes
 
 ## Test environments
-* local R installation, R 4.0.1
-* ubuntu 16.04 (on travis-ci), R 4.0.1
-* win-builder (devel)
+
+* GitHub Actions (ubuntu-16.04): devel, release, oldrel, 3.5, 3.4, 3.3
+* GitHub Actions (windows): release, oldrel
+* GitHub Actions (macOS): release
+* win-builder: devel
 
 ## R CMD check results
 
