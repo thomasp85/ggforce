@@ -15,7 +15,8 @@ facet_zoom(
   horizontal = TRUE,
   zoom.size = 2,
   show.area = TRUE,
-  shrink = TRUE
+  shrink = TRUE,
+  zoom.left = TRUE
 )
 }
 \arguments{
@@ -47,7 +48,7 @@ full data panel? Defaults to \code{TRUE}.}
 statistics, not raw data. If \code{FALSE}, will be range of raw data
 before statistical summary.}
 
-\item{zoom.left}{Should the zoom are be drawn left to the full data panel?
+\item{zoom.left}{Should the zoom area be drawn left to the full data panel?
 Defaults to \code{True}}
 }
 \description{
