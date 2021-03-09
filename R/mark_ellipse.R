@@ -12,7 +12,7 @@
 #' @inheritSection geom_mark_circle Annotation
 #' @inheritSection geom_mark_circle Filtering
 #' @section Aesthetics:
-#' `geom_mark_ellipse` understand the following aesthetics (required aesthetics are
+#' `geom_mark_ellipse` understands the following aesthetics (required aesthetics are
 #' in bold):
 #'
 #' - **x**
@@ -29,9 +29,9 @@
 #'
 #' @inheritParams geom_mark_circle
 #'
-#' @param n The number of points used to draw each circle. Defaults to `100`
+#' @param n The number of points used to draw each circle. Defaults to `100`.
 #' @param tol The tolerance cutoff. Lower values will result in ellipses closer
-#' to the optimal solution. Defaults to `0.01`
+#' to the optimal solution. Defaults to `0.01`.
 #'
 #' @family mark geoms
 #'
