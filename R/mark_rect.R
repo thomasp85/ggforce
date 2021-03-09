@@ -1,13 +1,13 @@
 #' Annotate areas with rectangles
 #'
 #' This geom lets you annotate sets of points via rectangles. The rectangles are
-#' simply scaled to the range of the data and as with the the other
+#' simply scaled to the range of the data and as with the other
 #' `geom_mark_*()` geoms expanded and have rounded corners.
 #'
 #' @inheritSection geom_mark_circle Annotation
 #' @inheritSection geom_mark_circle Filtering
 #' @section Aesthetics:
-#' geom_mark_rect understand the following aesthetics (required aesthetics are
+#' `geom_mark_rect` understands the following aesthetics (required aesthetics are
 #' in bold):
 #'
 #' - **x**
