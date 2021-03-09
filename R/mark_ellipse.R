@@ -29,7 +29,7 @@
 #'
 #' @inheritParams geom_mark_circle
 #'
-#' @param n The number of points used to draw each circle. Defaults to `100`.
+#' @param n The number of points used to draw each ellipse. Defaults to `100`.
 #' @param tol The tolerance cutoff. Lower values will result in ellipses closer
 #' to the optimal solution. Defaults to `0.01`.
 #'
