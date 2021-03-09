@@ -7,7 +7,7 @@
 #' to better enclose the points.
 #'
 #' @section Annotation:
-#' All `geom_mark_*` allows you to put descriptive textboxes connected to the
+#' All `geom_mark_*` allow you to put descriptive textboxes connected to the
 #' mark on the plot, using the `label` and `description` aesthetics. The
 #' textboxes are automatically placed close to the mark, but without obscuring
 #' any of the datapoints in the layer. The placement is dynamic so if you resize
@@ -47,14 +47,14 @@
 #'
 #' @inheritParams geom_shape
 #'
-#' @param n The number of points used to draw each circle. Defaults to `100`
+#' @param n The number of points used to draw each circle. Defaults to `100`.
 #' @param label.margin The margin around the annotation boxes, given by a call
-#' to [ggplot2::margin()]
+#' to [ggplot2::margin()].
 #' @param label.width A fixed width for the label. Set to `NULL` to let the text
-#' or `label.minwidth` decide
+#' or `label.minwidth` decide.
 #' @param label.minwidth The minimum width to provide for the description. If
-#' the size of the label exceeds this, the the description is allowed to fill as
-#' much as the label
+#' the size of the label exceeds this, the description is allowed to fill as
+#' much as the label.
 #' @param label.fontsize The size of the text for the annotation. If it contains
 #' two elements the first will be used for the label and the second for the
 #' description.
@@ -77,17 +77,17 @@
 #' @param label.buffer The size of the region around the mark where labels
 #' cannot be placed.
 #' @param con.colour The colour for the line connecting the annotation to the
-#' mark
-#' @param con.size The width of the connector
+#' mark.
+#' @param con.size The width of the connector.
 #' @param con.type The type of the connector. Either `"elbow"`, `"straight"`, or
 #' `"none"`.
-#' @param con.linetype The linetype of the connector
+#' @param con.linetype The linetype of the connector.
 #' @param con.border The bordertype of the connector. Either `"one"` (to draw a
 #' line on the horizontal side closest to the mark), `"all"` (to draw a border
-#' on all sides), or `"none"` (not going to explain that one)
+#' on all sides), or `"none"` (not going to explain that one).
 #' @param con.cap The distance before the mark that the line should stop at.
 #' @param con.arrow An arrow specification for the connection using
-#' [grid::arrow()] for the end pointing towards the mark
+#' [grid::arrow()] for the end pointing towards the mark.
 #'
 #' @family mark geoms
 #'
