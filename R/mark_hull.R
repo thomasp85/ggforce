@@ -12,7 +12,7 @@
 #' @inheritSection geom_mark_circle Annotation
 #' @inheritSection geom_mark_circle Filtering
 #' @section Aesthetics:
-#' geom_mark_hull understand the following aesthetics (required aesthetics are
+#' `geom_mark_hull` understand the following aesthetics (required aesthetics are
 #' in bold):
 #'
 #' - **x**
