@@ -359,7 +359,7 @@ makeContent.circ_enc <- function(x) {
   mark$x <- unit(circles$x, 'mm')
   mark$y <- unit(circles$y, 'mm')
   mark$id <- circles$id
-  if (inherits(mark, 'shape')) mark <- makeContent(mark)
+  # if (inherits(mark, 'shape')) mark <- makeContent(mark)
   if (!is.null(x$label)) {
     polygons <- Map(function(x, y) list(x = x, y = y),
       x = split(as.numeric(mark$x), mark$id),
