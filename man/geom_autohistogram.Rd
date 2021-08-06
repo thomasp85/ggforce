@@ -55,7 +55,7 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{Use to override the default connection between
-\code{geom_density()} and \code{stat_density()}.}
+\code{geom_density} and \code{stat_density}.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
