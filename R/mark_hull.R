@@ -306,7 +306,7 @@ makeContent.hull_enc <- function(x) {
   polygons <- do.call(rbind, polygons)
   mark$x <- unit(polygons[, 1], 'mm')
   mark$y <- unit(polygons[, 2], 'mm')
-  # if (inherits(mark, 'shape')) mark <- makeContent(mark)
+  if (inherits(mark, 'shape')) mark <- makeContent(mark)
   if (!is.null(x$label)) {
     polygons <- Map(function(x, y) list(x = x, y = y),
       x = split(as.numeric(mark$x), mark$id),
