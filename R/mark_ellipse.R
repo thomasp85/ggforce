@@ -308,7 +308,7 @@ makeContent.ellip_enc <- function(x) {
   mark$x <- unit(ellipses$x, 'mm')
   mark$y <- unit(ellipses$y, 'mm')
   mark$id <- ellipses$id
-  if (inherits(mark, 'shape')) mark <- makeContent(mark)
+  if (inherits(mark, 'shape')) makeContent(mark)
   if (!is.null(x$label)) {
     polygons <- Map(function(x, y) list(x = x, y = y),
       x = split(as.numeric(mark$x), mark$id),
