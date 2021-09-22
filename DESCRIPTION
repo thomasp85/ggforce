@@ -1,7 +1,7 @@
 Package: ggforce
 Type: Package
 Title: Accelerating 'ggplot2'
-Version: 0.3.2.9000
+Version: 0.3.3.9000
 Authors@R: 
     c(person(given = "Thomas Lin",
              family = "Pedersen",
