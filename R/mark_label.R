@@ -44,8 +44,14 @@ place_labels <- function(rects, polygons, bounds, anchors, ghosts) {
 #' @importFrom grid convertWidth convertHeight nullGrob polylineGrob
 make_label <- function(labels, dims, polygons, ghosts, buffer, con_type,
                        con_border, con_cap, con_gp, anchor_mod, arrow) {
+  if (length(polygons[[1]]$x) == 1 & length(polygons[[1]]$y) == 1) {
+    polygons[[1]]$x <- runif(200, polygons[[1]]$x-0.00005, polygons[[1]]$x+0.00005)
+    polygons[[1]]$y <- runif(200, polygons[[1]]$y-0.00005, polygons[[1]]$y+0.00005)
+  }
+
   anchors <- lapply(polygons, function(p) c(mean(range(p$x)), mean(range(p$y))))
   p_big <- polyoffset(polygons, convertWidth(buffer, 'mm', TRUE))
+
   area <- c(
     convertWidth(unit(1, 'npc'), 'mm', TRUE),
     convertHeight(unit(1, 'npc'), 'mm', TRUE)
