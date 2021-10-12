@@ -50,6 +50,11 @@ make_label <- function(labels, dims, polygons, ghosts, buffer, con_type,
                 x = runif(200, p$x-0.00005, p$x+0.00005),
                 y = runif(200, p$y-0.00005, p$y+0.00005)
             )
+        } else {
+            list(
+                x = p$x,
+                y = p$y
+            )
         }
     })
 
