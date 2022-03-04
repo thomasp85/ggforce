@@ -280,7 +280,7 @@ StatSina <- ggproto('StatSina', Stat,
 
 #' @rdname geom_sina
 #' @export
-stat_sina <- function(mapping = NULL, data = NULL, geom = 'sina',
+stat_sina <- function(mapping = NULL, data = NULL, geom = 'point',
                       position = 'dodge', scale = 'area', method = 'density',
                       bw = 'nrd0', kernel = 'gaussian', maxwidth = NULL,
                       adjust = 1, bin_limit = 1, binwidth = NULL, bins = NULL,
