@@ -35,6 +35,8 @@
 #' @param sep The proportional separation between categories within a variable
 #' @param axis.width The width of the area around each variable axis
 #' @param angle The angle of the axis label text
+#' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
+#' Useful for offsetting text from the category segments.
 #'
 #' @name geom_parallel_sets
 #' @rdname geom_parallel_sets
@@ -49,6 +51,12 @@
 #'   geom_parallel_sets(aes(fill = Sex), alpha = 0.3, axis.width = 0.1) +
 #'   geom_parallel_sets_axes(axis.width = 0.1) +
 #'   geom_parallel_sets_labels(colour = 'white')
+#'
+#' # Use nudge_x to offset and hjust = 0 to left-justify label
+#' ggplot(data, aes(x, id = id, split = y, value = value)) +
+#'   geom_parallel_sets(aes(fill = Sex), alpha = 0.3, axis.width = 0.1) +
+#'   geom_parallel_sets_axes(axis.width = 0.1) +
+#'   geom_parallel_sets_labels(colour = 'red', angle = 0, nudge_x = 0.1, hjust = 0)
 NULL
 
 #' @rdname ggforce-extensions
@@ -215,9 +223,15 @@ geom_parallel_sets_axes <- function(mapping = NULL, data = NULL,
 #' @export
 geom_parallel_sets_labels <- function(mapping = NULL, data = NULL,
                                       stat = 'parallel_sets_axes', angle = -90,
+				      nudge_x = 0, nudge_y = 0,
                                       position = 'identity', na.rm = FALSE,
                                       show.legend = NA, inherit.aes = TRUE,
                                       ...) {
+  if (!missing(nudge_x) || !missing(nudge_y)) {
+    if (!missing(position)) die("You must specify either `position` or `nudge_x`/`nudge_y`.")
+    position <- position_nudge(nudge_x, nudge_y)
+  }
+
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomText,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
