@@ -110,6 +110,7 @@ reference:
       - geom_sina
       - geom_autopoint
       - geom_autodensity
+      - label_tex
       - position_auto
       - position_jitternormal
       - gather_set_data
