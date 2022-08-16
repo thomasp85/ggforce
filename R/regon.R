@@ -10,11 +10,11 @@
 #' geom_regon understand the following aesthetics (required aesthetics are in
 #' bold):
 #'
-#' - **x0**
-#' - **y0**
-#' - **sides**
-#' - **r**
-#' - **angle**
+#' - **x0** x coordinate
+#' - **y0** y coordinate
+#' - **sides** the number of sides for regon
+#' - **r** the ratio of regon with respect to plot
+#' - **angle** regon rotation angle (unit is radian)
 #' - color
 #' - fill
 #' - size
@@ -60,7 +60,7 @@ StatRegon <- ggproto('StatRegon', Stat,
       if (n %% 2 == 0) p <- p + p[2] / 2
       p * 2 * pi
     }))
-    data$group <- make.unique(as.character(data$group))
+    data$group <- make_unique(as.character(data$group))
     data <- data[rep(seq_len(nrow(data)), data$sides), ]
     x_tmp <- sin(pos) * data$r
     y_tmp <- cos(pos) * data$r

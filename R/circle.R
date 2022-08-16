@@ -51,7 +51,7 @@ NULL
 #'   r = seq(0.1, 1, length.out = 9)
 #' )
 #'
-#' # Behold the some circles
+#' # Behold some circles
 #' ggplot() +
 #'   geom_circle(aes(x0 = x0, y0 = y0, r = r, fill = r), data = circles)
 #'

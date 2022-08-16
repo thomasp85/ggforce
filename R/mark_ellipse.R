@@ -1,7 +1,7 @@
 #' Annotate areas with ellipses
 #'
 #' This geom lets you annotate sets of points via ellipses. The enclosing
-#' ellipses are estimated using the Khachiyan algorithm which guarantees and
+#' ellipses are estimated using the Khachiyan algorithm which guarantees an
 #' optimal solution within the given tolerance level. As this geom is often
 #' expanded it is of lesser concern that some points are slightly outside the
 #' ellipsis. The Khachiyan algorithm has polynomial complexity and can thus
@@ -12,7 +12,7 @@
 #' @inheritSection geom_mark_circle Annotation
 #' @inheritSection geom_mark_circle Filtering
 #' @section Aesthetics:
-#' geom_mark_ellipse understand the following aesthetics (required aesthetics are
+#' `geom_mark_ellipse` understands the following aesthetics (required aesthetics are
 #' in bold):
 #'
 #' - **x**
@@ -29,9 +29,9 @@
 #'
 #' @inheritParams geom_mark_circle
 #'
-#' @param n The number of points used to draw each circle. Defaults to `100`
+#' @param n The number of points used to draw each ellipse. Defaults to `100`.
 #' @param tol The tolerance cutoff. Lower values will result in ellipses closer
-#' to the optimal solution. Defaults to `0.01`
+#' to the optimal solution. Defaults to `0.01`.
 #'
 #' @family mark geoms
 #'
@@ -308,7 +308,7 @@ makeContent.ellip_enc <- function(x) {
   mark$x <- unit(ellipses$x, 'mm')
   mark$y <- unit(ellipses$y, 'mm')
   mark$id <- ellipses$id
-  if (inherits(mark, 'shape')) mark <- makeContent(mark)
+  if (inherits(mark, 'shape')) makeContent(mark)
   if (!is.null(x$label)) {
     polygons <- Map(function(x, y) list(x = x, y = y),
       x = split(as.numeric(mark$x), mark$id),

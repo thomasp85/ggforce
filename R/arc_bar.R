@@ -185,13 +185,23 @@ geom_arc_bar <- function(mapping = NULL, data = NULL, stat = 'arc_bar',
   )
 }
 
+# This function is like base::make.unique, but it
+# maintains the ordering of the original names if the values
+# are sorted.
+
+make_unique <- function(names, sep = ".") {
+  n <- length(names)
+  width <- floor(log10(n)) + 1
+  sprintf("%s%s%0*d", names, sep, width, seq_len(n))
+}
+
 arcPaths <- function(data, n) {
   trans <- radial_trans(c(0, 1), c(0, 2 * pi), pad = 0)
   data <- data[data$start != data$end, ]
   data$nControl <- ceiling(n / (2 * pi) * abs(data$end - data$start))
   data$nControl[data$nControl < 3] <- 3
   extraData <- !names(data) %in% c('r0', 'r', 'start', 'end', 'group')
-  data$group <- make.unique(as.character(data$group))
+  data$group <- make_unique(as.character(data$group))
   paths <- lapply(seq_len(nrow(data)), function(i) {
     path <- data.frame(
       a = seq(data$start[i], data$end[i], length.out = data$nControl[i]),

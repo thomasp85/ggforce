@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples
-#' # Power of 5 transformations
+#' # Power of 2 transformations
 #' trans <- power_trans(2)
 #' trans$transform(1:10)
 #'

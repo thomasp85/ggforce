@@ -1,6 +1,8 @@
 # ggforce 0.3.3
 
 - Changed documentation to comply with new units package
+- Fixed unintentional re-ordering of shapes (#224)
+- Deprecate `scale_[x|y]_unit` in favor of `units::scale_[x|y]_units`
 
 # ggforce 0.3.2
 

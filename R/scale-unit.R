@@ -42,6 +42,7 @@ scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
                          limits = NULL, expand = waiver(), oob = censor,
                          na.value = NA_real_, trans = 'identity',
                          position = 'bottom', sec.axis = waiver()) {
+  .Deprecated("units::scale_x_units", old="scale_x_unit")
   try_require('units', 'scale_x_unit')
   sc <- continuous_scale(
     c('x', 'xmin', 'xmax', 'xend', 'xintercept', 'xmin_final', 'xmax_final',
@@ -79,6 +80,7 @@ scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
                          limits = NULL, expand = waiver(), oob = censor,
                          na.value = NA_real_, trans = 'identity',
                          position = 'left', sec.axis = waiver()) {
+  .Deprecated("units::scale_y_units", old="scale_y_unit")
   try_require('units', 'scale_y_unit')
   sc <- continuous_scale(
     c('y', 'ymin', 'ymax', 'yend', 'yintercept', 'ymin_final', 'ymax_final',
@@ -112,6 +114,7 @@ scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
+# .Deprecated - remove after next release
 ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleContinuousPosition,
   unit = NULL,
 
@@ -141,4 +144,5 @@ ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleConti
 #' @format NULL
 #' @usage NULL
 #' @export
+# .Deprecated - remove after next release
 scale_type.units <- function(x) c('unit', 'continuous')

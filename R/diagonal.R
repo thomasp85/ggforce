@@ -98,7 +98,7 @@ StatDiagonal <- ggproto('StatDiagonal', Stat,
   },
   compute_panel = function(data, scales, n = 100, strength = 0.5) {
     if (is.null(data)) return(data)
-    data$group <- make.unique(as.character(data$group))
+    data$group <- make_unique(as.character(data$group))
     end <- data
     end$x <- end$xend
     end$y <- end$yend
@@ -184,7 +184,7 @@ geom_diagonal2 <- function(mapping = NULL, data = NULL, stat = 'diagonal2',
 StatDiagonal0 <- ggproto('StatDiagonal0', Stat,
   compute_panel = function(data, scales, strength = 0.5) {
     if (is.null(data)) return(data)
-    data$group <- make.unique(as.character(data$group))
+    data$group <- make_unique(as.character(data$group))
     end <- data
     end$x <- end$xend
     end$y <- end$yend

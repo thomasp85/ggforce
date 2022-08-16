@@ -12,7 +12,7 @@
 #' @inheritSection geom_mark_circle Annotation
 #' @inheritSection geom_mark_circle Filtering
 #' @section Aesthetics:
-#' geom_mark_hull understand the following aesthetics (required aesthetics are
+#' `geom_mark_hull` understand the following aesthetics (required aesthetics are
 #' in bold):
 #'
 #' - **x**
@@ -29,8 +29,8 @@
 #'
 #' @inheritParams geom_mark_circle
 #'
-#' @param concavity A meassure of the concavity of the hull. `1` is very concave
-#' while it approaches convex as it grows. Defaults to `2`
+#' @param concavity A measure of the concavity of the hull. `1` is very concave
+#' while it approaches convex as it grows. Defaults to `2`.
 #'
 #' @family mark geoms
 #' @name geom_mark_hull
@@ -306,7 +306,7 @@ makeContent.hull_enc <- function(x) {
   polygons <- do.call(rbind, polygons)
   mark$x <- unit(polygons[, 1], 'mm')
   mark$y <- unit(polygons[, 2], 'mm')
-  if (inherits(mark, 'shape')) mark <- makeContent(mark)
+  if (inherits(mark, 'shape')) makeContent(mark)
   if (!is.null(x$label)) {
     polygons <- Map(function(x, y) list(x = x, y = y),
       x = split(as.numeric(mark$x), mark$id),

@@ -65,9 +65,9 @@ StatAutobin <- ggproto('StatAutobin', StatBin,
     if (is.null(params$bins)) params$bins <- 30
     params$panel_range <- lapply(split(data$y, data$PANEL), function(y) {
       if (length(y) == 0) return()
-      range(y)
+      range(y, na.rm=TRUE)
     })
-    params$panel_count <- lapply(split(data$y, data$PANEL), length)
+    params$panel_count <- lapply(split(data$y, data$PANEL), function(y)length(y[is.finite(y)]))
 
     params
   },

@@ -84,7 +84,8 @@ FacetWrapPaginate <- ggproto('FacetWrapPaginate', FacetWrap,
       spacing <- theme$panel.spacing.y %||% theme$panel.spacing
       missing_rows <- params$max_rows - max(layout$ROW)
       strip_rows <- unique(table$layout$t[grepl('strip', table$layout$name) & table$layout$l %in% panel_cols(table)$l])
-      strip_rows <- strip_rows[as.numeric(table$heights[strip_rows]) != 0]
+      if (length(strip_rows) != 0)
+          strip_rows <- strip_rows[as.numeric(table$heights[strip_rows]) != 0]
       axis_b_rows <- unique(table$layout$t[grepl('axis-b', table$layout$name)])
       axis_b_rows <- axis_b_rows[as.numeric(table$heights[axis_b_rows]) != 0]
       axis_t_rows <- unique(table$layout$t[grepl('axis-t', table$layout$name)])
@@ -107,7 +108,8 @@ FacetWrapPaginate <- ggproto('FacetWrapPaginate', FacetWrap,
       spacing <- theme$panel.spacing.x %||% theme$panel.spacing
       missing_cols <- params$ncol - max(layout$COL)
       strip_cols <- unique(table$layout$t[grepl('strip', table$layout$name) & table$layout$t %in% panel_rows(table)$t])
-      strip_cols <- strip_cols[as.numeric(table$widths[strip_cols]) != 0]
+      if (length(strip_cols) != 0) 
+          strip_cols <- strip_cols[as.numeric(table$widths[strip_cols]) != 0]
       axis_l_cols <- unique(table$layout$l[grepl('axis-l', table$layout$name)])
       axis_l_cols <- axis_l_cols[as.numeric(table$widths[axis_l_cols]) != 0]
       axis_r_cols <- unique(table$layout$l[grepl('axis-r', table$layout$name)])
