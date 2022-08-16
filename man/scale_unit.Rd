@@ -3,152 +3,18 @@
 \name{scale_unit}
 \alias{scale_x_unit}
 \alias{scale_y_unit}
-\alias{scale_type.units}
 \title{Position scales for units data}
 \usage{
-scale_x_unit(
-  name = waiver(),
-  breaks = waiver(),
-  unit = NULL,
-  minor_breaks = waiver(),
-  labels = waiver(),
-  limits = NULL,
-  expand = waiver(),
-  oob = censor,
-  na.value = NA_real_,
-  trans = "identity",
-  position = "bottom",
-  sec.axis = waiver()
-)
+scale_x_unit(...)
 
-scale_y_unit(
-  name = waiver(),
-  breaks = waiver(),
-  unit = NULL,
-  minor_breaks = waiver(),
-  labels = waiver(),
-  limits = NULL,
-  expand = waiver(),
-  oob = censor,
-  na.value = NA_real_,
-  trans = "identity",
-  position = "left",
-  sec.axis = waiver()
-)
+scale_y_unit(...)
 }
 \arguments{
-\item{name}{The name of the scale. Used as the axis or legend title. If
-\code{waiver()}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic. If \code{NULL}, the legend title will be
-omitted.}
-
-\item{breaks}{One of:
-\itemize{
-\item \code{NULL} for no breaks
-\item \code{waiver()} for the default breaks computed by the
-\link[scales:trans_new]{transformation object}
-\item A numeric vector of positions
-\item A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
-Also accepts rlang \link[rlang:as_function]{lambda} function notation.
-}}
-
-\item{unit}{A unit specification to use for the axis. If given, the values
-will be converted to this unit before plotting. An error will be thrown if
-the specified unit is incompatible with the unit of the data.}
-
-\item{minor_breaks}{One of:
-\itemize{
-\item \code{NULL} for no minor breaks
-\item \code{waiver()} for the default breaks (one minor break between
-each major break)
-\item A numeric vector of positions
-\item A function that given the limits returns a vector of minor breaks. Also
-accepts rlang \link[rlang:as_function]{lambda} function notation.
-}}
-
-\item{labels}{One of:
-\itemize{
-\item \code{NULL} for no labels
-\item \code{waiver()} for the default labels computed by the
-transformation object
-\item A character vector giving labels (must be same length as \code{breaks})
-\item A function that takes the breaks as input and returns labels
-as output. Also accepts rlang \link[rlang:as_function]{lambda} function
-notation.
-}}
-
-\item{limits}{One of:
-\itemize{
-\item \code{NULL} to use the default scale range
-\item A numeric vector of length two providing limits of the scale.
-Use \code{NA} to refer to the existing minimum or maximum
-\item A function that accepts the existing (automatic) limits and returns
-new limits. Also accepts rlang \link[rlang:as_function]{lambda} function
-notation.
-Note that setting limits on positional scales will \strong{remove} data outside of the limits.
-If the purpose is to zoom, use the limit argument in the coordinate system
-(see \code{\link[ggplot2:coord_cartesian]{coord_cartesian()}}).
-}}
-
-\item{expand}{For position scales, a vector of range expansion constants used to add some
-padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link[ggplot2:expansion]{expansion()}}
-to generate the values for the \code{expand} argument. The defaults are to
-expand the scale by 5\% on each side for continuous variables, and by
-0.6 units on each side for discrete variables.}
-
-\item{oob}{One of:
-\itemize{
-\item Function that handles limits outside of the scale limits
-(out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
-function notation.
-\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
-bounds values with \code{NA}.
-\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
-}}
-
-\item{na.value}{Missing values will be replaced with this value.}
-
-\item{trans}{For continuous scales, the name of a transformation object
-or the object itself. Built-in transformations include "asn", "atanh",
-"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
-"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
-"reverse", "sqrt" and "time".
-
-A transformation object bundles together a transform, its inverse,
-and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
-\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
-transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
-
-\item{position}{For position scales, The position of the axis.
-\code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
-
-\item{sec.axis}{\code{\link[ggplot2:sec_axis]{sec_axis()}} is used to specify a secondary axis.}
+\item{...}{Passed on to \code{units::scale_x_unit()} or \code{units::scale_y_unit()}}
 }
 \description{
-These are the default scales for the units class. These will
-usually be added automatically. To override manually, use
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} These are the default scales for the units
+class. These will usually be added automatically. To override manually, use
 \verb{scale_*_unit}.
 }
-\examples{
-library(units)
-mtcars$consumption <- set_units(mtcars$mpg, mi / gallon)
-mtcars$power <- set_units(mtcars$hp, hp)
-
-# Use units encoded into the data
-ggplot(mtcars) +
-  geom_point(aes(power, consumption))
-
-# Convert units on the fly during plotting
-ggplot(mtcars) +
-  geom_point(aes(power, consumption)) +
-  scale_x_unit(unit = 'W') +
-  scale_y_unit(unit = 'km/l')
-
-# Resolve units when transforming data
-ggplot(mtcars) +
-  geom_point(aes(power, 1 / consumption))
-}
+\keyword{internal}

@@ -1,4 +1,5 @@
 #' @rdname geom_autohistogram
+#' @inheritParams ggplot2::geom_point
 #' @inheritParams ggplot2::geom_density
 #' @export
 geom_autodensity <- function(mapping = NULL, data = NULL,

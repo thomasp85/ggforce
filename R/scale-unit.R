@@ -1,148 +1,29 @@
 #' Position scales for units data
 #'
-#' These are the default scales for the units class. These will
-#' usually be added automatically. To override manually, use
+#' `r lifecycle::badge('deprecated')` These are the default scales for the units
+#' class. These will usually be added automatically. To override manually, use
 #' `scale_*_unit`.
 #'
-#' @inheritParams ggplot2::continuous_scale
-#' @inheritParams ggplot2::scale_x_continuous
-#'
-#' @param unit A unit specification to use for the axis. If given, the values
-#' will be converted to this unit before plotting. An error will be thrown if
-#' the specified unit is incompatible with the unit of the data.
+#' @param ... Passed on to `units::scale_x_unit()` or `units::scale_y_unit()`
 #'
 #' @name scale_unit
 #' @aliases NULL
-#'
-#' @examples
-#' library(units)
-#' mtcars$consumption <- set_units(mtcars$mpg, mi / gallon)
-#' mtcars$power <- set_units(mtcars$hp, hp)
-#'
-#' # Use units encoded into the data
-#' ggplot(mtcars) +
-#'   geom_point(aes(power, consumption))
-#'
-#' # Convert units on the fly during plotting
-#' ggplot(mtcars) +
-#'   geom_point(aes(power, consumption)) +
-#'   scale_x_unit(unit = 'W') +
-#'   scale_y_unit(unit = 'km/l')
-#'
-#' # Resolve units when transforming data
-#' ggplot(mtcars) +
-#'   geom_point(aes(power, 1 / consumption))
+#' @keywords internal
 NULL
 
 #' @rdname scale_unit
 #' @export
 #' @importFrom scales censor
-scale_x_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
-                         minor_breaks = waiver(), labels = waiver(),
-                         limits = NULL, expand = waiver(), oob = censor,
-                         na.value = NA_real_, trans = 'identity',
-                         position = 'bottom', sec.axis = waiver()) {
-  .Deprecated("units::scale_x_units", old="scale_x_unit")
+scale_x_unit <- function(...) {
+  lifecycle::deprecate_soft('0.3.4', "scale_x_unit()", "units::scale_x_unit()")
   try_require('units', 'scale_x_unit')
-  sc <- continuous_scale(
-    c('x', 'xmin', 'xmax', 'xend', 'xintercept', 'xmin_final', 'xmax_final',
-      'xlower', 'xmiddle', 'xupper'),
-    'position_c', identity,
-    name = name, breaks = breaks,
-    minor_breaks = minor_breaks, labels = labels, limits = limits,
-    expand = expand, oob = oob, na.value = na.value, trans = trans,
-    guide = default_axis_guide, position = position, super = ScaleContinuousPositionUnit
-  )
-  sc$unit <- switch(
-    class(unit),
-    symbolic_units = ,
-    'NULL' = unit,
-    character = units::as_units(unit),
-    units = units(unit),
-    stop('unit must either be NULL or of class `units` or `symbolic_units`',
-         call. = FALSE)
-  )
-  if (!inherits(sec.axis, 'waiver')) {
-    if (inherits(sec.axis, 'formula')) sec.axis <- sec_axis(sec.axis)
-    if (!inherits(sec.axis, 'AxisSecondary')) {
-      stop('Secondary axes must be specified using \'sec_axis()\'',
-           call. = FALSE)
-    }
-    sc$secondary.axis <- sec.axis
-  }
-  sc
+  units::scale_x_units(...)
 }
 #' @rdname scale_unit
 #' @export
 #' @importFrom scales censor
-scale_y_unit <- function(name = waiver(), breaks = waiver(), unit = NULL,
-                         minor_breaks = waiver(), labels = waiver(),
-                         limits = NULL, expand = waiver(), oob = censor,
-                         na.value = NA_real_, trans = 'identity',
-                         position = 'left', sec.axis = waiver()) {
-  .Deprecated("units::scale_y_units", old="scale_y_unit")
+scale_y_unit <- function(...) {
+  lifecycle::deprecate_soft('0.3.4', "scale_y_unit()", "units::scale_y_unit()")
   try_require('units', 'scale_y_unit')
-  sc <- continuous_scale(
-    c('y', 'ymin', 'ymax', 'yend', 'yintercept', 'ymin_final', 'ymax_final',
-      'lower', 'middle', 'upper'),
-    'position_c', identity,
-    name = name, breaks = breaks,
-    minor_breaks = minor_breaks, labels = labels, limits = limits,
-    expand = expand, oob = oob, na.value = na.value, trans = trans,
-    guide = default_axis_guide, position = position, super = ScaleContinuousPositionUnit
-  )
-  sc$unit <- switch(
-    class(unit),
-    symbolic_units = ,
-    'NULL' = unit,
-    character = units::as_units(unit),
-    units = units(unit),
-    stop('unit must either be NULL or of class `units` or `symbolic_units`',
-         call. = FALSE)
-  )
-  if (!inherits(sec.axis, 'waiver')) {
-    if (inherits(sec.axis, 'formula')) sec.axis <- sec_axis(sec.axis)
-    if (!inherits(sec.axis, 'AxisSecondary')) {
-      stop('Secondary axes must be specified using \'sec_axis()\'',
-           call. = FALSE)
-    }
-    sc$secondary.axis <- sec.axis
-  }
-  sc
+  units::scale_y_units(...)
 }
-#' @rdname ggforce-extensions
-#' @format NULL
-#' @usage NULL
-#' @export
-# .Deprecated - remove after next release
-ScaleContinuousPositionUnit <- ggproto('ScaleContinuousPositionUnit', ScaleContinuousPosition,
-  unit = NULL,
-
-  train = function(self, x) {
-    if (length(x) == 0) return()
-    if (!is.null(self$unit)) {
-      units(x) <- units::as_units(1, self$unit)
-    }
-    self$range$train(x)
-  },
-  map = function(self, x, limits = self$get_limits()) {
-    if (inherits(x, 'units')) {
-      if (is.null(self$unit)) {
-        self$unit <- units(x)
-      } else {
-        units(x) <- units::as_units(1, self$unit)
-      }
-    }
-    x <- as.numeric(x)
-    ggproto_parent(ScaleContinuousPosition, self)$map(x, limits)
-  },
-  make_title = function(self, title) {
-    units::make_unit_label(title, units::as_units(1, self$unit))
-  }
-)
-#' @rdname scale_unit
-#' @format NULL
-#' @usage NULL
-#' @export
-# .Deprecated - remove after next release
-scale_type.units <- function(x) c('unit', 'continuous')

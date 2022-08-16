@@ -37,7 +37,8 @@ Imports:
     grDevices,
     tidyselect,
     withr,
-    utils
+    utils,
+    lifecycle
 LinkingTo: Rcpp, RcppEigen
 RoxygenNote: 7.2.1
 Suggests:
@@ -69,7 +70,7 @@ Collate:
     'facet_stereo.R'
     'facet_wrap_paginate.R'
     'facet_zoom.R'
-    'ggforce_package.R'
+    'ggforce-package.R'
     'ggproto-classes.R'
     'interpolate.R'
     'link.R'

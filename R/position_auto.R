@@ -47,6 +47,7 @@ position_auto <- function(jitter.width = 0.75, bw = 'nrd0', scale = TRUE, seed =
 #' @format NULL
 #' @usage NULL
 #' @export
+#' @importFrom withr with_seed
 PositionAuto <- ggproto('PositionAuto', Position,
   jitter.width = 0.75,
   seed = NULL,
@@ -72,7 +73,7 @@ PositionAuto <- ggproto('PositionAuto', Position,
       if (is.null(params$seed)) {
         adj <- sample_disc(length(data$x), weight)
       } else {
-        adj <- withr::with_seed(params$seed, sample_disc(length(data$x), weight))
+        adj <- with_seed(params$seed, sample_disc(length(data$x), weight))
       }
       data$x <- data$x + adj$x
       data$y <- data$y + adj$y
@@ -87,7 +88,7 @@ PositionAuto <- ggproto('PositionAuto', Position,
       if (is.null(params$seed)) {
         transform_position(data, trans_x, trans_y)
       } else {
-        withr::with_seed(params$seed, transform_position(data, trans_x, trans_y))
+        with_seed(params$seed, transform_position(data, trans_x, trans_y))
       }
     }
   }

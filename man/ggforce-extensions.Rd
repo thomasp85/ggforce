@@ -6,8 +6,7 @@
 %   R/facet_zoom.R, R/ggproto-classes.R, R/interpolate.R, R/link.R,
 %   R/mark_circle.R, R/mark_ellipse.R, R/mark_hull.R, R/mark_rect.R,
 %   R/parallel_sets.R, R/position-jitternormal.R, R/position_auto.R,
-%   R/position_floatstack.R, R/regon.R, R/scale-unit.R, R/sina.R, R/spiro.R,
-%   R/voronoi.R
+%   R/position_floatstack.R, R/regon.R, R/sina.R, R/spiro.R, R/voronoi.R
 \docType{data}
 \name{GeomShape}
 \alias{GeomShape}
@@ -60,7 +59,6 @@
 \alias{PositionAuto}
 \alias{PositionFloatstack}
 \alias{StatRegon}
-\alias{ScaleContinuousPositionUnit}
 \alias{StatSina}
 \alias{StatSpiro}
 \alias{StatVoronoiTile}

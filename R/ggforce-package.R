@@ -53,4 +53,9 @@
 #'   xlab('') + ylab('') +
 #'   ggtitle('ggforce: Accelerating ggplot2') +
 #'   theme(plot.title = element_text(size = 20))
+#' @keywords internal
 "_PACKAGE"
+
+## usethis namespace: start
+## usethis namespace: end
+NULL

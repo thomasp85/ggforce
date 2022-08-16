@@ -42,6 +42,7 @@ place_labels <- function(rects, polygons, bounds, anchors, ghosts) {
 }
 #' @importFrom polyclip polyoffset
 #' @importFrom grid convertWidth convertHeight nullGrob polylineGrob
+#' @importFrom stats runif
 make_label <- function(labels, dims, polygons, ghosts, buffer, con_type,
                        con_border, con_cap, con_gp, anchor_mod, arrow) {
     polygons <- lapply(polygons, function(p) {
