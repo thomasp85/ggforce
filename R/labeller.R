@@ -9,12 +9,14 @@
 #' @inheritDotParams ggplot2::label_parsed -labels
 #'
 #' @examples
-#' library(ggplot2)
-#' d <- data.frame(x = 1, y = 1, facet = "$\\beta$")
-#' ggplot(d, aes(x, y)) +
-#'  geom_point() +
-#'  facet_wrap(~ facet, labeller = label_tex)
-#'
+#' # requires latex2exp package be installed
+#' if (requireNamespace("latex2exp", quietly = TRUE)) {
+#'   library(ggplot2)
+#'   d <- data.frame(x = 1, y = 1, facet = "$\\beta$")
+#'   ggplot(d, aes(x, y)) +
+#'     geom_point() +
+#'     facet_wrap(~ facet, labeller = label_tex)
+#' }
 #' @importFrom ggplot2 label_parsed
 #' @export
 label_tex <- function(labels, ...) {
