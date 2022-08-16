@@ -5,9 +5,9 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/thomasp85/ggforce/workflows/R-CMD-check/badge.svg)](https://github.com/thomasp85/ggforce/actions)
-[![CRAN\_Release\_Badge](http://www.r-pkg.org/badges/version-ago/ggforce)](https://CRAN.R-project.org/package=ggforce)
-[![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/ggforce)](https://CRAN.R-project.org/package=ggforce)
+[![R-CMD-check](https://github.com/thomasp85/ggforce/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/thomasp85/ggforce/actions/workflows/R-CMD-check.yaml)
+[![CRAN_Release_Badge](http://www.r-pkg.org/badges/version-ago/ggforce)](https://CRAN.R-project.org/package=ggforce)
+[![CRAN_Download_Badge](http://cranlogs.r-pkg.org/badges/ggforce)](https://CRAN.R-project.org/package=ggforce)
 <!-- badges: end -->
 
 *Accelerating ggplot2*
@@ -18,7 +18,7 @@ Broadly speaking `ggplot2` has been aimed primarily at explorative data
 visualization in order to investigate the data at hand, and less at
 providing utilities for composing custom plots a la
 [D3.js](https://d3js.org). `ggforce` is mainly an attempt to address
-these “shortcoming” (design choices might be a better description). The
+these “shortcomings” (design choices might be a better description). The
 goal is to provide a repository of geoms, stats, etc. that are as well
 documented and implemented as the official ones found in `ggplot2`.
 

@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 # ggforce <img src="man/figures/logo.png" width="121px" height="140px" align="right" style="padding-left:10px;background-color:white;" />
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/thomasp85/ggforce/workflows/R-CMD-check/badge.svg)](https://github.com/thomasp85/ggforce/actions)
+[![R-CMD-check](https://github.com/thomasp85/ggforce/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/thomasp85/ggforce/actions/workflows/R-CMD-check.yaml)
 [![CRAN_Release_Badge](http://www.r-pkg.org/badges/version-ago/ggforce)](https://CRAN.R-project.org/package=ggforce)
 [![CRAN_Download_Badge](http://cranlogs.r-pkg.org/badges/ggforce)](https://CRAN.R-project.org/package=ggforce)
 <!-- badges: end -->
