@@ -20,7 +20,7 @@
 #' @export
 label_tex <- function(labels, ...) {
   label_parsed(
-    as.data.frame(lapply(labels, TeX, output = "character")),
+    as.data.frame(lapply(labels, latex2exp::TeX, output = "character")),
     ...
   )
 }
