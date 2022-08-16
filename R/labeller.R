@@ -15,10 +15,12 @@
 #'  geom_point() +
 #'  facet_wrap(~ facet, labeller = label_tex)
 #'
-#' @importFrom latex2exp TeX
 #' @importFrom ggplot2 label_parsed
 #' @export
 label_tex <- function(labels, ...) {
+  if (!requireNamespace("latex2exp", quiet = TRUE)) {
+    stop("The latex2exp package is needed for this functionality", call. = FALSE)
+  }
   label_parsed(
     as.data.frame(lapply(labels, latex2exp::TeX, output = "character")),
     ...
