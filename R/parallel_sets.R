@@ -228,7 +228,7 @@ geom_parallel_sets_labels <- function(mapping = NULL, data = NULL,
                                       show.legend = NA, inherit.aes = TRUE,
                                       ...) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
-    if (!missing(position)) die("You must specify either `position` or `nudge_x`/`nudge_y`.")
+    if (!missing(position)) stop("You must specify either `position` or `nudge_x`/`nudge_y`.", call. = FALSE)
     position <- position_nudge(nudge_x, nudge_y)
   }
 
