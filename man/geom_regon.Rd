@@ -87,11 +87,11 @@ of their circumcircle and is thus not proportional to their area.
 geom_regon understand the following aesthetics (required aesthetics are in
 bold):
 \itemize{
-\item \strong{x0}
-\item \strong{y0}
-\item \strong{sides}
-\item \strong{r}
-\item \strong{angle}
+\item \strong{x0} x coordinate
+\item \strong{y0} y coordinate
+\item \strong{sides} the number of sides for regon
+\item \strong{r} the ratio of regon with respect to plot
+\item \strong{angle} regon rotation angle (unit is radian)
 \item color
 \item fill
 \item size

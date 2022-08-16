@@ -17,7 +17,7 @@ This function can be used to create a proper trans object that encapsulates
 a power transformation (x^n).
 }
 \examples{
-# Power of 5 transformations
+# Power of 2 transformations
 trans <- power_trans(2)
 trans$transform(1:10)
 

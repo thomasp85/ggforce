@@ -101,7 +101,7 @@ stat_delvor_summary(
   bound = NULL,
   eps = 1e-09,
   normalize = FALSE,
-  asp.ratio = asp.ratio,
+  asp.ratio = 1,
   show.legend = NA,
   inherit.aes = TRUE,
   ...

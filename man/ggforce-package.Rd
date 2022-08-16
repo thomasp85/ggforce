@@ -6,13 +6,9 @@
 \alias{ggforce-package}
 \title{ggforce: Accelerating 'ggplot2'}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-The aim of 'ggplot2' is to aid in visual data investigations. This
-    focus has led to a lack of facilities for composing specialised plots.
-    'ggforce' aims to be a collection of mainly new stats and geoms that fills
-    this gap. All additional functionality is aimed to come through the official
-    extension system so using 'ggforce' should be a stable experience.
+The aim of 'ggplot2' is to aid in visual data investigations. This focus has led to a lack of facilities for composing specialised plots. 'ggforce' aims to be a collection of mainly new stats and geoms that fills this gap. All additional functionality is aimed to come through the official extension system so using 'ggforce' should be a stable experience.
 }
 \examples{
 rocketData <- data.frame(

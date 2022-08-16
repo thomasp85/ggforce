@@ -70,18 +70,18 @@ plot area width.}
 
 \item{radius}{As \code{expand} but specifying the corner radius.}
 
-\item{concavity}{A meassure of the concavity of the hull. \code{1} is very concave
-while it approaches convex as it grows. Defaults to \code{2}}
+\item{concavity}{A measure of the concavity of the hull. \code{1} is very concave
+while it approaches convex as it grows. Defaults to \code{2}.}
 
 \item{label.margin}{The margin around the annotation boxes, given by a call
-to \code{\link[ggplot2:element]{ggplot2::margin()}}}
+to \code{\link[ggplot2:element]{ggplot2::margin()}}.}
 
 \item{label.width}{A fixed width for the label. Set to \code{NULL} to let the text
-or \code{label.minwidth} decide}
+or \code{label.minwidth} decide.}
 
 \item{label.minwidth}{The minimum width to provide for the description. If
-the size of the label exceeds this, the the description is allowed to fill as
-much as the label}
+the size of the label exceeds this, the description is allowed to fill as
+much as the label.}
 
 \item{label.hjust}{The horizontal justification for the annotation. If it
 contains two elements the first will be used for the label and the second for
@@ -113,23 +113,23 @@ description.}
 cannot be placed.}
 
 \item{con.colour}{The colour for the line connecting the annotation to the
-mark}
+mark.}
 
-\item{con.size}{The width of the connector}
+\item{con.size}{The width of the connector.}
 
 \item{con.type}{The type of the connector. Either \code{"elbow"}, \code{"straight"}, or
 \code{"none"}.}
 
-\item{con.linetype}{The linetype of the connector}
+\item{con.linetype}{The linetype of the connector.}
 
 \item{con.border}{The bordertype of the connector. Either \code{"one"} (to draw a
 line on the horizontal side closest to the mark), \code{"all"} (to draw a border
-on all sides), or \code{"none"} (not going to explain that one)}
+on all sides), or \code{"none"} (not going to explain that one).}
 
 \item{con.cap}{The distance before the mark that the line should stop at.}
 
 \item{con.arrow}{An arrow specification for the connection using
-\code{\link[grid:arrow]{grid::arrow()}} for the end pointing towards the mark}
+\code{\link[grid:arrow]{grid::arrow()}} for the end pointing towards the mark.}
 
 \item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -162,7 +162,7 @@ is expanded 5mm and rounded on the corners. This can be adjusted with the
 }
 \section{Aesthetics}{
 
-geom_mark_hull understand the following aesthetics (required aesthetics are
+\code{geom_mark_hull} understand the following aesthetics (required aesthetics are
 in bold):
 \itemize{
 \item \strong{x}
@@ -181,7 +181,7 @@ in bold):
 
 \section{Annotation}{
 
-All \verb{geom_mark_*} allows you to put descriptive textboxes connected to the
+All \verb{geom_mark_*} allow you to put descriptive textboxes connected to the
 mark on the plot, using the \code{label} and \code{description} aesthetics. The
 textboxes are automatically placed close to the mark, but without obscuring
 any of the datapoints in the layer. The placement is dynamic so if you resize

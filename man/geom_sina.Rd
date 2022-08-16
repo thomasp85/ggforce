@@ -8,7 +8,7 @@
 stat_sina(
   mapping = NULL,
   data = NULL,
-  geom = "sina",
+  geom = "point",
   position = "dodge",
   scale = "area",
   method = "density",
