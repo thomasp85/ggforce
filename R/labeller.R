@@ -24,7 +24,10 @@ label_tex <- function(labels, ...) {
     stop("The latex2exp package is needed for this functionality", call. = FALSE)
   }
   label_parsed(
-    as.data.frame(lapply(labels, latex2exp::TeX, output = "character")),
+    as.data.frame(
+      lapply(labels, latex2exp::TeX, output = "character"),
+      stringsAsFactors = FALSE
+    ),
     ...
   )
 }
