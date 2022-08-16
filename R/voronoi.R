@@ -515,7 +515,7 @@ StatDelvorSummary <- ggproto('StatDelvorSummary', Stat,
 stat_delvor_summary <- function(mapping = NULL, data = NULL, geom = 'point',
                                 position = 'identity', na.rm = FALSE,
                                 bound = NULL, eps = 1e-9, normalize = FALSE,
-                                asp.ratio = asp.ratio, show.legend = NA,
+                                asp.ratio = 1, show.legend = NA,
                                 inherit.aes = TRUE, ...) {
   layer(
     data = data, mapping = mapping, stat = StatDelvorSummary, geom = geom,
