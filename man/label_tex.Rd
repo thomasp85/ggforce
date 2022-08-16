@@ -11,23 +11,26 @@ label_tex(labels, ...)
 element, but faceting over multiple factors entails multiple
 label variables.}
 
-\item{...}{Arguments passed on to \code{ggplot2::label_parsed}
-\describe{
-  \item{multi_line}{Whether to display the labels of multiple factors
+\item{...}{
+  Arguments passed on to \code{\link[ggplot2:labellers]{ggplot2::label_parsed}}
+  \describe{
+    \item{\code{multi_line}}{Whether to display the labels of multiple factors
 on separate lines.}
-}}
+  }}
 }
 \description{
-Thi function formats the strip labels of facet grids and wraps that contains
-TeX expressions.
+This function formats the strip labels of facet grids and wraps that contains
+TeX expressions. The latex2exp package must be installed.
 }
 \examples{
-library(ggplot2)
-d <- data.frame(x = 1, y = 1, facet = "$\\\\beta$")
-ggplot(d, aes(x, y)) +
- geom_point() +
- facet_wrap(~ facet, labeller = label_tex)
-
+# requires latex2exp package be installed
+if (requireNamespace("latex2exp", quietly = TRUE)) {
+  library(ggplot2)
+  d <- data.frame(x = 1, y = 1, facet = "$\\\\beta$")
+  ggplot(d, aes(x, y)) +
+    geom_point() +
+    facet_wrap(~ facet, labeller = label_tex)
+}
 }
 \seealso{
 \link[ggplot2:labeller]{ggplot2::labeller}, \code{\link[latex2exp:TeX]{latex2exp::TeX()}}
