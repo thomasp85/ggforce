@@ -27,7 +27,7 @@ through the extension system introduced with `ggplot2` v2.0.0. Broadly speaking
 `ggplot2` has been aimed primarily at explorative data visualization in order to 
 investigate the data at hand, and less at providing utilities for composing 
 custom plots a la [D3.js](https://d3js.org). `ggforce` is mainly an attempt to 
-address these "shortcoming" (design choices might be a better description). The 
+address these "shortcomings" (design choices might be a better description). The 
 goal is to provide a repository of geoms, stats, etc. that are as well 
 documented and implemented as the official ones found in `ggplot2`.
 

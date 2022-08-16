@@ -10,11 +10,11 @@
 #' geom_regon understand the following aesthetics (required aesthetics are in
 #' bold):
 #'
-#' - **x0**
-#' - **y0**
-#' - **sides**
-#' - **r**
-#' - **angle**
+#' - **x0** x coordinate
+#' - **y0** y coordinate
+#' - **sides** the number of sides for regon
+#' - **r** the ratio of regon with respect to plot
+#' - **angle** regon rotation angle (unit is radian)
 #' - color
 #' - fill
 #' - size
