@@ -111,6 +111,7 @@ reference:
       - geom_autopoint
       - geom_autodensity
       - label_tex
+      - stat_err
       - position_auto
       - position_jitternormal
       - gather_set_data
