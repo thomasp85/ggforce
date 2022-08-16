@@ -1,7 +1,7 @@
 #' A labeller function to parse TeX syntax
 #'
-#' Thi function formats the strip labels of facet grids and wraps that contains
-#' TeX expressions.
+#' This function formats the strip labels of facet grids and wraps that contains
+#' TeX expressions. The latex2exp package must be installed.
 #'
 #' @seealso [ggplot2::labeller], [latex2exp::TeX()]
 #'
