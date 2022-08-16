@@ -127,7 +127,8 @@ omitted.</p></dd>
 <a href="https://scales.r-lib.org/reference/trans_new.html" class="external-link">transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by <code><a href="https://scales.r-lib.org/reference/breaks_extended.html" class="external-link">scales::extended_breaks()</a></code>)</p></li>
+as output (e.g., a function returned by <code><a href="https://scales.r-lib.org/reference/breaks_extended.html" class="external-link">scales::extended_breaks()</a></code>).
+Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation.</p></li>
 </ul></dd>
 
 
@@ -142,7 +143,8 @@ the specified unit is incompatible with the unit of the data.</p></dd>
 <li><p><code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code> for the default breaks (one minor break between
 each major break)</p></li>
 <li><p>A numeric vector of positions</p></li>
-<li><p>A function that given the limits returns a vector of minor breaks.</p></li>
+<li><p>A function that given the limits returns a vector of minor breaks. Also
+accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation.</p></li>
 </ul></dd>
 
 
@@ -152,7 +154,8 @@ each major break)</p></li>
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
 <li><p>A function that takes the breaks as input and returns labels
-as output</p></li>
+as output. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
+notation.</p></li>
 </ul></dd>
 
 
@@ -161,7 +164,8 @@ as output</p></li>
 <li><p>A numeric vector of length two providing limits of the scale.
 Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 <li><p>A function that accepts the existing (automatic) limits and returns
-new limits
+new limits. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
+notation.
 Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see <code><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian()</a></code>).</p></li>
@@ -179,7 +183,8 @@ expand the scale by 5% on each side for continuous variables, and by
 
 <dt>oob</dt>
 <dd><p>One of:</p><ul><li><p>Function that handles limits outside of the scale limits
-(out of bounds).</p></li>
+(out of bounds). Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a>
+function notation.</p></li>
 <li><p>The default (<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::censor()</a></code>) replaces out of
 bounds values with <code>NA</code>.</p></li>
 <li><p><code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
