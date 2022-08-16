@@ -2,7 +2,7 @@ pandoc: 2.14.2
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-08-16T11:53Z
+last_built: 2022-08-16T12:05Z
 urls:
   reference: https://ggforce.data-imaginist.com/reference
   article: https://ggforce.data-imaginist.com/articles
