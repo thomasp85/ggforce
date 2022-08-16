@@ -12,7 +12,7 @@
 #' @inheritSection geom_mark_circle Annotation
 #' @inheritSection geom_mark_circle Filtering
 #' @section Aesthetics:
-#' geom_mark_hull understand the following aesthetics (required aesthetics are
+#' `geom_mark_hull` understand the following aesthetics (required aesthetics are
 #' in bold):
 #'
 #' - **x**
@@ -29,8 +29,8 @@
 #'
 #' @inheritParams geom_mark_circle
 #'
-#' @param concavity A meassure of the concavity of the hull. `1` is very concave
-#' while it approaches convex as it grows. Defaults to `2`
+#' @param concavity A measure of the concavity of the hull. `1` is very concave
+#' while it approaches convex as it grows. Defaults to `2`.
 #'
 #' @family mark geoms
 #' @name geom_mark_hull
