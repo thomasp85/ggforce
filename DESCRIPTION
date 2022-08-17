@@ -19,7 +19,6 @@ Description: The aim of 'ggplot2' is to aid in visual data investigations. This
 URL: https://ggforce.data-imaginist.com, https://github.com/thomasp85/ggforce
 BugReports: https://github.com/thomasp85/ggforce/issues
 License: MIT + file LICENSE
-LazyData: TRUE
 Encoding: UTF-8
 Depends:
     ggplot2 (>= 3.0.0),
