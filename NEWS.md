@@ -1,4 +1,4 @@
-# ggforce 0.3.3
+# ggforce (development version)
 
 - Changed documentation to comply with new units package
 - Fixed unintentional re-ordering of shapes (#224)
