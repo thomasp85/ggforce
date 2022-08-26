@@ -27,7 +27,7 @@
 facet_wrap_paginate <- function(facets, nrow = NULL, ncol = NULL,
                                 scales = 'fixed', shrink = TRUE,
                                 labeller = 'label_value', as.table = TRUE,
-                                switch = NULL, drop = TRUE, dir = 'h',
+                                switch = deprecated(), drop = TRUE, dir = 'h',
                                 strip.position = 'top', page = 1) {
   facet <- facet_wrap(facets,
     nrow = nrow, ncol = ncol, scales = scales,
@@ -108,7 +108,7 @@ FacetWrapPaginate <- ggproto('FacetWrapPaginate', FacetWrap,
       spacing <- theme$panel.spacing.x %||% theme$panel.spacing
       missing_cols <- params$ncol - max(layout$COL)
       strip_cols <- unique(table$layout$t[grepl('strip', table$layout$name) & table$layout$t %in% panel_rows(table)$t])
-      if (length(strip_cols) != 0) 
+      if (length(strip_cols) != 0)
           strip_cols <- strip_cols[as.numeric(table$widths[strip_cols]) != 0]
       axis_l_cols <- unique(table$layout$l[grepl('axis-l', table$layout$name)])
       axis_l_cols <- axis_l_cols[as.numeric(table$widths[axis_l_cols]) != 0]
