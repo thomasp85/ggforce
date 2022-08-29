@@ -12,7 +12,8 @@ geom_autodensity <- function(mapping = NULL, data = NULL,
                           trim = FALSE,
                           na.rm = FALSE,
                           show.legend = NA,
-                          inherit.aes = TRUE) {
+                          inherit.aes = TRUE,
+                          outline.type = "upper") {
   extra_mapping <- aes(x = .panel_x, y = .panel_y)
   if (is.null(mapping$x)) mapping$x <- extra_mapping$x
   if (is.null(mapping$y)) mapping$y <- extra_mapping$y
@@ -33,7 +34,8 @@ geom_autodensity <- function(mapping = NULL, data = NULL,
       n = n,
       trim = trim,
       na.rm = na.rm,
-      ...
+      ...,
+      outline.type = outline.type
     )
   )
 }
@@ -95,13 +97,19 @@ GeomAutoarea <- ggproto('GeomAutoarea', GeomArea,
   setup_data = function(data, params) {
     data[order(data$PANEL, data$group, data$x), ]
   },
-  draw_panel = function(self, data, panel_params, coord, na.rm = FALSE) {
+  draw_panel = function(self, data, panel_params, coord, na.rm = FALSE, ...) {
     y_range <- coord$range(panel_params)$y
     y_span <- y_range[2] - y_range[1]
     panel_min <- min(data$ymin)
     panel_span <- max(data$ymax) - panel_min
     data$ymin <- ((data$ymin - panel_min) / panel_span) * y_span * 0.9 + y_range[1]
     data$ymax <- ((data$ymax - panel_min) / panel_span) * y_span * 0.9 + y_range[1]
-    ggproto_parent(GeomArea, self)$draw_panel(data, panel_params, coord, na.rm)
+    ggproto_parent(GeomArea, self)$draw_panel(
+      data = data,
+      panel_params = panel_params,
+      coord = coord,
+      na.rm = na.rm,
+      ...
+    )
   }
 )
