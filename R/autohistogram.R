@@ -116,13 +116,14 @@ StatAutobin <- ggproto('StatAutobin', StatBin,
 #' @usage NULL
 #' @export
 GeomAutorect <- ggproto('PositionAutorect', GeomRect,
-  draw_panel = function(self, data, panel_params, coord, lineend = "butt", linejoin = "mitre") {
+  draw_panel = function(self, data, panel_params, coord, ...) {
     y_range <- coord$range(panel_params)$y
     y_span <- y_range[2] - y_range[1]
     panel_min <- min(data$ymin)
     panel_span <- max(data$ymax) - panel_min
     data$ymin <- ((data$ymin - panel_min) / panel_span) * y_span * 0.9 + y_range[1]
     data$ymax <- ((data$ymax - panel_min) / panel_span) * y_span * 0.9 + y_range[1]
-    ggproto_parent(GeomRect, self)$draw_panel(data, panel_params, coord, lineend = lineend, linejoin = linejoin)
-  }
+    ggproto_parent(GeomRect, self)$draw_panel(data, panel_params, coord, ...)
+  },
+  extra_params = c('na.rm', 'lineend', 'linejoin')
 )
