@@ -34,7 +34,6 @@
 #'
 #' @family ggforce facets
 #'
-#' @importFrom rlang enquo
 #' @export
 #'
 #' @examples
@@ -94,7 +93,6 @@ facet_zoom <- function(x, y, xy, zoom.data, xlim = NULL, ylim = NULL,
 #' grobTree rectGrob
 #' @importFrom gtable gtable_add_cols gtable_add_rows gtable_add_grob
 #' @importFrom scales rescale
-#' @importFrom rlang eval_tidy
 #' @export
 FacetZoom <- ggproto('FacetZoom', Facet,
   compute_layout = function(data, params) {

@@ -49,7 +49,6 @@
 #' [position_auto] for geoms and positions that adapts to different positional
 #' scale types
 #'
-#' @importFrom rlang is_quosures quos
 #' @export
 #'
 #' @examples
@@ -120,7 +119,6 @@ facet_matrix <- function(rows, cols = rows, shrink = TRUE, switch = NULL,
 #' @format NULL
 #' @usage NULL
 #' @importFrom tidyselect eval_select
-#' @importFrom rlang caller_env quo rep_along
 #' @export
 FacetMatrix <- ggproto('FacetMatrix', FacetGrid,
   setup_data = function(data, params) {
