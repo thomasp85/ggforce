@@ -29,6 +29,10 @@ facet_wrap_paginate <- function(facets, nrow = NULL, ncol = NULL,
                                 labeller = 'label_value', as.table = TRUE,
                                 switch = deprecated(), drop = TRUE, dir = 'h',
                                 strip.position = 'top', page = 1) {
+  # Work around non-lifecycle deprecation
+  if (!lifecycle::is_present(switch) && packageVersion('ggplot2') < '3.4.0') {
+    switch <- NULL
+  }
   facet <- facet_wrap(facets,
     nrow = nrow, ncol = ncol, scales = scales,
     shrink = shrink, labeller = labeller, as.table = as.table,
