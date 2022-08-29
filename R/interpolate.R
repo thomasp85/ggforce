@@ -25,9 +25,9 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
     attr <- dapply(data, 'group', function(df) {
       new_data_frame(list(
         solid = identical(unique(df$linetype), 1),
-        constant = nrow(unique(df[, c(
+        constant = nrow(unique(df[, names(df) %in% c(
           'alpha', 'colour',
-          'linewidth', 'linetype'
+          'linewidth', 'size', 'linetype'
         )])) == 1
       ))
     })
