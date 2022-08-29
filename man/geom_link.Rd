@@ -203,7 +203,7 @@ lines <- data.frame(
 
 ggplot(lines) +
   geom_link(aes(x = x, y = y, xend = xend, yend = yend, colour = colour,
-                alpha = stat(index), size = stat(index)))
+                alpha = stat(index), size = after_stat(index)))
 
 ggplot(lines) +
   geom_link2(aes(x = x, y = y, colour = colour, size = width, group = 1),

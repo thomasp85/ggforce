@@ -65,7 +65,7 @@
 #'
 #' # The standard version provides an index to create gradients
 #' ggplot(data) +
-#'   geom_diagonal(aes(x, y, xend = xend, yend = yend, alpha = stat(index)))
+#'   geom_diagonal(aes(x, y, xend = xend, yend = yend, alpha = after_stat(index)))
 #'
 #' # The 0 version uses bezierGrob under the hood for an approximation
 #' ggplot(data) +

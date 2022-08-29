@@ -258,7 +258,7 @@ the bounding box}
 ggplot(iris, aes(Sepal.Length, Sepal.Width, group = -1L)) +
   geom_voronoi_tile(aes(fill = Species)) +
   geom_voronoi_segment() +
-  geom_text(aes(label = stat(nsides), size = stat(vorarea)),
+  geom_text(aes(label = after_stat(nsides), size = after_stat(vorarea)),
     stat = 'delvor_summary', switch.centroid = TRUE
   )
 

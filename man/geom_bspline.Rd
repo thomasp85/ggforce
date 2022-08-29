@@ -219,7 +219,7 @@ paths$y <- cp$y[paths$ind]
 paths$class <- cp$class[paths$ind]
 
 ggplot(paths) +
-  geom_bspline(aes(x = x, y = y, group = group, colour = ..index..)) +
+  geom_bspline(aes(x = x, y = y, group = group, colour = after_stat(index))) +
   geom_point(aes(x = x, y = y), data = cp, color = 'steelblue')
 
 ggplot(paths) +

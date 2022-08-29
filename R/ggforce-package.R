@@ -23,13 +23,13 @@
 #' }))
 #'
 #' ggplot() + geom_link(aes(
-#'   x = 2, y = 2, xend = 3, yend = 3, alpha = ..index..,
-#'   size = ..index..
+#'   x = 2, y = 2, xend = 3, yend = 3, alpha = after_stat(index),
+#'   size = after_stat(index)
 #' ), colour = 'goldenrod', n = 500) +
-#'   geom_bezier(aes(x = x, y = y, group = group, colour = ..index..),
+#'   geom_bezier(aes(x = x, y = y, group = group, colour = after_stat(index)),
 #'     data = rocketData
 #'   ) +
-#'   geom_bezier(aes(x = y, y = x, group = group, colour = ..index..),
+#'   geom_bezier(aes(x = y, y = x, group = group, colour = after_stat(index)),
 #'     data = rocketData
 #'   ) +
 #'   geom_bezier(aes(x = x, y = y, group = group, colour = 1),
