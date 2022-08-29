@@ -188,7 +188,7 @@ GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
       mark.gp = gpar(
         col = first_rows$colour,
         fill = alpha(first_rows$fill, first_rows$alpha),
-        lwd = first_rows$size * .pt,
+        lwd = (first_rows$linewidth %||% first_rows$size) * .pt,
         lty = first_rows$linetype
       ),
       label.gp = gpar(
@@ -216,9 +216,11 @@ GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
       con.arrow = con.arrow
     )
   },
-  default_aes = aes(fill = NA, colour = 'black', alpha = 0.3, size = 0.5,
-                    linetype = 1, filter = NULL, label = NULL,
-                    description = NULL)
+  default_aes = combine_aes(
+    GeomShape$default_aes,
+    aes(fill = NA, colour = 'black', alpha = 0.3, filter = NULL, label = NULL,
+        description = NULL)
+  )
 )
 
 #' @rdname geom_mark_circle

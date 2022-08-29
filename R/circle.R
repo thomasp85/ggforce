@@ -23,7 +23,7 @@ NULL
 #' - **r**
 #' - color
 #' - fill
-#' - size
+#' - linewidth
 #' - linetype
 #' - alpha
 #' - lineend
@@ -92,10 +92,7 @@ stat_circle <- function(mapping = NULL, data = NULL, geom = 'circle',
 #' @usage NULL
 #' @export
 GeomCircle <- ggproto('GeomCircle', GeomShape,
-  default_aes = list(
-    colour = 'black', fill = NA, size = 0.5, linetype = 1,
-    alpha = NA
-  )
+  default_aes = combine_aes(GeomShape$default_aes, aes(colour = 'black', fill = NA))
 )
 #' @rdname geom_circle
 #' @inheritParams geom_shape

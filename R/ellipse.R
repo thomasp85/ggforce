@@ -20,7 +20,7 @@
 #' - m2
 #' - color
 #' - fill
-#' - size
+#' - linewidth
 #' - linetype
 #' - alpha
 #' - lineend

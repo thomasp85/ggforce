@@ -14,7 +14,7 @@
 #'  - **y**
 #'  - color
 #'  - fill
-#'  - size
+#'  - linewidth
 #'  - linetype
 #'  - alpha
 #'
@@ -103,7 +103,7 @@ GeomBsplineClosed0 <- ggproto('GeomBspline0', GeomPolygon,
       gp = gpar(
         col = coords$colour[startPoint],
         fill = alpha(coords$fill[startPoint], coords$alpha[startPoint]),
-        lwd = coords$size[startPoint] * .pt,
+        lwd = (coords$linewidth[startPoint] %||% coords$size[startPoint]) * .pt,
         lty = coords$linetype[startPoint]
       )
     )

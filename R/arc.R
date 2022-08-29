@@ -24,7 +24,7 @@ NULL
 #' - **start**
 #' - **end**
 #' - color
-#' - size
+#' - linewidth
 #' - linetype
 #' - alpha
 #' - lineend
@@ -66,8 +66,7 @@ NULL
 #' # Use the calculated index to map values to position on the arc
 #' ggplot(arcs) +
 #'   geom_arc(aes(x0 = 0, y0 = 0, r = r, start = start, end = end,
-#'                size = stat(index)), lineend = 'round') +
-#'   scale_radius() # linear size scale
+#'                size = stat(index)), lineend = 'round')
 #'
 #' # The 0 version maps directly to curveGrob instead of calculating the points
 #' # itself
@@ -117,11 +116,7 @@ stat_arc <- function(mapping = NULL, data = NULL, geom = 'arc',
 #' @usage NULL
 #' @importFrom grid curveGrob gList gpar
 #' @export
-GeomArc <- ggproto('GeomArc', GeomPath,
-  default_aes = list(
-    colour = 'black', size = 0.5, linetype = 1, alpha = 1, lineend = 'butt'
-  )
-)
+GeomArc <- ggproto('GeomArc', GeomPath)
 #' @rdname geom_arc
 #' @export
 geom_arc <- function(mapping = NULL, data = NULL, stat = 'arc',
@@ -204,10 +199,7 @@ stat_arc0 <- function(mapping = NULL, data = NULL, geom = 'arc0',
 #' @export
 GeomArc0 <- ggproto('GeomArc0', Geom,
   required_aes = c('x0', 'y0', 'r', 'start', 'end'),
-  default_aes = list(
-    colour = 'black', size = 0.5, linetype = 1, alpha = 1,
-    lineend = 'butt'
-  ),
+  default_aes = aes(colour = 'black', linewidth = 0.5, linetype = 1, alpha = 1),
   draw_key = draw_key_path,
 
   draw_panel = function(data, panel_scales, coord, ncp = 5, arrow = NULL,
@@ -226,12 +218,14 @@ GeomArc0 <- ggproto('GeomArc0', Geom,
           col = alpha(
             trans$colour[i],
             trans$alpha[i]
-          ), lwd = trans$size[i] * .pt, lty = trans$linetype[i],
+          ), lwd = (trans$linewidth[i] %||% trans$size[i]) * .pt, lty = trans$linetype[i],
           lineend = trans$lineend[i]
         ), arrow = arrow[i]
       )
     }))
-  }
+  },
+  rename_size = TRUE,
+  non_missing_aes = "size"
 )
 #' @rdname geom_arc
 #' @export

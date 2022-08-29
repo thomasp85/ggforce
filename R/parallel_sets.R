@@ -76,7 +76,7 @@ StatParallelSets <- ggproto('StatParallelSets', Stat,
                            axis.width = 0) {
     data <- remove_group(data)
     data <- complete_data(data)
-    cols <- c('group', 'colour', 'color', 'fill', 'size', 'alpha', 'linetype')
+    cols <- c('group', 'colour', 'color', 'fill', 'size', 'linewidth', 'alpha', 'linetype')
     data_groups <- do.call(
       rbind,
       lapply(split(data[, names(data) %in% cols, drop = FALSE], data$group),
@@ -148,8 +148,8 @@ StatParallelSetsAxes <- ggproto('StatParallelSetsAxes', Stat,
     # Calculate axis sizes
     data_axes <- sankey_axis_data(data, sep)
     data_axes <- data_axes[data_axes$split != '.ggforce_missing', ]
-    cols <- c('x', 'split', 'colour', 'color', 'fill', 'size', 'alpha',
-              'linetype')
+    cols <- c('x', 'split', 'colour', 'color', 'fill', 'size', 'linewidth',
+              'alpha', 'linetype')
     aes <- data[, names(data) %in% cols]
     aes <- unique(aes)
     if (nrow(aes) != nrow(data_axes)) {

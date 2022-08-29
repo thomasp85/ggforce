@@ -27,7 +27,7 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
         solid = identical(unique(df$linetype), 1),
         constant = nrow(unique(df[, c(
           'alpha', 'colour',
-          'size', 'linetype'
+          'linewidth', 'linetype'
         )])) == 1
       ))
     })
@@ -36,7 +36,7 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
     constant <- all(attr$constant)
     if (!solid_lines && !constant) {
       stop('geom_path_interpolate: If you are using dotted or dashed lines',
-        ', colour, size and linetype must be constant over the line',
+        ', colour, linewidth and linetype must be constant over the line',
         call. = FALSE
       )
     }
@@ -51,7 +51,8 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
         gp = gpar(
           col = alpha(munched$colour, munched$alpha)[!end],
           fill = alpha(munched$colour, munched$alpha)[!end],
-          lwd = munched$size[!end] * .pt, lty = munched$linetype[!end],
+          lwd = (munched$linewidth[!end] %||% munched$size[!end]) * .pt,
+          lty = munched$linetype[!end],
           lineend = lineend, linejoin = linejoin, linemitre = linemitre
         )
       )
@@ -61,14 +62,10 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
       polylineGrob(munched$x, munched$y,
         id = id, default.units = 'native',
         arrow = arrow, gp = gpar(
-          col = alpha(
-            munched$colour,
-            munched$alpha
-          )[start], fill = alpha(
-            munched$colour,
-            munched$alpha
-          )[start], lwd = munched$size[start] *
-            .pt, lty = munched$linetype[start], lineend = lineend,
+          col = alpha(munched$colour, munched$alpha)[start],
+          fill = alpha(munched$colour, munched$alpha)[start],
+          lwd = (munched$linewidth[start] %||% munched$size[start]) * .pt,
+          lty = munched$linetype[start], lineend = lineend,
           linejoin = linejoin, linemitre = linemitre
         )
       )

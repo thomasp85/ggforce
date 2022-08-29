@@ -90,7 +90,7 @@ GeomShape <- ggproto('GeomShape', GeomPolygon,
       gp = gpar(
         col = first_rows$colour,
         fill = alpha(first_rows$fill, first_rows$alpha),
-        lwd = first_rows$size * .pt,
+        lwd = (first_rows$linewidth %||% first_rows$size) * .pt,
         lty = first_rows$linetype
       )
     )

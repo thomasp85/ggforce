@@ -17,7 +17,7 @@
 #' - **xend**
 #' - **yend**
 #' - color
-#' - size
+#' - linewidth
 #' - linetype
 #' - alpha
 #' - lineend
@@ -29,7 +29,7 @@
 #' - **y**
 #' - **group**
 #' - color
-#' - size
+#' - linewidth
 #' - linetype
 #' - alpha
 #' - lineend

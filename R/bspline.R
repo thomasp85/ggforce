@@ -16,7 +16,7 @@
 #'  - **x**
 #'  - **y**
 #'  - color
-#'  - size
+#'  - linewidth
 #'  - linetype
 #'  - alpha
 #'  - lineend
@@ -227,7 +227,7 @@ GeomBspline0 <- ggproto('GeomBspline0', GeomPath,
       shape = 1, arrow = arrow, repEnds = type == 'clamped',
       gp = gpar(
         col = alpha(coords$colour[startPoint], coords$alpha[startPoint]),
-        lwd = coords$size[startPoint] * .pt,
+        lwd = (coords$linewidth[startPoint] %||% coords$size[startPoint]) * .pt,
         lty = coords$linetype[startPoint], lineend = lineend,
         linejoin = linejoin, linemitre = linemitre
       )

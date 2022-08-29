@@ -27,7 +27,7 @@
 #' - **x**
 #' - **y**
 #' - color
-#' - size
+#' - linewidth
 #' - linetype
 #' - alpha
 #' - lineend
@@ -256,7 +256,7 @@ GeomBezier0 <- ggproto('GeomBezier0', GeomPath,
       arrow = arrow,
       gp = gpar(
         col = alpha(coords$colour[startPoint], coords$alpha[startPoint]),
-        lwd = coords$size[startPoint] * .pt,
+        lwd = (coords$linewidth[startPoint] %||% coords$size[startPoint]) * .pt,
         lty = coords$linetype[startPoint], lineend = lineend,
         linejoin = linejoin, linemitre = linemitre
       )

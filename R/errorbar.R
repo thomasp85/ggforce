@@ -35,7 +35,7 @@ StatErr <- ggproto(
 #' - color
 #' - group
 #' - linetype
-#' - size
+#' - linewidth
 #'
 #' @examples
 #' library(ggplot2)

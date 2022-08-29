@@ -30,7 +30,7 @@ NULL
 #' - explode
 #' - color
 #' - fill
-#' - size
+#' - linewidth
 #' - linetype
 #' - alpha
 #'
@@ -166,10 +166,7 @@ stat_pie <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
 #' @usage NULL
 #' @export
 GeomArcBar <- ggproto('GeomArcBar', GeomShape,
-  default_aes = list(
-    colour = 'black', fill = NA, size = 0.5, linetype = 1,
-    alpha = NA
-  )
+  default_aes = combine_aes(GeomShape$default_aes, aes(colour = 'black', fill = NA))
 )
 #' @rdname geom_arc_bar
 #' @inheritParams geom_shape

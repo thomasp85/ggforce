@@ -12,7 +12,7 @@
 #' - **y**
 #' - **group**
 #' - color
-#' - size
+#' - linewidth
 #' - linetype
 #' - alpha
 #' - lineend
