@@ -13,6 +13,7 @@ stat_diagonal_wide(
   n = 100,
   strength = 0.5,
   na.rm = FALSE,
+  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE,
   ...
@@ -25,6 +26,7 @@ geom_diagonal_wide(
   position = "identity",
   n = 100,
   na.rm = FALSE,
+  orientation = NA,
   strength = 0.5,
   show.legend = NA,
   inherit.aes = TRUE,
@@ -69,6 +71,11 @@ towards the other end of the bezier curve}
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
@@ -92,8 +99,9 @@ stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
 }
 \description{
 The \code{geom_diagonal_wide()} function draws a \emph{thick} diagonal, that is, a
-polygon confined between a lower and upper \link[=geom_diagonal]{diagonal}. As with
-the diagonal functions in \code{ggforce}, the wide diagonal variant is horizontal.
+polygon confined between a lower and upper \link[=geom_diagonal]{diagonal}. This
+geom is bidirectional and the direction can be controlled with the
+\code{orientation} argument.
 }
 \section{Aesthetics}{
 
@@ -109,6 +117,13 @@ geom_diagonal_wide understand the following aesthetics
 \item alpha
 \item lineend
 }
+}
+
+\section{Orientation}{
+
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+
 }
 
 \examples{

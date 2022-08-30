@@ -20,7 +20,7 @@
 #' geom_parallel_sets understand the following aesthetics
 #' (required aesthetics are in bold):
 #'
-#' - **x**
+#' - **x|y**
 #' - **id**
 #' - **split**
 #' - **value**
@@ -37,6 +37,8 @@
 #' @param angle The angle of the axis label text
 #' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
 #' Useful for offsetting text from the category segments.
+#'
+#' @inheritSection ggplot2::geom_line Orientation
 #'
 #' @name geom_parallel_sets
 #' @rdname geom_parallel_sets
@@ -64,24 +66,29 @@ NULL
 #' @usage NULL
 #' @export
 StatParallelSets <- ggproto('StatParallelSets', Stat,
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
+    params
+  },
   setup_data = function(data, params) {
     value_check <- lapply(split(data$value, data$id), unique0)
     if (any(lengths(value_check) != 1)) {
       cli::cli_abort('{.field value} must be kept constant across {.field id}')
     }
     data$split <- as.factor(data$split)
+    data$flipped_aes <- params$flipped_aes
     data
   },
   compute_panel = function(data, scales, sep = 0.05, strength = 0.5, n = 100,
-                           axis.width = 0) {
+                           axis.width = 0, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     data <- remove_group(data)
     data <- complete_data(data)
     cols <- c('group', 'colour', 'color', 'fill', 'size', 'linewidth', 'alpha', 'linetype')
     data_groups <- vec_rbind(
       !!!lapply(split(data[, names(data) %in% cols, drop = FALSE], data$group),
         function(d) {
-          as.data.frame(lapply(d, function(x) na.omit(x)[1]),
-                        stringsAsFactors = FALSE)
+          data_frame0(!!!lapply(d, function(x) na.omit(x)[1]))
         }
       )
     )
@@ -91,23 +98,26 @@ StatParallelSets <- ggproto('StatParallelSets', Stat,
     # Calculate diagonals
     diagonals <- sankey_diag_data(data, data_axes, data_groups, axis.width)
 
-    StatDiagonalWide$compute_panel(diagonals, scales, strength, n)
+    diagonals <- flip_data(diagonals, flipped_aes)
+
+    StatDiagonalWide$compute_panel(diagonals, scales, strength, n, flipped_aes)
   },
-  required_aes = c('x', 'id', 'split', 'value'),
-  extra_params = c('na.rm', 'n', 'sep', 'strength', 'axis.width')
+  required_aes = c('x|y', 'id', 'split', 'value'),
+  extra_params = c('na.rm', 'n', 'sep', 'strength', 'axis.width', 'orientation')
 )
 #' @rdname geom_parallel_sets
 #' @export
 stat_parallel_sets <- function(mapping = NULL, data = NULL, geom = 'shape',
                                position = 'identity', n = 100, strength = 0.5,
                                sep = 0.05, axis.width = 0, na.rm = FALSE,
-                               show.legend = NA, inherit.aes = TRUE, ...) {
+                               orientation = NA, show.legend = NA,
+                               inherit.aes = TRUE, ...) {
   layer(
     stat = StatParallelSets, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(
-      na.rm = na.rm, n = n, strength = strength, sep = sep,
-      axis.width = axis.width, ...
+      na.rm = na.rm, orientation = orientation, n = n, strength = strength,
+      sep = sep, axis.width = axis.width, ...
     )
   )
 }
@@ -115,15 +125,15 @@ stat_parallel_sets <- function(mapping = NULL, data = NULL, geom = 'shape',
 #' @export
 geom_parallel_sets <- function(mapping = NULL, data = NULL,
                                stat = 'parallel_sets', position = 'identity',
-                               n = 100, na.rm = FALSE, sep = 0.05,
-                               strength = 0.5, axis.width = 0, show.legend = NA,
-                               inherit.aes = TRUE, ...) {
+                               n = 100, na.rm = FALSE, orientation = NA,
+                               sep = 0.05, strength = 0.5, axis.width = 0,
+                               show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomShape,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(
-      na.rm = na.rm, n = n, strength = strength, sep = sep,
-      axis.width = axis.width, ...
+      na.rm = na.rm, orientation = orientation, n = n, strength = strength,
+      sep = sep, axis.width = axis.width, ...
     )
   )
 }
@@ -132,15 +142,21 @@ geom_parallel_sets <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatParallelSetsAxes <- ggproto('StatParallelSetsAxes', Stat,
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
+    params
+  },
   setup_data = function(data, params) {
     value_check <- lapply(split(data$value, data$id), unique0)
     if (any(lengths(value_check) != 1)) {
       cli::cli_abort('{.field value} must be kept constant across {.field id}')
     }
     data$split <- as.factor(data$split)
+    data$flipped_aes <- params$flipped_aes
     data
   },
-  compute_panel = function(data, scales, sep = 0.05, axis.width = 0) {
+  compute_panel = function(data, scales, sep = 0.05, axis.width = 0, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     split_levels <- levels(data$split)
     data <- remove_group(data)
     data <- complete_data(data)
@@ -163,10 +179,10 @@ StatParallelSetsAxes <- ggproto('StatParallelSetsAxes', Stat,
     data$y <- data$ymin + data$value / 2
     data$xmin <- data$x - axis.width / 2
     data$xmax <- data$x + axis.width / 2
-    data
+    flip_data(data, flipped_aes)
   },
-  required_aes = c('x', 'id', 'split', 'value'),
-  extra_params = c('na.rm', 'sep')
+  required_aes = c('x|y', 'id', 'split', 'value'),
+  extra_params = c('na.rm', 'sep', 'orientation')
 )
 #' @rdname geom_parallel_sets
 #' @export
@@ -174,11 +190,13 @@ stat_parallel_sets_axes <- function(mapping = NULL, data = NULL,
                                     geom = 'parallel_sets_axes',
                                     position = 'identity', sep = 0.05,
                                     axis.width = 0, na.rm = FALSE,
-                                    show.legend = NA, inherit.aes = TRUE, ...) {
+                                    orientation = NA, show.legend = NA,
+                                    inherit.aes = TRUE, ...) {
   layer(
     stat = StatParallelSetsAxes, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, sep = sep, axis.width = axis.width, ...)
+    params = list(na.rm = na.rm, orientation = orientation, sep = sep,
+                  axis.width = axis.width, ...)
   )
 }
 #' @rdname ggforce-extensions
@@ -187,6 +205,8 @@ stat_parallel_sets_axes <- function(mapping = NULL, data = NULL,
 #' @export
 GeomParallelSetsAxes <- ggproto('GeomParallelSetsAxes', GeomShape,
   setup_data = function(data, params) {
+    flipped_aes <- has_flipped_aes(data, params)
+    data <- flip_data(data, flipped_aes)
     data$group <- seq_len(nrow(data))
     lb <- data
     lb$x <- lb$xmin
@@ -201,7 +221,7 @@ GeomParallelSetsAxes <- ggproto('GeomParallelSetsAxes', GeomShape,
     rt$x <- rt$xmax
     rt$y <- rt$ymax
     data <- vec_rbind(lb, rb, rt, lt)
-    data[order(data$group), ]
+    flip_data(data[order(data$group), ], flipped_aes)
   },
   required_aes = c('xmin', 'ymin', 'xmax', 'ymax')
 )
@@ -210,22 +230,22 @@ GeomParallelSetsAxes <- ggproto('GeomParallelSetsAxes', GeomShape,
 geom_parallel_sets_axes <- function(mapping = NULL, data = NULL,
                                     stat = 'parallel_sets_axes',
                                     position = 'identity', na.rm = FALSE,
-                                    show.legend = NA, inherit.aes = TRUE,
-                                    ...) {
+                                    orientation = NA, show.legend = NA,
+                                    inherit.aes = TRUE, ...) {
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomParallelSetsAxes,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
+    params = list(na.rm = na.rm, orientation = orientation, ...)
   )
 }
 #' @rdname geom_parallel_sets
 #' @export
 geom_parallel_sets_labels <- function(mapping = NULL, data = NULL,
                                       stat = 'parallel_sets_axes', angle = -90,
-				      nudge_x = 0, nudge_y = 0,
+				                              nudge_x = 0, nudge_y = 0,
                                       position = 'identity', na.rm = FALSE,
-                                      show.legend = NA, inherit.aes = TRUE,
-                                      ...) {
+				                              orientation = NA, show.legend = NA,
+				                              inherit.aes = TRUE, ...) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(
@@ -239,7 +259,7 @@ geom_parallel_sets_labels <- function(mapping = NULL, data = NULL,
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomText,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, angle = angle, ...)
+    params = list(na.rm = na.rm, orientation = orientation, angle = angle, ...)
   )
 }
 #' Tidy data for use with geom_parallel_sets
@@ -304,10 +324,9 @@ sankey_axis_data <- function(data, sep) {
     splits <- split(d$value, as.character(d$split))
     splits <- splits[rev(order(match(names(splits), levels(d$split))))]
     d <- data_frame0(
-      split = names(splits),
+      split = factor(names(splits)),
       value = sapply(splits, sum),
-      x = d$x[1],
-      stringsAsFactors = TRUE
+      x = d$x[1]
     )
     sep <- sum(d$value) * sep
     d$ymax <- (seq_len(nrow(d)) - 1) * sep + cumsum(d$value)
@@ -331,8 +350,7 @@ sankey_diag_data <- function(data, axes_data, groups, axis.width) {
       group = from$group[diag_rep],
       split = from$split[diag_rep],
       value = sapply(diagonals, function(ii) sum(from$value[ii])),
-      x = from$x[1] + axis.width / 2,
-      stringsAsFactors = FALSE
+      x = from$x[1] + axis.width / 2
     )
     diag_to <- diag_from
     diag_to$split <- to$split[diag_rep]

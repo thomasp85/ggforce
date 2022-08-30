@@ -32,7 +32,7 @@
 #' - size
 #' - alpha
 #'
-#' @inheritParams ggplot2::geom_path
+#' @inheritParams ggplot2::geom_line
 #' @inheritParams ggplot2::stat_identity
 #' @inheritParams ggplot2::stat_density
 #'
@@ -65,6 +65,8 @@
 #' @param bins Number of bins. Overridden by binwidth. Defaults to 50.
 #'
 #' @param seed A seed to set for the jitter to ensure a reproducible plot
+#'
+#' @inheritSection ggplot2::geom_line Orientation
 #'
 #' @author Nikos Sidiropoulos, Claus Wilke, and Thomas Lin Pedersen
 #'
@@ -161,6 +163,8 @@ StatSina <- ggproto('StatSina', Stat,
   required_aes = c('x', 'y'),
 
   setup_data = function(data, params) {
+    data <- flip_data(data, params$flipped_aes)
+    data$flipped_aes <- params$flipped_aes
     if (is.double(data$x) && !.has_groups(data) && any(data$x != data$x[1L])) {
       cli::cli_abort(c(
         "Continuous {.field {flipped_names(params$flipped_aes)$x}} aesthetic",
@@ -168,10 +172,13 @@ StatSina <- ggproto('StatSina', Stat,
       ))
     }
 
-    data
+    flip_data(data, params$flipped_aes)
   },
 
   setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE, group_has_equal = TRUE)
+
+    data <- flip_data(data, params$flipped_aes)
     params$maxwidth <- params$maxwidth %||% (resolution(data$x %||% 0) * 0.9)
 
     if (is.null(params$binwidth) && is.null(params$bins)) {
@@ -184,18 +191,19 @@ StatSina <- ggproto('StatSina', Stat,
   compute_panel = function(self, data, scales, scale = TRUE, method = 'density',
                            bw = 'nrd0', kernel = 'gaussian', binwidth = NULL,
                            bins = NULL, maxwidth = 1, adjust = 1, bin_limit = 1,
-                           seed = NA) {
-
+                           seed = NA, flipped_aes = FALSE) {
     if (!is.null(binwidth)) {
-      bins <- bin_breaks_width(scales$y$dimension() + 1e-8, binwidth)
+      bins <- bin_breaks_width(scales[[flipped_names(flipped_aes)$y]]$dimension() + 1e-8, binwidth)
     } else {
-      bins <- bin_breaks_bins(scales$y$dimension() + 1e-8, bins)
+      bins <- bin_breaks_bins(scales[[flipped_names(flipped_aes)$y]]$dimension() + 1e-8, bins)
     }
 
     data <- ggproto_parent(Stat, self)$compute_panel(data, scales,
       scale = scale, method = method, bw = bw, kernel = kernel,
       bins = bins$breaks, maxwidth = maxwidth, adjust = adjust,
-      bin_limit = bin_limit)
+      bin_limit = bin_limit, flipped_aes = flipped_aes)
+
+    data <- flip_data(data, flipped_aes)
 
     if (is.logical(scale)) {
       scale <- if (scale) 'area' else 'width'
@@ -229,14 +237,16 @@ StatSina <- ggproto('StatSina', Stat,
       data$y <- jitter(data$y)
     }
 
-    data
+    flip_data(data, flipped_aes)
   },
 
   compute_group = function(data, scales, scale = TRUE, method = 'density',
                            bw = 'nrd0', kernel = 'gaussian',
                            maxwidth = 1, adjust = 1, bin_limit = 1,
-                           bins = NULL) {
+                           bins = NULL, flipped_aes = FALSE) {
     if (nrow(data) == 0) return(NULL)
+
+    data <- flip_data(data, flipped_aes)
 
     if (nrow(data) < 3) {
       data$density <- 0
@@ -268,15 +278,16 @@ StatSina <- ggproto('StatSina', Stat,
     data$width <- width
     data$n <- nrow(data)
     data$x <- mean(range(data$x))
-    data
+    flip_data(data, flipped_aes)
   },
   finish_layer = function(data, params) {
     # rescale x in case positions have been adjusted
+    data <- flip_data(data, params$flipped_aes)
     x_mod <- (data$xmax - data$xmin) / data$width
     data$x <- data$x + data$x_diff * x_mod
-    data
+    flip_data(data, params$flipped_aes)
   },
-  extra_params = 'na.rm'
+  extra_params = c('na.rm', 'orientation')
 )
 
 #' @rdname geom_sina
@@ -285,8 +296,8 @@ stat_sina <- function(mapping = NULL, data = NULL, geom = 'point',
                       position = 'dodge', scale = 'area', method = 'density',
                       bw = 'nrd0', kernel = 'gaussian', maxwidth = NULL,
                       adjust = 1, bin_limit = 1, binwidth = NULL, bins = NULL,
-                      seed = NA, ..., na.rm = FALSE, show.legend = NA,
-                      inherit.aes = TRUE) {
+                      seed = NA, ..., na.rm = FALSE, orientation = NA,
+                      show.legend = NA, inherit.aes = TRUE) {
   method <- match.arg(method, c('density', 'counts'))
 
   layer(
@@ -299,7 +310,8 @@ stat_sina <- function(mapping = NULL, data = NULL, geom = 'point',
     inherit.aes = inherit.aes,
     params = list(scale = scale, method = method, bw = bw, kernel = kernel,
       maxwidth = maxwidth, adjust = adjust, bin_limit = bin_limit,
-      binwidth = binwidth, bins = bins, seed = seed, na.rm = na.rm, ...)
+      binwidth = binwidth, bins = bins, seed = seed, na.rm = na.rm,
+      orientation = orientation, ...)
   )
 }
 
@@ -309,6 +321,7 @@ geom_sina <- function(mapping = NULL, data = NULL,
                       stat = 'sina', position = 'dodge',
                       ...,
                       na.rm = FALSE,
+                      orientation = NA,
                       show.legend = NA,
                       inherit.aes = TRUE) {
   layer(
@@ -321,6 +334,7 @@ geom_sina <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )

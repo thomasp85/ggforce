@@ -17,6 +17,7 @@ stat_diagonal(
   n = 100,
   strength = 0.5,
   na.rm = FALSE,
+  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE,
   ...
@@ -29,6 +30,7 @@ geom_diagonal(
   position = "identity",
   n = 100,
   na.rm = FALSE,
+  orientation = NA,
   strength = 0.5,
   show.legend = NA,
   inherit.aes = TRUE,
@@ -41,6 +43,7 @@ stat_diagonal2(
   geom = "path_interpolate",
   position = "identity",
   na.rm = FALSE,
+  orientation = NA,
   show.legend = NA,
   n = 100,
   strength = 0.5,
@@ -56,6 +59,7 @@ geom_diagonal2(
   arrow = NULL,
   lineend = "butt",
   na.rm = FALSE,
+  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE,
   n = 100,
@@ -69,6 +73,7 @@ stat_diagonal0(
   geom = "bezier0",
   position = "identity",
   na.rm = FALSE,
+  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE,
   strength = 0.5,
@@ -83,6 +88,7 @@ geom_diagonal0(
   arrow = NULL,
   lineend = "butt",
   na.rm = FALSE,
+  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE,
   strength = 0.5,
@@ -126,6 +132,11 @@ towards the other end of the bezier curve}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
+
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -198,6 +209,13 @@ geom_diagonal2 understand the following aesthetics
 \item{x, y}{The interpolated point coordinates}
 \item{index}{The progression along the interpolation mapped between 0 and 1}
 }
+}
+
+\section{Orientation}{
+
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+
 }
 
 \examples{

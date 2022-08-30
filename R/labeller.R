@@ -22,10 +22,7 @@
 label_tex <- function(labels, ...) {
   check_installed('latex2exp', 'to parse tex equations')
   label_parsed(
-    as.data.frame(
-      lapply(labels, latex2exp::TeX, output = "character"),
-      stringsAsFactors = FALSE
-    ),
+    data_frame0(!!!lapply(labels, latex2exp::TeX, output = "character")),
     ...
   )
 }

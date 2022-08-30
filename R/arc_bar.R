@@ -85,8 +85,7 @@ NULL
 #'   type = rep(c('Pie', 'Donut'), each = 5),
 #'   r0 = rep(c(0, 0.8), each = 5),
 #'   focus = rep(c(0.2, 0, 0, 0, 0), 2),
-#'   amount = c(4, 3, 1, 1.5, 6, 6, 1, 2, 3, 2),
-#'   stringsAsFactors = FALSE
+#'   amount = c(4, 3, 1, 1.5, 6, 6, 1, 2, 3, 2)
 #' )
 #'
 #' # Look at the cakes
