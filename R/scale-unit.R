@@ -16,7 +16,7 @@ NULL
 #' @importFrom scales censor
 scale_x_unit <- function(...) {
   lifecycle::deprecate_soft('0.3.4', "scale_x_unit()", "units::scale_x_unit()")
-  try_require('units', 'scale_x_unit')
+  check_installed('units', 'to use scale_x_unit')
   units::scale_x_units(...)
 }
 #' @rdname scale_unit
@@ -24,6 +24,6 @@ scale_x_unit <- function(...) {
 #' @importFrom scales censor
 scale_y_unit <- function(...) {
   lifecycle::deprecate_soft('0.3.4', "scale_y_unit()", "units::scale_y_unit()")
-  try_require('units', 'scale_y_unit')
+  check_installed('units', 'to use scale_y_unit')
   units::scale_y_units(...)
 }

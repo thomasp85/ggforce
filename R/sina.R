@@ -162,9 +162,10 @@ StatSina <- ggproto('StatSina', Stat,
 
   setup_data = function(data, params) {
     if (is.double(data$x) && !.has_groups(data) && any(data$x != data$x[1L])) {
-      stop('Continuous x aesthetic -- did you forget aes(group=...)?',
-        call. = FALSE
-      )
+      cli::cli_abort(c(
+        "Continuous {.field {flipped_names(params$flipped_aes)$x}} aesthetic",
+        "i" = "did you forget {.code aes(group = ...)}?"
+      ))
     }
 
     data
@@ -329,14 +330,16 @@ geom_sina <- function(mapping = NULL, data = NULL,
 
 # Binning functions -------------------------------------------------------
 
-bins <- function(breaks, closed = c('right', 'left'),
+bins <- function(breaks, closed = "right",
                  fuzz = 1e-08 * stats::median(diff(breaks))) {
-  stopifnot(is.numeric(breaks))
-  closed <- match.arg(closed)
+  if (!is.numeric(breaks)) {
+    cli::cli_abort("{.arg breaks} must be a numeric vector")
+  }
+  closed <- arg_match0(closed, c("right", "left"))
 
   breaks <- sort(breaks)
   # Adapted base::hist - this protects from floating point rounding errors
-  if (closed == 'right') {
+  if (closed == "right") {
     fuzzes <- c(-fuzz, rep.int(fuzz, length(breaks) - 1))
   } else {
     fuzzes <- c(rep.int(-fuzz, length(breaks) - 1), fuzz)
@@ -346,9 +349,9 @@ bins <- function(breaks, closed = c('right', 'left'),
     list(
       breaks = breaks,
       fuzzy = breaks + fuzzes,
-      right_closed = closed == 'right'
+      right_closed = closed == "right"
     ),
-    class = 'ggplot2_bins'
+    class = "ggplot2_bins"
   )
 }
 
@@ -360,11 +363,13 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
   nx <- length(x)
   if (is.null(w)) {
     w <- rep(1 / nx, nx)
+  } else {
+    w <- w / sum(w)
   }
 
   # if less than 2 points return data frame of NAs and a warning
   if (nx < 2) {
-    warning("Groups with fewer than two data points have been dropped.", call. = FALSE)
+    cli::cli_warn("Groups with fewer than two data points have been dropped.")
     return(new_data_frame(list(
       x = NA_real_,
       density = NA_real_,
@@ -389,10 +394,12 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
 }
 calc_bw <- function(x, bw) {
   if (is.character(bw)) {
-    if (length(x) < 2)
-      stop("need at least 2 points to select a bandwidth automatically", call. = FALSE)
+    if (length(x) < 2) {
+      cli::cli_abort("{.arg x} must contain at least 2 elements to select a bandwidth automatically")
+    }
+
     bw <- switch(
-      base::tolower(bw),
+      to_lower_ascii(bw),
       nrd0 = stats::bw.nrd0(x),
       nrd = stats::bw.nrd(x),
       ucv = stats::bw.ucv(x),
@@ -400,7 +407,7 @@ calc_bw <- function(x, bw) {
       sj = ,
       `sj-ste` = stats::bw.SJ(x, method = "ste"),
       `sj-dpi` = stats::bw.SJ(x, method = "dpi"),
-      stop("unknown bandwidth rule")
+      cli::cli_abort("{.var {bw}} is not a valid bandwidth rule")
     )
   }
   bw
@@ -411,24 +418,29 @@ bin_breaks <- function(breaks, closed = c('right', 'left')) {
 }
 
 bin_breaks_width <- function(x_range, width = NULL, center = NULL,
-                             boundary = NULL, closed = c('right', 'left')) {
-  stopifnot(length(x_range) == 2)
+                             boundary = NULL, closed = c("right", "left")) {
+  if (length(x_range) != 2) {
+    cli::cli_abort("{.arg x_range} must have two elements")
+  }
 
   # if (length(x_range) == 0) {
   #   return(bin_params(numeric()))
   # }
-  stopifnot(is.numeric(width), length(width) == 1)
+  if (!(is.numeric(width) && length(width) == 1)) {
+    cli::cli_abort("{.arg width} must be a number")
+  }
   if (width <= 0) {
-    stop('`binwidth` must be positive', call. = FALSE)
+    cli::cli_abort("{.arg binwidth} must be positive")
   }
 
   if (!is.null(boundary) && !is.null(center)) {
-    stop('Only one of \'boundary\' and \'center\' may be specified.')
+    cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified.")
   } else if (is.null(boundary)) {
     if (is.null(center)) {
       # If neither edge nor center given, compute both using tile layer's
       # algorithm. This puts min and max of data in outer half of their bins.
       boundary <- width / 2
+
     } else {
       # If center given but not boundary, compute boundary.
       boundary <- center - width / 2
@@ -446,18 +458,36 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
   # Small correction factor so that we don't get an extra bin when, for
   # example, origin = 0, max(x) = 20, width = 10.
   max_x <- x_range[2] + (1 - 1e-08) * width
+
+  if (isTRUE((max_x - origin) / width > 1e6)) {
+    cli::cli_abort(c(
+      "The number of histogram bins must be less than 1,000,000.",
+      "i" = "Did you make {.arg binwidth} too small?"
+    ))
+  }
   breaks <- seq(origin, max_x, width)
+
+  if (length(breaks) == 1) {
+    # In exceptionally rare cases, the above can fail and produce only a
+    # single break (see issue #3606). We fix this by adding a second break.
+    breaks <- c(breaks, breaks + width)
+  }
 
   bin_breaks(breaks, closed = closed)
 }
 
 bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
-                            boundary = NULL, closed = c('right', 'left')) {
-  stopifnot(length(x_range) == 2)
+                            boundary = NULL, closed = c("right", "left")) {
+  if (length(x_range) != 2) {
+    cli::cli_abort("{.arg x_range} must have two elements")
+  }
 
   bins <- as.integer(bins)
   if (bins < 1) {
-    stop('Need at least one bin.', call. = FALSE)
+    cli::cli_abort("{.arg bins} must be 1 or greater")
+  } else if (scales::zero_range(x_range)) {
+    # 0.1 is the same width as the expansion `default_expansion()` gives for 0-width data
+    width <- 0.1
   } else if (bins == 1) {
     width <- diff(x_range)
     boundary <- x_range[1]
@@ -465,10 +495,8 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
     width <- (x_range[2] - x_range[1]) / (bins - 1)
   }
 
-  bin_breaks_width(x_range, width,
-    boundary = boundary, center = center,
-    closed = closed
-  )
+  bin_breaks_width(x_range, width, boundary = boundary, center = center,
+                   closed = closed)
 }
 
 .has_groups <- function(data) {

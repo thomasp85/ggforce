@@ -101,7 +101,10 @@ StatBezier <- ggproto('StatBezier', Stat,
     nControls <- table(data$group)
     controlRange <- range(nControls)
     if (min(controlRange) < 3 || max(controlRange) > 4) {
-      stop('Only support for quadratic and cubic beziers')
+      cli::cli_abort(c(
+        'Only support for quadratic and cubic beziers',
+        i = 'Make sure each group consists of 3 or 4 rows'
+      ))
     }
     data <- data[order(data$group), ]
     groups <- unique(data$group)
@@ -157,7 +160,10 @@ StatBezier2 <- ggproto('StatBezier2', Stat,
     nControls <- table(data$group)
     controlRange <- range(nControls)
     if (min(controlRange) < 3 || max(controlRange) > 4) {
-      stop('Only support for quadratic and cubic beziers')
+      cli::cli_abort(c(
+        'Only support for quadratic and cubic beziers',
+        i = 'Make sure each group consists of 3 or 4 rows'
+      ))
     }
     groups <- unique(data$group)
     paths <- getBeziers(data$x, data$y, match(data$group, groups), params$n)
@@ -224,7 +230,10 @@ StatBezier0 <- ggproto('StatBezier0', Stat,
     nControls <- table(data$group)
     controlRange <- range(nControls)
     if (min(controlRange) < 3 || max(controlRange) > 4) {
-      stop('Only support for quadratic and cubic beziers')
+      cli::cli_abort(c(
+        'Only support for quadratic and cubic beziers',
+        i = 'Make sure each group consists of 3 or 4 rows'
+      ))
     }
     quadratic <- nControls == 3
     if (any(quadratic)) {

@@ -138,7 +138,7 @@ FacetMatrix <- ggproto('FacetMatrix', FacetGrid,
     })
     cols <- unique(unlist(cols))
     if (length(rows) == 0 || length(cols) == 0) {
-      stop('rows and cols must contain valid data columns')
+      cli::cli_abort('{.arg rows} and {.arg cols} must select valid data columns')
     }
     params$pairs <- all(rows == cols)
     if (!params$as.table) rows <- rev(rows)
@@ -253,7 +253,7 @@ create_pos_scales <- function(vars, data, env, dim = 'x', alternate = FALSE) {
     })
     scales <- scales[lengths(scales) != 0]
     if (length(scales) == 0) {
-      stop('Unable to pick a scale for ', var, call. = FALSE)
+      cli::cli_abort('Unable to pick a scale for {.col {var}}')
     }
     scale <- scales[[1]](name = NULL, position = pos)
     lapply(d, scale$train)
@@ -295,7 +295,7 @@ check_layer_pos_params <- function(pairs = TRUE, lower = NULL, upper = NULL, dia
   if (pairs) return()
 
   if (!all(is.null(lower), is.null(upper), is.null(diag))) {
-    warning('layer positions are ignored when the matrix is not symmetrical', call. = FALSE)
+    cli::cli_warn('layer positions are ignored when the matrix is not symmetrical')
   }
 }
 

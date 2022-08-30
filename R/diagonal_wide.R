@@ -57,7 +57,7 @@ NULL
 StatDiagonalWide <- ggproto('StatDiagonalWide', Stat,
   setup_data = function(data, params) {
     if (any(table(data$group) != 4)) {
-      stop('Each group must consist of 4 points')
+      cli::cli_abort('Each group must consist of 4 points')
     }
     data
   },

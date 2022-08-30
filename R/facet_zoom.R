@@ -73,7 +73,7 @@ facet_zoom <- function(x, y, xy, zoom.data, xlim = NULL, ylim = NULL,
   y <- if (missing(y)) if (missing(xy)) NULL else enquo(xy) else enquo(y)
   zoom.data <- if (missing(zoom.data)) NULL else enquo(zoom.data)
   if (is.null(x) && is.null(y) && is.null(xlim) && is.null(ylim)) {
-    stop('Either x- or y-zoom must be given', call. = FALSE)
+    cli::cli_abort('Either x- or y-zoom must be given')
   }
   if (!is.null(xlim)) x <- NULL
   if (!is.null(ylim)) y <- NULL
@@ -152,7 +152,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
 
       if (!is.null(x_scales)) {
         if ('x' %in% layout$name && x_scales[[1]]$is_discrete()) {
-          stop('facet_zoom doesn\'t support zooming in discrete scales', call. = FALSE)
+          cli::cli_abort('facet_zoom doesn\'t support zooming in discrete scales')
         }
         x_vars <- intersect(x_scales[[1]]$aesthetics, names(layer_data))
         SCALE_X <- layout$SCALE_X[match_id]
@@ -167,7 +167,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
 
       if (!is.null(y_scales)) {
         if ('y' %in% layout$name && y_scales[[1]]$is_discrete()) {
-          stop('facet_zoom doesn\'t support zooming in discrete scales', call. = FALSE)
+          cli::cli_abort('facet_zoom doesn\'t support zooming in discrete scales')
         }
         y_vars <- intersect(y_scales[[1]]$aesthetics, names(layer_data))
         SCALE_Y <- layout$SCALE_Y[match_id]
@@ -206,7 +206,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
   draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord,
                          data, theme, params) {
     if (inherits(coord, 'CoordFlip')) {
-      stop('facet_zoom currently doesn\'t work with flipped scales', call. = FALSE)
+      cli::cli_abort('facet_zoom doesn\'t work with flipped scales')
     }
     if (is.null(params$x) && is.null(params$xlim)) {
       params$horizontal <- TRUE
@@ -434,6 +434,13 @@ expansion <- function(scale, discrete = c(0, 0.6), continuous = c(0.05, 0)) {
 
 # Helpers -----------------------------------------------------------------
 
+split_with_index <- function(x, f, n = max(f)) {
+  if (n == 1) return(list(x))
+  f <- as.integer(f)
+  attributes(f) <- list(levels = as.character(seq_len(n)), class = "factor")
+  unname(split(x, f))
+}
+
 # Function for applying scale method to multiple variables in a given
 # data set.  Implement in such a way to minimize copying and hence maximise
 # speed
@@ -441,17 +448,19 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
   if (length(vars) == 0) return()
   if (nrow(data) == 0) return()
 
-  if (any(is.na(scale_id))) stop()
+  if (any(is.na(scale_id))) {
+    cli::cli_abort("{.arg scale_id} must not contain any {.val NA}")
+  }
 
-  scale_index <- split_indices(scale_id)
+  scale_index <- split_with_index(seq_along(scale_id), scale_id, length(scales))
 
   lapply(vars, function(var) {
     pieces <- lapply(seq_along(scales), function(i) {
       scales[[i]][[method]](data[[var]][scale_index[[i]]])
     })
-    # Join pieces back together, if necessary
-    if (!is.null(pieces)) {
-      unlist(pieces)[order(unlist(scale_index))]
-    }
+    # Remove empty vectors to avoid coercion issues with vctrs
+    pieces[lengths(pieces) == 0] <- NULL
+    o <- order(unlist(scale_index))[seq_len(sum(lengths(pieces)))]
+    vec_c(!!!pieces)[o]
   })
 }

@@ -135,7 +135,10 @@ StatPie <- ggproto('StatPie', Stat,
       angles <- cumsum(df$amount)
       seps <- cumsum(sep * seq_along(angles))
       if (max(seps) >= 2 * pi) {
-        stop('Total separation exceeds circle circumference. Try lowering "sep"')
+        cli::cli_abort(c(
+          'Total separation exceeds circle circumference',
+          i = 'Try lowering {.arg sep}.'
+        ))
       }
       angles <- angles / max(angles) * (2 * pi - max(seps))
       new_data_frame(c(df, list(
@@ -253,13 +256,16 @@ arcPaths2 <- function(data, n) {
   extraTemplate <- data[1, extraData, drop = FALSE]
   paths <- lapply(split(seq_len(nrow(data)), data$group), function(i) {
     if (length(i) != 2) {
-      stop('Arcs must be defined by two end points', call. = FALSE)
+      cli::cli_abort(c(
+        'Arcs must be defined by two end points',
+        i = 'Make sure each group consists of two rows'
+      ))
     }
     if (data$r[i[1]] != data$r[i[2]] ||
       data$x0[i[1]] != data$x0[i[2]] ||
       data$y0[i[1]] != data$y0[i[2]]) {
-      stop('Both end points must be at same radius and with same center',
-        call. = FALSE
+      cli::cli_abort(
+        'Both end points in each arc must be at same radius ({.arg r}) and with same center ({.arg {c("x0", "y0")}})'
       )
     }
     if (data$end[i[1]] == data$end[i[2]]) return()

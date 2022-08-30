@@ -59,5 +59,6 @@
 ## usethis namespace: start
 #' @importFrom lifecycle deprecated
 #' @import rlang
+#' @import vctrs
 ## usethis namespace: end
 NULL

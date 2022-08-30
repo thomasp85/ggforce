@@ -202,12 +202,10 @@ GeomArc0 <- ggproto('GeomArc0', Geom,
   default_aes = aes(colour = 'black', linewidth = 0.5, linetype = 1, alpha = 1),
   draw_key = draw_key_path,
 
-  draw_panel = function(data, panel_scales, coord, ncp = 5, arrow = NULL,
+  draw_panel = function(self, data, panel_scales, coord, ncp = 5, arrow = NULL,
                           lineend = 'butt', na.rm = FALSE) {
     if (!coord$is_linear()) {
-      warning('geom_arc is not implemented for non-linear coordinates',
-        call. = FALSE
-      )
+      cli::cli_abort('{.fn {snake_class(self)}} is not implemented for non-linear coordinates')
     }
     trans <- coord$transform(data, panel_scales)
     do.call(gList, lapply(seq_len(nrow(trans)), function(i) {

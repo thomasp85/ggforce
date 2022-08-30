@@ -145,7 +145,7 @@ shapeGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
     radius <- unit(radius, default.units)
   }
   if (as.numeric(radius) < 0) {
-    stop('radius must be positive', call. = FALSE)
+    cli::cli_abort('{.arg radius} must be positive')
   }
   if (is.null(id)) {
     if (is.null(id.lengths)) {
@@ -153,7 +153,7 @@ shapeGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
     } else {
       id <- rep(seq_along(id.lengths), id.lengths)
       if (length(id) != length(x)) {
-        stop('id.lengths must sum up to the number of points', call. = FALSE)
+        cli::cli_abort('{.arg id.lengths} must sum up to the number of points', call. = FALSE)
       }
     }
   }

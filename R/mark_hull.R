@@ -93,7 +93,7 @@ NULL
 #' @export
 GeomMarkHull <- ggproto('GeomMarkHull', GeomShape,
   setup_data = function(self, data, params) {
-    try_require('concaveman', snake_class(self))
+    check_installed('concaveman', 'to calculate concave hulls')
 
     if (!is.null(data$filter)) {
       self$removed <- data[!data$filter, c('x', 'y', 'PANEL')]
@@ -194,10 +194,7 @@ geom_mark_hull <- function(mapping = NULL, data = NULL, stat = 'identity',
                            con.border = 'one', con.cap = unit(3, 'mm'),
                            con.arrow = NULL, ..., na.rm = FALSE,
                            show.legend = NA, inherit.aes = TRUE) {
-  if (!requireNamespace('concaveman', quietly = TRUE)) {
-    warning('The concaveman package is required for geom_mark_hull', call. = FALSE)
-    return(invisible())
-  }
+  check_installed('concaveman', 'to calculate concave hulls')
   layer(
     data = data,
     mapping = mapping,

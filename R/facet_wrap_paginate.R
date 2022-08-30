@@ -18,6 +18,7 @@
 #' faceted plot
 #'
 #' @export
+#' @importFrom utils packageVersion
 #'
 #' @examples
 #' ggplot(diamonds) +
@@ -30,7 +31,7 @@ facet_wrap_paginate <- function(facets, nrow = NULL, ncol = NULL,
                                 switch = deprecated(), drop = TRUE, dir = 'h',
                                 strip.position = 'top', page = 1) {
   # Work around non-lifecycle deprecation
-  if (!lifecycle::is_present(switch) && packageVersion('ggplot2') < '3.4.0') {
+  if (!lifecycle::is_present(switch) && packageVersion('ggplot2') <= '3.3.6') {
     switch <- NULL
   }
   facet <- facet_wrap(facets,

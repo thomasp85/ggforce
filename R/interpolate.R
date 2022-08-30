@@ -3,14 +3,14 @@
 #' @usage NULL
 #' @importFrom grid segmentsGrob polylineGrob gpar
 GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
-  draw_panel = function(data, panel_scales, coord, arrow = NULL,
-                          lineend = 'butt', linejoin = 'round', linemitre = 1,
-                          na.rm = FALSE) {
+  draw_panel = function(self, data, panel_scales, coord, arrow = NULL,
+                        lineend = 'butt', linejoin = 'round', linemitre = 1,
+                        na.rm = FALSE) {
     if (!anyDuplicated(data$group)) {
-      message(
-        'geom_path_interpolate: Each group consists of only one observation. ',
-        'Do you need to adjust the group aesthetic?'
-      )
+      cli::cli_inform(c(
+        "{.fn {snake_class(self)}}: Each group consists of only one observation.",
+        i = "Do you need to adjust the {.field group} aesthetic?"
+      ))
     }
     data <- data[order(data$group), , drop = FALSE]
     data <- interpolateDataFrame(data)
@@ -35,10 +35,7 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)
     if (!solid_lines && !constant) {
-      stop('geom_path_interpolate: If you are using dotted or dashed lines',
-        ', colour, linewidth and linetype must be constant over the line',
-        call. = FALSE
-      )
+      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field linewidth}, and/or {.field alpha} along the line when {.field linetype} isn't solid")
     }
     n <- nrow(munched)
     group_diff <- munched$group[-1] != munched$group[-n]
@@ -86,7 +83,7 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
 #' @export
 interpolateDataFrame <- function(data) {
   if (is.null(data$group)) {
-    stop('data must have a group column')
+    cli::cli_abort('data must have a group column')
   }
   interpLengths <- lengths(split(data$group, data$group))
   for (i in seq_len(ncol(data))) {

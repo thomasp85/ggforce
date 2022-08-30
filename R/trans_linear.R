@@ -32,7 +32,7 @@ linear_trans <- function(...) {
   }))
   args <- unique(args)
   if (any(c('x', 'y') %in% args)) {
-    stop('x and y are preserved argument names', call. = FALSE)
+    cli::cli_abort('{.arg x} and {.arg y} are preserved argument names')
   }
   args <- c('x', 'y', args)
   trans_fun <- function() {

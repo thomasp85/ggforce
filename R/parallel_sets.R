@@ -67,7 +67,7 @@ StatParallelSets <- ggproto('StatParallelSets', Stat,
   setup_data = function(data, params) {
     value_check <- lapply(split(data$value, data$id), unique)
     if (any(lengths(value_check) != 1)) {
-      stop('value must be kept constant across id', call. = FALSE)
+      cli::cli_abort('{.field value} must be kept constant across {.field id}')
     }
     data$split <- as.factor(data$split)
     data
@@ -136,7 +136,7 @@ StatParallelSetsAxes <- ggproto('StatParallelSetsAxes', Stat,
   setup_data = function(data, params) {
     value_check <- lapply(split(data$value, data$id), unique)
     if (any(lengths(value_check) != 1)) {
-      stop('value must be kept constant across id', call. = FALSE)
+      cli::cli_abort('{.field value} must be kept constant across {.field id}')
     }
     data$split <- as.factor(data$split)
     data
@@ -153,7 +153,7 @@ StatParallelSetsAxes <- ggproto('StatParallelSetsAxes', Stat,
     aes <- data[, names(data) %in% cols]
     aes <- unique(aes)
     if (nrow(aes) != nrow(data_axes)) {
-      stop('Axis aesthetics must be constant in each split', call. = FALSE)
+      cli::cli_abort('Axis aesthetics must be constant in each split')
     }
     data_axes$split <- factor(as.character(data_axes$split),
                               levels = split_levels)
@@ -228,7 +228,12 @@ geom_parallel_sets_labels <- function(mapping = NULL, data = NULL,
                                       show.legend = NA, inherit.aes = TRUE,
                                       ...) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
-    if (!missing(position)) stop("You must specify either `position` or `nudge_x`/`nudge_y`.", call. = FALSE)
+    if (!missing(position)) {
+      cli::cli_abort(c(
+        "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
+        "i" = "Only use one approach to alter the position"
+      ))
+    }
     position <- position_nudge(nudge_x, nudge_y)
   }
 
@@ -270,7 +275,7 @@ complete_data <- function(data) {
   all_obs <- unique(data[, c('id', 'value')])
   data <- do.call(rbind, lapply(split(data, data$x), function(d) {
     if (anyDuplicated(d$id) != 0) {
-      stop('id must be unique within axes', call. = FALSE)
+      cli::cli_abort('{.field id} must be unique within axes')
     }
     x <- d$x[1]
     if (length(d$id) != nrow(all_obs)) {
@@ -288,7 +293,7 @@ complete_data <- function(data) {
   id_groups <- lapply(split(data$group, data$id),
                       function(x) unique(na.omit(x)))
   if (any(lengths(id_groups) != 1)) {
-    stop('id must keep grouping across data', call. = FALSE)
+    cli::cli_abort('{.field id} must keep grouping across data')
   }
   id_match <- match(as.character(data$id), names(id_groups))
   data$group <- unlist(id_groups)[id_match]

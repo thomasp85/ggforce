@@ -134,14 +134,14 @@ NULL
 #' @export
 StatVoronoiTile <- ggproto('StatVoronoiTile', Stat,
   setup_params = function(self, data, params) {
-    try_require('deldir', snake_class(self))
+    check_installed('deldir', 'to calculate voronoi tesselation')
     params
   },
   compute_group = function(self, data, scales, bound = NULL, eps = 1e-9,
                            max.radius = NULL, normalize = FALSE, asp.ratio = 1) {
     data$group <- paste0(seq_len(nrow(data)), ':', data$group)
     if (any(duplicated(data[, c('x', 'y')]))) {
-      warning('stat_voronoi_tile: dropping duplicated points', call. = FALSE)
+      cli::cli_warn('{.fn {snake_class(self)}} is dropping duplicated points')
     }
     polybound <- NULL
     if (is.null(bound)) {
@@ -214,13 +214,13 @@ geom_voronoi_tile <- function(mapping = NULL, data = NULL, stat = 'voronoi_tile'
 #' @export
 StatVoronoiSegment <- ggproto('StatVoronoiSegment', Stat,
   setup_params = function(self, data, params) {
-    try_require('deldir', snake_class(self))
+    check_installed('deldir', 'to calculate voronoi tesselation')
     params
   },
   compute_group = function(self, data, scales, bound = NULL, eps = 1e-9,
                            normalize = FALSE, asp.ratio = 1) {
     if (any(duplicated(data[, c('x', 'y')]))) {
-      warning('stat_voronoi_segment: dropping duplicated points', call. = FALSE)
+      cli::cli_warn('{.fn {snake_class(self)}} is dropping duplicated points')
     }
     if (normalize) {
       x_range <- range(data$x, na.rm = TRUE, finite = TRUE)
@@ -274,10 +274,10 @@ geom_voronoi_segment <- function(mapping = NULL, data = NULL,
 #' @export
 StatDelaunayTile <- ggproto('StatDelaunayTile', Stat,
   setup_params = function(self, data, params) {
-    try_require('deldir', snake_class(self))
+    check_installed('deldir', 'to calculate delaunay triangulation')
     params
   },
-  compute_group = function(data, scales, bound = NULL, eps = 1e-9,
+  compute_group = function(self, data, scales, bound = NULL, eps = 1e-9,
                            normalize = FALSE, asp.ratio = 1) {
     if (normalize) {
       x_range <- range(data$x, na.rm = TRUE, finite = TRUE)
@@ -291,7 +291,7 @@ StatDelaunayTile <- ggproto('StatDelaunayTile', Stat,
     }
     data <- lapply(split(data, data$group), function(d) {
       if (any(duplicated(d[, c('x', 'y')]))) {
-        warning('stat_delaunay_tile: dropping duplicated points', call. = FALSE)
+        cli::cli_warn('{.fn {snake_class(self)}} is dropping duplicated points')
       }
       vor <- deldir::deldir(d$x, d$y, rw = bound, eps = eps,
                             suppressMsge = TRUE)
@@ -338,14 +338,13 @@ geom_delaunay_tile <- function(mapping = NULL, data = NULL,
 #' @export
 StatDelaunaySegment <- ggproto('StatDelaunaySegment', Stat,
   setup_params = function(self, data, params) {
-    try_require('deldir', snake_class(self))
+    check_installed('deldir', 'to calculate delaunay triangulation')
     params
   },
-  compute_group = function(data, scales, bound = NULL, eps = 1e-9,
+  compute_group = function(self, data, scales, bound = NULL, eps = 1e-9,
                            normalize = FALSE, asp.ratio = 1) {
     if (any(duplicated(data[, c('x', 'y')]))) {
-      warning('stat_delaunay_segment: dropping duplicated points',
-              call. = FALSE)
+      cli::cli_warn('{.fn {snake_class(self)}} is dropping duplicated points')
     }
     if (normalize) {
       x_range <- range(data$x, na.rm = TRUE, finite = TRUE)
@@ -400,14 +399,13 @@ geom_delaunay_segment <- function(mapping = NULL, data = NULL,
 #' @export
 StatDelaunaySegment2 <- ggproto('StatDelaunaySegment2', Stat,
   setup_params = function(self, data, params) {
-    try_require('deldir', snake_class(self))
+    check_installed('deldir', 'to calculate delaunay triangulation')
     params
   },
-  compute_group = function(data, scales, bound = NULL, eps = 1e-9, n = 100,
+  compute_group = function(self, data, scales, bound = NULL, eps = 1e-9, n = 100,
                            normalize = FALSE, asp.ratio = 1) {
     if (any(duplicated(data[, c('x', 'y')]))) {
-      warning('stat_delaunay_segment2: dropping duplicated points',
-              call. = FALSE)
+      cli::cli_warn('{.fn {snake_class(self)}} is dropping duplicated points')
     }
     if (normalize) {
       x_range <- range(data$x, na.rm = TRUE, finite = TRUE)
@@ -464,15 +462,14 @@ geom_delaunay_segment2 <- function(mapping = NULL, data = NULL,
 #' @export
 StatDelvorSummary <- ggproto('StatDelvorSummary', Stat,
   setup_params = function(self, data, params) {
-    try_require('deldir', snake_class(self))
+    check_installed('deldir', 'to calculate delaunay triangulation')
     params
   },
-  compute_group = function(data, scales, bound = NULL, eps = 1e-9,
+  compute_group = function(self, data, scales, bound = NULL, eps = 1e-9,
                            switch.centroid = FALSE, normalize = FALSE,
                            asp.ratio = 1) {
     if (any(duplicated(data[, c('x', 'y')]))) {
-      warning('stat_delvor_summary: dropping duplicated points',
-              call. = FALSE)
+      cli::cli_warn('{.fn {snake_class(self)}} is dropping duplicated points')
     }
     if (normalize) {
       x_range <- range(data$x, na.rm = TRUE, finite = TRUE)
@@ -528,7 +525,7 @@ stat_delvor_summary <- function(mapping = NULL, data = NULL, geom = 'point',
 
 # HELPERS -----------------------------------------------------------------
 to_tile <- function(object) {
-  try_require('deldir', 'to_tile')
+  check_installed('deldir', 'to calculate voronoi tesselation')
   tiles <- rbind(
     structure(object$dirsgs[, c(1:2, 5)], names = c('x', 'y', 'group')),
     structure(object$dirsgs[, c(1:2, 6)], names = c('x', 'y', 'group')),

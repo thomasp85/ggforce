@@ -20,9 +20,7 @@
 #' @importFrom ggplot2 label_parsed
 #' @export
 label_tex <- function(labels, ...) {
-  if (!requireNamespace("latex2exp", quiet = TRUE)) {
-    stop("The latex2exp package is needed for this functionality", call. = FALSE)
-  }
+  check_installed('latex2exp', 'to parse tex equations')
   label_parsed(
     as.data.frame(
       lapply(labels, latex2exp::TeX, output = "character"),

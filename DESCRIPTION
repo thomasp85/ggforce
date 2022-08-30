@@ -37,7 +37,9 @@ Imports:
     tidyselect,
     withr,
     utils,
-    lifecycle
+    lifecycle,
+    cli,
+    vctrs
 LinkingTo: Rcpp, RcppEigen
 RoxygenNote: 7.2.1
 Suggests:

@@ -238,7 +238,7 @@ ellipEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL
     } else {
       id <- rep(seq_along(id.lengths), id.lengths)
       if (length(id) != length(x)) {
-        stop('id.lengths must sum up to the number of points', call. = FALSE)
+        cli::cli_abort('{.arg id.lengths} must sum up to the number of points')
       }
     }
   }

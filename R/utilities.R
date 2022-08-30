@@ -1,14 +1,14 @@
 new_data_frame <- function(x = list(), n = NULL) {
-  if (length(x) != 0 && is.null(names(x))) stop('Elements must be named',
-                                                call. = FALSE)
+  if (length(x) != 0 && is.null(names(x))) {
+    cli::cli_abort('Elements in {.arg x} must be named')
+  }
   lengths <- vapply(x, length, integer(1))
   if (is.null(n)) {
     n <- if (length(x) == 0) 0 else max(lengths)
   }
   for (i in seq_along(x)) {
     if (lengths[i] == n) next
-    if (lengths[i] != 1) stop('Elements must equal the number of rows or 1',
-                              call. = FALSE)
+    if (lengths[i] != 1) cli::cli_abort('Elements must equal the number of rows or 1')
     x[[i]] <- rep(x[[i]], n)
   }
 
@@ -215,18 +215,6 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
   }))
 }
 
-# Test whether package `package` is available. `fun` provides
-# the name of the ggplot2 function that uses this package, and is
-# used only to produce a meaningful error message if the
-# package is not available.
-try_require <- function(package, fun) {
-  if (requireNamespace(package, quietly = TRUE)) {
-    return(invisible())
-  }
-
-  stop("Package `", package, "` required for `", fun , "`.\n",
-       "Please install and try again.", call. = FALSE)
-}
 # Use chartr() for safety since toupper() fails to convert i to I in Turkish locale
 lower_ascii <- "abcdefghijklmnopqrstuvwxyz"
 upper_ascii <- "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -234,11 +222,11 @@ to_lower_ascii <- function(x) chartr(upper_ascii, lower_ascii, x)
 to_upper_ascii <- function(x) chartr(lower_ascii, upper_ascii, x)
 
 tolower <- function(x) {
-  stop('Please use `to_lower_ascii()`, which works fine in all locales.', call. = FALSE)
+  cli::cli_abort("Please use {.fn to_lower_ascii}, which works fine in all locales.")
 }
 
 toupper <- function(x) {
-  stop('Please use `to_upper_ascii()`, which works fine in all locales.', call. = FALSE)
+  cli::cli_abort("Please use {.fn to_upper_ascii}, which works fine in all locales.")
 }
 
 # Convert a snake_case string to camelCase
