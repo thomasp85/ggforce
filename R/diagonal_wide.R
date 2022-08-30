@@ -69,7 +69,7 @@ StatDiagonalWide <- ggproto('StatDiagonalWide', Stat,
     upper <- add_controls(upper[rev(seq_len(nrow(upper))), ], strength)
     lower <- StatBezier$compute_panel(lower, scales, n)
     upper <- StatBezier$compute_panel(upper, scales, n)
-    diagonals <- rbind(lower, upper)
+    diagonals <- vec_rbind(lower, upper)
     diagonals$index <- NULL
     diagonals[order(diagonals$group), ]
   },

@@ -76,17 +76,17 @@ GeomMarkRect <- ggproto('GeomMarkRect', GeomShape,
       self$removed <- data[!data$filter, c('x', 'y', 'PANEL')]
       data <- data[data$filter, ]
     }
-    do.call(rbind, lapply(split(data, data$group), function(d) {
+    vec_rbind(!!!lapply(split(data, data$group), function(d) {
       if (nrow(d) == 1) return(d)
       x_range <- range(d$x)
       y_range <- range(d$y)
-      d_new <- data.frame(
+      d_new <- data_frame0(
         x = x_range[c(1, 1, 2, 2)],
         y = y_range[c(1, 2, 2, 1)]
       )
       d$x <- NULL
       d$y <- NULL
-      unique(cbind(d_new, d[rep(1, 4), ]))
+      unique0(cbind(d_new, d[rep(1, 4), ]))
     }))
   },
   draw_panel = function(self, data, panel_params, coord, expand = unit(5, 'mm'),
@@ -105,7 +105,7 @@ GeomMarkRect <- ggproto('GeomMarkRect', GeomShape,
 
     coords <- coord$transform(data, panel_params)
     if (!is.integer(coords$group)) {
-      coords$group <- match(coords$group, unique(coords$group))
+      coords$group <- match(coords$group, unique0(coords$group))
     }
     coords <- coords[order(coords$group), ]
 
@@ -279,7 +279,7 @@ makeContent.rect_enc <- function(x) {
       con_border = x$con.border, con_cap = x$con.cap,
       con_gp = x$con.gp, anchor_mod = 3, arrow = x$con.arrow
     )
-    setChildren(x, do.call(gList, c(list(mark), labels)))
+    setChildren(x, inject(gList(!!!c(list(mark), labels))))
   } else {
     setChildren(x, gList(mark))
   }

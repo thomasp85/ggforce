@@ -141,11 +141,11 @@ StatPie <- ggproto('StatPie', Stat,
         ))
       }
       angles <- angles / max(angles) * (2 * pi - max(seps))
-      new_data_frame(c(df, list(
+      data_frame0(
+        df,
         start = c(0, angles[-length(angles)]) + c(0, seps[-length(seps)]) + sep / 2,
-        end = angles + seps - sep / 2,
-        stringsAsFactors = FALSE
-      )))
+        end = angles + seps - sep / 2
+      )
     })
     arcPaths(as.data.frame(data), n)
   },
@@ -203,20 +203,20 @@ arcPaths <- function(data, n) {
   extraData <- !names(data) %in% c('r0', 'r', 'start', 'end', 'group')
   data$group <- make_unique(as.character(data$group))
   paths <- lapply(seq_len(nrow(data)), function(i) {
-    path <- data.frame(
+    path <- data_frame0(
       a = seq(data$start[i], data$end[i], length.out = data$nControl[i]),
       r = data$r[i]
     )
     if ('r0' %in% names(data)) {
       if (data$r0[i] != 0) {
-        path <- rbind(
+        path <- vec_rbind(
           path,
-          data.frame(a = rev(path$a), r = data$r0[i])
+          data_frame0(a = rev(path$a), r = data$r0[i])
         )
       } else {
-        path <- rbind(
+        path <- vec_rbind(
           path,
-          data.frame(a = data$start[i], r = 0)
+          data_frame0(a = data$start[i], r = 0)
         )
       }
     }
@@ -224,7 +224,7 @@ arcPaths <- function(data, n) {
     path$index <- seq(0, 1, length.out = nrow(path))
     path <- cbind(path, data[rep(i, nrow(path)), extraData, drop = FALSE])
   })
-  paths <- do.call(rbind, paths)
+  paths <- vec_rbind(!!!paths)
   paths <- cbind(
     paths[, !names(paths) %in% c('r', 'a')],
     trans$transform(paths$r, paths$a)
@@ -271,7 +271,7 @@ arcPaths2 <- function(data, n) {
     if (data$end[i[1]] == data$end[i[2]]) return()
     nControl <- ceiling(fullCirc * abs(diff(data$end[i])))
     if (nControl < 3) nControl <- 3
-    path <- data.frame(
+    path <- data_frame0(
       a = seq(data$end[i[1]], data$end[i[2]], length.out = nControl),
       r = data$r[i[1]],
       x0 = data$x0[i[1]],
@@ -288,7 +288,7 @@ arcPaths2 <- function(data, n) {
     }
     path
   })
-  paths <- do.call(rbind, paths)
+  paths <- vec_rbind(!!!paths)
   paths <- cbind(
     paths[, !names(paths) %in% c('r', 'a')],
     trans$transform(paths$r, paths$a)

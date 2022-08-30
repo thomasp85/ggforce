@@ -57,15 +57,16 @@ StatAutodensity <- ggproto('StatAutodensity', StatDensity,
                            n = 512, trim = FALSE, na.rm = FALSE, panel_range = list(), panel_count = list()) {
     if (scales$x$is_discrete()) {
       bins <- split(data, factor(data$x, levels = seq_len(scales$x$range_c$range[2])))
-      binned <- rbind_dfs(lapply(as.integer(names(bins)), function(x) {
+      binned <- lapply(as.integer(names(bins)), function(x) {
         count <- nrow(bins[[x]])
         pad <- if (count == 0) 0.5 else 0.3
         pad <- pad * c(-1, 1)
-        new_data_frame(list(
+        data_frame0(
           x = x + pad,
           density = count / nrow(data)
-        ))
-      }))
+        )
+      })
+      binned <- ved_rbind(!!!binned)
       binned$scaled <- binned$density / max(binned$density)
       binned$ndensity <- binned$density / max(binned$density)
       binned$count <- binned$density * nrow(data)

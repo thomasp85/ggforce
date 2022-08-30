@@ -99,7 +99,7 @@ sina_trans <- function(x, val, max_width, bw = 'nrd0', scale = TRUE) {
   by_ind <- split(seq_along(x), x)
   x_new <- unlist(lapply(by_ind, function(i) {
     val_x <- val[i]
-    if (length(unique(val_x)) < 2) {
+    if (length(unique0(val_x)) < 2) {
       return(stats::runif(length(val_x), min = -max_width, max = max_width))
     }
     if (length(val_x) < 3) {

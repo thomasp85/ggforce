@@ -159,7 +159,7 @@ GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
 
     coords <- coord$transform(data, panel_params)
     if (!is.integer(coords$group)) {
-      coords$group <- match(coords$group, unique(coords$group))
+      coords$group <- match(coords$group, unique0(coords$group))
     }
     coords <- coords[order(coords$group), ]
 
@@ -301,10 +301,10 @@ circEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
   include <- unlist(lapply(split(seq_along(x), id), function(i) {
     xi <- x[i]
     yi <- y[i]
-    if (length(unique(xi)) == 1) {
+    if (length(unique0(xi)) == 1) {
       return(i[c(which.min(yi), which.max(yi))])
     }
-    if (length(unique(yi)) == 1) {
+    if (length(unique0(yi)) == 1) {
       return(i[c(which.min(xi), which.max(xi))])
     }
     i[chull(xi, yi)]
@@ -357,7 +357,7 @@ makeContent.circ_enc <- function(x) {
   points <- 2 * pi * (seq_len(x$n) - 1) / x$n
   circles$x <- circles$x0 + cos(points) * circles$r
   circles$y <- circles$y0 + sin(points) * circles$r
-  circles <- unique(circles)
+  circles <- unique0(circles)
   mark$x <- unit(circles$x, 'mm')
   mark$y <- unit(circles$y, 'mm')
   mark$id <- circles$id
@@ -373,7 +373,7 @@ makeContent.circ_enc <- function(x) {
       con_border = x$con.border, con_cap = x$con.cap,
       con_gp = x$con.gp, anchor_mod = 2, arrow = x$con.arrow
     )
-    setChildren(x, do.call(gList, c(list(mark), labels)))
+    setChildren(x, inject(gList(!!!c(list(mark), labels))))
   } else {
     setChildren(x, gList(mark))
   }

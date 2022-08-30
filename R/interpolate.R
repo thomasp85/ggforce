@@ -23,13 +23,13 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
       return(zeroGrob())
     }
     attr <- dapply(data, 'group', function(df) {
-      new_data_frame(list(
-        solid = identical(unique(df$linetype), 1),
-        constant = nrow(unique(df[, names(df) %in% c(
+      data_frame0(
+        solid = identical(unique0(df$linetype), 1),
+        constant = nrow(unique0(df[, names(df) %in% c(
           'alpha', 'colour',
           'linewidth', 'size', 'linetype'
         )])) == 1
-      ))
+      )
     })
 
     solid_lines <- all(attr$solid)
@@ -55,7 +55,7 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
       )
     }
     else {
-      id <- match(munched$group, unique(munched$group))
+      id <- match(munched$group, unique0(munched$group))
       polylineGrob(munched$x, munched$y,
         id = id, default.units = 'native',
         arrow = arrow, gp = gpar(
@@ -91,7 +91,7 @@ interpolateDataFrame <- function(data) {
         all(is.na(data[[i]]))) {
       next
     }
-    if (length(unique(data[[i]][data$.interp])) > 1) {
+    if (length(unique0(data[[i]][data$.interp])) > 1) {
       next
     }
     interpValues <- split(data[[i]][!data$.interp], data$group[!data$.interp])

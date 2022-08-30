@@ -296,14 +296,14 @@ StatDelaunayTile <- ggproto('StatDelaunayTile', Stat,
       vor <- deldir::deldir(d$x, d$y, rw = bound, eps = eps,
                             suppressMsge = TRUE)
       d <- to_triangle(vor)
-      d$group <- paste(data$group[1], '_', match(d$group, unique(d$group)))
+      d$group <- paste(data$group[1], '_', match(d$group, unique0(d$group)))
       d
     })
     for (i in seq_len(length(data) - 1) + 1) {
       max_group <- max(data[[i - 1]]$group)
       data[[i]]$group <- data[[i]]$group + max_group
     }
-    data <- do.call(rbind, data)
+    data <- vec_rbind(!!!data)
     if (normalize) {
       data$x <- rescale(data$x / asp.ratio, to = x_range, from = c(0, 1))
       data$y <- rescale(data$y, to = y_range, from = c(0, 1))
@@ -419,7 +419,7 @@ StatDelaunaySegment2 <- ggproto('StatDelaunaySegment2', Stat,
     }
     vor <- deldir::deldir(data$x, data$y, rw = bound, eps = eps,
                           suppressMsge = TRUE)
-    segments <- rbind(
+    segments <- vec_rbind(
       structure(vor$delsgs[, c(1:2, 5)], names = c('x', 'y', 'group')),
       structure(vor$delsgs[, c(3:4, 6)], names = c('x', 'y', 'group'))
     )
@@ -526,16 +526,16 @@ stat_delvor_summary <- function(mapping = NULL, data = NULL, geom = 'point',
 # HELPERS -----------------------------------------------------------------
 to_tile <- function(object) {
   check_installed('deldir', 'to calculate voronoi tesselation')
-  tiles <- rbind(
+  tiles <- vec_rbind(
     structure(object$dirsgs[, c(1:2, 5)], names = c('x', 'y', 'group')),
     structure(object$dirsgs[, c(1:2, 6)], names = c('x', 'y', 'group')),
     structure(object$dirsgs[, c(3:5)], names = c('x', 'y', 'group')),
     structure(object$dirsgs[, c(3:4, 6)], names = c('x', 'y', 'group'))
   )
-  tiles <- unique(tiles)
-  tiles <- rbind(
+  tiles <- unique0(tiles)
+  tiles <- vec_rbind(
     tiles,
-    data.frame(
+    data_frame0(
       x = object$rw[c(1, 2, 2, 1)],
       y = object$rw[c(3, 3, 4, 4)],
       group = deldir::get.cnrind(
@@ -553,7 +553,7 @@ to_tile <- function(object) {
   tiles[order(tiles$group, tiles$theta), ]
 }
 to_triangle <- function(object) {
-  tiles <- rbind(
+  tiles <- vec_rbind(
     structure(object$dirsgs[, c(1:2, 5)], names = c('x', 'y', 'point')),
     structure(object$dirsgs[, c(3:4, 6)], names = c('x', 'y', 'point'))
   )
@@ -569,16 +569,16 @@ to_triangle <- function(object) {
     object$delsgs$ind2 %in% unconform_point
   object$delsgs <- object$delsgs[unconform_seg, , drop = FALSE]
   last_points <- tri_mat(object)
-  last_points <- data.frame(
+  last_points <- data_frame0(
     point = as.vector(last_points),
     group = rep(seq(max(tiles$group) + 1, length.out = ncol(last_points)),
                 each = 3)
   )
-  triangles <- rbind(tiles[, c('point', 'group'), drop = FALSE], last_points)
+  triangles <- vec_rbind(tiles[, c('point', 'group'), drop = FALSE], last_points)
   triangles$x <- object$summary$x[triangles$point]
   triangles$y <- object$summary$y[triangles$point]
   triangles <- triangles[order(triangles$group, triangles$point), ]
-  triangles$group <- match(triangles$group, unique(triangles$group))
+  triangles$group <- match(triangles$group, unique0(triangles$group))
   dup_tri <- which(duplicated(matrix(triangles$point, ncol = 3, byrow = TRUE)))
   triangles <- triangles[!triangles$group %in% dup_tri, , drop = FALSE]
   triangles
@@ -589,7 +589,7 @@ tri_mat <- function(object) {
   tlist <- matrix(integer(0), 3, 0)
   for (i in union(a, b)) {
     jj <- c(b[a == i], a[b == i])
-    jj <- sort(unique(jj))
+    jj <- sort(unique0(jj))
     jj <- jj[jj > i]
     if (length(jj) > 0) {
       for (j in jj) {
@@ -625,10 +625,10 @@ clip_tiles <- function(tiles, radius, bound) {
       final_tile <- polyclip(final_tile, bound, 'intersection')
     }
     if (length(final_tile) == 0) return(NULL)
-    new_data_frame(list(
+    data_frame0(
       x = final_tile[[1]]$x,
       y = final_tile[[1]]$y,
       group = tile$group[1]
-    ))
+    )
   })
 }

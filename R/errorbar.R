@@ -7,7 +7,7 @@ StatErr <- ggproto(
   Stat,
   required_aes = c('xmin', 'x', 'xmax', 'ymin', 'y', 'ymax'),
   compute_group = function(data, scales) {
-    data.frame(
+    data_frame0(
       x    = c(data$xmin, data$x),
       xend = c(data$xmax, data$x),
       y    = c(data$y,    data$ymin),

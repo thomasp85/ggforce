@@ -96,13 +96,10 @@ facet_zoom <- function(x, y, xy, zoom.data, xlim = NULL, ylim = NULL,
 #' @export
 FacetZoom <- ggproto('FacetZoom', Facet,
   compute_layout = function(data, params) {
-    layout <- rbind(
-      data.frame(name = 'orig', SCALE_X = 1L, SCALE_Y = 1L),
-      data.frame(name = 'x', SCALE_X = 2L, SCALE_Y = 1L),
-      data.frame(name = 'y', SCALE_X = 1L, SCALE_Y = 2L),
-      data.frame(name = 'full', SCALE_X = 2L, SCALE_Y = 2L),
-      data.frame(name = 'orig_true', SCALE_X = 1L, SCALE_Y = 1L),
-      data.frame(name = 'zoom_true', SCALE_X = 1L, SCALE_Y = 1L)
+    layout <- data_frame0(
+      name = c('orig', 'x', 'y', 'full', 'orig_true', 'zoom_true'),
+      SCALE_X = c(1L, 2L, 1L, 2L, 1L, 1L),
+      SCALE_Y = c(1L, 1L, 2L, 2L, 1L, 1L)
     )
     if (is.null(params$y) && is.null(params$ylim)) {
       layout <- layout[c(1, 2, 5:6), ]
@@ -116,7 +113,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
     if (empty(data)) {
       return(cbind(data, PANEL = integer(0)))
     }
-    rbind(
+    vec_rbind(
       cbind(data, PANEL = 1L),
       if (!is.null(params$x)) {
         index_x <- tryCatch(eval_tidy(params$x, data),
@@ -138,7 +135,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
         zoom_data <- rep(zoom_data, length.out = nrow(data))
         zoom_ind <- zoom_data | is.na(zoom_data)
         orig_ind <- !zoom_data | is.na(zoom_data)
-        rbind(
+        vec_rbind(
           cbind(data[zoom_ind, ], PANEL = if (any(zoom_ind)) layout$PANEL[layout$name == 'zoom_true'] else integer(0)),
           cbind(data[orig_ind, ], PANEL = if (any(orig_ind)) layout$PANEL[layout$name == 'orig_true'] else integer(0))
         )
@@ -184,7 +181,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
   finish_data = function(data, layout, x_scales, y_scales, params) {
     plot_panels <- which(!grepl('_true', layout$name))
     data <- if (is.null(params$zoom.data)) {
-      do.call(rbind, lapply(layout$PANEL[plot_panels], function(panel) {
+      vec_rbind(!!!lapply(layout$PANEL[plot_panels], function(panel) {
         d <- data[data$PANEL == 1, ]
         d$PANEL <- panel
         d
@@ -195,7 +192,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       orig_data <- data[data$PANEL == orig_pan, ]
       orig_data$PANEL <- if (nrow(orig_data) != 0) 1L else integer(0)
       zoom_data <- data[data$PANEL == zoom_pan, ]
-      rbind(orig_data, do.call(rbind, lapply(plot_panels[-1], function(panel) {
+      vec_rbind(orig_data, vec_rbind(!!!lapply(plot_panels[-1], function(panel) {
         zoom_data$PANEL <- if (nrow(zoom_data) != 0) panel else integer(0)
         zoom_data
       })))

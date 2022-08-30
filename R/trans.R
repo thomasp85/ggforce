@@ -124,14 +124,14 @@ radial_trans <- function(r.range, a.range, offset = pi / 2, pad = 0.5,
       } else {
         a <- offset + (a - a.range[1]) / diff(a.range) * -2 * pi
       }
-      data.frame(x = r * cos(a), y = r * sin(a))
+      data_frame0(x = r * cos(a), y = r * sin(a))
     },
     inverse = function(x, y) {
       r <- sqrt(x^2 + y^2) * diff(r.range) + r.range[1]
       angle <- -(atan2(y, x) - offset)
       angle[angle < 0] <- 2 * pi + angle[angle < 0]
       a <- angle / (2 * pi) * diff(a.range) + a.range[1]
-      data.frame(r = r, a = a)
+      data_frame0(r = r, a = a)
     },
     breaks = extended_breaks(),
     format = format_format()

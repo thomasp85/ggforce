@@ -30,7 +30,7 @@ linear_trans <- function(...) {
     args <- as.list(call)[-1]
     as.character(args[sapply(args, 'class') == 'name'])
   }))
-  args <- unique(args)
+  args <- unique0(args)
   if (any(c('x', 'y') %in% args)) {
     cli::cli_abort('{.arg x} and {.arg y} are preserved argument names')
   }
@@ -40,7 +40,7 @@ linear_trans <- function(...) {
     trans_mat <- Reduce(function(l, r) r %*% l,
                         lapply(calls, eval, envir = env))
     trans <- trans_mat %*% rbind(x, y, z = 1)
-    data.frame(x = trans[1, ], y = trans[2, ])
+    data_frame0(x = trans[1, ], y = trans[2, ])
   }
   formals(trans_fun) <- structure(rep(list(quote(expr = )), length(args)),
                                   names = args)
@@ -50,7 +50,7 @@ linear_trans <- function(...) {
                         lapply(calls, eval, envir = env))
     trans_mat <- solve(trans_mat)
     trans <- trans_mat %*% rbind(x, y, z = 1)
-    data.frame(x = trans[1, ], y = trans[2, ])
+    data_frame0(x = trans[1, ], y = trans[2, ])
   }
   formals(inv_fun) <- structure(rep(list(quote(expr = )), length(args)),
                                 names = args)

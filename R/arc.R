@@ -208,7 +208,7 @@ GeomArc0 <- ggproto('GeomArc0', Geom,
       cli::cli_abort('{.fn {snake_class(self)}} is not implemented for non-linear coordinates')
     }
     trans <- coord$transform(data, panel_scales)
-    do.call(gList, lapply(seq_len(nrow(trans)), function(i) {
+    grobs <- lapply(seq_len(nrow(trans)), function(i) {
       curveGrob(trans$x[i], trans$y[i], trans$xend[i], trans$yend[i],
         default.units = 'native',
         curvature = data$curvature[i], angle = 90, ncp = ncp, square = FALSE,
@@ -220,7 +220,8 @@ GeomArc0 <- ggproto('GeomArc0', Geom,
           lineend = trans$lineend[i]
         ), arrow = arrow[i]
       )
-    }))
+    })
+    inject(gList(!!!grobs))
   },
   rename_size = TRUE,
   non_missing_aes = "size"

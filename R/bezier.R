@@ -107,14 +107,14 @@ StatBezier <- ggproto('StatBezier', Stat,
       ))
     }
     data <- data[order(data$group), ]
-    groups <- unique(data$group)
+    groups <- unique0(data$group)
     paths <- getBeziers(data$x, data$y, match(data$group, groups), n)
-    paths <- data.frame(
+    paths <- data_frame0(
       x = paths$paths[, 1], y = paths$paths[, 2],
       group = groups[paths$pathID]
     )
     paths$index <- rep(seq(0, 1, length.out = n), length(nControls))
-    dataIndex <- rep(match(unique(data$group), data$group), each = n)
+    dataIndex <- rep(match(unique0(data$group), data$group), each = n)
     cbind(
       paths,
       data[dataIndex, !names(data) %in% c('x', 'y', 'group'), drop = FALSE]
@@ -165,20 +165,20 @@ StatBezier2 <- ggproto('StatBezier2', Stat,
         i = 'Make sure each group consists of 3 or 4 rows'
       ))
     }
-    groups <- unique(data$group)
+    groups <- unique0(data$group)
     paths <- getBeziers(data$x, data$y, match(data$group, groups), params$n)
-    paths <- data.frame(
+    paths <- data_frame0(
       x = paths$paths[, 1], y = paths$paths[, 2],
       group = groups[paths$pathID]
     )
     paths$index <- rep(seq(0, 1, length.out = params$n), length(nControls))
-    dataIndex <- rep(match(unique(data$group), data$group), each = params$n)
+    dataIndex <- rep(match(unique0(data$group), data$group), each = params$n)
     paths <- cbind(paths, data[dataIndex, 'PANEL', drop = FALSE])
     extraCols <- !names(data) %in% c('x', 'y', 'group', 'PANEL')
     startIndex <- c(1, cumsum(nControls) + 1)[-(length(nControls) + 1)]
     endIndex <- c(startIndex[-1] - 1, nrow(data))
     dataIndex <- c(startIndex, endIndex)
-    pathIndex <- match(unique(data$group), paths$group)
+    pathIndex <- match(unique0(data$group), paths$group)
     pathIndex <- c(pathIndex, pathIndex + 1)
     paths$.interp <- TRUE
     paths$.interp[pathIndex] <- FALSE
@@ -257,9 +257,9 @@ GeomBezier0 <- ggproto('GeomBezier0', GeomPath,
                           na.rm = FALSE) {
     coords <- coord$transform(data, panel_scales)
     if (!is.integer(coords$group)) {
-      coords$group <- match(coords$group, unique(coords$group))
+      coords$group <- match(coords$group, unique0(coords$group))
     }
-    startPoint <- match(unique(coords$group), coords$group)
+    startPoint <- match(unique0(coords$group), coords$group)
     bezierGrob(coords$x, coords$y,
       id = coords$group, default.units = 'native',
       arrow = arrow,

@@ -80,15 +80,16 @@ StatAutobin <- ggproto('StatAutobin', StatBin,
                            origin = NULL, right = NULL, drop = NULL,
                            width = NULL) {
     if (scales$x$is_discrete()) {
-      binned <- rbind_dfs(lapply(split(data, data$x), function(d) {
-        new_data_frame(list(
+      binned <- lapply(split(data, data$x), function(d) {
+        data_frame0(
           count = nrow(d),
           x = d$x[1],
           xmin = d$x[1] - 0.5,
           xmax = d$x[1] + 0.5,
           width = 1
-        ))
-      }))
+        )
+      })
+      binned <- vec_rbind(!!!binned)
       binned$density <- binned$count / sum(binned$count)
       binned$ncount <- binned$count / max(binned$count)
       binned$ndensity <- binned$density / max(binned$density)

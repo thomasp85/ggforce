@@ -74,10 +74,10 @@ FacetGridPaginate <- ggproto('FacetGridPaginate', FacetGrid,
     layout$ROW <- layout$ROW - min(layout$ROW) + 1
     layout$COL <- layout$COL - min(layout$COL) + 1
     layout$PANEL <- 1:dim(layout)[1]
-    x_scale_ind <- unique(layout$SCALE_X)
+    x_scale_ind <- unique0(layout$SCALE_X)
     x_scales <- x_scales[x_scale_ind]
     layout$SCALE_X <- match(layout$SCALE_X, x_scale_ind)
-    y_scale_ind <- unique(layout$SCALE_Y)
+    y_scale_ind <- unique0(layout$SCALE_Y)
     y_scales <- y_scales[y_scale_ind]
     layout$SCALE_Y <- match(layout$SCALE_Y, y_scale_ind)
     table <- FacetGrid$draw_panels(panels, layout, x_scales, y_scales, ranges,

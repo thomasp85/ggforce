@@ -65,7 +65,7 @@ NULL
 #' @export
 StatParallelSets <- ggproto('StatParallelSets', Stat,
   setup_data = function(data, params) {
-    value_check <- lapply(split(data$value, data$id), unique)
+    value_check <- lapply(split(data$value, data$id), unique0)
     if (any(lengths(value_check) != 1)) {
       cli::cli_abort('{.field value} must be kept constant across {.field id}')
     }
@@ -77,13 +77,12 @@ StatParallelSets <- ggproto('StatParallelSets', Stat,
     data <- remove_group(data)
     data <- complete_data(data)
     cols <- c('group', 'colour', 'color', 'fill', 'size', 'linewidth', 'alpha', 'linetype')
-    data_groups <- do.call(
-      rbind,
-      lapply(split(data[, names(data) %in% cols, drop = FALSE], data$group),
-             function(d) {
-               as.data.frame(lapply(d, function(x) na.omit(x)[1]),
-                             stringsAsFactors = FALSE)
-             }
+    data_groups <- vec_rbind(
+      !!!lapply(split(data[, names(data) %in% cols, drop = FALSE], data$group),
+        function(d) {
+          as.data.frame(lapply(d, function(x) na.omit(x)[1]),
+                        stringsAsFactors = FALSE)
+        }
       )
     )
     # Calculate axis sizes
@@ -134,7 +133,7 @@ geom_parallel_sets <- function(mapping = NULL, data = NULL,
 #' @export
 StatParallelSetsAxes <- ggproto('StatParallelSetsAxes', Stat,
   setup_data = function(data, params) {
-    value_check <- lapply(split(data$value, data$id), unique)
+    value_check <- lapply(split(data$value, data$id), unique0)
     if (any(lengths(value_check) != 1)) {
       cli::cli_abort('{.field value} must be kept constant across {.field id}')
     }
@@ -151,7 +150,7 @@ StatParallelSetsAxes <- ggproto('StatParallelSetsAxes', Stat,
     cols <- c('x', 'split', 'colour', 'color', 'fill', 'size', 'linewidth',
               'alpha', 'linetype')
     aes <- data[, names(data) %in% cols]
-    aes <- unique(aes)
+    aes <- unique0(aes)
     if (nrow(aes) != nrow(data_axes)) {
       cli::cli_abort('Axis aesthetics must be constant in each split')
     }
@@ -201,7 +200,7 @@ GeomParallelSetsAxes <- ggproto('GeomParallelSetsAxes', GeomShape,
     rt <- data
     rt$x <- rt$xmax
     rt$y <- rt$ymax
-    data <- rbind(lb, rb, rt, lt)
+    data <- vec_rbind(lb, rb, rt, lt)
     data[order(data$group), ]
   },
   required_aes = c('xmin', 'ymin', 'xmax', 'ymax')
@@ -263,7 +262,7 @@ geom_parallel_sets_labels <- function(mapping = NULL, data = NULL,
 gather_set_data <- function(data, x, id_name = 'id') {
   if (is.numeric(x)) x <- names(data)[x]
   data[[id_name]] <- seq_len(nrow(data))
-  do.call(rbind, lapply(x, function(n) {
+  vec_rbind(!!!lapply(x, function(n) {
     data$x <- n
     data$y <- data[[n]]
     data
@@ -272,8 +271,8 @@ gather_set_data <- function(data, x, id_name = 'id') {
 #' @importFrom stats na.omit
 complete_data <- function(data) {
   levels(data$split) <- c(levels(data$split), '.ggforce_missing')
-  all_obs <- unique(data[, c('id', 'value')])
-  data <- do.call(rbind, lapply(split(data, data$x), function(d) {
+  all_obs <- unique0(data[, c('id', 'value')])
+  data <- vec_rbind(!!!lapply(split(data, data$x), function(d) {
     if (anyDuplicated(d$id) != 0) {
       cli::cli_abort('{.field id} must be unique within axes')
     }
@@ -284,14 +283,14 @@ complete_data <- function(data) {
       fill$x <- x
       fill[, c('id', 'value')] <- all_obs[!d$id %in% all_obs$id, ]
       fill$split <- '.ggforce_missing'
-      d <- rbind(d, fill)
+      d <- vec_rbind(d, fill)
     }
     d
   }))
 
   # Ensure id grouping
   id_groups <- lapply(split(data$group, data$id),
-                      function(x) unique(na.omit(x)))
+                      function(x) unique0(na.omit(x)))
   if (any(lengths(id_groups) != 1)) {
     cli::cli_abort('{.field id} must keep grouping across data')
   }
@@ -301,10 +300,10 @@ complete_data <- function(data) {
 }
 
 sankey_axis_data <- function(data, sep) {
-  do.call(rbind, lapply(split(data, data$x), function(d) {
+  vec_rbind(!!!lapply(split(data, data$x), function(d) {
     splits <- split(d$value, as.character(d$split))
     splits <- splits[rev(order(match(names(splits), levels(d$split))))]
-    d <- data.frame(
+    d <- data_frame0(
       split = names(splits),
       value = sapply(splits, sum),
       x = d$x[1],
@@ -318,7 +317,7 @@ sankey_axis_data <- function(data, sep) {
 }
 
 sankey_diag_data <- function(data, axes_data, groups, axis.width) {
-  axes <- sort(unique(data$x))
+  axes <- sort(unique0(data$x))
   diagonals <- lapply(seq_len(length(axes) - 1), function(i) {
     from <- data[data$x == axes[i], , drop = FALSE]
     to <- data[data$x == axes[i + 1], , drop = FALSE]
@@ -328,7 +327,7 @@ sankey_diag_data <- function(data, axes_data, groups, axis.width) {
     )
     diagonals <- diagonals[lengths(diagonals) != 0]
     diag_rep <- sapply(diagonals, `[`, 1)
-    diag_from <- data.frame(
+    diag_from <- data_frame0(
       group = from$group[diag_rep],
       split = from$split[diag_rep],
       value = sapply(diagonals, function(ii) sum(from$value[ii])),
@@ -341,7 +340,7 @@ sankey_diag_data <- function(data, axes_data, groups, axis.width) {
 
     diag_from <- add_y_pos(diag_from, axes_data[axes_data$x == axes[i], ])
     diag_to <- add_y_pos(diag_to, axes_data[axes_data$x == axes[i + 1], ])
-    diagonals <- rbind(diag_from, diag_to)
+    diagonals <- vec_rbind(diag_from, diag_to)
     main_groups <- diagonals$group
     diagonals$group <- rep(seq_len(nrow(diag_from) / 2), 4)
     if (length(setdiff(names(groups), 'group')) > 0) {
@@ -354,7 +353,7 @@ sankey_diag_data <- function(data, axes_data, groups, axis.width) {
   })
   n_groups <- sapply(diagonals, nrow) / 4
   group_offset <- c(0, cumsum(n_groups)[-length(n_groups)])
-  do.call(rbind, Map(function(d, i) {
+  vec_rbind(!!!Map(function(d, i) {
     d$group <- d$group + i
     d
   }, d = diagonals, i = group_offset))
@@ -373,11 +372,11 @@ add_y_pos <- function(data, axes_data) {
   data$y[unlist(splits)] <- unlist(ymin)
   data_tmp <- data
   data_tmp$y <- data$y + data$value
-  rbind(data_tmp, data)
+  vec_rbind(data_tmp, data)
 }
 
 remove_group <- function(data) {
-  split_groups <- lapply(split(data$group, data$split), unique)
+  split_groups <- lapply(split(data$group, data$split), unique0)
   if (all(lengths(split_groups) == 1)) {
     data$group <- -1
   } else if (length(Reduce(intersect, split_groups)) == 0) {

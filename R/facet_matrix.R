@@ -132,11 +132,11 @@ FacetMatrix <- ggproto('FacetMatrix', FacetGrid,
     rows <- lapply(data, function(d) {
       names(eval_select(quo(c(!!!params$row_vars)), d))
     })
-    rows <- unique(unlist(rows))
+    rows <- unique0(unlist(rows))
     cols <- lapply(data, function(d) {
       names(eval_select(quo(c(!!!params$col_vars)), d))
     })
-    cols <- unique(unlist(cols))
+    cols <- unique0(unlist(cols))
     if (length(rows) == 0 || length(cols) == 0) {
       cli::cli_abort('{.arg rows} and {.arg cols} must select valid data columns')
     }
@@ -185,7 +185,7 @@ FacetMatrix <- ggproto('FacetMatrix', FacetGrid,
   map_data = function(data, layout, params) {
     layer_pos <- params$layer_pos[[data$.layer_index[1]]]
     layer_type <- params$layer_type[[data$.layer_index[1]]]
-    rbind_dfs(lapply(seq_len(nrow(layout)), function(i) {
+    data <- lapply(seq_len(nrow(layout)), function(i) {
       row <- layout$row_data[i]
       col <- layout$col_data[i]
       col_discrete <- params$col_scales[[layout$SCALE_X[i]]]$is_discrete()
@@ -202,7 +202,8 @@ FacetMatrix <- ggproto('FacetMatrix', FacetGrid,
       data$.panel_x <- params$col_scales[[col]]$map(data[[col]])
       data$.panel_y <- params$row_scales[[row]]$map(data[[row]])
       data
-    }))
+    })
+    vec_rbind(!!!data)
   },
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
@@ -275,7 +276,7 @@ assign_layers <- function(n_layers, ...) {
     }
   })
 
-  specified_layers <- sort(unique(unlist(specs)))
+  specified_layers <- sort(unique0(unlist(specs)))
   specified_layers <- layers %in% specified_layers
 
   specs <- lapply(specs, function(spec) {

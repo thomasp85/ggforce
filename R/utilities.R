@@ -1,24 +1,12 @@
-new_data_frame <- function(x = list(), n = NULL) {
-  if (length(x) != 0 && is.null(names(x))) {
-    cli::cli_abort('Elements in {.arg x} must be named')
-  }
-  lengths <- vapply(x, length, integer(1))
-  if (is.null(n)) {
-    n <- if (length(x) == 0) 0 else max(lengths)
-  }
-  for (i in seq_along(x)) {
-    if (lengths[i] == n) next
-    if (lengths[i] != 1) cli::cli_abort('Elements must equal the number of rows or 1')
-    x[[i]] <- rep(x[[i]], n)
-  }
+# Wrapping vctrs data_frame constructor with no name repair
+data_frame0 <- function(...) data_frame(..., .name_repair = "minimal")
 
-  class(x) <- 'data.frame'
+# Wrapping unique0() to accept NULL
+unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
 
-  attr(x, 'row.names') <- .set_row_names(n)
-  x
-}
 df_rows <- function(x, i) {
-  new_data_frame(lapply(x, `[`, i = i))
+  cols <- lapply(x, `[`, i = i)
+  data_frame0(!!!cols, .size = length(i))
 }
 split_matrix <- function(x, col_names = colnames(x)) {
   force(col_names)
@@ -50,7 +38,7 @@ id_var <- function(x, drop = FALSE) {
     id <- as.integer(x)
     n <- length(levels(x))
   } else {
-    levels <- sort(unique(x), na.last = TRUE)
+    levels <- sort(unique0(x), na.last = TRUE)
     id <- match(x, levels)
     n <- max(id)
   }
@@ -95,12 +83,12 @@ id <- function(.variables, drop = FALSE) {
   ndistinct <- vapply(ids, attr, 'n', FUN.VALUE = numeric(1), USE.NAMES = FALSE)
   n <- prod(ndistinct)
   if (n > 2^31) {
-    char_id <- do.call('paste', c(ids, sep = '\r'))
-    res <- match(char_id, unique(char_id))
+    char_id <- inject(paste(!!!ids, sep = '\r'))
+    res <- match(char_id, unique0(char_id))
   }
   else {
     combs <- c(1, cumprod(ndistinct[-p]))
-    mat <- do.call('cbind', ids)
+    mat <- inject(cbind(!!!ids))
     res <- c((mat - 1L) %*% combs + 1L)
   }
   if (drop) {
@@ -111,73 +99,6 @@ id <- function(.variables, drop = FALSE) {
     attr(res, 'n') <- n
     res
   }
-}
-#' Bind data frames together by common column names
-#'
-#' This function is akin to `plyr::rbind.fill`, `dplyr::bind_rows`, and
-#' `data.table::rbindlist`. It takes data frames in a list and stacks them on
-#' top of each other, filling out values with `NA` if the column is missing from
-#' a data.frame
-#'
-#' @param dfs A list of data frames
-#'
-#' @return A data.frame with the union of all columns from the data frames given
-#' in `dfs`
-#'
-#' @keywords internal
-#' @noRd
-#'
-rbind_dfs <- function(dfs) {
-  out <- list()
-  columns <- unique(unlist(lapply(dfs, names)))
-  nrows <- vapply(dfs, .row_names_info, integer(1), type = 2L)
-  total <- sum(nrows)
-  if (length(columns) == 0) return(new_data_frame(list(), total))
-  allocated <- rep(FALSE, length(columns))
-  names(allocated) <- columns
-  col_levels <- list()
-  for (df in dfs) {
-    new_columns <- intersect(names(df), columns[!allocated])
-    for (col in new_columns) {
-      if (is.factor(df[[col]])) {
-        all_factors <- all(vapply(dfs, function(df) {
-          val <- .subset2(df, col)
-          is.null(val) || is.factor(val)
-        }, logical(1)))
-        if (all_factors) {
-          col_levels[[col]] <- unique(
-            unlist(lapply(dfs, function(df) levels(.subset2(df, col))))
-          )
-        }
-        out[[col]] <- rep(NA_character_, total)
-      } else {
-        out[[col]] <- rep(.subset2(df, col)[1][NA], total)
-      }
-    }
-    allocated[new_columns] <- TRUE
-    if (all(allocated)) break
-  }
-  pos <- c(cumsum(nrows) - nrows + 1)
-  for (i in seq_along(dfs)) {
-    df <- dfs[[i]]
-    rng <- seq(pos[i], length.out = nrows[i])
-    for (col in names(df)) {
-      if (inherits(df[[col]], 'factor')) {
-        out[[col]][rng] <- as.character(df[[col]])
-      } else {
-        out[[col]][rng] <- df[[col]]
-      }
-    }
-  }
-  for (col in names(col_levels)) {
-    out[[col]] <- factor(out[[col]], levels = col_levels[[col]])
-  }
-  attributes(out) <- list(
-    class = 'data.frame',
-    names = names(out),
-    row.names = .set_row_names(total)
-  )
-  out
 }
 #' Apply function to unique subsets of a data.frame
 #'
@@ -201,18 +122,32 @@ rbind_dfs <- function(dfs) {
 #' @noRd
 dapply <- function(df, by, fun, ..., drop = TRUE) {
   grouping_cols <- .subset(df, by)
-  ids <- id(grouping_cols, drop = drop)
-  group_rows <- split(seq_len(nrow(df)), ids)
-  rbind_dfs(lapply(seq_along(group_rows), function(i) {
-    cur_data <- df_rows(df, group_rows[[i]])
-    res <- fun(cur_data, ...)
+  fallback_order <- unique0(c(by, names(df)))
+  apply_fun <- function(x) {
+    res <- fun(x, ...)
     if (is.null(res)) return(res)
-    if (length(res) == 0) return(new_data_frame())
-    vars <- lapply(setNames(by, by), function(col) .subset2(cur_data, col)[1])
+    if (length(res) == 0) return(data_frame0())
+    vars <- lapply(setNames(by, by), function(col) .subset2(x, col)[1])
     if (is.matrix(res)) res <- split_matrix(res)
-    if (is.null(names(res))) names(res) <- paste0('V', seq_along(res))
-    new_data_frame(modify_list(unclass(vars), unclass(res)))
-  }))
+    if (is.null(names(res))) names(res) <- paste0("V", seq_along(res))
+    if (all(by %in% names(res))) return(data_frame0(!!!unclass(res)))
+    res <- modify_list(unclass(vars), unclass(res))
+    res <- res[intersect(c(fallback_order, names(res)), names(res))]
+    data_frame0(!!!res)
+  }
+
+  # Shortcut when only one group
+  if (all(vapply(grouping_cols, single_val, logical(1)))) {
+    return(apply_fun(df))
+  }
+
+  ids <- id(grouping_cols, drop = drop)
+  group_rows <- split_with_index(seq_len(nrow(df)), ids)
+  result <- lapply(seq_along(group_rows), function(i) {
+    cur_data <- df_rows(df, group_rows[[i]])
+    apply_fun(cur_data)
+  })
+  vec_rbind(!!!result)
 }
 
 # Use chartr() for safety since toupper() fails to convert i to I in Turkish locale
@@ -249,4 +184,18 @@ firstUpper <- function(s) {
 
 snake_class <- function(x) {
   snakeize(class(x)[1])
+}
+
+single_val <- function(x, ...) {
+  UseMethod("single_val")
+}
+#' @export
+single_val.default <- function(x, ...) {
+  # This is set by id() used in creating the grouping var
+  identical(attr(x, "n"), 1L)
+}
+#' @export
+single_val.factor <- function(x, ...) {
+  # Panels are encoded as factor numbers and can never be missing (NA)
+  identical(levels(x), "1")
 }

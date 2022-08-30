@@ -94,9 +94,9 @@ GeomBsplineClosed0 <- ggproto('GeomBspline0', GeomPolygon,
   draw_panel = function(data, panel_scales, coord, na.rm = FALSE) {
     coords <- coord$transform(data, panel_scales)
     if (!is.integer(coords$group)) {
-      coords$group <- match(coords$group, unique(coords$group))
+      coords$group <- match(coords$group, unique0(coords$group))
     }
-    startPoint <- match(unique(coords$group), coords$group)
+    startPoint <- match(unique0(coords$group), coords$group)
     xsplineGrob(coords$x, coords$y,
       id = coords$group, default.units = 'native',
       shape = 1, open = FALSE,

@@ -87,7 +87,7 @@ StatLink <- ggproto('StatLink', Stat,
     extraCols <- !names(data) %in% c('x', 'y', 'xend', 'yend', 'group', 'PANEL')
     data$group <- make_unique(as.character(data$group))
     data <- lapply(seq_len(nrow(data)), function(i) {
-      path <- data.frame(
+      path <- data_frame0(
         x = seq(data$x[i], data$xend[i], length.out = n),
         y = seq(data$y[i], data$yend[i], length.out = n),
         index = seq(0, 1, length.out = n),
@@ -95,7 +95,7 @@ StatLink <- ggproto('StatLink', Stat,
       )
       cbind(path, data[rep(i, n), extraCols, drop = FALSE])
     })
-    do.call(rbind, data)
+    vec_rbind(!!!data)
   },
   required_aes = c('x', 'y', 'xend', 'yend')
 )
@@ -122,7 +122,7 @@ StatLink2 <- ggproto('StatLink2', Stat,
     data <- dapply(data, 'group', function(df) {
       n_group <- n * (nrow(df) - 1) + 1
       interp <- tween_t(list(df$x, df$y), n_group)
-      interp <- data.frame(x = interp[[1]], y = interp[[2]])
+      interp <- data_frame0(x = interp[[1]], y = interp[[2]])
       interp <- cbind(interp,
         index = seq(0, 1, length.out = n_group),
         group = df$group[1],

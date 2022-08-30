@@ -76,7 +76,7 @@ make_label <- function(labels, dims, polygons, ghosts, buffer, con_type,
     lab$vp$y <- unit(pos[2], 'mm')
     lab
   }, lab = labels, pos = labelpos)
-  connect <- do.call(rbind, Map(function(pol, pos, dim) {
+  connect <- vec_rbind(!!!Map(function(pol, pos, dim) {
     if (is.null(pos)) return(NULL)
     dim <- dim / anchor_mod
     pos <- cbind(
@@ -86,8 +86,8 @@ make_label <- function(labels, dims, polygons, ghosts, buffer, con_type,
     pos <- points_to_path(pos, list(cbind(pol$x, pol$y)), TRUE)
     pos$projection[which.min(pos$distance), ]
   }, pol = polygons, pos = labelpos, dim = dims))
-  labeldims <- do.call(rbind, dims[lengths(labelpos) != 0]) / 2
-  labelpos <- do.call(rbind, labelpos)
+  labeldims <- inject(rbind(!!!dims[lengths(labelpos) != 0])) / 2
+  labelpos <- inject(rbind(!!!labelpos))
   if (con_type == 'none' || !con_type %in% c('elbow', 'straight')) {
     connect <- nullGrob()
   } else {
@@ -282,7 +282,7 @@ elbow <- function(xmin, xmax, ymin, ymax, x, y) {
   end_angle <- atan2(end_pos[, 2], end_pos[, 1]) %% (2 * pi)
   angle_bin <- end_angle %/% (pi / 4)
   angle_lower <- end_angle %% (pi / 4) < 0.5
-  elbow <- do.call(rbind, lapply(seq_along(angle_bin), function(i) {
+  elbow <- lapply(seq_along(angle_bin), function(i) {
     a_bin <- angle_bin[i]
     a_lower <- angle_lower[i]
     if (a_bin == 0 || a_bin == 4) {
@@ -310,7 +310,8 @@ elbow <- function(xmin, xmax, ymin, ymax, x, y) {
         c(end_pos[i, 1] + end_pos[i, 2], 0)
       }
     }
-  }))
+  })
+  elbow <- inject(rbind(!!!elbow))
   elbow <- elbow + lines[[2]]
   colnames(elbow) <- c('x', 'y')
   list(lines[[1]], elbow, lines[[2]])
@@ -332,7 +333,7 @@ end_cap <- function(lines, cap) {
 zip_points <- function(points) {
   n_lines <- nrow(points[[1]])
   n_joints <- length(points)
-  points <- as.data.frame(do.call(rbind, points))
+  points <- as.data.frame(inject(rbind(!!!points)))
   points$id <- rep(seq_len(n_lines), n_joints)
   points[order(points$id), ]
 }
@@ -377,7 +378,7 @@ get_end_points <- function(xmin, xmax, ymin, ymax, x, y) {
     left = ifelse(abs(ymin_tmp) < abs(ymax_tmp), ymin, ymax),
     right = ifelse(abs(ymin_tmp) < abs(ymax_tmp), ymin, ymax)
   )
-  data.frame(x = x_new, y = y_new)
+  data_frame0(x = x_new, y = y_new)
 }
 vswitch <- function(x, ...) {
   cases <- cbind(...)

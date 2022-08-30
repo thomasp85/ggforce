@@ -117,7 +117,7 @@ GeomMarkHull <- ggproto('GeomMarkHull', GeomShape,
 
     coords <- coord$transform(data, panel_params)
     if (!is.integer(coords$group)) {
-      coords$group <- match(coords$group, unique(coords$group))
+      coords$group <- match(coords$group, unique0(coords$group))
     }
     coords <- coords[order(coords$group), ]
 
@@ -287,20 +287,20 @@ makeContent.hull_enc <- function(x) {
   y_new <- convertY(mark$y, 'mm', TRUE)
   y_new <- split(y_new, mark$id)
   polygons <- Map(function(xx, yy, type) {
-    mat <- unique(cbind(xx, yy))
+    mat <- unique0(cbind(xx, yy))
     if (nrow(mat) <= 2) {
       return(mat)
     }
-    if (length(unique(xx)) == 1) {
+    if (length(unique0(xx)) == 1) {
       return(mat[c(which.min(mat[, 2]), which.max(mat[, 2])), ])
     }
-    if (length(unique((yy[-1] - yy[1]) / (xx[-1] - xx[1]))) == 1) {
+    if (length(unique0((yy[-1] - yy[1]) / (xx[-1] - xx[1]))) == 1) {
       return(mat[c(which.min(mat[, 1]), which.max(mat[, 1])), ])
     }
     concaveman::concaveman(mat, x$concavity, 0)
   }, xx = x_new, yy = y_new)
   mark$id <- rep(seq_along(polygons), vapply(polygons, nrow, numeric(1)))
-  polygons <- do.call(rbind, polygons)
+  polygons <- vec_rbind(!!!polygons)
   mark$x <- unit(polygons[, 1], 'mm')
   mark$y <- unit(polygons[, 2], 'mm')
   if (inherits(mark, 'shape')) makeContent(mark)
@@ -315,7 +315,7 @@ makeContent.hull_enc <- function(x) {
       con_border = x$con.border, con_cap = x$con.cap,
       con_gp = x$con.gp, anchor_mod = 2, arrow = x$con.arrow
     )
-    setChildren(x, do.call(gList, c(list(mark), labels)))
+    setChildren(x, inject(gList(!!!c(list(mark), labels))))
   } else {
     setChildren(x, gList(mark))
   }

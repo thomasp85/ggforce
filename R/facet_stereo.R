@@ -52,13 +52,13 @@ facet_stereo <- function(IPD = 63.5, panel.size = 200, shrink = TRUE) {
 #' @export
 FacetStereo <- ggproto('FacetStereo', Facet,
   compute_layout = function(data, params) {
-    data.frame(PANEL = c(1L, 2L), SCALE_X = 1L, SCALE_Y = 1L)
+    data_frame0(PANEL = c(1L, 2L), SCALE_X = 1L, SCALE_Y = 1L)
   },
   map_data = function(data, layout, params) {
     if (empty(data)) {
       return(cbind(data, PANEL = integer(0)))
     }
-    rbind(
+    vec_rbind(
       cbind(data, PANEL = 1L),
       cbind(data, PANEL = 2L)
     )
@@ -66,10 +66,7 @@ FacetStereo <- ggproto('FacetStereo', Facet,
   finish_data = function(data, layout, x_scales, y_scales, params) {
     if ('depth' %in% names(data)) {
       if ('.interp' %in% names(data)) {
-        data$depth2 <- do.call(
-          rbind,
-          lapply(split(data, data$PANEL), interpolateDataFrame)
-        )$depth
+        data$depth2 <- vec_rbind(!!!lapply(split(data, data$PANEL), interpolateDataFrame))$depth
       } else {
         data$depth2 <- data$depth
       }
@@ -77,10 +74,10 @@ FacetStereo <- ggproto('FacetStereo', Facet,
         sapply(split(data$depth2, data$group), quantile, probs = 0.9,
                na.rm = TRUE)
       )
-      data <- do.call(rbind, split(data, data$group)[group_order])
+      data <- vec_rbind(!!!split(data, data$group)[group_order])
       data[data$group == -1, ] <- data[data$group == -1, ][order(data$depth2[data$group == -1]), ]
       data$group[data$group != -1] <- match(data$group[data$group != -1],
-                                            unique(data$group[data$group != -1]))
+                                            unique0(data$group[data$group != -1]))
       x_range <- x_scales[[1]]$dimension(expand_default(x_scales[[1]]))
       k <- ifelse(data$PANEL == 1, -1, 1) * params$IPD / 2
       x_transform <- function(d) {

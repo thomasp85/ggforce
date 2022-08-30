@@ -102,7 +102,7 @@ StatDiagonal <- ggproto('StatDiagonal', Stat,
     end <- data
     end$x <- end$xend
     end$y <- end$yend
-    data <- rbind(data, end)
+    data <- vec_rbind(data, end)
     data$xend <- NULL
     data$yend <- NULL
     data <- data[order(data$group), ]
@@ -188,7 +188,7 @@ StatDiagonal0 <- ggproto('StatDiagonal0', Stat,
     end <- data
     end$x <- end$xend
     end$y <- end$yend
-    data <- rbind(data, end)
+    data <- vec_rbind(data, end)
     data$xend <- NULL
     data$yend <- NULL
     data <- data[order(data$group), ]
@@ -235,5 +235,5 @@ add_controls <- function(data, strength) {
   mid1$x <- mid1$x + x_diff
   mid2 <- end
   mid2$x <- mid2$x - x_diff
-  rbind(start, mid1, mid2, end)
+  vec_rbind(start, mid1, mid2, end)
 }
