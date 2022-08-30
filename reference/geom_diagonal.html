@@ -97,6 +97,7 @@ forwards the actual bezier calculations to <code><a href="geom_bezier.html">geom
 <span>  n <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  strength <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -109,6 +110,7 @@ forwards the actual bezier calculations to <code><a href="geom_bezier.html">geom
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  n <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  strength <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -121,6 +123,7 @@ forwards the actual bezier calculations to <code><a href="geom_bezier.html">geom
 <span>  geom <span class="op">=</span> <span class="st">"path_interpolate"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  n <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  strength <span class="op">=</span> <span class="fl">0.5</span>,</span>
@@ -136,6 +139,7 @@ forwards the actual bezier calculations to <code><a href="geom_bezier.html">geom
 <span>  arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  lineend <span class="op">=</span> <span class="st">"butt"</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  n <span class="op">=</span> <span class="fl">100</span>,</span>
@@ -149,6 +153,7 @@ forwards the actual bezier calculations to <code><a href="geom_bezier.html">geom
 <span>  geom <span class="op">=</span> <span class="st">"bezier0"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  strength <span class="op">=</span> <span class="fl">0.5</span>,</span>
@@ -163,6 +168,7 @@ forwards the actual bezier calculations to <code><a href="geom_bezier.html">geom
 <span>  arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  lineend <span class="op">=</span> <span class="st">"butt"</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  strength <span class="op">=</span> <span class="fl">0.5</span>,</span>
@@ -218,6 +224,13 @@ towards the other end of the bezier curve</p></dd>
 <dt>na.rm</dt>
 <dd><p>If <code>FALSE</code>, the default, missing values are removed with
 a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
+
+
+<dt>orientation</dt>
+<dd><p>The orientation of the layer. The default (<code>NA</code>)
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting <code>orientation</code>
+to either <code>"x"</code> or <code>"y"</code>. See the <em>Orientation</em> section for more detail.</p></dd>
 
 
 <dt>show.legend</dt>
@@ -294,6 +307,13 @@ stat stripped of the <code>stat_</code> prefix (e.g. <code>"count"</code> rather
 
 
 </dl></div>
+    <div id="orientation">
+    <h2>Orientation</h2>
+    
+
+
+<p>This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the <code>orientation</code> parameter, which can be either <code>"x"</code> or <code>"y"</code>. The value gives the axis that the geom should run along, <code>"x"</code> being the default orientation you would expect for the geom.</p>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
