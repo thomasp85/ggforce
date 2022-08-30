@@ -201,6 +201,14 @@ FacetMatrix <- ggproto('FacetMatrix', FacetGrid,
       data$PANEL <- layout$PANEL[i]
       data$.panel_x <- params$col_scales[[col]]$map(data[[col]])
       data$.panel_y <- params$row_scales[[row]]$map(data[[row]])
+      if (packageVersion('ggplot2') <= '3.3.6') {
+        if (inherits(data$.panel_x, 'mapped_discrete')) {
+          data$.panel_x <- unclass(data$.panel_x)
+        }
+        if (inherits(data$.panel_y, 'mapped_discrete')) {
+          data$.panel_y <- unclass(data$.panel_y)
+        }
+      }
       data
     })
     vec_rbind(!!!data)
