@@ -70,7 +70,7 @@ NULL
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomMarkRect <- ggproto('GeomMarkRect', GeomShape,
+GeomMarkRect <- ggproto('GeomMarkRect', GeomMarkCircle,
   setup_data = function(self, data, params) {
     if (!is.null(data$filter)) {
       self$removed <- data[!data$filter, c('x', 'y', 'PANEL')]
@@ -78,8 +78,8 @@ GeomMarkRect <- ggproto('GeomMarkRect', GeomShape,
     }
     vec_rbind(!!!lapply(split(data, data$group), function(d) {
       if (nrow(d) == 1) return(d)
-      x_range <- range(d$x)
-      y_range <- range(d$y)
+      x_range <- range(d$x, na.rm = TRUE)
+      y_range <- range(d$y, na.rm = TRUE)
       d_new <- data_frame0(
         x = x_range[c(1, 1, 2, 2)],
         y = y_range[c(1, 2, 2, 1)]
@@ -162,8 +162,7 @@ GeomMarkRect <- ggproto('GeomMarkRect', GeomShape,
       con.cap = con.cap,
       con.arrow = con.arrow
     )
-  },
-  default_aes = GeomMarkCircle$default_aes
+  }
 )
 #' @rdname geom_mark_rect
 #' @export

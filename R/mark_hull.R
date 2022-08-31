@@ -91,16 +91,7 @@ NULL
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomMarkHull <- ggproto('GeomMarkHull', GeomShape,
-  setup_data = function(self, data, params) {
-    check_installed('concaveman', 'to calculate concave hulls')
-
-    if (!is.null(data$filter)) {
-      self$removed <- data[!data$filter, c('x', 'y', 'PANEL')]
-      data <- data[data$filter, ]
-    }
-    data
-  },
+GeomMarkHull <- ggproto('GeomMarkHull', GeomMarkCircle,
   draw_panel = function(self, data, panel_params, coord, expand = unit(5, 'mm'),
                         radius = unit(2.5, 'mm'), concavity = 2,
                         label.margin = margin(2, 2, 2, 2, 'mm'),
@@ -114,6 +105,8 @@ GeomMarkHull <- ggproto('GeomMarkHull', GeomShape,
                         con.linetype = 1, con.border = 'one',
                         con.cap = unit(3, 'mm'), con.arrow = NULL) {
     if (nrow(data) == 0) return(zeroGrob())
+
+    check_installed('concaveman', 'to calculate concave hulls')
 
     coords <- coord$transform(data, panel_params)
     if (!is.integer(coords$group)) {
@@ -174,8 +167,7 @@ GeomMarkHull <- ggproto('GeomMarkHull', GeomShape,
       con.cap = con.cap,
       con.arrow = con.arrow
     )
-  },
-  default_aes = GeomMarkCircle$default_aes
+  }
 )
 
 #' @rdname geom_mark_hull

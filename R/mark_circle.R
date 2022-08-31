@@ -220,7 +220,14 @@ GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
     GeomShape$default_aes,
     aes(fill = NA, colour = 'black', alpha = 0.3, filter = NULL, label = NULL,
         description = NULL)
-  )
+  ),
+  handle_na = function(self, data, params) {
+    remove_missing(data, params$na.rm,
+                   c(self$required_aes, self$non_missing_aes),
+                   snake_class(self)
+    )
+  },
+  extra_params = 'na.rm'
 )
 
 #' @rdname geom_mark_circle

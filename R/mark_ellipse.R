@@ -79,14 +79,7 @@ NULL
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomMarkEllipse <- ggproto('GeomMarkEllipse', GeomShape,
-  setup_data = function(self, data, params) {
-    if (!is.null(data$filter)) {
-      self$removed <- data[!data$filter, c('x', 'y', 'PANEL')]
-      data <- data[data$filter, ]
-    }
-    data
-  },
+GeomMarkEllipse <- ggproto('GeomMarkEllipse', GeomMarkCircle,
   draw_panel = function(self, data, panel_params, coord, expand = unit(5, 'mm'),
                         radius = expand, n = 100, tol = 0.01,
                         label.margin = margin(2, 2, 2, 2, 'mm'),
@@ -159,8 +152,7 @@ GeomMarkEllipse <- ggproto('GeomMarkEllipse', GeomShape,
       con.cap = con.cap,
       con.arrow = con.arrow
     )
-  },
-  default_aes = GeomMarkCircle$default_aes
+  }
 )
 
 #' @rdname geom_mark_ellipse
