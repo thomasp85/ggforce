@@ -9,6 +9,8 @@
 * The `zoom`, `zoom.x`, and `zoom.y` elements now uses proper registration of
   theme elements, inheriting from `strip.background`.
 * Fixed bug in `geom_sina()` when groups contained less than 3 points
+* Fixed bug in `geom_parallel_sets()` that erroneously removed grouping 
+  information in some configurations
 
 # ggforce 0.3.4
 

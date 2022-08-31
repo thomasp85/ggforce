@@ -395,9 +395,7 @@ add_y_pos <- function(data, axes_data) {
 
 remove_group <- function(data) {
   split_groups <- lapply(split(data$group, data$split), unique0)
-  if (all(lengths(split_groups) == 1)) {
-    data$group <- -1
-  } else if (length(Reduce(intersect, split_groups)) == 0) {
+  if (length(Reduce(intersect, split_groups)) == 0) {
     disc <- vapply(data, is.discrete, logical(1))
     disc[names(disc) %in% c('split', 'label', 'PANEL')] <- FALSE
     if (any(disc)) {
