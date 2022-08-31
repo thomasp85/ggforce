@@ -1,5 +1,15 @@
 # ggforce (development version)
 
+* Moved to vctrs internally
+* Updated error messaging to use cli
+* `geom_diagonal()`, `geom_diagonal_wide()`, `geom_parallel_sets()`, and 
+  `geom_sina()` are now bidirectional in the style of ggplot2
+* `geom_mark_*()` now works correctly in the presence of `NA` values in `x` and 
+  `y`
+* The `zoom`, `zoom.x`, and `zoom.y` elements now uses proper registration of
+  theme elements, inheriting from `strip.background`.
+* Fixed bug in `geom_sina()` when groups contained less than 3 points
+
 # ggforce 0.3.4
 
 - Changed documentation to comply with new units package

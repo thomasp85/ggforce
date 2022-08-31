@@ -220,6 +220,7 @@ StatSina <- ggproto('StatSina', Stat,
       # width: constant width (each density scaled to a maximum of 1)
       width = data$scaled
     )
+    if (!is.finite(data$sinawidth)) data$sinawidth <- 0
 
     if (!is.na(seed)) {
       new_seed <- sample(.Machine$integer.max, 1L)
