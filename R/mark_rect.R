@@ -266,7 +266,7 @@ rectEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
 #' @export
 makeContent.rect_enc <- function(x) {
   mark <- x$mark
-  if (inherits(mark, 'shape')) makeContent(mark)
+  if (inherits(mark, 'shape')) mark <- makeContent(mark)
   if (!is.null(x$label)) {
     polygons <- Map(function(x, y) list(x = x, y = y),
       x = split(as.numeric(mark$x), mark$id),

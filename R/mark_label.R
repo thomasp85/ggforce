@@ -76,7 +76,7 @@ make_label <- function(labels, dims, polygons, ghosts, buffer, con_type,
     lab$vp$y <- unit(pos[2], 'mm')
     lab
   }, lab = labels, pos = labelpos)
-  connect <- vec_rbind(!!!Map(function(pol, pos, dim) {
+  connect <- inject(rbind(!!!Map(function(pol, pos, dim) {
     if (is.null(pos)) return(NULL)
     dim <- dim / anchor_mod
     pos <- cbind(
@@ -85,7 +85,7 @@ make_label <- function(labels, dims, polygons, ghosts, buffer, con_type,
     )
     pos <- points_to_path(pos, list(cbind(pol$x, pol$y)), TRUE)
     pos$projection[which.min(pos$distance), ]
-  }, pol = polygons, pos = labelpos, dim = dims))
+  }, pol = polygons, pos = labelpos, dim = dims)))
   labeldims <- inject(rbind(!!!dims[lengths(labelpos) != 0])) / 2
   labelpos <- inject(rbind(!!!labelpos))
   if (con_type == 'none' || !con_type %in% c('elbow', 'straight')) {
