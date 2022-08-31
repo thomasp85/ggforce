@@ -71,7 +71,18 @@
       <small>Source: <a href="https://github.com/thomasp85/ggforce/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="section level2"><h2 class="page-header" data-toc-text="development version" id="ggforce-development-version">ggforce (development version)<a class="anchor" aria-label="anchor" href="#ggforce-development-version"></a></h2></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="development version" id="ggforce-development-version">ggforce (development version)<a class="anchor" aria-label="anchor" href="#ggforce-development-version"></a></h2>
+<ul><li>Moved to vctrs internally</li>
+<li>Updated error messaging to use cli</li>
+<li>
+<code><a href="../reference/geom_diagonal.html">geom_diagonal()</a></code>, <code><a href="../reference/geom_diagonal_wide.html">geom_diagonal_wide()</a></code>, <code><a href="../reference/geom_parallel_sets.html">geom_parallel_sets()</a></code>, and <code><a href="../reference/geom_sina.html">geom_sina()</a></code> are now bidirectional in the style of ggplot2</li>
+<li>
+<code>geom_mark_*()</code> now works correctly in the presence of <code>NA</code> values in <code>x</code> and <code>y</code>
+</li>
+<li>The <code>zoom</code>, <code>zoom.x</code>, and <code>zoom.y</code> elements now uses proper registration of theme elements, inheriting from <code>strip.background</code>.</li>
+<li>Fixed bug in <code><a href="../reference/geom_sina.html">geom_sina()</a></code> when groups contained less than 3 points</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.4" id="ggforce-034">ggforce 0.3.4<small>2022-08-18</small><a class="anchor" aria-label="anchor" href="#ggforce-034"></a></h2>
 <ul><li>Changed documentation to comply with new units package</li>
