@@ -44,22 +44,29 @@ place_labels <- function(rects, polygons, bounds, anchors, ghosts) {
 #' @importFrom grid convertWidth convertHeight nullGrob polylineGrob
 #' @importFrom stats runif
 make_label <- function(labels, dims, polygons, ghosts, buffer, con_type,
-                       con_border, con_cap, con_gp, anchor_mod, arrow) {
-    polygons <- lapply(polygons, function(p) {
-        if (length(p$x) == 1 & length(p$y) == 1) {
-            list(
-                x = runif(200, p$x-0.00005, p$x+0.00005),
-                y = runif(200, p$y-0.00005, p$y+0.00005)
-            )
-        } else {
-            list(
-                x = p$x,
-                y = p$y
-            )
-        }
-    })
+                       con_border, con_cap, con_gp, anchor_mod, anchor_x,
+                       anchor_y, arrow) {
+  polygons <- lapply(polygons, function(p) {
+    if (length(p$x) == 1 & length(p$y) == 1) {
+      list(
+        x = runif(200, p$x-0.00005, p$x+0.00005),
+        y = runif(200, p$y-0.00005, p$y+0.00005)
+      )
+    } else {
+      list(
+        x = p$x,
+        y = p$y
+      )
+    }
+  })
 
-  anchors <- lapply(polygons, function(p) c(mean(range(p$x)), mean(range(p$y))))
+  anchors <- lapply(seq_along(polygons), function(i) {
+    x <- mean(range(polygons[[i]]$x))
+    if (length(anchor_x) == length(polygons) && !is.na(anchor_x[i])) x <- anchor_x[i]
+    y <- mean(range(polygons[[i]]$y))
+    if (length(anchor_y) == length(polygons) && !is.na(anchor_y[i])) y <- anchor_y[i]
+    c(x, y)
+  })
   p_big <- polyoffset(polygons, convertWidth(buffer, 'mm', TRUE))
 
   area <- c(
