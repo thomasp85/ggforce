@@ -66,6 +66,10 @@
 #'
 #' @param seed A seed to set for the jitter to ensure a reproducible plot
 #'
+#' @param jitter_y If y is integerish banding can occur and the default is to
+#'   jitter the values slightly to make them better distributed. Setting
+#'   `jitter_y = FALSE` turns off this behaviour
+#'
 #' @inheritSection ggplot2::geom_line Orientation
 #'
 #' @author Nikos Sidiropoulos, Claus Wilke, and Thomas Lin Pedersen
@@ -191,7 +195,7 @@ StatSina <- ggproto('StatSina', Stat,
   compute_panel = function(self, data, scales, scale = TRUE, method = 'density',
                            bw = 'nrd0', kernel = 'gaussian', binwidth = NULL,
                            bins = NULL, maxwidth = 1, adjust = 1, bin_limit = 1,
-                           seed = NA, flipped_aes = FALSE) {
+                           seed = NA, flipped_aes = FALSE, jitter_y = TRUE) {
     if (!is.null(binwidth)) {
       bins <- bin_breaks_width(scales[[flipped_names(flipped_aes)$y]]$dimension() + 1e-8, binwidth)
     } else {
@@ -234,7 +238,7 @@ StatSina <- ggproto('StatSina', Stat,
     data$width <- maxwidth
 
     # jitter y values if the input is input is integer
-    if (all(data$y == floor(data$y))) {
+    if (jitter_y && is_integerish(data$y)) {
       data$y <- jitter(data$y)
     }
 
@@ -297,7 +301,7 @@ stat_sina <- function(mapping = NULL, data = NULL, geom = 'point',
                       position = 'dodge', scale = 'area', method = 'density',
                       bw = 'nrd0', kernel = 'gaussian', maxwidth = NULL,
                       adjust = 1, bin_limit = 1, binwidth = NULL, bins = NULL,
-                      seed = NA, ..., na.rm = FALSE, orientation = NA,
+                      seed = NA, jitter_y = TRUE, ..., na.rm = FALSE, orientation = NA,
                       show.legend = NA, inherit.aes = TRUE) {
   method <- match.arg(method, c('density', 'counts'))
 
@@ -311,7 +315,7 @@ stat_sina <- function(mapping = NULL, data = NULL, geom = 'point',
     inherit.aes = inherit.aes,
     params = list(scale = scale, method = method, bw = bw, kernel = kernel,
       maxwidth = maxwidth, adjust = adjust, bin_limit = bin_limit,
-      binwidth = binwidth, bins = bins, seed = seed, na.rm = na.rm,
+      binwidth = binwidth, bins = bins, seed = seed, jitter_y = jitter_y, na.rm = na.rm,
       orientation = orientation, ...)
   )
 }

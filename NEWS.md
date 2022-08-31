@@ -11,6 +11,8 @@
 * Fixed bug in `geom_sina()` when groups contained less than 3 points
 * Fixed bug in `geom_parallel_sets()` that erroneously removed grouping 
   information in some configurations
+* Added `jitter_y` argument to `geom_sina()` to control whether y jittering is 
+  performed on integerish y values.
 
 # ggforce 0.3.4
 

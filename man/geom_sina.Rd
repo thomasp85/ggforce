@@ -20,6 +20,7 @@ stat_sina(
   binwidth = NULL,
   bins = NULL,
   seed = NA,
+  jitter_y = TRUE,
   ...,
   na.rm = FALSE,
   orientation = NA,
@@ -110,6 +111,10 @@ stories in your data.}
 \item{bins}{Number of bins. Overridden by binwidth. Defaults to 50.}
 
 \item{seed}{A seed to set for the jitter to ensure a reproducible plot}
+
+\item{jitter_y}{If y is integerish banding can occur and the default is to
+jitter the values slightly to make them better distributed. Setting
+\code{jitter_y = FALSE} turns off this behaviour}
 
 \item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
