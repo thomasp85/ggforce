@@ -174,7 +174,7 @@ labelboxGrob <- function(label, x = unit(0.5, 'npc'), y = unit(0.5, 'npc'),
   sep_height <- if (lab_height > 0 && desc_height > 0) {
     pad[1]
   } else if (lab_height > 0) {
-    as_mm(grobDescent(lab_grob))
+    font_descent(gps$lab$fontfamily, gps$lab$fontface, gps$lab$fontsize, gps$lab$cex)
   } else {
     0
   }
@@ -390,4 +390,11 @@ get_end_points <- function(xmin, xmax, ymin, ymax, x, y) {
 vswitch <- function(x, ...) {
   cases <- cbind(...)
   cases[cbind(seq_along(x), match(x, colnames(cases)))]
+}
+
+font_descent <- function(fontfamily, fontface, fontsize, cex) {
+  italic <- fontface >= 3
+  bold <- fontface == 2 | fontface == 4
+  info <- systemfonts::font_info(fontfamily, italic, bold, fontsize * cex, res = 300)
+  as_mm(abs(info$max_descend)*72/300, 'pt', FALSE)
 }

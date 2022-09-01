@@ -39,7 +39,8 @@ Imports:
     utils,
     lifecycle,
     cli,
-    vctrs
+    vctrs,
+    systemfonts
 LinkingTo: Rcpp, RcppEigen
 RoxygenNote: 7.2.1
 Suggests:
