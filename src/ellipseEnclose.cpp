@@ -24,10 +24,10 @@ bool points_on_line(Eigen::MatrixXd points, Ellipse &enc) {
     return true;
   }
   if (n == 2) {
-    xmin = std::min(points.coeff(0, 0), points.coeff(1, 0));
-    xmax = std::max(points.coeff(0, 0), points.coeff(1, 0));
-    ymin = std::min(points.coeff(0, 1), points.coeff(1, 1));
-    ymax = std::max(points.coeff(0, 1), points.coeff(1, 1));
+    xmin = points.coeff(0, 0);
+    xmax = points.coeff(1, 0);
+    ymin = points.coeff(0, 1);
+    ymax = points.coeff(1, 1);
   } else {
     double x0 = xmin = xmax = points.coeff(0, 0);
     double y0 = ymin = ymax = points.coeff(0, 1);
@@ -45,10 +45,13 @@ bool points_on_line(Eigen::MatrixXd points, Ellipse &enc) {
         continue;
       }
       if (slope == (points.coeff(i, 1) - y0) / xdiff) {
-        xmin = std::min(xmin, points(i, 0));
-        xmax = std::max(xmax, points(i, 0));
-        ymin = std::min(ymin, points(i, 1));
-        ymax = std::max(ymax, points(i, 1));
+        if (points(i, 0) < xmin) {
+          xmin = points(i, 0);
+          ymin = points(i, 1);
+        } else if (points(i, 0) > xmin) {
+          xmax = points(i, 0);
+          ymax = points(i, 1);
+        }
         continue;
       }
       return false;
