@@ -13,6 +13,7 @@
   information in some configurations
 * Added `jitter_y` argument to `geom_sina()` to control whether y jittering is 
   performed on integerish y values.
+* `facet_zoom()` now works with patchwork
 
 # ggforce 0.3.4
 

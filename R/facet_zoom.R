@@ -404,17 +404,17 @@ FacetZoom <- ggproto('FacetZoom', Facet,
 #' @importFrom grid grobHeight grobWidth unit unit.c
 #' @importFrom gtable gtable gtable_add_grob
 create_panels <- function(panels, x.axis, y.axis) {
-  Map(function(panel, x, y) {
+  Map(function(panel, x, y, i) {
     heights <- unit.c(grobHeight(x$top), unit(1, 'null'), grobHeight(x$bottom))
     widths <- unit.c(grobWidth(y$left), unit(1, 'null'), grobWidth(y$right))
     table <- gtable(widths, heights)
-    table <- gtable_add_grob(table, panel, t = 2, l = 2, z = 10, clip = 'on',
-                             name = 'panel')
-    table <- gtable_add_grob(table, x, t = c(1, 3), l = 2, z = 20, clip = 'off',
-                             name = c('axis-t', 'axis-b'))
-    table <- gtable_add_grob(table, y, t = 2, l = c(1, 3), z = 20, clip = 'off',
-                             name = c('axis-l', 'axis-r'))
-  }, panel = panels, x = x.axis, y = y.axis)
+    table <- gtable_add_grob(table, panel, t = 2, l = 2, z = 2, clip = 'on',
+                             name = paste0('panel-', i))
+    table <- gtable_add_grob(table, x, t = c(1, 3), l = 2, z = 4, clip = 'off',
+                             name = paste0(c('axis-t-', 'axis-b-'), i))
+    table <- gtable_add_grob(table, y, t = 2, l = c(1, 3), z = 4, clip = 'off',
+                             name = paste0(c('axis-l-', 'axis-r-'), i))
+  }, panel = panels, x = x.axis, y = y.axis, i = seq_along(panels))
 }
 
 expansion <- function(scale, discrete = c(0, 0.6), continuous = c(0.05, 0)) {
