@@ -199,3 +199,11 @@ single_val.factor <- function(x, ...) {
   # Panels are encoded as factor numbers and can never be missing (NA)
   identical(levels(x), "1")
 }
+
+with_seed_null <- function(seed, code) {
+  if (is.null(seed)) {
+    code
+  } else {
+    withr::with_seed(seed, code)
+  }
+}
