@@ -194,6 +194,8 @@ in bold):
 \itemize{
 \item \strong{x}
 \item \strong{y}
+\item x0 \emph{(used to anchor the label)}
+\item y0 \emph{(used to anchor the label)}
 \item filter
 \item label
 \item description

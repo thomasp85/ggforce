@@ -9,6 +9,7 @@ facet_matrix(
   cols = rows,
   shrink = TRUE,
   switch = NULL,
+  labeller = "label_value",
   flip.rows = FALSE,
   alternate.axes = FALSE,
   layer.lower = NULL,
@@ -36,6 +37,17 @@ right of the plot. If \code{"x"}, the top labels will be
 displayed to the bottom. If \code{"y"}, the right-hand side
 labels will be displayed to the left. Can also be set to
 \code{"both"}.}
+
+\item{labeller}{A function that takes one data frame of labels and
+returns a list or data frame of character vectors. Each input
+column corresponds to one factor. Thus there will be more than
+one with \code{vars(cyl, am)}. Each output
+column gets displayed as one separate line in the strip
+label. This function should inherit from the "labeller" S3 class
+for compatibility with \code{\link[ggplot2:labeller]{labeller()}}. You can use different labeling
+functions for different kind of labels, for example use \code{\link[ggplot2:label_parsed]{label_parsed()}} for
+formatting facet labels. \code{\link[ggplot2:label_value]{label_value()}} is used by default,
+check it for more details and pointers to other options.}
 
 \item{flip.rows}{Should the order of the rows be reversed so that, if the
 rows and columns are equal, the diagonal goes from bottom-left to top-right

@@ -4,7 +4,7 @@
 \alias{position_jitternormal}
 \title{Jitter points with normally distributed random noise}
 \usage{
-position_jitternormal(sd_x = NULL, sd_y = NULL)
+position_jitternormal(sd_x = NULL, sd_y = NULL, seed = NA)
 }
 \arguments{
 \item{sd_x, sd_y}{Standard deviation to add along the x and y axes. The
