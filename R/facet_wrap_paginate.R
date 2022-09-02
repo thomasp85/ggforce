@@ -34,6 +34,14 @@ facet_wrap_paginate <- function(facets, nrow = NULL, ncol = NULL,
   if (!lifecycle::is_present(switch) && packageVersion('ggplot2') <= '3.3.6') {
     switch <- NULL
   }
+  real_dir <- 'h'
+  if (identical(dir, 'v')) {
+    tmp <- ncol
+    ncol <- nrow
+    nrow <- tmp
+    real_dir <- 'v'
+    dir <- 'h'
+  }
   facet <- facet_wrap(facets,
     nrow = nrow, ncol = ncol, scales = scales,
     shrink = shrink, labeller = labeller, as.table = as.table,
@@ -45,7 +53,7 @@ facet_wrap_paginate <- function(facets, nrow = NULL, ncol = NULL,
   } else {
     ggproto(NULL, FacetWrapPaginate,
       shrink = shrink,
-      params = c(facet$params, list(page = page))
+      params = c(facet$params, list(page = page, real_dir = real_dir))
     )
   }
 }
@@ -61,6 +69,7 @@ FacetWrapPaginate <- ggproto('FacetWrapPaginate', FacetWrap,
       params,
       list(
         max_rows = params$nrow,
+        max_cols = params$ncol,
         nrow = NULL
       )
     )
@@ -83,6 +92,10 @@ FacetWrapPaginate <- ggproto('FacetWrapPaginate', FacetWrap,
     y_scale_ind <- unique0(layout$SCALE_Y)
     y_scales <- y_scales[y_scale_ind]
     layout$SCALE_Y <- match(layout$SCALE_Y, y_scale_ind)
+    if (identical(params$real_dir, "v")) {
+      layout[c("ROW", "COL")] <- layout[c("COL", "ROW")]
+      params[c('max_cols', 'max_rows')] <- params[c('max_rows', 'max_cols')]
+    }
     table <- FacetWrap$draw_panels(panels, layout, x_scales, y_scales, ranges,
                                    coord, data, theme, params)
     if (max(layout$ROW) != params$max_rows) {
@@ -109,9 +122,9 @@ FacetWrapPaginate <- ggproto('FacetWrapPaginate', FacetWrap,
         }
       }
     }
-    if (max(layout$COL) != params$ncol) {
+    if (max(layout$COL) != params$max_cols) {
       spacing <- theme$panel.spacing.x %||% theme$panel.spacing
-      missing_cols <- params$ncol - max(layout$COL)
+      missing_cols <- params$max_cols - max(layout$COL)
       strip_cols <- unique0(table$layout$t[grepl('strip', table$layout$name) & table$layout$t %in% panel_rows(table)$t])
       if (length(strip_cols) != 0)
           strip_cols <- strip_cols[as.numeric(table$widths[strip_cols]) != 0]

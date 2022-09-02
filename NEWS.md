@@ -21,6 +21,7 @@
   `ggplot2::position_jitter()`
 * `geom_sina()` now works when the group only have a single unique y value
 * `facet_zoom()` now works correctly with transformed scales
+* `facet_wrap_paginate()` now works correctly with `dir = 'v'`
 
 # ggforce 0.3.4
 
