@@ -96,6 +96,17 @@ data is aligned on the integers, so a standard deviation of more than 0.2
 will spread the data so it's not possible to see the distinction between
 the categories.</p></dd>
 
+
+<dt>seed</dt>
+<dd><p>A random seed to make the jitter reproducible.
+Useful if you need to apply the same jitter twice, e.g., for a point and
+a corresponding label.
+The random seed is reset after jittering.
+If <code>NA</code> (the default value), the seed is initialised with a random value;
+this makes sure that two subsequent calls start with a different seed.
+Use <code>NULL</code> to use the current random seed and also avoid resetting
+(the behaviour of <span class="pkg">ggplot</span> 2.2.1 and earlier).</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
