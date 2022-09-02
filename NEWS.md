@@ -26,6 +26,7 @@
 * fix a bug in `geom_parallel_sets_axes()` that prevented coloring of axis fill
 * fix a bug in `stat_circle()` if the `x` and `y` aesthetics were inherited from 
   the global mapping
+* `facet_zoom()` now works even when limits are set by the scales
 
 # ggforce 0.3.4
 

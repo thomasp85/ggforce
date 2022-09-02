@@ -189,6 +189,7 @@ geom_arc_bar <- function(mapping = NULL, data = NULL, stat = 'arc_bar',
 # are sorted.
 
 make_unique <- function(names, sep = ".") {
+  if (!anyDuplicated(names)) return(names)
   n <- length(names)
   width <- floor(log10(n)) + 1
   sprintf("%s%s%0*d", names, sep, width, seq_len(n))
