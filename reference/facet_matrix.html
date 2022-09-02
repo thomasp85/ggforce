@@ -100,6 +100,7 @@ data.</p>
 <span>  cols <span class="op">=</span> <span class="va">rows</span>,</span>
 <span>  shrink <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  switch <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  labeller <span class="op">=</span> <span class="st">"label_value"</span>,</span>
 <span>  flip.rows <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  alternate.axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  layer.lower <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -134,6 +135,19 @@ right of the plot. If <code>"x"</code>, the top labels will be
 displayed to the bottom. If <code>"y"</code>, the right-hand side
 labels will be displayed to the left. Can also be set to
 <code>"both"</code>.</p></dd>
+
+
+<dt>labeller</dt>
+<dd><p>A function that takes one data frame of labels and
+returns a list or data frame of character vectors. Each input
+column corresponds to one factor. Thus there will be more than
+one with <code>vars(cyl, am)</code>. Each output
+column gets displayed as one separate line in the strip
+label. This function should inherit from the "labeller" S3 class
+for compatibility with <code><a href="https://ggplot2.tidyverse.org/reference/labeller.html" class="external-link">labeller()</a></code>. You can use different labeling
+functions for different kind of labels, for example use <code><a href="https://ggplot2.tidyverse.org/reference/labellers.html" class="external-link">label_parsed()</a></code> for
+formatting facet labels. <code><a href="https://ggplot2.tidyverse.org/reference/labellers.html" class="external-link">label_value()</a></code> is used by default,
+check it for more details and pointers to other options.</p></dd>
 
 
 <dt>flip.rows</dt>
