@@ -94,18 +94,21 @@
 #'   facet_matrix(rows = vars(cty, hwy), cols = vars(drv, fl))
 #'
 facet_matrix <- function(rows, cols = rows, shrink = TRUE, switch = NULL,
-                         flip.rows = FALSE, alternate.axes = FALSE, layer.lower = NULL,
+                         labeller = "label_value", flip.rows = FALSE,
+                         alternate.axes = FALSE, layer.lower = NULL,
                          layer.diag = NULL, layer.upper = NULL,
                          layer.continuous = NULL, layer.discrete = NULL,
                          layer.mixed = NULL, grid.y.diag = TRUE) {
   if (!is_quosures(rows)) rows <- quos(rows)
   if (!is_quosures(cols)) cols <- quos(cols)
 
+  labeller <- getFromNamespace('check_labeller', 'ggplot2')(labeller)
+
   ggproto(NULL, FacetMatrix,
     shrink = shrink,
     params = list(rows = quos(row_data = row_data), cols = quos(col_data = col_data),
                   row_vars = rows, col_vars = cols, switch = switch,
-                  free = list(x = TRUE, y = TRUE),
+                  labeller = labeller, free = list(x = TRUE, y = TRUE),
                   space_free = list(x = FALSE, y = FALSE), margins = FALSE,
                   as.table = !flip.rows, drop = TRUE, labeller = label_value,
                   alternate.axes = alternate.axes,

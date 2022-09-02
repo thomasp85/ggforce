@@ -21,7 +21,7 @@ BugReports: https://github.com/thomasp85/ggforce/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 Depends:
-    ggplot2 (>= 3.6.0),
+    ggplot2 (>= 3.3.6),
     R (>= 3.3.0)
 Imports:
     Rcpp (>= 0.12.2),
