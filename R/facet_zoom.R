@@ -155,7 +155,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
         SCALE_X <- layout$SCALE_X[match_id]
 
         if (!is.null(params$xlim)) {
-          x_scales[[2]]$train(params$xlim)
+          x_scales[[2]]$train(x_scales[[2]]$transform(params$xlim))
           scale_apply(layer_data, x_vars, 'train', SCALE_X, x_scales[-2])
         } else {
           scale_apply(layer_data, x_vars, 'train', SCALE_X, x_scales)
@@ -170,7 +170,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
         SCALE_Y <- layout$SCALE_Y[match_id]
 
         if (!is.null(params$ylim)) {
-          y_scales[[2]]$train(params$ylim)
+          y_scales[[2]]$train(y_scales[[2]]$transform(params$ylim))
           scale_apply(layer_data, y_vars, 'train', SCALE_Y, y_scales[-2])
         } else {
           scale_apply(layer_data, y_vars, 'train', SCALE_Y, y_scales)

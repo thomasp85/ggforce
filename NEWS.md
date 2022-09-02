@@ -20,6 +20,7 @@
 * `position_jitternormal()` gains a `seed` argument in parallel to 
   `ggplot2::position_jitter()`
 * `geom_sina()` now works when the group only have a single unique y value
+* `facet_zoom()` now works correctly with transformed scales
 
 # ggforce 0.3.4
 
