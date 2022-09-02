@@ -224,7 +224,7 @@ StatSina <- ggproto('StatSina', Stat,
       # width: constant width (each density scaled to a maximum of 1)
       width = data$scaled
     )
-    if (!is.finite(data$sinawidth)) data$sinawidth <- 0
+    data$sinawidth[!is.finite(data$sinawidth)] <- 0
 
     if (!is.na(seed)) {
       new_seed <- sample(.Machine$integer.max, 1L)
@@ -256,6 +256,9 @@ StatSina <- ggproto('StatSina', Stat,
     if (nrow(data) < 3) {
       data$density <- 0
       data$scaled <- 1
+    } else if (length(unique0(data$y)) < 2) {
+      data$density <- 1
+      data$scaled <- 1
     } else if (method == 'density') { # density kernel estimation
       range <- range(data$y, na.rm = TRUE)
       bw <- calc_bw(data$y, bw)
@@ -265,8 +268,6 @@ StatSina <- ggproto('StatSina', Stat,
 
       data$density <- densf(data$y)
       data$scaled <- data$density / max(dens$density)
-
-      data
     } else { # bin based estimation
       bin_index <- cut(data$y, bins, include.lowest = TRUE, labels = FALSE)
       data$density <- tapply(bin_index, bin_index, length)[as.character(bin_index)]
@@ -384,19 +385,6 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
     w <- rep(1 / nx, nx)
   } else {
     w <- w / sum(w)
-  }
-
-  # if less than 2 points return data frame of NAs and a warning
-  if (nx < 2) {
-    cli::cli_warn("Groups with fewer than two data points have been dropped.")
-    return(data_frame0(
-      x = NA_real_,
-      density = NA_real_,
-      scaled = NA_real_,
-      ndensity = NA_real_,
-      count = NA_real_,
-      n = NA_integer_
-    ))
   }
 
   dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,

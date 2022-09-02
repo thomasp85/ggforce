@@ -14,6 +14,12 @@
 * Added `jitter_y` argument to `geom_sina()` to control whether y jittering is 
   performed on integerish y values.
 * `facet_zoom()` now works with patchwork
+* Fix bug in `geom_mark_ellipse()` that caused wrong orientation of ellipses 
+  with groups of two.
+* `gather_set_data()` now supports tidyselect.
+* `position_jitternormal()` gains a `seed` argument in parallel to 
+  `ggplot2::position_jitter()`
+* `geom_sina()` now works when the group only have a single unique y value
 
 # ggforce 0.3.4
 
