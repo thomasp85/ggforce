@@ -14,6 +14,15 @@ If omitted, defaults to 0.15. As with \code{\link[ggplot2:geom_jitter]{ggplot2::
 data is aligned on the integers, so a standard deviation of more than 0.2
 will spread the data so it's not possible to see the distinction between
 the categories.}
+
+\item{seed}{A random seed to make the jitter reproducible.
+Useful if you need to apply the same jitter twice, e.g., for a point and
+a corresponding label.
+The random seed is reset after jittering.
+If \code{NA} (the default value), the seed is initialised with a random value;
+this makes sure that two subsequent calls start with a different seed.
+Use \code{NULL} to use the current random seed and also avoid resetting
+(the behaviour of \pkg{ggplot} 2.2.1 and earlier).}
 }
 \description{
 \code{\link[ggplot2:geom_jitter]{ggplot2::geom_jitter()}} adds random noise to points using a uniform

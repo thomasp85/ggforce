@@ -13,6 +13,7 @@
 #'   data is aligned on the integers, so a standard deviation of more than 0.2
 #'   will spread the data so it's not possible to see the distinction between
 #'   the categories.
+#' @inheritParams ggplot2::position_jitter
 #' @export
 #' @examples
 #' # Example data
