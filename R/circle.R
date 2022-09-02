@@ -69,6 +69,9 @@ NULL
 #' @export
 StatCircle <- ggproto('StatCircle', Stat,
   compute_panel = function(data, scales, n = 360) {
+    # Avoid some weird interaction if x and y are mapped at the global level
+    data$x <- NULL
+    data$y <- NULL
     data$start <- 0
     data$end <- 2 * pi
     arcPaths(data, n + 1)

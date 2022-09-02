@@ -24,6 +24,8 @@
 * `facet_wrap_paginate()` now works correctly with `dir = 'v'`
 * `facet_matrix()` now supports a labeller
 * fix a bug in `geom_parallel_sets_axes()` that prevented coloring of axis fill
+* fix a bug in `stat_circle()` if the `x` and `y` aesthetics were inherited from 
+  the global mapping
 
 # ggforce 0.3.4
 
