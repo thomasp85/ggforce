@@ -143,6 +143,9 @@ FacetZoom <- ggproto('FacetZoom', Facet,
     )
   },
   train_scales = function(self, x_scales, y_scales, layout, data, params) {
+    # Remove any limits settings on the zoom panels
+    if (length(x_scales) > 1) x_scales[[2]]$limits <- NULL
+    if (length(y_scales) > 1) y_scales[[2]]$limits <- NULL
     # loop over each layer, training x and y scales in turn
     for (layer_data in data) {
       match_id <- match(layer_data$PANEL, layout$PANEL)
