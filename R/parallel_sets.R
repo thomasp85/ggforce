@@ -159,7 +159,7 @@ StatParallelSetsAxes <- ggproto('StatParallelSetsAxes', Stat,
     data <- flip_data(data, flipped_aes)
     split_levels <- levels(data$split)
     data <- remove_group(data)
-    data <- complete_data(data)
+    data <- complete_data(data, FALSE)
     # Calculate axis sizes
     data_axes <- sankey_axis_data(data, sep)
     data_axes <- data_axes[data_axes$split != '.ggforce_missing', ]
@@ -281,7 +281,6 @@ geom_parallel_sets_labels <- function(mapping = NULL, data = NULL,
 #' head(gather_set_data(data, 1:4))
 gather_set_data <- function(data, x, id_name = 'id') {
   columns <- tidyselect::eval_select(enquo(x), data)
-  data <- data[, columns]
   data[[id_name]] <- seq_len(nrow(data))
   vec_rbind(!!!lapply(columns, function(n) {
     data$x <- n
@@ -290,7 +289,7 @@ gather_set_data <- function(data, x, id_name = 'id') {
   }))
 }
 #' @importFrom stats na.omit
-complete_data <- function(data) {
+complete_data <- function(data, check_id = TRUE) {
   levels(data$split) <- c(levels(data$split), '.ggforce_missing')
   all_obs <- unique0(data[, c('id', 'value')])
   data <- vec_rbind(!!!lapply(split(data, data$x), function(d) {
@@ -309,14 +308,17 @@ complete_data <- function(data) {
     d
   }))
 
-  # Ensure id grouping
-  id_groups <- lapply(split(data$group, data$id),
-                      function(x) unique0(na.omit(x)))
-  if (any(lengths(id_groups) != 1)) {
-    cli::cli_abort('{.field id} must keep grouping across data')
+  if (check_id) {
+    # Ensure id grouping
+    id_groups <- lapply(split(data$group, data$id),
+                        function(x) unique0(na.omit(x)))
+    if (any(lengths(id_groups) != 1)) {
+      cli::cli_abort('{.field id} must keep grouping across data')
+    }
+    id_match <- match(as.character(data$id), names(id_groups))
+    data$group <- unlist(id_groups)[id_match]
   }
-  id_match <- match(as.character(data$id), names(id_groups))
-  data$group <- unlist(id_groups)[id_match]
+
   data[order(data$x, data$id), ]
 }
 

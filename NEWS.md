@@ -23,6 +23,7 @@
 * `facet_zoom()` now works correctly with transformed scales
 * `facet_wrap_paginate()` now works correctly with `dir = 'v'`
 * `facet_matrix()` now supports a labeller
+* fix a bug in `geom_parallel_sets_axes()` that prevented coloring of axis fill
 
 # ggforce 0.3.4
 
