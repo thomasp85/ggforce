@@ -102,7 +102,7 @@ facet_matrix <- function(rows, cols = rows, shrink = TRUE, switch = NULL,
   if (!is_quosures(rows)) rows <- quos(rows)
   if (!is_quosures(cols)) cols <- quos(cols)
 
-  labeller <- getFromNamespace('check_labeller', 'ggplot2')(labeller)
+  labeller <- utils::getFromNamespace('check_labeller', 'ggplot2')(labeller)
 
   ggproto(NULL, FacetMatrix,
     shrink = shrink,
