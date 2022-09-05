@@ -78,6 +78,7 @@ GeomMarkRect <- ggproto('GeomMarkRect', GeomMarkCircle,
       self$removed <- data[!data$filter, c('x', 'y', 'PANEL')]
       data <- data[data$filter, ]
     }
+    if (nrow(data) == 0) return(data)
     vec_rbind(!!!lapply(split(data, data$group), function(d) {
       if (nrow(d) == 1) return(d)
       x_range <- range(d$x, na.rm = TRUE)
