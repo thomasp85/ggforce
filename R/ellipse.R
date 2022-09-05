@@ -63,8 +63,8 @@ NULL
 #' @export
 StatEllip <- ggproto('StatEllip', Stat,
   setup_data = function(data, params) {
-    data$m1 <- ifelse(is.null(data$m1), 2, data$m1)
-    data$m2 <- ifelse(is.null(data$m2), data$m1, data$m2)
+    data$m1 <- if (is.null(data$m1)) 2 else data$m1
+    data$m2 <- if (is.null(data$m2)) data$m1 else data$m2
     data
   },
   compute_panel = function(self, data, scales, n = 360) {
