@@ -97,7 +97,7 @@ NULL
 #' @export
 StatBezier <- ggproto('StatBezier', Stat,
   compute_panel = function(data, scales, n = 100) {
-    if (is.null(data)) return(data)
+    if (empty_data(data)) return(data)
     nControls <- table(data$group)
     controlRange <- range(nControls)
     if (min(controlRange) < 3 || max(controlRange) > 4) {
@@ -155,7 +155,7 @@ geom_bezier <- function(mapping = NULL, data = NULL, stat = 'bezier',
 #' @export
 StatBezier2 <- ggproto('StatBezier2', Stat,
   compute_layer = function(self, data, params, panels) {
-    if (is.null(data)) return(data)
+    if (empty_data(data)) return(data)
     data <- data[order(data$group), ]
     nControls <- table(data$group)
     controlRange <- range(nControls)
@@ -225,7 +225,7 @@ geom_bezier2 <- function(mapping = NULL, data = NULL, stat = 'bezier2',
 #' @export
 StatBezier0 <- ggproto('StatBezier0', Stat,
   compute_panel = function(data, scales) {
-    if (is.null(data)) return(data)
+    if (empty_data(data)) return(data)
     data <- data[order(data$group), ]
     nControls <- table(data$group)
     controlRange <- range(nControls)

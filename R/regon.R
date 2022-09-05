@@ -54,7 +54,7 @@ NULL
 #' @export
 StatRegon <- ggproto('StatRegon', Stat,
   compute_layer = function(self, data, params, panels) {
-    if (is.null(data)) return(data)
+    if (empty_data(data)) return(data)
     pos <- unlist(lapply(data$sides, function(n) {
       p <- (seq_len(n) - 1) / n
       if (n %% 2 == 0) p <- p + p[2] / 2

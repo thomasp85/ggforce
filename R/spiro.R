@@ -63,7 +63,7 @@ NULL
 #' @export
 StatSpiro <- ggproto('StatSpiro', Stat,
   compute_panel = function(data, scales, n = 500, revolutions = NULL) {
-    if (is.null(data)) return(data)
+    if (empty_data(data)) return(data)
     if (is.null(data$outer)) data$outer <- FALSE
     if (is.null(data$x0)) data$x0 <- 0
     if (is.null(data$y0)) data$y0 <- 0

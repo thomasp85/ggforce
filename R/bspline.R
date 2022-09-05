@@ -94,7 +94,7 @@ NULL
 #' @export
 StatBspline <- ggproto('StatBspline', Stat,
   compute_layer = function(self, data, params, panels) {
-    if (is.null(data)) return(data)
+    if (empty_data(data)) return(data)
     data <- data[order(data$group), ]
     groups <- unique0(data$group)
     paths <- getSplines(data$x, data$y, match(data$group, groups), params$n,
@@ -149,7 +149,7 @@ geom_bspline <- function(mapping = NULL, data = NULL, stat = 'bspline',
 #' @export
 StatBspline2 <- ggproto('StatBspline2', Stat,
   compute_layer = function(self, data, params, panels) {
-    if (is.null(data)) return(data)
+    if (empty_data(data)) return(data)
     data <- data[order(data$group), ]
     nControls <- table(data$group)
     groups <- unique0(data$group)

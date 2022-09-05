@@ -22,3 +22,7 @@ combine_aes <- function(aes1, aes2) {
   class(aes_all) <- class(aes1)
   aes_all
 }
+
+empty_data <- function(x) {
+  length(x) == 0 || nrow(x) == 0
+}
