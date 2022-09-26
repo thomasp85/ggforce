@@ -116,22 +116,22 @@ FacetZoom <- ggproto('FacetZoom', Facet,
     vec_rbind(
       cbind(data, PANEL = 1L),
       if (!is.null(params$x)) {
-        index_x <- tryCatch(eval_tidy(params$x, data),
-                            error = function(e) FALSE)
+        index_x <- try_fetch(eval_tidy(params$x, data),
+                             error = function(e) FALSE)
         if (sum(index_x, na.rm = TRUE) != 0) {
           cbind(data[index_x, ], PANEL = layout$PANEL[layout$name == 'x'])
         }
       },
       if (!is.null(params$y)) {
-        index_y <- tryCatch(eval_tidy(params$y, data),
-                            error = function(e) FALSE)
+        index_y <- try_fetch(eval_tidy(params$y, data),
+                             error = function(e) FALSE)
         if (sum(index_y, na.rm = TRUE) != 0) {
           cbind(data[index_y, ], PANEL = layout$PANEL[layout$name == 'y'])
         }
       },
       if (!is.null(params$zoom.data)) {
-        zoom_data <- tryCatch(eval_tidy(params$zoom.data, data),
-                              error = function(e) NA)
+        zoom_data <- try_fetch(eval_tidy(params$zoom.data, data),
+                               error = function(e) NA)
         zoom_data <- rep(zoom_data, length.out = nrow(data))
         zoom_ind <- zoom_data | is.na(zoom_data)
         orig_ind <- !zoom_data | is.na(zoom_data)
