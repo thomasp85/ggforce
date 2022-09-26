@@ -65,7 +65,7 @@ facet_wrap_paginate <- function(facets, nrow = NULL, ncol = NULL,
 #' @export
 FacetWrapPaginate <- ggproto('FacetWrapPaginate', FacetWrap,
   setup_params = function(data, params) {
-    modifyList(
+    modify_list(
       params,
       list(
         max_rows = params$nrow,
