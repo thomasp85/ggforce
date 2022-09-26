@@ -24,7 +24,7 @@
 #' ggplot(square, aes(x, y, group = group)) +
 #'   geom_polygon(aes(fill = factor(group)), colour = 'black')
 linear_trans <- function(...) {
-  calls <- as.list(substitute(list(...)))[-1]
+  calls <- as.list(substitute(list2(...)))[-1]
   transformations <- sapply(calls, deparse)
   args <- unlist(lapply(calls, function(call) {
     args <- as.list(call)[-1]
