@@ -1,4 +1,4 @@
-# ggforce (development version)
+# ggforce 0.4.0
 
 * Moved to vctrs internally
 * Updated error messaging to use cli
