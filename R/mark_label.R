@@ -395,6 +395,6 @@ vswitch <- function(x, ...) {
 font_descent <- function(fontfamily, fontface, fontsize, cex) {
   italic <- fontface >= 3
   bold <- fontface == 2 | fontface == 4
-  info <- systemfonts::font_info(fontfamily, italic, bold, fontsize * cex, res = 300)
+  info <- systemfonts::font_info(fontfamily, italic, bold, fontsize * (cex %||% 1), res = 300)
   as_mm(abs(info$max_descend)*72/300, 'pt', FALSE)
 }

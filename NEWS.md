@@ -1,5 +1,8 @@
 # ggforce (development version)
 
+* Fixed a sanitizer error in the decent calculations used for the mark geoms
+* Fixed a typo bug in the vctrs implementations
+
 # ggforce 0.4.0
 
 * Moved to vctrs internally

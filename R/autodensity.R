@@ -66,7 +66,7 @@ StatAutodensity <- ggproto('StatAutodensity', StatDensity,
           density = count / nrow(data)
         )
       })
-      binned <- ved_rbind(!!!binned)
+      binned <- vec_rbind(!!!binned)
       binned$scaled <- binned$density / max(binned$density)
       binned$ndensity <- binned$density / max(binned$density)
       binned$count <- binned$density * nrow(data)
