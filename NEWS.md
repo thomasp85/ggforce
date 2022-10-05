@@ -1,3 +1,5 @@
+# ggforce (development version)
+
 # ggforce 0.4.1
 
 * Fixed a sanitizer error in the decent calculations used for the mark geoms
