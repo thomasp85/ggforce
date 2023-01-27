@@ -86,7 +86,7 @@ NULL
 #' @aliases geom_delaunay
 #' @rdname geom_delvor
 #'
-#' @examples
+#' @examplesIf requireNamespace("deldir", quietly = TRUE)
 #' # Voronoi
 #' # You usually wants all points to take part in the same tesselation so set
 #' # the group aesthetic to a constant (-1L is just a convention)
