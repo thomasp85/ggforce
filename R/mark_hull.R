@@ -38,7 +38,7 @@
 #' @name geom_mark_hull
 #' @rdname geom_mark_hull
 #'
-#' @examples
+#' @examplesIf requireNamespace("concaveman", quietly = TRUE)
 #' ## requires the concaveman packages
 #' ggplot(iris, aes(Petal.Length, Petal.Width)) +
 #'   geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor')) +
