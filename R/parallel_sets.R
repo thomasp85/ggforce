@@ -279,10 +279,11 @@ geom_parallel_sets_labels <- function(mapping = NULL, data = NULL,
 #' @examples
 #' data <- reshape2::melt(Titanic)
 #' head(gather_set_data(data, 1:4))
+#' head(gather_set_data(data, c("Class","Sex","Age","Survived")))
 gather_set_data <- function(data, x, id_name = 'id') {
   columns <- tidyselect::eval_select(enquo(x), data)
   data[[id_name]] <- seq_len(nrow(data))
-  vec_rbind(!!!lapply(columns, function(n) {
+  vec_rbind(!!!lapply(names(columns), function(n) {
     data$x <- n
     data$y <- data[[n]]
     data
