@@ -69,7 +69,7 @@ StatEllip <- ggproto('StatEllip', Stat,
   },
   compute_panel = function(self, data, scales, n = 360) {
     if (empty_data(data)) return(data)
-    data$group <- make_unique(as.character(data$group))
+    data$group <- make_unique(data$group)
     n_ellipses <- nrow(data)
     data <- data[rep(seq_len(n_ellipses), each = n), ]
     points <- rep(seq(0, 2 * pi, length.out = n + 1)[seq_len(n)],

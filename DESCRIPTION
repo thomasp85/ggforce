@@ -42,7 +42,7 @@ Imports:
     vctrs,
     systemfonts
 LinkingTo: Rcpp, RcppEigen
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Suggests:
     sessioninfo,
     concaveman,

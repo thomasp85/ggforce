@@ -213,6 +213,7 @@ removed data.
 }
 
 \examples{
+\dontshow{if (requireNamespace("concaveman", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## requires the concaveman packages
 ggplot(iris, aes(Petal.Length, Petal.Width)) +
   geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor')) +
@@ -261,6 +262,7 @@ ggplot(iris, aes(Petal.Length, Petal.Width)) +
   geom_mark_hull(aes(fill = Species, label = Species),
                  con.cap = 0) +
   geom_point()
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other mark geoms: 

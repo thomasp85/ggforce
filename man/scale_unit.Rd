@@ -10,7 +10,7 @@ scale_x_unit(...)
 scale_y_unit(...)
 }
 \arguments{
-\item{...}{Passed on to \code{units::scale_x_unit()} or \code{units::scale_y_unit()}}
+\item{...}{Passed on to \code{units::scale_x_units()} or \code{units::scale_y_units()}}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} These are the default scales for the units

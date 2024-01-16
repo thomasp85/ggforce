@@ -68,7 +68,7 @@ StatSpiro <- ggproto('StatSpiro', Stat,
     if (is.null(data$x0)) data$x0 <- 0
     if (is.null(data$y0)) data$y0 <- 0
     n_spiro <- nrow(data)
-    data$group <- make_unique(as.character(data$group))
+    data$group <- make_unique(data$group)
     if (is.null(revolutions)) {
       revo <- attr(fractions(data$r / data$R), 'fracs')
       revo <- as.numeric(sub('/.*$', '', revo))

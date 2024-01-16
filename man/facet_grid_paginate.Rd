@@ -21,7 +21,7 @@ facet_grid_paginate(
 )
 }
 \arguments{
-\item{facets}{This argument is soft-deprecated, please use \code{rows}
+\item{facets}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Please use \code{rows}
 and \code{cols} instead.}
 
 \item{margins}{Either a logical value or a character

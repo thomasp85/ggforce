@@ -106,7 +106,7 @@ StatDiagonal <- ggproto('StatDiagonal', Stat,
   compute_panel = function(data, scales, n = 100, strength = 0.5, flipped_aes = FALSE) {
     if (empty_data(data)) return(data)
     data <- flip_data(data, flipped_aes)
-    data$group <- make_unique(as.character(data$group))
+    data$group <- make_unique(data$group)
     end <- data
     end$x <- end$xend
     end$y <- end$yend
@@ -212,7 +212,7 @@ StatDiagonal0 <- ggproto('StatDiagonal0', Stat,
   compute_panel = function(data, scales, strength = 0.5, flipped_aes = FALSE) {
     if (empty_data(data)) return(data)
     data <- flip_data(data, flipped_aes)
-    data$group <- make_unique(as.character(data$group))
+    data$group <- make_unique(data$group)
     end <- data
     end$x <- end$xend
     end$y <- end$yend

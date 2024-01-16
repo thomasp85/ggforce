@@ -1,5 +1,7 @@
 # ggforce (development version)
 
+* Fixed a bug that would cause reordering of data in some geoms (#314)
+
 # ggforce 0.4.1
 
 * Fixed a sanitizer error in the decent calculations used for the mark geoms

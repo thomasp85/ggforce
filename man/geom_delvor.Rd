@@ -252,6 +252,7 @@ the bounding box}
 }
 
 \examples{
+\dontshow{if (requireNamespace("deldir", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Voronoi
 # You usually wants all points to take part in the same tesselation so set
 # the group aesthetic to a constant (-1L is just a convention)
@@ -290,4 +291,5 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
 ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
   geom_delaunay_segment2(aes(colour = Species, group = -1), size = 2,
                          lineend = 'round')
+\dontshow{\}) # examplesIf}
 }
