@@ -71,7 +71,9 @@
       <small>Source: <a href="https://github.com/thomasp85/ggforce/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="section level2"><h2 class="page-header" data-toc-text="development version" id="ggforce-development-version">ggforce (development version)<a class="anchor" aria-label="anchor" href="#ggforce-development-version"></a></h2></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="development version" id="ggforce-development-version">ggforce (development version)<a class="anchor" aria-label="anchor" href="#ggforce-development-version"></a></h2>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.1" id="ggforce-041">ggforce 0.4.1<small>2022-10-04</small><a class="anchor" aria-label="anchor" href="#ggforce-041"></a></h2>
 <ul><li>Fixed a sanitizer error in the decent calculations used for the mark geoms</li>
@@ -126,7 +128,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.1" id="ggforce-031">ggforce 0.3.1<small>2019-08-20</small><a class="anchor" aria-label="anchor" href="#ggforce-031"></a></h2>
-<ul><li>Better fix for gganimate compatibility (<a href="https://github.com/thomasp85/ggforce/issues/157" class="external-link">#157</a>)</li></ul></div>
+<ul><li>Better fix for gganimate compatibility (<a href="https://github.com/thomasp85/ggforce/issues/157" class="external-link">#157</a>)</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.0" id="ggforce-030">ggforce 0.3.0<small>2019-08-09</small><a class="anchor" aria-label="anchor" href="#ggforce-030"></a></h2>
 <ul><li>Added <code><a href="../reference/facet_matrix.html">facet_matrix()</a></code> in order to facet different data columns into different rows and columns in a grid, in order to make e.g. scatterplot matrices and pairs plot</li>
@@ -138,10 +141,12 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.2" id="ggforce-022">ggforce 0.2.2<small>2019-04-23</small><a class="anchor" aria-label="anchor" href="#ggforce-022"></a></h2>
-<ul><li>Fixed a regression in <code><a href="../reference/geom_sina.html">geom_sina()</a></code> where the computation would fail with a warning due to <code><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower()</a></code> being masked (<a href="https://github.com/thomasp85/ggforce/issues/134" class="external-link">#134</a>, <a href="https://github.com/thomasp85/ggforce/issues/135" class="external-link">#135</a>).</li></ul></div>
+<ul><li>Fixed a regression in <code><a href="../reference/geom_sina.html">geom_sina()</a></code> where the computation would fail with a warning due to <code><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower()</a></code> being masked (<a href="https://github.com/thomasp85/ggforce/issues/134" class="external-link">#134</a>, <a href="https://github.com/thomasp85/ggforce/issues/135" class="external-link">#135</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.1" id="ggforce-021">ggforce 0.2.1<small>2019-03-12</small><a class="anchor" aria-label="anchor" href="#ggforce-021"></a></h2>
-<ul><li>Fixed a bug in the calculation of open and closed b-splines, where the interval would exceed the defined region and result in an out-of-bounds memory error</li></ul></div>
+<ul><li>Fixed a bug in the calculation of open and closed b-splines, where the interval would exceed the defined region and result in an out-of-bounds memory error</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.0" id="ggforce-020">ggforce 0.2.0<small>2019-03-07</small><a class="anchor" aria-label="anchor" href="#ggforce-020"></a></h2>
 <div class="section level3">
@@ -161,7 +166,9 @@
 <li>Add <code>geom_shape</code> for drawing polygons with rounded corners and expanded/contracted sides. <code>geom_shape</code> replaces all <code>geom_polygon</code> internally.</li>
 <li>Added <code>geom_bspline_closed</code> to draw polygons defined as b-splines</li>
 <li>Add <code>geom_mark_[rect|circle|ellipse|hull]</code> to encircle a group of points and optionally add textual annotation to it</li>
-<li>Add <code>position_jitternormal</code> to jitter points based on a normal distribution<ol class="example" style="list-style-type: decimal"><li></ol></li>
+<li>Add <code>position_jitternormal</code> to jitter points based on a normal distribution
+<ol class="example" style="list-style-type: decimal"><li>
+</li></ol></li>
 </ul></div>
 <div class="section level3">
 <h3 id="improvements-0-2-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-0-2-0"></a></h3>
@@ -177,7 +184,9 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-2-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-0"></a></h3>
-<ul><li>Fix interpolation of <code>x</code> and <code>y</code> values in <code>geom_link2</code> (<a href="https://github.com/thomasp85" class="external-link">@thomasp85</a> and<ol start="2" class="example" style="list-style-type: decimal"><li></ol></li>
+<ul><li>Fix interpolation of <code>x</code> and <code>y</code> values in <code>geom_link2</code> (<a href="https://github.com/thomasp85" class="external-link">@thomasp85</a> and
+<ol start="2" class="example" style="list-style-type: decimal"><li>
+</li></ol></li>
 <li>
 <code>stat_link</code> no longer replicates the group column</li>
 <li>arcs and links no longer rename aesthetics when only one aesthetic is present (<code>drop = FALSE</code>)</li>
@@ -194,7 +203,8 @@
 <h2 class="page-header" data-toc-text="0.1.1" id="ggforce-011">ggforce 0.1.1<small>2016-11-28</small><a class="anchor" aria-label="anchor" href="#ggforce-011"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-1-1">New features<a class="anchor" aria-label="anchor" href="#new-features-0-1-1"></a></h3>
-<ul><li>Zoom indicator styling can now be specified separetely for x and y zoom using <code>zoom.x</code> and <code>zoom.y</code> in theme (inherits from <code>zoom</code> that inherits from <code>strip.background</code>)</li></ul></div>
+<ul><li>Zoom indicator styling can now be specified separetely for x and y zoom using <code>zoom.x</code> and <code>zoom.y</code> in theme (inherits from <code>zoom</code> that inherits from <code>strip.background</code>)</li>
+</ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-1-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-1"></a></h3>
 <ul><li>Fix bug in <code>facet_wrap_paginate</code> that threw errors when using it with free scales (<a href="https://github.com/thomasp85/ggforce/issues/19" class="external-link">#19</a>)</li>
@@ -209,7 +219,8 @@
 <h3 id="major-changes-0-1-0">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-1-0"></a></h3>
 <ul><li>
 <code>geom_edge_bundle</code> has been renamed <code>geom_bspline</code> and lost the tension argument. True edge bundle functionality has been moved to <code>ggraph</code>
-</li></ul></div>
+</li>
+</ul></div>
 <div class="section level3">
 <h3 id="new-features-0-1-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-1-0"></a></h3>
 <ul><li>
@@ -231,7 +242,8 @@
 <h2 class="page-header" data-toc-text="0.0.1" id="ggforce-001">ggforce 0.0.1<a class="anchor" aria-label="anchor" href="#ggforce-001"></a></h2>
 <div class="section level3">
 <h3 id="major-changes-0-0-1">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-0-1"></a></h3>
-<ul><li>First commit</li></ul></div>
+<ul><li>First commit</li>
+</ul></div>
 <div class="section level3">
 <h3 id="new-features-0-0-1">New features<a class="anchor" aria-label="anchor" href="#new-features-0-0-1"></a></h3>
 <ul><li>
@@ -264,7 +276,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
