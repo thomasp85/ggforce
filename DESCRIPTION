@@ -49,7 +49,7 @@ Suggests:
     deldir,
     latex2exp,
     reshape2,
-    units (>= 0.4-6),
+    units (>= 0.8.0),
     covr
 Collate: 
     'RcppExports.R'
