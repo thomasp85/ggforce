@@ -4,7 +4,7 @@
 #' class. These will usually be added automatically. To override manually, use
 #' `scale_*_unit`.
 #'
-#' @param ... Passed on to `units::scale_x_unit()` or `units::scale_y_unit()`
+#' @param ... Passed on to `units::scale_x_units()` or `units::scale_y_units()`
 #'
 #' @name scale_unit
 #' @aliases NULL
@@ -15,7 +15,7 @@ NULL
 #' @export
 #' @importFrom scales censor
 scale_x_unit <- function(...) {
-  lifecycle::deprecate_soft('0.3.4', "scale_x_unit()", "units::scale_x_unit()")
+  lifecycle::deprecate_soft('0.3.4', "scale_x_unit()", "units::scale_x_units()")
   check_installed('units', 'to use scale_x_unit')
   units::scale_x_units(...)
 }
@@ -23,7 +23,7 @@ scale_x_unit <- function(...) {
 #' @export
 #' @importFrom scales censor
 scale_y_unit <- function(...) {
-  lifecycle::deprecate_soft('0.3.4', "scale_y_unit()", "units::scale_y_unit()")
+  lifecycle::deprecate_soft('0.3.4', "scale_y_unit()", "units::scale_y_units()")
   check_installed('units', 'to use scale_y_unit')
   units::scale_y_units(...)
 }
