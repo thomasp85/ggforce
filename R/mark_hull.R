@@ -306,6 +306,11 @@ makeContent.hull_enc <- function(x) {
     }
     concaveman::concaveman(mat, x$concavity, 0)
   }, xx = x_new, yy = y_new)
+  # ensure that all polygons have the same set of column names
+  polygons <- lapply(polygons, function(x) {
+    colnames(x) <- c("x", "y")
+    return(x)}
+  )
   mark$id <- rep(seq_along(polygons), vapply(polygons, nrow, numeric(1)))
   polygons <- vec_rbind(!!!polygons)
   mark$x <- unit(polygons[, 1], 'mm')
