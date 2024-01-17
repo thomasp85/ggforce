@@ -38,8 +38,7 @@
 #' @name geom_mark_hull
 #' @rdname geom_mark_hull
 #'
-#' @examplesIf requireNamespace("concaveman", quietly = TRUE)
-#' ## requires the concaveman packages
+#' @examples
 #' ggplot(iris, aes(Petal.Length, Petal.Width)) +
 #'   geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor')) +
 #'   geom_point()
@@ -107,8 +106,6 @@ GeomMarkHull <- ggproto('GeomMarkHull', GeomMarkCircle,
                         con.linetype = 1, con.border = 'one',
                         con.cap = unit(3, 'mm'), con.arrow = NULL) {
     if (nrow(data) == 0) return(zeroGrob())
-
-    check_installed('concaveman', 'to calculate concave hulls')
 
     # As long as coord$transform() doesn't recognise x0/y0
     data$xmin <- data$x0
@@ -193,7 +190,6 @@ geom_mark_hull <- function(mapping = NULL, data = NULL, stat = 'identity',
                            con.border = 'one', con.cap = unit(3, 'mm'),
                            con.arrow = NULL, ..., na.rm = FALSE,
                            show.legend = NA, inherit.aes = TRUE) {
-  check_installed('concaveman', 'to calculate concave hulls')
   layer(
     data = data,
     mapping = mapping,
@@ -304,13 +300,13 @@ makeContent.hull_enc <- function(x) {
     if (length(unique0((yy[-1] - yy[1]) / (xx[-1] - xx[1]))) == 1) {
       return(mat[c(which.min(mat[, 1]), which.max(mat[, 1])), ])
     }
-    concaveman::concaveman(mat, x$concavity, 0)
+    concaveman(mat, x$concavity, 0)
   }, xx = x_new, yy = y_new)
   # ensure that all polygons have the same set of column names
   polygons <- lapply(polygons, function(x) {
     colnames(x) <- c("x", "y")
-    return(x)}
-  )
+    return(x)
+  })
   mark$id <- rep(seq_along(polygons), vapply(polygons, nrow, numeric(1)))
   polygons <- vec_rbind(!!!polygons)
   mark$x <- unit(polygons[, 1], 'mm')

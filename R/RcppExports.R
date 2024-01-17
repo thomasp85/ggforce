@@ -17,6 +17,10 @@ getBeziers <- function(x, y, id, detail) {
     .Call('_ggforce_getBeziers', PACKAGE = 'ggforce', x, y, id, detail)
 }
 
+concaveman_c <- function(p, h, concavity, threshold) {
+    .Call('_ggforce_concaveman_c', PACKAGE = 'ggforce', p, h, concavity, threshold)
+}
+
 enclose_ellip_points <- function(x, y, id, tol) {
     .Call('_ggforce_enclose_ellip_points', PACKAGE = 'ggforce', x, y, id, tol)
 }

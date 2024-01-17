@@ -69,6 +69,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// concaveman_c
+NumericMatrix concaveman_c(NumericMatrix p, IntegerVector h, double concavity, double threshold);
+RcppExport SEXP _ggforce_concaveman_c(SEXP pSEXP, SEXP hSEXP, SEXP concavitySEXP, SEXP thresholdSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type p(pSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type h(hSEXP);
+    Rcpp::traits::input_parameter< double >::type concavity(concavitySEXP);
+    Rcpp::traits::input_parameter< double >::type threshold(thresholdSEXP);
+    rcpp_result_gen = Rcpp::wrap(concaveman_c(p, h, concavity, threshold));
+    return rcpp_result_gen;
+END_RCPP
+}
 // enclose_ellip_points
 DataFrame enclose_ellip_points(NumericVector x, NumericVector y, IntegerVector id, double tol);
 RcppExport SEXP _ggforce_enclose_ellip_points(SEXP xSEXP, SEXP ySEXP, SEXP idSEXP, SEXP tolSEXP) {
@@ -115,6 +129,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_ggforce_getSplines", (DL_FUNC) &_ggforce_getSplines, 5},
     {"_ggforce_bezierPath", (DL_FUNC) &_ggforce_bezierPath, 3},
     {"_ggforce_getBeziers", (DL_FUNC) &_ggforce_getBeziers, 4},
+    {"_ggforce_concaveman_c", (DL_FUNC) &_ggforce_concaveman_c, 4},
     {"_ggforce_enclose_ellip_points", (DL_FUNC) &_ggforce_enclose_ellip_points, 4},
     {"_ggforce_enclose_points", (DL_FUNC) &_ggforce_enclose_points, 3},
     {"_ggforce_points_to_path", (DL_FUNC) &_ggforce_points_to_path, 3},

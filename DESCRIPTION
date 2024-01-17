@@ -45,7 +45,6 @@ LinkingTo: Rcpp, RcppEigen
 RoxygenNote: 7.2.3
 Suggests:
     sessioninfo,
-    concaveman,
     deldir,
     latex2exp,
     reshape2,
@@ -64,6 +63,7 @@ Collate:
     'bspline.R'
     'bspline_closed.R'
     'circle.R'
+    'concaveman.R'
     'diagonal.R'
     'diagonal_wide.R'
     'ellipse.R'
