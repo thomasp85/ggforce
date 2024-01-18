@@ -9,6 +9,7 @@
 * Fixed a bug in the `geom_mark_*()` geoms where having `NA` values in the 
   `filter` aesthetic would lead to weird errors. `NA` is now treated as `FALSE`
   (#306)
+* `shapeGrob()` is now exported for use by other packages (#303)
 
 # ggforce 0.4.1
 
