@@ -6,8 +6,8 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericMatrix concaveman_c(NumericMatrix p, IntegerVector h, double concavity, double threshold) {
   typedef std::array<double, 2> point_type;
-  std::vector<point_type> points(p.size());
-  for (auto i = 0; i < p.size(); ++i) {
+  std::vector<point_type> points(p.nrow());
+  for (auto i = 0; i < p.nrow(); ++i) {
     points[i] = {p(i, 0), p(i, 1)};
   }
   std::vector<int> hull(h.size());

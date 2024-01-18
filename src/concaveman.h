@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "robust_predicate/geompred.hpp"
+
 #include <memory>
 #include <stdexcept>
 #include <list>
@@ -31,18 +33,18 @@ public:
   }
 };
 
-
-template<class T> T orient2d(
-    const std::array<T, 2> &p1,
-    const std::array<T, 2> &p2,
-    const std::array<T, 2> &p3) {
-
-  T res = (p2[1] - p1[1]) * (p3[0] - p2[0]) -
-    (p2[0] - p1[0]) * (p3[1] - p2[1]);
-
-  if (std::abs(res) < 1e-10) res = 0;
-
-  return res;
+template<class T>
+double orient_2d(const std::array<T, 2> &a,
+                 const std::array<T, 2> &b,
+                 const std::array<T, 2> &c) {
+  static double coords[6] = {0,0,0,0,0,0};
+  coords[0] = a[0];
+  coords[1] = a[1];
+  coords[2] = b[0];
+  coords[3] = b[1];
+  coords[4] = c[0];
+  coords[5] = c[1];
+  return geompred::orient2d(coords, coords+2, coords+4);
 }
 
 
@@ -55,8 +57,8 @@ template<class T> bool intersects(
 
   auto res = (p1[0] != q2[0] || p1[1] != q2[1]) &&
     (q1[0] != p2[0] || q1[1] != p2[1]) &&
-    (orient2d(p1, q1, p2) > 0) != (orient2d(p1, q1, q2) > 0) &&
-    (orient2d(p2, q2, p1) > 0) != (orient2d(p2, q2, q1) > 0);
+    (orient_2d(p1, q1, p2) > 0) != (orient_2d(p1, q1, q2) > 0) &&
+    (orient_2d(p2, q2, p1) > 0) != (orient_2d(p2, q2, q1) > 0);
 
   return res;
 }
