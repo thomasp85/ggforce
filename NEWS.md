@@ -2,6 +2,8 @@
 
 * Fixed a bug that would cause reordering of data in some geoms (#314)
 * The concaveman package is no longer a dependency for `geom_mark_hull()` (#308)
+* Setting both label and description to `NA` will now turn off label drawing for
+  that mark completely while still drawing the mark
 
 # ggforce 0.4.1
 

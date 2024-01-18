@@ -332,6 +332,7 @@ circEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
   )
   if (!is.null(label)) {
     label <- lapply(seq_len(nrow(label)), function(i) {
+      if (is.na(label$label[i] %||% NA) && is.na(label$description[i] %||% NA)) return(zeroGrob())
       grob <- labelboxGrob(label$label[i], 0, 0, label$description[i],
         gp = label.gp, pad = label.margin, width = label.width,
         min.width = label.minwidth, hjust = label.hjust
