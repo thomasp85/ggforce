@@ -4,6 +4,8 @@
 * The concaveman package is no longer a dependency for `geom_mark_hull()` (#308)
 * Setting both label and description to `NA` will now turn off label drawing for
   that mark completely while still drawing the mark
+* Fix a bug in `geom_mark_rect()` where the mark would not be shown in all 
+  panels (#307)
 
 # ggforce 0.4.1
 
