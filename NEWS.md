@@ -10,6 +10,8 @@
   `filter` aesthetic would lead to weird errors. `NA` is now treated as `FALSE`
   (#306)
 * `shapeGrob()` is now exported for use by other packages (#303)
+* Fix a bug in `geom_autohistogram()` that prevented it to be used with 
+  continuous data (#297)
 
 # ggforce 0.4.1
 
