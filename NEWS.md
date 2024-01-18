@@ -6,6 +6,9 @@
   that mark completely while still drawing the mark
 * Fix a bug in `geom_mark_rect()` where the mark would not be shown in all 
   panels (#307)
+* Fixed a bug in the `geom_mark_*()` geoms where having `NA` values in the 
+  `filter` aesthetic would lead to weird errors. `NA` is now treated as `FALSE`
+  (#306)
 
 # ggforce 0.4.1
 

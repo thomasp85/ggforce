@@ -140,6 +140,7 @@ NULL
 GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
   setup_data = function(self, data, params) {
     if (!is.null(data$filter)) {
+      data$filter <- ifelse(is.na(data$filter), FALSE, data$filter)
       self$removed <- data[!data$filter, c('x', 'y', 'PANEL')]
       data <- data[data$filter, ]
     }
