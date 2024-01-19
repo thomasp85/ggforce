@@ -208,13 +208,16 @@ description.</p></dd>
 
 
 <dt>label.fill</dt>
-<dd><p>The fill colour for the annotation box.</p></dd>
+<dd><p>The fill colour for the annotation box. Use <code>"inherit"</code> to
+use the fill from the enclosure or <code>"inherit_col"</code> to use the border colour
+of the enclosure.</p></dd>
 
 
 <dt>label.colour</dt>
 <dd><p>The text colour for the annotation. If it contains
 two elements the first will be used for the label and the second for the
-description.</p></dd>
+description. Use <code>"inherit"</code> to use the border colour of the enclosure or
+<code>"inherit_fill"</code> to use the fill colour from the enclosure.</p></dd>
 
 
 <dt>label.buffer</dt>
@@ -224,11 +227,13 @@ cannot be placed.</p></dd>
 
 <dt>con.colour</dt>
 <dd><p>The colour for the line connecting the annotation to the
-mark.</p></dd>
+mark. Use <code>"inherit"</code> to use the border colour of the enclosure or
+<code>"inherit_fill"</code> to use the fill colour from the enclosure.</p></dd>
 
 
 <dt>con.size</dt>
-<dd><p>The width of the connector.</p></dd>
+<dd><p>The width of the connector. Use <code>"inherit"</code> to use the border
+width of the enclosure.</p></dd>
 
 
 <dt>con.type</dt>
@@ -237,7 +242,8 @@ mark.</p></dd>
 
 
 <dt>con.linetype</dt>
-<dd><p>The linetype of the connector.</p></dd>
+<dd><p>The linetype of the connector. Use <code>"inherit"</code> to use the
+border linetype of the enclosure.</p></dd>
 
 
 <dt>con.border</dt>
@@ -379,6 +385,14 @@ removed data.</p>
 <span class="r-in"><span>                 con.cap <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_mark_rect-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># If you want to use the scaled colours for the labels or connectors you can</span></span></span>
+<span class="r-in"><span><span class="co"># use the "inherit" keyword instead</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">Petal.Length</span>, <span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_mark_rect</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Species</span>, label <span class="op">=</span> <span class="va">Species</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 label.fill <span class="op">=</span> <span class="st">"inherit"</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_mark_rect-6.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
