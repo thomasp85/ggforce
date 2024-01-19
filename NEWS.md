@@ -13,6 +13,9 @@
 * Fix a bug in `geom_autohistogram()` that prevented it to be used with 
   continuous data (#297)
 * `facet_zoom()` now throws a better error when used with `coord_flip()` (#143)
+* You can now use `"inherit"`, `"inherit_fill"`, and `"inherit_col"` for the 
+  styling of the label box and connector in the `geom_mark_*()` family of geoms 
+  (#240)
 
 # ggforce 0.4.1
 

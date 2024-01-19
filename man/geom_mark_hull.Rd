@@ -107,24 +107,30 @@ second for the description.}
 two elements the first will be used for the label and the second for the
 description.}
 
-\item{label.fill}{The fill colour for the annotation box.}
+\item{label.fill}{The fill colour for the annotation box. Use \code{"inherit"} to
+use the fill from the enclosure or \code{"inherit_col"} to use the border colour
+of the enclosure.}
 
 \item{label.colour}{The text colour for the annotation. If it contains
 two elements the first will be used for the label and the second for the
-description.}
+description. Use \code{"inherit"} to use the border colour of the enclosure or
+\code{"inherit_fill"} to use the fill colour from the enclosure.}
 
 \item{label.buffer}{The size of the region around the mark where labels
 cannot be placed.}
 
 \item{con.colour}{The colour for the line connecting the annotation to the
-mark.}
+mark. Use \code{"inherit"} to use the border colour of the enclosure or
+\code{"inherit_fill"} to use the fill colour from the enclosure.}
 
-\item{con.size}{The width of the connector.}
+\item{con.size}{The width of the connector. Use \code{"inherit"} to use the border
+width of the enclosure.}
 
 \item{con.type}{The type of the connector. Either \code{"elbow"}, \code{"straight"}, or
 \code{"none"}.}
 
-\item{con.linetype}{The linetype of the connector.}
+\item{con.linetype}{The linetype of the connector. Use \code{"inherit"} to use the
+border linetype of the enclosure.}
 
 \item{con.border}{The bordertype of the connector. Either \code{"one"} (to draw a
 line on the horizontal side closest to the mark), \code{"all"} (to draw a border
@@ -260,6 +266,14 @@ ggplot(iris, aes(Petal.Length, Petal.Width)) +
   geom_mark_hull(aes(fill = Species, label = Species),
                  con.cap = 0) +
   geom_point()
+
+# If you want to use the scaled colours for the labels or connectors you can
+# use the "inherit" keyword instead
+ggplot(iris, aes(Petal.Length, Petal.Width)) +
+  geom_mark_hull(aes(fill = Species, label = Species),
+                 label.fill = "inherit") +
+  geom_point()
+
 }
 \seealso{
 Other mark geoms: 
