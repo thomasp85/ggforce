@@ -12,6 +12,7 @@
 * `shapeGrob()` is now exported for use by other packages (#303)
 * Fix a bug in `geom_autohistogram()` that prevented it to be used with 
   continuous data (#297)
+* `facet_zoom()` now throws a better error when used with `coord_flip()` (#143)
 
 # ggforce 0.4.1
 
