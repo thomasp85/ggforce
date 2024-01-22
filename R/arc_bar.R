@@ -121,7 +121,7 @@ stat_arc_bar <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
   layer(
     stat = StatArcBar, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, ...)
+    params = list2(na.rm = na.rm, n = n, ...)
   )
 }
 #' @rdname ggforce-extensions
@@ -160,7 +160,7 @@ stat_pie <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
   layer(
     stat = StatPie, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, sep = sep, ...)
+    params = list2(na.rm = na.rm, n = n, sep = sep, ...)
   )
 }
 #' @rdname ggforce-extensions
@@ -180,7 +180,7 @@ geom_arc_bar <- function(mapping = NULL, data = NULL, stat = 'arc_bar',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomArcBar,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, expand = expand, radius = radius, ...)
+    params = list2(na.rm = na.rm, n = n, expand = expand, radius = radius, ...)
   )
 }
 

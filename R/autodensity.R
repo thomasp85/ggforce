@@ -27,7 +27,7 @@ geom_autodensity <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bw = bw,
       adjust = adjust,
       kernel = kernel,

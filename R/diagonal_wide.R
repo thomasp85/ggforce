@@ -96,7 +96,7 @@ stat_diagonal_wide <- function(mapping = NULL, data = NULL, geom = 'shape',
   layer(
     stat = StatDiagonalWide, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, orientation = orientation, n = n,
+    params = list2(na.rm = na.rm, orientation = orientation, n = n,
                   strength = strength, ...)
   )
 }
@@ -109,7 +109,7 @@ geom_diagonal_wide <- function(mapping = NULL, data = NULL, stat = 'diagonal_wid
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomShape,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, orientation = orientation, n = n,
+    params = list2(na.rm = na.rm, orientation = orientation, n = n,
                   strength = strength, ...)
   )
 }

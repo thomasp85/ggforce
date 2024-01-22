@@ -290,7 +290,7 @@ geom_mark_circle <- function(mapping = NULL, data = NULL, stat = 'identity',
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       expand = expand,
       radius = radius,

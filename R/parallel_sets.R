@@ -115,7 +115,7 @@ stat_parallel_sets <- function(mapping = NULL, data = NULL, geom = 'shape',
   layer(
     stat = StatParallelSets, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm, orientation = orientation, n = n, strength = strength,
       sep = sep, axis.width = axis.width, ...
     )
@@ -131,7 +131,7 @@ geom_parallel_sets <- function(mapping = NULL, data = NULL,
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomShape,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm, orientation = orientation, n = n, strength = strength,
       sep = sep, axis.width = axis.width, ...
     )
@@ -195,7 +195,7 @@ stat_parallel_sets_axes <- function(mapping = NULL, data = NULL,
   layer(
     stat = StatParallelSetsAxes, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, orientation = orientation, sep = sep,
+    params = list2(na.rm = na.rm, orientation = orientation, sep = sep,
                   axis.width = axis.width, ...)
   )
 }
@@ -235,7 +235,7 @@ geom_parallel_sets_axes <- function(mapping = NULL, data = NULL,
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomParallelSetsAxes,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, orientation = orientation, ...)
+    params = list2(na.rm = na.rm, orientation = orientation, ...)
   )
 }
 #' @rdname geom_parallel_sets
@@ -259,7 +259,7 @@ geom_parallel_sets_labels <- function(mapping = NULL, data = NULL,
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomText,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, orientation = orientation, angle = angle, ...)
+    params = list2(na.rm = na.rm, orientation = orientation, angle = angle, ...)
   )
 }
 #' Tidy data for use with geom_parallel_sets

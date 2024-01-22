@@ -49,7 +49,7 @@ geom_autohistogram <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       na.rm = na.rm,
       ...

@@ -108,7 +108,7 @@ stat_arc <- function(mapping = NULL, data = NULL, geom = 'arc',
   layer(
     stat = StatArc, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, ...)
+    params = list2(na.rm = na.rm, n = n, ...)
   )
 }
 #' @rdname ggforce-extensions
@@ -126,7 +126,7 @@ geom_arc <- function(mapping = NULL, data = NULL, stat = 'arc',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomArc,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(arrow = arrow, n = n, lineend = lineend, na.rm = na.rm, ...)
+    params = list2(arrow = arrow, n = n, lineend = lineend, na.rm = na.rm, ...)
   )
 }
 #' @rdname ggforce-extensions
@@ -148,7 +148,7 @@ stat_arc2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
   layer(
     stat = StatArc2, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, ...)
+    params = list2(na.rm = na.rm, n = n, ...)
   )
 }
 #' @rdname geom_arc
@@ -160,7 +160,7 @@ geom_arc2 <- function(mapping = NULL, data = NULL, stat = 'arc2',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomPathInterpolate,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(arrow = arrow, n = n, lineend = lineend, na.rm = na.rm, ...)
+    params = list2(arrow = arrow, n = n, lineend = lineend, na.rm = na.rm, ...)
   )
 }
 #' @rdname ggforce-extensions
@@ -189,7 +189,7 @@ stat_arc0 <- function(mapping = NULL, data = NULL, geom = 'arc0',
   layer(
     stat = StatArc0, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
+    params = list2(na.rm = na.rm, ...)
   )
 }
 #' @rdname ggforce-extensions
@@ -235,7 +235,7 @@ geom_arc0 <- function(mapping = NULL, data = NULL, stat = 'arc0',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomArc0,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       arrow = arrow, ncp = ncp, lineend = lineend, na.rm = na.rm,
       ...
     )

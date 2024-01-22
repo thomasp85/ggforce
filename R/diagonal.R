@@ -130,7 +130,7 @@ stat_diagonal <- function(mapping = NULL, data = NULL, geom = 'path',
   layer(
     stat = StatDiagonal, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, orientation = orientation, n = n, strength = strength, ...)
+    params = list2(na.rm = na.rm, orientation = orientation, n = n, strength = strength, ...)
   )
 }
 #' @rdname geom_diagonal
@@ -142,7 +142,7 @@ geom_diagonal <- function(mapping = NULL, data = NULL, stat = 'diagonal',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomPath,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, orientation = orientation, n = n, strength = strength, ...)
+    params = list2(na.rm = na.rm, orientation = orientation, n = n, strength = strength, ...)
   )
 }
 #' @rdname ggforce-extensions
@@ -178,7 +178,7 @@ stat_diagonal2 <- function(mapping = NULL, data = NULL,
   layer(
     stat = StatDiagonal2, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, orientation = orientation, n = n, strength = strength, ...)
+    params = list2(na.rm = na.rm, orientation = orientation, n = n, strength = strength, ...)
   )
 }
 #' @rdname geom_diagonal
@@ -190,7 +190,7 @@ geom_diagonal2 <- function(mapping = NULL, data = NULL, stat = 'diagonal2',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomPathInterpolate,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       arrow = arrow, lineend = lineend, na.rm = na.rm, orientation = orientation,
       n = n, strength = strength, ...
     )
@@ -236,7 +236,7 @@ stat_diagonal0 <- function(mapping = NULL, data = NULL, geom = 'bezier0',
   layer(
     stat = StatDiagonal0, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, orientation = orientation, strength = strength, ...)
+    params = list2(na.rm = na.rm, orientation = orientation, strength = strength, ...)
   )
 }
 #' @rdname geom_diagonal
@@ -248,7 +248,7 @@ geom_diagonal0 <- function(mapping = NULL, data = NULL, stat = 'diagonal0',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomBezier0,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       arrow = arrow, lineend = lineend, na.rm = na.rm, orientation = orientation,
       strength = strength, ...
     )

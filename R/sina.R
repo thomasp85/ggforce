@@ -314,7 +314,7 @@ stat_sina <- function(mapping = NULL, data = NULL, geom = 'point',
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(scale = scale, method = method, bw = bw, kernel = kernel,
+    params = list2(scale = scale, method = method, bw = bw, kernel = kernel,
       maxwidth = maxwidth, adjust = adjust, bin_limit = bin_limit,
       binwidth = binwidth, bins = bins, seed = seed, jitter_y = jitter_y, na.rm = na.rm,
       orientation = orientation, ...)
@@ -338,7 +338,7 @@ geom_sina <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       orientation = orientation,
       ...

@@ -107,7 +107,7 @@ stat_link <- function(mapping = NULL, data = NULL, geom = 'path',
   layer(
     stat = StatLink, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, ...)
+    params = list2(na.rm = na.rm, n = n, ...)
   )
 }
 #' @rdname ggforce-extensions
@@ -150,7 +150,7 @@ stat_link2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
   layer(
     stat = StatLink2, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, ...)
+    params = list2(na.rm = na.rm, n = n, ...)
   )
 }
 #' @rdname geom_link
@@ -162,7 +162,7 @@ geom_link <- function(mapping = NULL, data = NULL, stat = 'link',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomPath,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       arrow = arrow, lineend = lineend, na.rm = na.rm, n = n,
       ...
     )
@@ -177,7 +177,7 @@ geom_link2 <- function(mapping = NULL, data = NULL, stat = 'link2',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomPathInterpolate,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       arrow = arrow, lineend = lineend, na.rm = na.rm, n = n,
       ...
     )

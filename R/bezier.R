@@ -131,7 +131,7 @@ stat_bezier <- function(mapping = NULL, data = NULL, geom = 'path',
   layer(
     stat = StatBezier, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, ...)
+    params = list2(na.rm = na.rm, n = n, ...)
   )
 }
 #' @rdname geom_bezier
@@ -143,7 +143,7 @@ geom_bezier <- function(mapping = NULL, data = NULL, stat = 'bezier',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomPath,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       arrow = arrow, lineend = lineend, na.rm = na.rm, n = n,
       ...
     )
@@ -201,7 +201,7 @@ stat_bezier2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate',
   layer(
     stat = StatBezier2, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, ...)
+    params = list2(na.rm = na.rm, n = n, ...)
   )
 }
 #' @rdname geom_bezier
@@ -213,7 +213,7 @@ geom_bezier2 <- function(mapping = NULL, data = NULL, stat = 'bezier2',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomPathInterpolate,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       arrow = arrow, lineend = lineend, na.rm = na.rm, n = n,
       ...
     )
@@ -280,7 +280,7 @@ stat_bezier0 <- function(mapping = NULL, data = NULL, geom = 'bezier0',
   layer(
     stat = StatBezier0, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
+    params = list2(na.rm = na.rm, ...)
   )
 }
 #' @rdname geom_bezier
@@ -292,6 +292,6 @@ geom_bezier0 <- function(mapping = NULL, data = NULL, stat = 'bezier0',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomBezier0,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, ...)
+    params = list2(arrow = arrow, lineend = lineend, na.rm = na.rm, ...)
   )
 }
