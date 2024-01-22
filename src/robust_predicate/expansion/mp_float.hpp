@@ -145,7 +145,7 @@
         indx_type  _ii
         ) const
     {
-        assert ( _ii<= this->_size &&
+        assert ( _ii < this->_size &&
             "expansion: index out of bounds") ;
 
         return ( this->_xdat[_ii] ) ;
