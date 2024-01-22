@@ -74,7 +74,7 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
 )
 #' Interpolate layer data
 #'
-#' @param A data.frame with data for a layer
+#' @param data A data.frame with data for a layer
 #'
 #' @return A similar data.frame with NA values interpolated
 #'
