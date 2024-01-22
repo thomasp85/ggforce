@@ -19,7 +19,7 @@ NumericMatrix concaveman_c(NumericMatrix p, IntegerVector h, double concavity, d
 
   NumericMatrix res(chull.size(), 2);
 
-  for (auto i = 0; i < chull.size(); ++i) {
+  for (size_t i = 0; i < chull.size(); ++i) {
     res(i, 0) = chull[i][0];
     res(i, 1) = chull[i][1];
   }
