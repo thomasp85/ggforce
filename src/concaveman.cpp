@@ -1,10 +1,12 @@
-#include <Rcpp.h>
+#include <cpp11/doubles.hpp>
+#include <cpp11/integers.hpp>
+#include <cpp11/matrix.hpp>
+
 #include "concaveman.h"
 
-using namespace Rcpp;
-
-// [[Rcpp::export]]
-NumericMatrix concaveman_c(NumericMatrix p, IntegerVector h, double concavity, double threshold) {
+[[cpp11::register]]
+cpp11::writable::doubles_matrix<> concaveman_c(cpp11::doubles_matrix<> p, cpp11::integers h,
+                                               double concavity, double threshold) {
   typedef std::array<double, 2> point_type;
   std::vector<point_type> points(p.nrow());
   for (auto i = 0; i < p.nrow(); ++i) {
@@ -17,7 +19,7 @@ NumericMatrix concaveman_c(NumericMatrix p, IntegerVector h, double concavity, d
 
   auto chull = concaveman<double, 16>(points, hull, concavity, threshold);
 
-  NumericMatrix res(chull.size(), 2);
+  cpp11::writable::doubles_matrix<> res(chull.size(), 2);
 
   for (size_t i = 0; i < chull.size(); ++i) {
     res(i, 0) = chull[i][0];

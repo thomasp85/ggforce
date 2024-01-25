@@ -24,7 +24,6 @@ Depends:
     ggplot2 (>= 3.3.6),
     R (>= 3.3.0)
 Imports:
-    Rcpp (>= 0.12.2),
     grid,
     scales,
     MASS,
@@ -41,7 +40,8 @@ Imports:
     cli,
     vctrs,
     systemfonts
-LinkingTo: Rcpp, RcppEigen
+LinkingTo: 
+    cpp11
 RoxygenNote: 7.2.3
 Suggests:
     sessioninfo,
@@ -51,7 +51,6 @@ Suggests:
     units (>= 0.8.0),
     covr
 Collate: 
-    'RcppExports.R'
     'aaa.R'
     'shape.R'
     'arc_bar.R'
@@ -64,6 +63,7 @@ Collate:
     'bspline_closed.R'
     'circle.R'
     'concaveman.R'
+    'cpp11.R'
     'diagonal.R'
     'diagonal_wide.R'
     'ellipse.R'
