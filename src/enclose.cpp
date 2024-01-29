@@ -4,6 +4,8 @@
 
 using namespace cpp11::literals;
 
+#include <vector>
+
 struct Circle {
   double x;
   double y;

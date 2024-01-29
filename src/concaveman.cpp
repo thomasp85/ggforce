@@ -4,6 +4,8 @@
 
 #include "concaveman.h"
 
+#include <vector>
+
 [[cpp11::register]]
 cpp11::writable::doubles_matrix<> concaveman_c(cpp11::doubles_matrix<> p, cpp11::integers h,
                                                double concavity, double threshold) {

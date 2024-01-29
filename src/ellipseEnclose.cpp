@@ -7,6 +7,8 @@
 
 using namespace cpp11::literals;
 
+#include <vector>
+
 struct Ellipse {
   double x;
   double y;

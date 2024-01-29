@@ -5,6 +5,8 @@
 
 using namespace cpp11::literals;
 
+#include <vector>
+
 double Bezier2(double t, const cpp11::doubles& w) {
   double t2 = t * t;
   double mt = 1-t;

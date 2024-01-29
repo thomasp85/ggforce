@@ -8,6 +8,8 @@
 
 using namespace cpp11::literals;
 
+#include <vector>
+
 cpp11::writable::doubles createKnots(int nControl, int degree) {
   int nKnots = nControl + degree + 1;
 
