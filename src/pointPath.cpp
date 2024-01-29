@@ -6,6 +6,7 @@
 using namespace cpp11::literals;
 
 #include <math.h>
+#include <vector>
 
 double distSquared(std::pair<double, double> p, std::pair<double, double> p1) {
   double x = p1.first - p.first;

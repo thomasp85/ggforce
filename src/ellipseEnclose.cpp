@@ -8,6 +8,7 @@
 using namespace cpp11::literals;
 
 #include <vector>
+#include <limits>
 
 struct Ellipse {
   double x;
@@ -38,7 +39,7 @@ bool points_on_line(const cpp11::doubles_matrix<>& points, Ellipse &enc) {
     double y0 = ymin = ymax = points(0, 1);
     double xdiff = points(1, 0) - x0;
     bool vert = xdiff == 0;
-    double slope;
+    double slope = std::numeric_limits<double>::infinity();
     if (!vert) {
       slope = (points(1, 1) - y0) / xdiff;
     }
@@ -289,10 +290,10 @@ cpp11::writable::data_frame enclose_ellip_points(cpp11::doubles x, cpp11::double
   cpp11::writable::doubles a;
   cpp11::writable::doubles b;
   cpp11::writable::doubles rad;
-  for (R_xlen_t i = 0; i < splits.size() - 1; ++i) {
+  for (size_t i = 0; i < splits.size() - 1; ++i) {
     int size = splits[i+1] - splits[i];
     cpp11::writable::doubles_matrix<> points(size, 2);
-    for (size_t j = 0; j < points.nrow(); ++j) {
+    for (R_xlen_t j = 0; j < points.nrow(); ++j) {
       points(j, 0) = x[splits[i] + j];
       points(j, 1) = y[splits[i] + j];
     }

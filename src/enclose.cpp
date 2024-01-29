@@ -190,8 +190,7 @@ cpp11::writable::data_frame enclose_points(cpp11::doubles x, cpp11::doubles y, c
   std::vector<Point> points;
   all_points.push_back(points);
   int currentId = id[0];
-  int i;
-  for (i = 0; i < id.size(); ++i) {
+  for (R_xlen_t i = 0; i < id.size(); ++i) {
     Point p_tmp = {x[i], y[i]};
     if (id[i] != currentId) {
       currentId = id[i];
@@ -200,7 +199,7 @@ cpp11::writable::data_frame enclose_points(cpp11::doubles x, cpp11::doubles y, c
     }
     all_points.back().push_back(p_tmp);
   }
-  for (i = 0; i < all_points.size(); ++i) {
+  for (size_t i = 0; i < all_points.size(); ++i) {
     Circle center = enclosePoints(all_points[i]);
     x0.push_back(center.x);
     y0.push_back(center.y);
