@@ -66,7 +66,7 @@ cpp11::writable::list getBeziers(const cpp11::doubles& x, const cpp11::doubles& 
   cpp11::writable::integers pathsID(nPaths * detail);
   int controlsStart = 0;
   R_xlen_t pathStart = 0;
-  for (int i = 0; i < nPaths; i++) {
+  for (size_t i = 0; i < nPaths; i++) {
     cpp11::writable::doubles x_tmp(x.begin() + controlsStart, x.begin() + controlsStart + nControls[i]);
     cpp11::writable::doubles y_tmp(y.begin() + controlsStart, y.begin() + controlsStart + nControls[i]);
     cpp11::doubles_matrix<> path = bezierPath(x_tmp, y_tmp, detail);
