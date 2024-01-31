@@ -1,1 +1,2 @@
-Quick release to address the sanitizer issues reported by CRAN
+Bigger patch release addressing a range of bugs, as well as removing the
+concaveman, Rcpp, and RcppEigen dependency in favor of cpp11
