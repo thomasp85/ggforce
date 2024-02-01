@@ -7,8 +7,6 @@
 
 #pragma once
 
-#include "robust_predicate/geompred.hpp"
-
 #include <memory>
 #include <stdexcept>
 #include <list>
@@ -22,6 +20,8 @@
 #include <set>
 #include <queue>
 #include <assert.h>
+
+#include "robust_predicate/geompred.hpp"
 
 //#define DEBUG // uncomment to dump debug info to screen
 //#define DEBUG_2 // uncomment to dump second-level debug info to screen
