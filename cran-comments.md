@@ -7,4 +7,3 @@ We checked 82 reverse dependencies, comparing R CMD check results across CRAN an
 
  * We saw 0 new problems
  * We failed to check 0 packages
-

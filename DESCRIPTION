@@ -40,9 +40,9 @@ Imports:
     cli,
     vctrs,
     systemfonts
+RoxygenNote: 7.3.1
 LinkingTo: 
     cpp11
-RoxygenNote: 7.2.3
 Suggests:
     sessioninfo,
     deldir,
