@@ -60,7 +60,7 @@ StatRegon <- ggproto('StatRegon', Stat,
       if (n %% 2 == 0) p <- p + p[2] / 2
       p * 2 * pi
     }))
-    data$group <- make_unique(as.character(data$group))
+    data$group <- make_unique(data$group)
     data <- data[rep(seq_len(nrow(data)), data$sides), ]
     x_tmp <- sin(pos) * data$r
     y_tmp <- cos(pos) * data$r
@@ -80,7 +80,7 @@ stat_regon <- function(mapping = NULL, data = NULL, geom = 'shape',
   layer(
     stat = StatRegon, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
+    params = list2(na.rm = na.rm, ...)
   )
 }
 #' @rdname geom_regon
@@ -91,6 +91,6 @@ geom_regon <- function(mapping = NULL, data = NULL, stat = 'regon',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomShape,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
+    params = list2(na.rm = na.rm, ...)
   )
 }

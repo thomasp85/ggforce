@@ -157,7 +157,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
         x_vars <- intersect(x_scales[[1]]$aesthetics, names(layer_data))
         SCALE_X <- layout$SCALE_X[match_id]
 
-        if (!is.null(params$xlim)) {
+        if (!is.null(params$xlim) && length(x_scales) > 1) {
           x_scales[[2]]$train(x_scales[[2]]$transform(params$xlim))
           scale_apply(layer_data, x_vars, 'train', SCALE_X, x_scales[-2])
         } else {
@@ -172,7 +172,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
         y_vars <- intersect(y_scales[[1]]$aesthetics, names(layer_data))
         SCALE_Y <- layout$SCALE_Y[match_id]
 
-        if (!is.null(params$ylim)) {
+        if (!is.null(params$ylim) && length(y_scales) > 1) {
           y_scales[[2]]$train(y_scales[[2]]$transform(params$ylim))
           scale_apply(layer_data, y_vars, 'train', SCALE_Y, y_scales[-2])
         } else {
@@ -358,7 +358,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
     zoom_y <- calc_element('zoom.y', theme)
 
     if (!(is.null(params$x) && is.null(params$xlim)) &&
-        params$show.area && !inherits(zoom_x, 'element_blank')) {
+        params$show.area && !inherits(zoom_x, 'element_blank') && length(x_scales) > 1) {
       zoom_prop <- rescale(x_scales[[2]]$dimension(expansion(x_scales[[2]])),
         from = x_scales[[1]]$dimension(expansion(x_scales[[1]]))
       )
@@ -377,7 +377,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       x_back <- zeroGrob()
     }
     if (!(is.null(params$y) && is.null(params$ylim)) &&
-        params$show.area && !inherits(zoom_y, 'element_blank')) {
+        params$show.area && !inherits(zoom_y, 'element_blank') && length(y_scales) > 1) {
       zoom_prop <- rescale(y_scales[[2]]$dimension(expansion(y_scales[[2]])),
         from = y_scales[[1]]$dimension(expansion(y_scales[[1]]))
       )

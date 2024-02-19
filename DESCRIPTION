@@ -1,7 +1,7 @@
 Package: ggforce
 Type: Package
 Title: Accelerating 'ggplot2'
-Version: 0.4.2
+Version: 0.5.0
 Authors@R: 
     c(person(given = "Thomas Lin",
              family = "Pedersen",
@@ -24,7 +24,6 @@ Depends:
     ggplot2 (>= 3.3.6),
     R (>= 3.3.0)
 Imports:
-    Rcpp (>= 0.12.2),
     grid,
     scales,
     MASS,
@@ -41,18 +40,17 @@ Imports:
     cli,
     vctrs,
     systemfonts
-LinkingTo: Rcpp, RcppEigen
 RoxygenNote: 7.3.1
+LinkingTo: 
+    cpp11
 Suggests:
     sessioninfo,
-    concaveman,
     deldir,
     latex2exp,
     reshape2,
-    units (>= 0.4-6),
+    units (>= 0.8.0),
     covr
 Collate: 
-    'RcppExports.R'
     'aaa.R'
     'shape.R'
     'arc_bar.R'
@@ -64,6 +62,8 @@ Collate:
     'bspline.R'
     'bspline_closed.R'
     'circle.R'
+    'concaveman.R'
+    'cpp11.R'
     'diagonal.R'
     'diagonal_wide.R'
     'ellipse.R'

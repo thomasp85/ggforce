@@ -1,6 +1,5 @@
 #' @useDynLib ggforce
 #' @import ggplot2
-#' @importFrom Rcpp sourceCpp
 #'
 #' @examples
 #' rocketData <- data.frame(
@@ -57,8 +56,9 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @importFrom lifecycle deprecated
 #' @import rlang
 #' @import vctrs
+#' @importFrom lifecycle deprecated
+#' @useDynLib ggforce, .registration = TRUE
 ## usethis namespace: end
 NULL

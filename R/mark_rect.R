@@ -66,6 +66,13 @@
 #'   geom_mark_rect(aes(fill = Species, label = Species),
 #'                  con.cap = 0) +
 #'   geom_point()
+#'
+#' # If you want to use the scaled colours for the labels or connectors you can
+#' # use the "inherit" keyword instead
+#' ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'   geom_mark_rect(aes(fill = Species, label = Species),
+#'                  label.fill = "inherit") +
+#'   geom_point()
 NULL
 
 #' @rdname ggforce-extensions
@@ -75,11 +82,12 @@ NULL
 GeomMarkRect <- ggproto('GeomMarkRect', GeomMarkCircle,
   setup_data = function(self, data, params) {
     if (!is.null(data$filter)) {
+      data$filter <- ifelse(is.na(data$filter), FALSE, data$filter)
       self$removed <- data[!data$filter, c('x', 'y', 'PANEL')]
       data <- data[data$filter, ]
     }
     if (nrow(data) == 0) return(data)
-    vec_rbind(!!!lapply(split(data, data$group), function(d) {
+    vec_rbind(!!!lapply(split(data, list(data$PANEL, data$group)), function(d) {
       if (nrow(d) == 1) return(d)
       x_range <- range(d$x, na.rm = TRUE)
       y_range <- range(d$y, na.rm = TRUE)
@@ -133,30 +141,42 @@ GeomMarkRect <- ggproto('GeomMarkRect', GeomMarkCircle,
       }
     }
 
+    gp <- gpar(
+      col = first_rows$colour,
+      fill = alpha(first_rows$fill, first_rows$alpha),
+      lwd = (first_rows$linewidth %||% first_rows$size) * .pt,
+      lty = first_rows$linetype,
+      fontsize = (first_rows$size %||% 4.217518) * .pt
+    )
 
     rectEncGrob(coords$x, coords$y,
       default.units = 'native',
       id = coords$group, expand = expand, radius = radius,
       label = label, ghosts = ghosts,
-      mark.gp = gpar(
-        col = first_rows$colour,
-        fill = alpha(first_rows$fill, first_rows$alpha),
-        lwd = (first_rows$linewidth %||% first_rows$size) * .pt,
-        lty = first_rows$linetype
-      ),
-      label.gp = gpar(
-        col = label.colour,
+      mark.gp = gp,
+      label.gp = inherit_gp(
+        col = label.colour[1],
         fill = label.fill,
-        fontface = label.fontface,
-        fontfamily = label.family,
-        fontsize = label.fontsize,
-        lineheight = label.lineheight
+        fontface = label.fontface[1],
+        fontfamily = label.family[1],
+        fontsize = label.fontsize[1],
+        lineheight = label.lineheight[1],
+        gp = gp
       ),
-      con.gp = gpar(
+      desc.gp = inherit_gp(
+        col = rep_len(label.colour, 2)[2],
+        fontface = rep_len(label.fontface, 2)[2],
+        fontfamily = rep_len(label.family, 2)[2],
+        fontsize = rep_len(label.fontsize, 2)[2],
+        lineheight = rep_len(label.lineheight, 2)[2],
+        gp = gp
+      ),
+      con.gp = inherit_gp(
         col = con.colour,
         fill = con.colour,
-        lwd = con.size * .pt,
-        lty = con.linetype
+        lwd = if (is.numeric(con.size)) con.size * .pt else con.size,
+        lty = con.linetype,
+        gp = gp
       ),
       label.margin = label.margin,
       label.width = label.width,
@@ -196,7 +216,7 @@ geom_mark_rect <- function(mapping = NULL, data = NULL, stat = 'identity',
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       expand = expand,
       radius = radius,
@@ -228,8 +248,8 @@ geom_mark_rect <- function(mapping = NULL, data = NULL, stat = 'identity',
 rectEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
                         id.lengths = NULL, expand = 0, radius = 0, label = NULL,
                         ghosts = NULL, default.units = 'npc', name = NULL,
-                        mark.gp = gpar(), label.gp = gpar(), con.gp = gpar(),
-                        label.margin = margin(), label.width = NULL,
+                        mark.gp = gpar(), label.gp = gpar(), desc.gp = gpar(),
+                        con.gp = gpar(), label.margin = margin(), label.width = NULL,
                         label.minwidth = unit(50, 'mm'), label.hjust = 0,
                         label.buffer = unit(10, 'mm'), con.type = 'elbow',
                         con.border = 'one', con.cap = unit(3, 'mm'),
@@ -243,11 +263,14 @@ rectEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
   )
   if (!is.null(label)) {
     label <- lapply(seq_len(nrow(label)), function(i) {
+      if (is.na(label$label[i] %||% NA) && is.na(label$description[i] %||% NA)) return(zeroGrob())
       grob <- labelboxGrob(label$label[i], 0, 0, label$description[i],
-        gp = label.gp, pad = label.margin, width = label.width,
+        gp = subset_gp(label.gp, i), desc.gp = subset_gp(desc.gp, i),
+        pad = label.margin, width = label.width,
         min.width = label.minwidth, hjust = label.hjust
       )
       if (con.border == 'all') {
+        con.gp <- subset_gp(con.gp, i)
         grob$children[[1]]$gp$col <- con.gp$col
         grob$children[[1]]$gp$lwd <- con.gp$lwd
         grob$children[[1]]$gp$lty <- con.gp$lty

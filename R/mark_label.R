@@ -1,3 +1,34 @@
+#' @importFrom grid gpar
+inherit_gp <- function(..., gp, call = caller_env()) {
+  new_gp <- list2(...)
+  for (par in names(new_gp)) {
+    old_par <- par
+    inherited_par <- new_gp[[par]]
+    if (isTRUE(new_gp[[par]] == 'inherit')) {
+      inherited_par <- gp[[old_par]]
+    } else if (isTRUE(new_gp[[par]] == 'inherit_fill')) {
+      old_par <- 'fill'
+      inherited_par <- gp[[old_par]]
+    } else if (isTRUE(grepl('inherit_col', new_gp[[par]]))) {
+      old_par <- 'col'
+      inherited_par <- gp[[old_par]]
+    }
+    if (is.null(inherited_par)) {
+      cli::cli_abort("Can't inherit {.field {old_par}} as it is not given in the root {.cls gpar}")
+    }
+    new_gp[[par]] <- inherited_par
+  }
+  inject(gpar(!!!new_gp))
+}
+subset_gp <- function(gp, index, ignore = c('font')) {
+  gp_names <- names(gp)
+  gp_names <- gp_names[-unique0(unlist(lapply(ignore, grep, gp_names)))]
+  for (par in gp_names) {
+    gp[[par]] <- rep_len(gp[[par]], index)[index]
+  }
+  gp
+}
+
 #' @importFrom polyclip polyoffset polyminkowski polyclip
 #' @importFrom grid convertX convertY
 place_labels <- function(rects, polygons, bounds, anchors, ghosts) {
@@ -77,6 +108,7 @@ make_label <- function(labels, dims, polygons, ghosts, buffer, con_type,
   if (all(lengths(labelpos) == 0)) {
     return(list(nullGrob()))
   }
+  labels_drawn <- which(!vapply(labelpos, is.null, logical(1)))
   labels <- Map(function(lab, pos) {
     if (is.null(pos) || inherits(lab, 'null')) return(nullGrob())
     lab$vp$x <- unit(pos[1], 'mm')
@@ -113,6 +145,7 @@ make_label <- function(labels, dims, polygons, ghosts, buffer, con_type,
     connect <- end_cap(connect, con_cap)
     connect <- zip_points(connect)
     if (!is.null(arrow)) arrow$ends <- 2L
+    con_gp <- subset_gp(con_gp, labels_drawn)
     connect <- polylineGrob(connect$x, connect$y,
       id = connect$id,
       default.units = 'mm', gp = con_gp, arrow = arrow
@@ -126,20 +159,19 @@ make_label <- function(labels, dims, polygons, ghosts, buffer, con_type,
 labelboxGrob <- function(label, x = unit(0.5, 'npc'), y = unit(0.5, 'npc'),
                          description = NULL, width = NULL, min.width = 50,
                          default.units = 'mm', hjust = 0,
-                         pad = margin(2, 2, 2, 2, 'mm'), gp = gpar(),
+                         pad = margin(2, 2, 2, 2, 'mm'), gp = gpar(), desc.gp = gpar(),
                          vp = NULL) {
-  gps <- split_label_gp(gp)
   width <- as_mm(width, default.units)
   min.width <- as_mm(min.width, default.units)
   pad <- as_mm(pad, default.units)
   pad[c(1, 3)] <- as_mm(pad[c(1, 3)], default.units, FALSE)
   if (!is.null(label) && !is.na(label)) {
     if (!is.null(width)) {
-      label <- wrap_text(label, gps$lab, width - pad[2] - pad[4])
+      label <- wrap_text(label, gp, width - pad[2] - pad[4])
     }
     just <- c(hjust[1], 0.5)
     lab_grob <- textGrob(label, x = just[1], y = just[2], just = just,
-                         gp = gps$lab)
+                         gp = gp)
   } else {
     lab_grob <- nullGrob()
   }
@@ -153,10 +185,10 @@ labelboxGrob <- function(label, x = unit(0.5, 'npc'), y = unit(0.5, 'npc'),
     }
   }
   if (!is.null(description) && !is.na(description)) {
-    description <- wrap_text(description, gps$desc, final_width)
+    description <- wrap_text(description, desc.gp, final_width)
     just <- c(rep_len(hjust, 2)[2], 0.5)
     desc_grob <- textGrob(description, x = just[1], y = just[2], just = just,
-                          gp = gps$desc)
+                          gp = desc.gp)
     if (is.null(width)) {
       final_width_desc <- min(final_width, as_mm(grobWidth(desc_grob)))
       final_width <- as_mm(grobWidth(lab_grob))
@@ -168,13 +200,13 @@ labelboxGrob <- function(label, x = unit(0.5, 'npc'), y = unit(0.5, 'npc'),
     desc_grob <- nullGrob()
     if (is.null(width)) final_width <- as_mm(grobWidth(lab_grob))
   }
-  bg_grob <- rectGrob(gp = gps$rect)
+  bg_grob <- rectGrob(gp = gpar(col = NA, fill = gp$fill))
   lab_height <- as_mm(grobHeight(lab_grob), width = FALSE)
   desc_height <- as_mm(grobHeight(desc_grob), width = FALSE)
   sep_height <- if (lab_height > 0 && desc_height > 0) {
     pad[1]
   } else if (lab_height > 0) {
-    font_descent(gps$lab$fontfamily, gps$lab$fontface, gps$lab$fontsize, gps$lab$cex)
+    font_descent(gp$fontfamily, gp$fontface, gp$fontsize, gp$cex)
   } else {
     0
   }
@@ -232,49 +264,6 @@ as_mm <- function(x, def, width = TRUE) {
   } else {
     convertHeight(x, 'mm', TRUE)
   }
-}
-#' @importFrom grid gpar
-split_label_gp <- function(gp) {
-  rect_gp <- gpar(col = NA)
-  lab_gp <- gpar()
-  desc_gp <- gpar()
-  if (!is.null(gp$fill)) rect_gp$fill <- gp$fill
-  if (!is.null(gp$col)) {
-    col <- rep(gp$col, length.out = 2)
-    lab_gp$col <- col[1]
-    desc_gp$col <- col[2]
-  }
-  if (!is.null(gp$font)) {
-    font <- rep(gp$font, length.out = 2)
-    lab_gp$font <- font[1]
-    desc_gp$font <- font[2]
-  }
-  if (!is.null(gp$fontsize)) {
-    fontsize <- rep(gp$fontsize, length.out = 2)
-    lab_gp$fontsize <- fontsize[1]
-    desc_gp$fontsize <- fontsize[2]
-  }
-  if (!is.null(gp$fontfamily)) {
-    fontfamily <- rep(gp$fontfamily, length.out = 2)
-    lab_gp$fontfamily <- fontfamily[1]
-    desc_gp$fontfamily <- fontfamily[2]
-  }
-  if (!is.null(gp$fontface)) {
-    fontface <- rep(gp$fontface, length.out = 2)
-    lab_gp$fontface <- fontface[1]
-    desc_gp$fontface <- fontface[2]
-  }
-  if (!is.null(gp$lineheight)) {
-    lineheight <- rep(gp$lineheight, length.out = 2)
-    lab_gp$lineheight <- lineheight[1]
-    desc_gp$lineheight <- lineheight[2]
-  }
-  if (!is.null(gp$cex)) {
-    cex <- rep(gp$cex, length.out = 2)
-    lab_gp$cex <- cex[1]
-    desc_gp$cex <- cex[2]
-  }
-  list(rect = rect_gp, lab = lab_gp, desc = desc_gp)
 }
 straight <- function(xmin, xmax, ymin, ymax, x, y) {
   conn_point <- get_end_points(xmin, xmax, ymin, ymax, x, y)

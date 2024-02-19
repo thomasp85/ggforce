@@ -1,14 +1,19 @@
-#include <Rcpp.h>
+#include <cpp11/doubles.hpp>
+#include <cpp11/integers.hpp>
+#include <cpp11/matrix.hpp>
+#include <cpp11/list.hpp>
 
-using namespace Rcpp;
+using namespace cpp11::literals;
 
-double Bezier2(double t, NumericVector w) {
+#include <vector>
+
+double Bezier2(double t, const cpp11::doubles& w) {
   double t2 = t * t;
   double mt = 1-t;
   double mt2 = mt * mt;
   return w[0]*mt2 + w[1]*2*mt*t + w[2]*t2;
 }
-double Bezier3(double t, NumericVector w) {
+double Bezier3(double t, const cpp11::doubles& w) {
   double t2 = t * t;
   double t3 = t2 * t;
   double mt = 1-t;
@@ -16,9 +21,9 @@ double Bezier3(double t, NumericVector w) {
   double mt3 = mt2 * mt;
   return w[0]*mt3 + 3*w[1]*mt2*t + 3*w[2]*mt*t2 + w[3]*t3;
 }
-// [[Rcpp::export]]
-NumericMatrix bezierPath(NumericVector x, NumericVector y, int detail) {
-  NumericMatrix res(detail, 2);
+[[cpp11::register]]
+cpp11::writable::doubles_matrix<> bezierPath(const cpp11::doubles& x, const cpp11::doubles& y, int detail) {
+  cpp11::writable::doubles_matrix<> res(detail, 2);
   detail = detail - 1;
   double step = 1.0/detail;
   double t;
@@ -35,15 +40,15 @@ NumericMatrix bezierPath(NumericVector x, NumericVector y, int detail) {
       res(i, 1) = Bezier3(t, y);
     }
   } else {
-    stop("Only support for quadratic and cubic beziers");
+    cpp11::stop("Only support for quadratic and cubic beziers");
   }
   res(detail, 0) = x[x.size() - 1];
   res(detail, 1) = y[y.size() - 1];
   return res;
 }
-// [[Rcpp::export]]
-List getBeziers(NumericVector x, NumericVector y, IntegerVector id,
-                int detail) {
+[[cpp11::register]]
+cpp11::writable::list getBeziers(const cpp11::doubles& x, const cpp11::doubles& y,
+                                 const cpp11::integers& id, int detail) {
   std::vector<int> nControls;
   std::vector<int> pathID;
   nControls.push_back(1);
@@ -56,29 +61,25 @@ List getBeziers(NumericVector x, NumericVector y, IntegerVector id,
       pathID.push_back(id[i]);
     }
   }
-  int nPaths = nControls.size();
-  NumericMatrix paths(nPaths * detail, 2);
-  IntegerVector pathsID(nPaths * detail);
+  size_t nPaths = nControls.size();
+  cpp11::writable::doubles_matrix<> paths(nPaths * detail, 2);
+  cpp11::writable::integers pathsID(nPaths * detail);
   int controlsStart = 0;
-  IntegerVector controlInd;
-  int pathStart = 0;
-  IntegerVector pathInd;
-  IntegerVector::iterator pathIter;
-  NumericMatrix path;
-  for (int i = 0; i < nPaths; i++) {
-    controlInd = Range(controlsStart, controlsStart + nControls[i] - 1);
-    pathInd = Range(pathStart, pathStart + detail - 1);
-    path = bezierPath(x[controlInd], y[controlInd], detail);
-    int j = 0;
-    for (pathIter = pathInd.begin(); pathIter != pathInd.end(); pathIter++) {
-      pathsID[*pathIter] = pathID[i];
-      paths(*pathIter, 0) = path(j, 0);
-      paths(*pathIter, 1) = path(j, 1);
-      j++;
+  R_xlen_t pathStart = 0;
+  for (size_t i = 0; i < nPaths; i++) {
+    cpp11::writable::doubles x_tmp(x.begin() + controlsStart, x.begin() + controlsStart + nControls[i]);
+    cpp11::writable::doubles y_tmp(y.begin() + controlsStart, y.begin() + controlsStart + nControls[i]);
+    cpp11::doubles_matrix<> path = bezierPath(x_tmp, y_tmp, detail);
+    for (R_xlen_t j = 0; j < path.nrow(); ++j) {
+      pathsID[pathStart + j] = pathID[i];
+      paths(pathStart + j, 0) = path(j, 0);
+      paths(pathStart + j, 1) = path(j, 1);
     }
     controlsStart += nControls[i];
-    pathStart += detail;
+    pathStart += path.nrow();
   }
-  return List::create(Named("paths") = paths,
-                      Named("pathID") = pathsID);
+  return cpp11::writable::list({
+    "paths"_nm = paths,
+    "pathID"_nm = pathsID
+  });
 }

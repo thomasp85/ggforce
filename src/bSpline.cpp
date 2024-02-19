@@ -1,18 +1,27 @@
-#include <Rcpp.h>
 #include "deBoor.h"
-using namespace Rcpp;
 
-std::vector<double> createKnots(int nControl, int degree) {
+#include <cpp11/doubles.hpp>
+#include <cpp11/integers.hpp>
+#include <cpp11/strings.hpp>
+#include <cpp11/matrix.hpp>
+#include <cpp11/list.hpp>
+
+using namespace cpp11::literals;
+
+#include <vector>
+
+cpp11::writable::doubles createKnots(int nControl, int degree) {
   int nKnots = nControl + degree + 1;
 
-  std::vector<double> knots (nKnots, 0);
+  cpp11::writable::doubles knots;
+  knots.reserve(nKnots);
   for (int i = 0; i < nKnots; i++) {
     if (i < degree + 1) {
-      knots[i] = 0;
+      knots.push_back(0);
     } else if (i < nKnots - degree) {
-      knots[i] = knots[i-1] + 1;
+      knots.push_back(knots[i-1] + 1);
     } else {
-      knots[i] = knots[i-1];
+      knots.push_back(knots[i-1]);
     }
   }
   return knots;
@@ -27,7 +36,7 @@ std::vector<double> createOpenKnots(int nControl, int degree) {
   }
   return knots;
 }
-std::vector<Point> createControls(NumericVector x, NumericVector y) {
+std::vector<Point> createControls(const cpp11::doubles& x, const cpp11::doubles& y) {
   int nControls = x.size();
   std::vector<Point> controls(nControls, Point());
   for (int i = 0; i < nControls; i++) {
@@ -35,39 +44,42 @@ std::vector<Point> createControls(NumericVector x, NumericVector y) {
   }
   return controls;
 }
-// [[Rcpp::export]]
-NumericMatrix splinePath(NumericVector x, NumericVector y, int degree, std::vector<double> knots, int detail, std::string type) {
+[[cpp11::register]]
+cpp11::writable::doubles_matrix<> splinePath(cpp11::doubles x, cpp11::doubles y,
+                                             int degree, cpp11::doubles knots,
+                                             int detail, cpp11::strings type) {
   std::vector<Point> controls = createControls(x, y);
-  if (type == "closed") {
+  std::vector<double> knots_vec(knots.begin(), knots.end());
+  if (type[0] == "closed") {
     controls.push_back(controls[0]);
     controls.push_back(controls[1]);
     controls.push_back(controls[2]);
   }
-  NumericMatrix res(detail, 2);
-  double zJump = (knots[knots.size()-1-degree] - knots[degree]);
-  if (type == "clamped") {
+  cpp11::writable::doubles_matrix<> res(detail, 2);
+  double zJump = (knots_vec[knots_vec.size()-1-degree] - knots_vec[degree]);
+  if (type[0] == "clamped") {
     zJump /= double(detail-1);
   } else {
     zJump /= double(detail);
   }
-  double z;
-  Point point;
   for (int i = 0; i < detail; i++) {
-    if (i == detail-1 && type == "clamped") {
+    Point point;
+    if (i == detail-1 && type[0] == "clamped") {
       point = controls[controls.size()-1];
     } else {
-      z = knots[degree] + i * zJump;
-      int zInt = whichInterval(z, knots);
-      point = deBoor(degree, degree, zInt, z, knots, controls);
+      double z = knots_vec[degree] + i * zJump;
+      int zInt = whichInterval(z, knots_vec);
+      point = deBoor(degree, degree, zInt, z, knots_vec, controls);
     }
     res(i, 0) = point.x;
     res(i, 1) = point.y;
   }
   return res;
 }
-// [[Rcpp::export]]
-List getSplines(NumericVector x, NumericVector y, IntegerVector id,
-                int detail, std::string type = "clamped") {
+[[cpp11::register]]
+cpp11::writable::list getSplines(cpp11::doubles x, cpp11::doubles y,
+                                 cpp11::integers id, int detail,
+                                 cpp11::strings type) {
   std::vector<int> nControls;
   std::vector<int> pathID;
   nControls.push_back(1);
@@ -81,42 +93,39 @@ List getSplines(NumericVector x, NumericVector y, IntegerVector id,
     }
   }
   int nPaths = nControls.size();
-  NumericMatrix paths(nPaths * detail, 2);
-  IntegerVector pathsID(nPaths * detail);
+  cpp11::writable::doubles_matrix<> paths(nPaths * detail, 2);
+  cpp11::writable::integers pathsID(nPaths * detail);
   int controlsStart = 0;
-  IntegerVector controlInd;
-  int pathStart = 0;
-  IntegerVector pathInd;
-  IntegerVector::iterator pathIter;
-  int degree;
-  std::vector<double> knots;
-  NumericMatrix path;
+  R_xlen_t pathStart = 0;
   for (int i = 0; i < nPaths; i++) {
-    degree = nControls[i] <= 3 ? nControls[i] - 1 : 3;
-    if (type == "clamped") {
+    cpp11::writable::doubles knots;
+    int degree = nControls[i] <= 3 ? nControls[i] - 1 : 3;
+    if (type[0] == "clamped") {
       knots = createKnots(nControls[i], degree);
-    } else if (type == "open") {
+    } else if (type[0] == "open") {
       knots = createOpenKnots(nControls[i], degree);
-    } else if (type == "closed") {
-      if (nControls[i] < 3) stop("At least 3 control points must be provided for closed b-splines");
+    } else if (type[0] == "closed") {
+      if (nControls[i] < 3) {
+        cpp11::stop("At least 3 control points must be provided for closed b-splines");
+      }
       degree = 3;
       knots = createOpenKnots(nControls[i] + 3, degree);
     } else {
-      stop("type must be either \"open\", \"closed\", or \"clamped\"");
+      cpp11::stop("type must be either \"open\", \"closed\", or \"clamped\"");
     }
-    controlInd = Range(controlsStart, controlsStart + nControls[i] - 1);
-    pathInd = Range(pathStart, pathStart + detail - 1);
-    path = splinePath(x[controlInd], y[controlInd], degree, knots, detail, type);
-    int j = 0;
-    for (pathIter = pathInd.begin(); pathIter != pathInd.end(); pathIter++) {
-      pathsID[*pathIter] = pathID[i];
-      paths(*pathIter, 0) = path(j, 0);
-      paths(*pathIter, 1) = path(j, 1);
-      j++;
+    cpp11::writable::doubles x_tmp(x.begin() + controlsStart, x.begin() + controlsStart + nControls[i]);
+    cpp11::writable::doubles y_tmp(y.begin() + controlsStart, y.begin() + controlsStart + nControls[i]);
+    cpp11::doubles_matrix<> path = splinePath(x_tmp, y_tmp, degree, knots, detail, type);
+    for (R_xlen_t j = 0; j < path.nrow(); ++j) {
+      pathsID[pathStart + j] = pathID[i];
+      paths(pathStart + j, 0) = path(j, 0);
+      paths(pathStart + j, 1) = path(j, 1);
     }
     controlsStart += nControls[i];
-    pathStart += detail;
+    pathStart += path.nrow();
   }
-  return List::create(Named("paths") = paths,
-                      Named("pathID") = pathsID);
+  return cpp11::writable::list({
+    "paths"_nm = paths,
+    "pathID"_nm = pathsID
+  });
 }

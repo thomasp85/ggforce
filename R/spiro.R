@@ -68,7 +68,7 @@ StatSpiro <- ggproto('StatSpiro', Stat,
     if (is.null(data$x0)) data$x0 <- 0
     if (is.null(data$y0)) data$y0 <- 0
     n_spiro <- nrow(data)
-    data$group <- make_unique(as.character(data$group))
+    data$group <- make_unique(data$group)
     if (is.null(revolutions)) {
       revo <- attr(fractions(data$r / data$R), 'fracs')
       revo <- as.numeric(sub('/.*$', '', revo))
@@ -108,7 +108,7 @@ stat_spiro <- function(mapping = NULL, data = NULL, geom = 'path',
   layer(
     stat = StatSpiro, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, revolutions = revolutions, ...)
+    params = list2(na.rm = na.rm, n = n, revolutions = revolutions, ...)
   )
 }
 
@@ -121,6 +121,6 @@ geom_spiro <- function(mapping = NULL, data = NULL, stat = 'spiro',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomPath,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, n = n, ...)
+    params = list2(arrow = arrow, lineend = lineend, na.rm = na.rm, n = n, ...)
   )
 }

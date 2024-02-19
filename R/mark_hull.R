@@ -39,7 +39,6 @@
 #' @rdname geom_mark_hull
 #'
 #' @examples
-#' ## requires the concaveman packages
 #' ggplot(iris, aes(Petal.Length, Petal.Width)) +
 #'   geom_mark_hull(aes(fill = Species, filter = Species != 'versicolor')) +
 #'   geom_point()
@@ -87,6 +86,14 @@
 #'   geom_mark_hull(aes(fill = Species, label = Species),
 #'                  con.cap = 0) +
 #'   geom_point()
+#'
+#' # If you want to use the scaled colours for the labels or connectors you can
+#' # use the "inherit" keyword instead
+#' ggplot(iris, aes(Petal.Length, Petal.Width)) +
+#'   geom_mark_hull(aes(fill = Species, label = Species),
+#'                  label.fill = "inherit") +
+#'   geom_point()
+#'
 NULL
 
 #' @rdname ggforce-extensions
@@ -107,8 +114,6 @@ GeomMarkHull <- ggproto('GeomMarkHull', GeomMarkCircle,
                         con.linetype = 1, con.border = 'one',
                         con.cap = unit(3, 'mm'), con.arrow = NULL) {
     if (nrow(data) == 0) return(zeroGrob())
-
-    check_installed('concaveman', 'to calculate concave hulls')
 
     # As long as coord$transform() doesn't recognise x0/y0
     data$xmin <- data$x0
@@ -137,30 +142,42 @@ GeomMarkHull <- ggproto('GeomMarkHull', GeomMarkCircle,
       }
     }
 
+    gp <- gpar(
+      col = first_rows$colour,
+      fill = alpha(first_rows$fill, first_rows$alpha),
+      lwd = (first_rows$linewidth %||% first_rows$size) * .pt,
+      lty = first_rows$linetype,
+      fontsize = (first_rows$size %||% 4.217518) * .pt
+    )
 
     hullEncGrob(coords$x, coords$y,
       default.units = 'native',
       id = coords$group, expand = expand, radius = radius,
       concavity = concavity, label = label, ghosts = ghosts,
-      mark.gp = gpar(
-        col = first_rows$colour,
-        fill = alpha(first_rows$fill, first_rows$alpha),
-        lwd = (first_rows$linewidth %||% first_rows$size) * .pt,
-        lty = first_rows$linetype
-      ),
-      label.gp = gpar(
-        col = label.colour,
+      mark.gp = gp,
+      label.gp = inherit_gp(
+        col = label.colour[1],
         fill = label.fill,
-        fontface = label.fontface,
-        fontfamily = label.family,
-        fontsize = label.fontsize,
-        lineheight = label.lineheight
+        fontface = label.fontface[1],
+        fontfamily = label.family[1],
+        fontsize = label.fontsize[1],
+        lineheight = label.lineheight[1],
+        gp = gp
       ),
-      con.gp = gpar(
+      desc.gp = inherit_gp(
+        col = rep_len(label.colour, 2)[2],
+        fontface = rep_len(label.fontface, 2)[2],
+        fontfamily = rep_len(label.family, 2)[2],
+        fontsize = rep_len(label.fontsize, 2)[2],
+        lineheight = rep_len(label.lineheight, 2)[2],
+        gp = gp
+      ),
+      con.gp = inherit_gp(
         col = con.colour,
         fill = con.colour,
-        lwd = con.size * .pt,
-        lty = con.linetype
+        lwd = if (is.numeric(con.size)) con.size * .pt else con.size,
+        lty = con.linetype,
+        gp = gp
       ),
       label.margin = label.margin,
       label.width = label.width,
@@ -193,7 +210,6 @@ geom_mark_hull <- function(mapping = NULL, data = NULL, stat = 'identity',
                            con.border = 'one', con.cap = unit(3, 'mm'),
                            con.arrow = NULL, ..., na.rm = FALSE,
                            show.legend = NA, inherit.aes = TRUE) {
-  check_installed('concaveman', 'to calculate concave hulls')
   layer(
     data = data,
     mapping = mapping,
@@ -202,7 +218,7 @@ geom_mark_hull <- function(mapping = NULL, data = NULL, stat = 'identity',
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       na.rm = na.rm,
       expand = expand,
       radius = radius,
@@ -236,7 +252,7 @@ hullEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
                         id.lengths = NULL, expand = 0, radius = 0, concavity = 2,
                         label = NULL, ghosts = NULL, default.units = 'npc',
                         name = NULL, mark.gp = gpar(), label.gp = gpar(),
-                        con.gp = gpar(), label.margin = margin(),
+                        desc.gp = gpar(), con.gp = gpar(), label.margin = margin(),
                         label.width = NULL, label.minwidth = unit(50, 'mm'),
                         label.hjust = 0, label.buffer = unit(10, 'mm'),
                         con.type = 'elbow', con.border = 'one',
@@ -250,11 +266,14 @@ hullEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
   )
   if (!is.null(label)) {
     label <- lapply(seq_len(nrow(label)), function(i) {
+      if (is.na(label$label[i] %||% NA) && is.na(label$description[i] %||% NA)) return(zeroGrob())
       grob <- labelboxGrob(label$label[i], 0, 0, label$description[i],
-        gp = label.gp, pad = label.margin, width = label.width,
+        gp = subset_gp(label.gp, i), desc.gp = subset_gp(desc.gp, i),
+        pad = label.margin, width = label.width,
         min.width = label.minwidth, hjust = label.hjust
       )
       if (con.border == 'all') {
+        con.gp <- subset_gp(con.gp, i)
         grob$children[[1]]$gp$col <- con.gp$col
         grob$children[[1]]$gp$lwd <- con.gp$lwd
         grob$children[[1]]$gp$lty <- con.gp$lty
@@ -304,8 +323,13 @@ makeContent.hull_enc <- function(x) {
     if (length(unique0((yy[-1] - yy[1]) / (xx[-1] - xx[1]))) == 1) {
       return(mat[c(which.min(mat[, 1]), which.max(mat[, 1])), ])
     }
-    concaveman::concaveman(mat, x$concavity, 0)
+    concaveman(mat, x$concavity, 0)
   }, xx = x_new, yy = y_new)
+  # ensure that all polygons have the same set of column names
+  polygons <- lapply(polygons, function(x) {
+    colnames(x) <- c("x", "y")
+    return(x)
+  })
   mark$id <- rep(seq_along(polygons), vapply(polygons, nrow, numeric(1)))
   polygons <- vec_rbind(!!!polygons)
   mark$x <- unit(polygons[, 1], 'mm')

@@ -86,7 +86,7 @@ NULL
 #' @aliases geom_delaunay
 #' @rdname geom_delvor
 #'
-#' @examples
+#' @examplesIf requireNamespace("deldir", quietly = TRUE)
 #' # Voronoi
 #' # You usually wants all points to take part in the same tesselation so set
 #' # the group aesthetic to a constant (-1L is just a convention)
@@ -201,7 +201,7 @@ geom_voronoi_tile <- function(mapping = NULL, data = NULL, stat = 'voronoi_tile'
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomShape,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(bound = bound, eps = eps, max.radius = max.radius,
+    params = list2(bound = bound, eps = eps, max.radius = max.radius,
                   normalize = normalize, asp.ratio = asp.ratio, na.rm = na.rm,
                   expand = expand, radius = radius, ...)
   )
@@ -262,7 +262,7 @@ geom_voronoi_segment <- function(mapping = NULL, data = NULL,
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomSegment,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(bound = bound, eps = eps, normalize = normalize,
+    params = list2(bound = bound, eps = eps, normalize = normalize,
                   asp.ratio = asp.ratio, na.rm = na.rm, ...)
   )
 }
@@ -325,7 +325,7 @@ geom_delaunay_tile <- function(mapping = NULL, data = NULL,
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomShape,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(bound = bound, eps = eps, normalize = normalize,
+    params = list2(bound = bound, eps = eps, normalize = normalize,
                   asp.ratio = asp.ratio, expand = expand, radius = radius,
                   na.rm = na.rm, ...)
   )
@@ -387,7 +387,7 @@ geom_delaunay_segment <- function(mapping = NULL, data = NULL,
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomSegment,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm,
+    params = list2(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm,
                   asp.ratio = asp.ratio, ...)
   )
 }
@@ -450,7 +450,7 @@ geom_delaunay_segment2 <- function(mapping = NULL, data = NULL,
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomPathInterpolate,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(bound = bound, eps = eps, normalize = normalize,
+    params = list2(bound = bound, eps = eps, normalize = normalize,
                   asp.ratio = asp.ratio, n = n, na.rm = na.rm, ...)
   )
 }
@@ -517,7 +517,7 @@ stat_delvor_summary <- function(mapping = NULL, data = NULL, geom = 'point',
   layer(
     data = data, mapping = mapping, stat = StatDelvorSummary, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm,
+    params = list2(bound = bound, eps = eps, normalize = normalize, na.rm = na.rm,
                   asp.ratio = asp.ratio, ...)
   )
 }

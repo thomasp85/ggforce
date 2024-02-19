@@ -121,7 +121,7 @@ stat_arc_bar <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
   layer(
     stat = StatArcBar, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, ...)
+    params = list2(na.rm = na.rm, n = n, ...)
   )
 }
 #' @rdname ggforce-extensions
@@ -160,7 +160,7 @@ stat_pie <- function(mapping = NULL, data = NULL, geom = 'arc_bar',
   layer(
     stat = StatPie, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, sep = sep, ...)
+    params = list2(na.rm = na.rm, n = n, sep = sep, ...)
   )
 }
 #' @rdname ggforce-extensions
@@ -180,20 +180,8 @@ geom_arc_bar <- function(mapping = NULL, data = NULL, stat = 'arc_bar',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomArcBar,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, expand = expand, radius = radius, ...)
+    params = list2(na.rm = na.rm, n = n, expand = expand, radius = radius, ...)
   )
-}
-
-# This function is like base::make.unique, but it
-# maintains the ordering of the original names if the values
-# are sorted.
-make_unique <- function(x, sep = '.') {
-  if (!anyDuplicated(x)) return(x)
-  groups <- match(x, unique(x))
-  suffix <- unsplit(lapply(split(x, groups), seq_along), groups)
-  max_chars <- nchar(max(suffix))
-  suffix_format <- paste0('%0', max_chars, 'd')
-  paste0(x, sep, sprintf(suffix_format, suffix))
 }
 
 arcPaths <- function(data, n) {
@@ -202,7 +190,7 @@ arcPaths <- function(data, n) {
   data$nControl <- ceiling(n / (2 * pi) * abs(data$end - data$start))
   data$nControl[data$nControl < 3] <- 3
   extraData <- !names(data) %in% c('r0', 'r', 'start', 'end', 'group')
-  data$group <- make_unique(as.character(data$group))
+  data$group <- make_unique(data$group)
   paths <- lapply(seq_len(nrow(data)), function(i) {
     path <- data_frame0(
       a = seq(data$start[i], data$end[i], length.out = data$nControl[i]),

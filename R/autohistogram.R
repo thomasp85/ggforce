@@ -49,7 +49,7 @@ geom_autohistogram <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       bins = bins,
       na.rm = na.rm,
       ...
@@ -97,7 +97,7 @@ StatAutobin <- ggproto('StatAutobin', StatBin,
       binned <- ggproto_parent(StatBin, self)$compute_group(
         data, scales, binwidth = binwidth, bins = bins, center = center,
         boundary = boundary, closed = closed, pad = pad, breaks = breaks,
-        origin = origin, right = right, drop = drop, width = width
+        origin = origin, right = right, drop = drop
       )
     }
 

@@ -26,3 +26,15 @@ combine_aes <- function(aes1, aes2) {
 empty_data <- function(x) {
   length(x) == 0 || nrow(x) == 0
 }
+
+# This function is like base::make.unique, but it
+# maintains the ordering of the original names if the values
+# are sorted.
+make_unique <- function(x, sep = '.') {
+  if (!anyDuplicated(x)) return(x)
+  groups <- match(x, unique(x))
+  suffix <- unsplit(lapply(split(x, groups), seq_along), groups)
+  max_chars <- nchar(max(suffix))
+  suffix_format <- paste0('%0', max_chars, 'd')
+  paste0(x, sep, sprintf(suffix_format, suffix))
+}

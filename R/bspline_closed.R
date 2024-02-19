@@ -71,7 +71,7 @@ stat_bspline_closed <- function(mapping = NULL, data = NULL, geom = 'shape',
   layer(
     stat = StatBspline, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, ...)
+    params = list2(na.rm = na.rm, n = n, ...)
   )
 }
 #' @rdname geom_bspline_closed
@@ -82,7 +82,7 @@ geom_bspline_closed <- function(mapping = NULL, data = NULL, stat = 'bspline',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomShape,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, type = 'closed', ...)
+    params = list2(na.rm = na.rm, n = n, type = 'closed', ...)
   )
 }
 #' @rdname ggforce-extensions
@@ -118,6 +118,6 @@ geom_bspline_closed0 <- function(mapping = NULL, data = NULL, stat = 'identity',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomBsplineClosed0,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
+    params = list2(na.rm = na.rm, ...)
   )
 }

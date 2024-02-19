@@ -22,16 +22,13 @@ modify_list <- function(old, new) {
 empty <- function(df) {
   is.null(df) || nrow(df) == 0 || ncol(df) == 0
 }
-split_indices <- function(group) {
-  split(seq_along(group), group)
-}
 # Adapted from plyr:::id_vars
 # Create a unique id for elements in a single vector
 id_var <- function(x, drop = FALSE) {
   if (length(x) == 0) {
     id <- integer()
-    n <- 0L
-  } else if (!is.null(attr(x, 'n')) && !drop) {
+    n = 0L
+  } else if (!is.null(attr(x, "n")) && !drop) {
     return(x)
   } else if (is.factor(x) && !drop) {
     x <- addNA(x, ifany = TRUE)
@@ -42,7 +39,7 @@ id_var <- function(x, drop = FALSE) {
     id <- match(x, levels)
     n <- max(id)
   }
-  attr(id, 'n') <- n
+  attr(id, "n") <- n
   id
 }
 #' Create an unique integer id for each unique row in a data.frame
@@ -67,12 +64,12 @@ id <- function(.variables, drop = FALSE) {
     nrows <- nrow(.variables)
     .variables <- unclass(.variables)
   }
-  lengths <- vapply(.variables, length, integer(1))
+  lengths <- lengths(.variables)
   .variables <- .variables[lengths != 0]
   if (length(.variables) == 0) {
     n <- nrows %||% 0L
     id <- seq_len(n)
-    attr(id, 'n') <- n
+    attr(id, "n") <- n
     return(id)
   }
   if (length(.variables) == 1) {
@@ -80,10 +77,10 @@ id <- function(.variables, drop = FALSE) {
   }
   ids <- rev(lapply(.variables, id_var, drop = drop))
   p <- length(ids)
-  ndistinct <- vapply(ids, attr, 'n', FUN.VALUE = numeric(1), USE.NAMES = FALSE)
+  ndistinct <- vapply(ids, attr, "n", FUN.VALUE = numeric(1), USE.NAMES = FALSE)
   n <- prod(ndistinct)
   if (n > 2^31) {
-    char_id <- inject(paste(!!!ids, sep = '\r'))
+    char_id <- inject(paste(!!!ids, sep = "\r"))
     res <- match(char_id, unique0(char_id))
   }
   else {
@@ -96,7 +93,7 @@ id <- function(.variables, drop = FALSE) {
   }
   else {
     res <- as.integer(res)
-    attr(res, 'n') <- n
+    attr(res, "n") <- n
     res
   }
 }
@@ -137,7 +134,7 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
   }
 
   # Shortcut when only one group
-  if (all(vapply(grouping_cols, single_val, logical(1)))) {
+  if (all(vapply(grouping_cols, single_value, logical(1)))) {
     return(apply_fun(df))
   }
 
@@ -147,7 +144,7 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
     cur_data <- df_rows(df, group_rows[[i]])
     apply_fun(cur_data)
   })
-  vec_rbind(!!!result)
+  vec_rbind0(!!!result)
 }
 
 # Use chartr() for safety since toupper() fails to convert i to I in Turkish locale
@@ -164,13 +161,6 @@ toupper <- function(x) {
   cli::cli_abort("Please use {.fn to_upper_ascii}, which works fine in all locales.")
 }
 
-# Convert a snake_case string to camelCase
-camelize <- function(x, first = FALSE) {
-  x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
-  if (first) x <- firstUpper(x)
-  x
-}
-
 snakeize <- function(x) {
   x <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", x)
   x <- gsub(".", "_", x, fixed = TRUE)
@@ -178,24 +168,20 @@ snakeize <- function(x) {
   to_lower_ascii(x)
 }
 
-firstUpper <- function(s) {
-  paste0(to_upper_ascii(substring(s, 1, 1)), substring(s, 2))
-}
-
 snake_class <- function(x) {
   snakeize(class(x)[1])
 }
 
-single_val <- function(x, ...) {
-  UseMethod("single_val")
+single_value <- function(x, ...) {
+  UseMethod("single_value")
 }
 #' @export
-single_val.default <- function(x, ...) {
+single_value.default <- function(x, ...) {
   # This is set by id() used in creating the grouping var
   identical(attr(x, "n"), 1L)
 }
 #' @export
-single_val.factor <- function(x, ...) {
+single_value.factor <- function(x, ...) {
   # Panels are encoded as factor numbers and can never be missing (NA)
   identical(levels(x), "1")
 }
@@ -206,4 +192,98 @@ with_seed_null <- function(seed, code) {
   } else {
     withr::with_seed(seed, code)
   }
+}
+
+vec_rbind0 <- function(..., .error_call = current_env(), .call = caller_env()) {
+  with_ordered_restart(
+    vec_rbind(..., .error_call = .error_call),
+    .call
+  )
+}
+with_ordered_restart <- function(expr, .call) {
+  withCallingHandlers(
+    expr,
+    vctrs_error_incompatible_type = function(cnd) {
+      x <- cnd[["x"]]
+      y <- cnd[["y"]]
+
+      class_x <- class(x)[1]
+      class_y <- class(y)[1]
+
+      restart <- FALSE
+
+      if (is.ordered(x) || is.ordered(y)) {
+        restart <- TRUE
+        if (is.ordered(x)) {
+          x <- factor(as.character(x), levels = levels(x))
+        }
+        if (is.ordered(y)) {
+          y <- factor(as.character(y), levels = levels(y))
+        }
+      } else if (is.character(x) || is.character(y)) {
+        restart <- TRUE
+        if (is.character(x)) {
+          y <- as.character(y)
+        } else {
+          x <- as.character(x)
+        }
+      } else if (is.factor(x) || is.factor(y)) {
+        restart <- TRUE
+        lev <- c()
+        if (is.factor(x)) {
+          lev <- c(lev, levels(x))
+        }
+        if (is.factor(y)) {
+          lev <- c(lev, levels(y))
+        }
+        x <- factor(as.character(x), levels = unique(lev))
+        y <- factor(as.character(y), levels = unique(lev))
+      }
+
+      # Don't recurse and let ptype2 error keep its course
+      if (!restart) {
+        return(zap())
+      }
+
+      msg <- paste0("Combining variables of class <", class_x, "> and <", class_y, ">")
+      desc <- paste0(
+        "Please ensure your variables are compatible before plotting (location: ",
+        format_error_call(.call),
+        ")"
+      )
+
+      deprecate_soft0(
+        "3.4.0",
+        I(msg),
+        details = desc
+      )
+
+      x_arg <- cnd[["x_arg"]]
+      y_arg <- cnd[["y_arg"]]
+      call <- cnd[["call"]]
+
+      # Recurse with factor methods and restart with the result
+      if (inherits(cnd, "vctrs_error_ptype2")) {
+        out <- vec_ptype2(x, y, x_arg = x_arg, y_arg = y_arg, call = call)
+        restart <- "vctrs_restart_ptype2"
+      } else if (inherits(cnd, "vctrs_error_cast")) {
+        out <- vec_cast(x, y, x_arg = x_arg, to_arg = y_arg, call = call)
+        restart <- "vctrs_restart_cast"
+      } else {
+        return(zap())
+      }
+
+      # Old-R compat for `tryInvokeRestart()`
+      try_restart <- function(restart, ...) {
+        if (!is_null(findRestart(restart))) {
+          invokeRestart(restart, ...)
+        }
+      }
+      try_restart(restart, out)
+    }
+  )
+}
+deprecate_soft0 <- function(..., user_env = NULL) {
+  user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
+  lifecycle::deprecate_soft(..., user_env = user_env)
 }

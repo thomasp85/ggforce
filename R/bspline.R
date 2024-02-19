@@ -125,7 +125,7 @@ stat_bspline <- function(mapping = NULL, data = NULL, geom = 'path',
   layer(
     stat = StatBspline, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, type = type, ...)
+    params = list2(na.rm = na.rm, n = n, type = type, ...)
   )
 }
 #' @rdname geom_bspline
@@ -137,7 +137,7 @@ geom_bspline <- function(mapping = NULL, data = NULL, stat = 'bspline',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomPath,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       arrow = arrow, lineend = lineend, na.rm = na.rm, n = n,
       type = type, ...
     )
@@ -190,7 +190,7 @@ stat_bspline2 <- function(mapping = NULL, data = NULL, geom = 'path_interpolate'
   layer(
     stat = StatBspline2, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n = n, type = type, ...)
+    params = list2(na.rm = na.rm, n = n, type = type, ...)
   )
 }
 #' @rdname geom_bspline
@@ -202,7 +202,7 @@ geom_bspline2 <- function(mapping = NULL, data = NULL, stat = 'bspline2',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomPathInterpolate,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       arrow = arrow, lineend = lineend, na.rm = na.rm, n = n,
       type = type, ...
     )
@@ -242,7 +242,7 @@ stat_bspline0 <- function(mapping = NULL, data = NULL, geom = 'bspline0',
   layer(
     stat = StatIdentity, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, type = type, ...)
+    params = list2(na.rm = na.rm, type = type, ...)
   )
 }
 #' @rdname geom_bspline
@@ -254,7 +254,7 @@ geom_bspline0 <- function(mapping = NULL, data = NULL, stat = 'identity',
   layer(
     data = data, mapping = mapping, stat = stat, geom = GeomBspline0,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
+    params = list2(
       arrow = arrow, lineend = lineend, na.rm = na.rm, type = type,
       ...
     )
