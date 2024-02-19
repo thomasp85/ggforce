@@ -18,7 +18,7 @@ that can be used by geom_parallel_sets."><meta property="og:image" content="http
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggforce</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.2</span>
       </span>
     </div>
 
@@ -108,21 +108,13 @@ the row.</p></dd>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">reshape2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html" class="external-link">melt</a></span><span class="op">(</span><span class="va">Titanic</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gather_set_data</span><span class="op">(</span><span class="va">data</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Class    Sex   Age Survived value id     x    y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1st   Male Child       No     0  1 Class  1st</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2nd   Male Child       No     0  2 Class  2nd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3rd   Male Child       No    35  3 Class  3rd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Crew   Male Child       No     0  4 Class Crew</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1st Female Child       No     0  5 Class  1st</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2nd Female Child       No     0  6 Class  2nd</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gather_set_data</span><span class="op">(</span><span class="va">data</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Class"</span>,<span class="st">"Sex"</span>,<span class="st">"Age"</span>,<span class="st">"Survived"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Class    Sex   Age Survived value id     x    y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1st   Male Child       No     0  1 Class  1st</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2nd   Male Child       No     0  2 Class  2nd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3rd   Male Child       No    35  3 Class  3rd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Crew   Male Child       No     0  4 Class Crew</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1st Female Child       No     0  5 Class  1st</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2nd Female Child       No     0  6 Class  2nd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Class    Sex   Age Survived value id x    y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1st   Male Child       No     0  1 1  1st</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2nd   Male Child       No     0  2 1  2nd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3rd   Male Child       No    35  3 1  3rd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Crew   Male Child       No     0  4 1 Crew</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1st Female Child       No     0  5 1  1st</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2nd Female Child       No     0  6 1  2nd</span>
 </code></pre></div>
     </div>
   </div>
