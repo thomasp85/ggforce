@@ -7,7 +7,7 @@
 interpolateDataFrame(data)
 }
 \arguments{
-\item{A}{data.frame with data for a layer}
+\item{data}{A data.frame with data for a layer}
 }
 \value{
 A similar data.frame with NA values interpolated
