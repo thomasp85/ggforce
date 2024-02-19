@@ -1,1 +1,1 @@
-Quick release to address the sanitizer issues reported by CRAN
+Quick release to address the doc issue for the internal functions
