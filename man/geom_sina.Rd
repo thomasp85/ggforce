@@ -89,7 +89,8 @@ abbreviated, e.g. "d"). See \code{Details}.}
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
 If character, a rule to choose the bandwidth, as listed in
-\code{\link[stats:bandwidth]{stats::bw.nrd()}}.}
+\code{\link[stats:bandwidth]{stats::bw.nrd()}}. Note that automatic calculation of the bandwidth does
+not take weights into account.}
 
 \item{kernel}{Kernel. See list of available kernels in \code{\link[=density]{density()}}.}
 
