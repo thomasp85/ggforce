@@ -234,7 +234,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
         indicator <- polygonGrob(
           c(1, 1, 0, 0),
           c(zoom_prop, 1, 0),
-          gp = gpar(col = NA, fill = alpha(zoom_y$fill, 0.5))
+          gp = gpar(col = NA, fill = ggplot2::fill_alpha(zoom_y$fill, 0.5))
         )
         lines <- segmentsGrob(
           y0 = c(0, 1),
@@ -261,7 +261,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
         indicator <- polygonGrob(
           c(zoom_prop, 1, 0),
           c(1, 1, 0, 0),
-          gp = gpar(col = NA, fill = alpha(zoom_x$fill, 0.5))
+          gp = gpar(col = NA, fill = ggplot2::fill_alpha(zoom_x$fill, 0.5))
         )
         lines <- segmentsGrob(
           x0 = c(0, 1),
@@ -365,7 +365,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       x_back <- grobTree(
         rectGrob(x = mean(zoom_prop), y = 0.5, width = diff(zoom_prop),
                  height = 1,
-                 gp = gpar(col = NA, fill = alpha(zoom_x$fill, 0.5))),
+                 gp = gpar(col = NA, fill = ggplot2::fill_alpha(zoom_x$fill, 0.5))),
         segmentsGrob(zoom_prop, c(0, 0), zoom_prop, c(1, 1), gp = gpar(
           col = zoom_x$colour,
           lty = zoom_x$linetype,
@@ -384,7 +384,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       y_back <- grobTree(
         rectGrob(y = mean(zoom_prop), x = 0.5, height = diff(zoom_prop),
                  width = 1,
-                 gp = gpar(col = NA, fill = alpha(zoom_y$fill, 0.5))),
+                 gp = gpar(col = NA, fill = ggplot2::fill_alpha(zoom_y$fill, 0.5))),
         segmentsGrob(y0 = zoom_prop, x0 = c(0, 0), y1 = zoom_prop, x1 = c(1, 1),
                      gp = gpar(col = zoom_y$colour,
                                lty = zoom_y$linetype,
