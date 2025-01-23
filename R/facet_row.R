@@ -43,7 +43,12 @@ facet_row <- function(facets, scales = "fixed", space = "fixed",
   facet <- facet_wrap(facets, nrow = 1, scales = scales, shrink = shrink, labeller = labeller, drop = drop, strip.position = strip.position)
   params <- facet$params
 
-  params$space_free <- space == 'free'
+  if ("space" %in% fn_fmls_names(facet_wrap)) {
+    params$space_free <- list(x = space == 'free', y = FALSE)
+  } else {
+    params$space_free <- space == 'free'
+  }
+
   ggproto(NULL, FacetRow, shrink = shrink, params = params)
 }
 #' @rdname ggforce-extensions
@@ -53,7 +58,7 @@ facet_row <- function(facets, scales = "fixed", space = "fixed",
 FacetRow <- ggproto('FacetRow', FacetWrap,
   draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     combined <- ggproto_parent(FacetWrap, self)$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params)
-    if (params$space_free) {
+    if (isTRUE(params$space_free)) {
       widths <- vapply(layout$PANEL, function(i) diff(ranges[[i]]$x.range), numeric(1))
       panel_widths <- unit(widths, "null")
       combined$widths[panel_cols(combined)$l] <- panel_widths
@@ -71,7 +76,11 @@ facet_col <- function(facets, scales = "fixed", space = "fixed",
   facet <- facet_wrap(facets, ncol = 1, scales = scales, shrink = shrink, labeller = labeller, drop = drop, strip.position = strip.position)
   params <- facet$params
 
-  params$space_free <- space == 'free'
+  if ("space" %in% fn_fmls_names(facet_wrap)) {
+    params$space_free <- list(x = FALSE, y = space == 'free')
+  } else {
+    params$space_free <- space == 'free'
+  }
   ggproto(NULL, FacetCol, shrink = shrink, params = params)
 }
 #' @rdname ggforce-extensions
@@ -81,7 +90,7 @@ facet_col <- function(facets, scales = "fixed", space = "fixed",
 FacetCol <- ggproto('FacetCol', FacetWrap,
   draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     combined <- ggproto_parent(FacetWrap, self)$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params)
-    if (params$space_free) {
+    if (isTRUE(params$space_free)) {
       heights <- vapply(layout$PANEL, function(i) diff(ranges[[i]]$y.range), numeric(1))
       panel_heights <- unit(heights, "null")
       combined$heights[panel_rows(combined)$t] <- panel_heights
