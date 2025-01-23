@@ -282,11 +282,9 @@ FacetZoom <- ggproto('FacetZoom', Facet,
     }
 
     if ('full' %in% layout$name && params$split) {
-      space.x <- theme$panel.spacing.x
-      if (is.null(space.x)) space.x <- theme$panel.spacing
+      space.x <- calc_element("panel.spacing.x", theme)
       space.x <- unit(5 * as.numeric(convertUnit(space.x, 'cm')), 'cm')
-      space.y <- theme$panel.spacing.y
-      if (is.null(space.y)) space.y <- theme$panel.spacing
+      space.y <- calc_element("panel.spacing.y", theme)
       space.y <- unit(5 * as.numeric(convertUnit(space.y, 'cm')), 'cm')
       final <- gtable_add_cols(panelGrobs[[3]], space.x)
       final <- cbind(final, panelGrobs[[1]], size = 'first')
@@ -320,8 +318,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
       final$widths <- widths
     } else {
       if (params$horizontal) {
-        space <- theme$panel.spacing.x
-        if (is.null(space)) space <- theme$panel.spacing
+        space <- calc_element("panel.spacing.x", theme)
         space <- unit(5 * as.numeric(convertUnit(space, 'cm')), 'cm')
         heights <- unit.c(
           unit(max_height(list(axes$x[[1]]$top, axes$x[[2]]$top)), 'cm'),
@@ -335,8 +332,7 @@ FacetZoom <- ggproto('FacetZoom', Facet,
         final <- gtable_add_grob(final, indicator_h, 2, 3, 2, 5, z = -Inf,
                                  name = 'zoom-indicator')
       } else {
-        space <- theme$panel.spacing.y
-        if (is.null(space)) space <- theme$panel.spacing
+        space <- calc_element("panel.spacing.y", theme)
         space <- unit(5 * as.numeric(convertUnit(space, 'cm')), 'cm')
         widths <- unit.c(
           unit(max_width(list(axes$y[[1]]$left, axes$y[[2]]$left)), 'cm'),
