@@ -1,162 +1,56 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ggforce.data-imaginist.com/404.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/facet_grid_paginate.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/facet_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/facet_row.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/facet_stereo.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/facet_wrap_paginate.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/facet_zoom.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/gather_set_data.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_arc.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_arc_bar.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_autohistogram.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_autopoint.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_bezier.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_bspline.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_bspline_closed.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_circle.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_delvor.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_diagonal.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_diagonal_wide.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_ellipse.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_link.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_mark_circle.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_mark_ellipse.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_mark_hull.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_mark_rect.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_parallel_sets.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_regon.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_shape.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_sina.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/geom_spiro.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/ggforce-extensions.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/ggforce-package.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/interpolateDataFrame.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/label_tex.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/linear_trans.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/n_pages.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/position_auto.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/position_jitternormal.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/power_trans.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/radial_trans.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/scale_depth.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/scale_unit.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/shapeGrob.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/stat_err.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/theme_no_axes.html</loc>
-  </url>
-  <url>
-    <loc>https://ggforce.data-imaginist.com/reference/trans_reverser.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://ggforce.data-imaginist.com/404.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/LICENSE-text.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/LICENSE.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/authors.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/index.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/news/index.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/facet_grid_paginate.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/facet_matrix.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/facet_row.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/facet_stereo.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/facet_wrap_paginate.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/facet_zoom.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/gather_set_data.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_arc.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_arc_bar.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_autohistogram.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_autopoint.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_bezier.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_bspline.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_bspline_closed.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_circle.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_delvor.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_diagonal.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_diagonal_wide.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_ellipse.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_link.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_mark_circle.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_mark_ellipse.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_mark_hull.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_mark_rect.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_parallel_sets.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_regon.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_shape.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_sina.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/geom_spiro.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/ggforce-extensions.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/ggforce-package.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/index.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/interpolateDataFrame.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/label_tex.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/linear_trans.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/n_pages.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/position_auto.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/position_jitternormal.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/power_trans.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/radial_trans.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/scale_depth.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/scale_unit.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/shapeGrob.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/stat_err.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/theme_no_axes.html</loc></url>
+<url><loc>https://ggforce.data-imaginist.com/reference/trans_reverser.html</loc></url>
 </urlset>
+
