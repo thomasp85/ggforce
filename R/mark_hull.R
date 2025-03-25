@@ -144,7 +144,7 @@ GeomMarkHull <- ggproto('GeomMarkHull', GeomMarkCircle,
 
     gp <- gpar(
       col = first_rows$colour,
-      fill = alpha(first_rows$fill, first_rows$alpha),
+      fill = ggplot2::fill_alpha(first_rows$fill, first_rows$alpha),
       lwd = (first_rows$linewidth %||% first_rows$size) * .pt,
       lty = first_rows$linetype,
       fontsize = (first_rows$size %||% 4.217518) * .pt

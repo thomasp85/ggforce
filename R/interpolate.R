@@ -47,7 +47,7 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
         default.units = 'native', arrow = arrow,
         gp = gpar(
           col = alpha(munched$colour, munched$alpha)[!end],
-          fill = alpha(munched$colour, munched$alpha)[!end],
+          fill = ggplot2::fill_alpha(munched$colour[!end], munched$alpha[!end]),
           lwd = (munched$linewidth[!end] %||% munched$size[!end]) * .pt,
           lty = munched$linetype[!end],
           lineend = lineend, linejoin = linejoin, linemitre = linemitre
@@ -60,7 +60,7 @@ GeomPathInterpolate <- ggproto('GeomPathInterpolate', GeomPath,
         id = id, default.units = 'native',
         arrow = arrow, gp = gpar(
           col = alpha(munched$colour, munched$alpha)[start],
-          fill = alpha(munched$colour, munched$alpha)[start],
+          fill = ggplot2::fill_alpha(munched$colour[start], munched$alpha[start]),
           lwd = (munched$linewidth[start] %||% munched$size[start]) * .pt,
           lty = munched$linetype[start], lineend = lineend,
           linejoin = linejoin, linemitre = linemitre
