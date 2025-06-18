@@ -6,8 +6,8 @@ authors:
     href: https://data-imaginist.com
 
 template:
-  params:
-    bootswatch: sandstone
+  bootstrap: 5
+  bootswatch: sandstone
 
 navbar:
   left:
