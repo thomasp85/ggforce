@@ -135,20 +135,21 @@
         indx_type  _ii
         )
     {
-        assert ( _ii < this->_size &&
-            "expansion: index out of bounds") ;
+        //assert ( _ii < this->_size &&
+        //    "expansion: index out of bounds") ;
 
-        return ( this->_xdat[_ii] ) ;
+        return ( _ii < this->_size ? this->_xdat[_ii] : this->_xdat[0] ) ;
     }
 
     __inline_call real_type const& operator[] (
         indx_type  _ii
         ) const
     {
-        assert ( _ii < this->_size &&
-            "expansion: index out of bounds") ;
 
-        return ( this->_xdat[_ii] ) ;
+        //assert ( _ii < this->_size &&
+        //    "expansion: index out of bounds") ;
+
+        return ( _ii < this->_size ? this->_xdat[_ii] :  this->_xdat[0]) ;
     }
 
     public  :
