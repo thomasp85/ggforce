@@ -40,7 +40,7 @@ Imports:
     cli,
     vctrs,
     systemfonts
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 LinkingTo: 
     cpp11
 Suggests:
