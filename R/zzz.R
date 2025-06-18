@@ -1,3 +1,11 @@
+globalVariables(c(
+  "from_theme",
+  "colour",
+  "ink",
+  "linewidth",
+  "linetype"
+))
+
 default_axis_guide <- NULL
 .onLoad <- function(...) {
   if (utils::packageVersion("ggplot2") > "3.2.1") {
