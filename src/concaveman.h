@@ -20,7 +20,6 @@
 #include <set>
 #include <queue>
 #include <assert.h>
-#include <memory>
 
 #include "robust_predicate/geompred.hpp"
 
