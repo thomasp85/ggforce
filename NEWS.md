@@ -1,3 +1,5 @@
+# ggforce (development version)
+
 # ggforce 0.5.0
 
 * Fixed a bug that would cause reordering of data in some geoms (#314)
