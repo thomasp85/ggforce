@@ -4,18 +4,19 @@
 * The concaveman package is no longer a dependency for `geom_mark_hull()` (#308)
 * Setting both label and description to `NA` will now turn off label drawing for
   that mark completely while still drawing the mark
-* Fix a bug in `geom_mark_rect()` where the mark would not be shown in all 
+* Fix a bug in `geom_mark_rect()` where the mark would not be shown in all
   panels (#307)
-* Fixed a bug in the `geom_mark_*()` geoms where having `NA` values in the 
+* Fixed a bug in the `geom_mark_*()` geoms where having `NA` values in the
   `filter` aesthetic would lead to weird errors. `NA` is now treated as `FALSE`
   (#306)
 * `shapeGrob()` is now exported for use by other packages (#303)
-* Fix a bug in `geom_autohistogram()` that prevented it to be used with 
+* Fix a bug in `geom_autohistogram()` that prevented it to be used with
   continuous data (#297)
 * `facet_zoom()` now throws a better error when used with `coord_flip()` (#143)
-* You can now use `"inherit"`, `"inherit_fill"`, and `"inherit_col"` for the 
-  styling of the label box and connector in the `geom_mark_*()` family of geoms 
+* You can now use `"inherit"`, `"inherit_fill"`, and `"inherit_col"` for the
+  styling of the label box and connector in the `geom_mark_*()` family of geoms
   (#240)
+* Prepare for upcoming changes in ggplot2
 
 # ggforce 0.4.2
 
