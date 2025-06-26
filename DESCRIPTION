@@ -84,6 +84,7 @@ Collate:
     'mark_hull.R'
     'mark_label.R'
     'mark_rect.R'
+    'mark_shape.R'
     'parallel_sets.R'
     'position-jitternormal.R'
     'position_auto.R'
