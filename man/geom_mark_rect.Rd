@@ -295,6 +295,7 @@ ggplot(iris, aes(Petal.Length, Petal.Width)) +
 Other mark geoms: 
 \code{\link{geom_mark_circle}()},
 \code{\link{geom_mark_ellipse}()},
-\code{\link{geom_mark_hull}()}
+\code{\link{geom_mark_hull}()},
+\code{\link{geom_mark_shape}()}
 }
 \concept{mark geoms}
