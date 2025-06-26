@@ -34,18 +34,26 @@
 #' @rdname geom_mark_shape
 #'
 #' @examples
-#' set.seed(42)
-#' points <- data.frame(
-#'     x=runif(100, min=0, max=3),
-#'     y=runif(100, min=0, max=3))
-#' shape <- data.frame(
+#' shape1 <- data.frame(
 #'     x = c(0, 3, 3, 2, 2, 1, 1, 0),
-#'     y = c(0, 0, 3, 3, 1, 1, 3, 3)
+#'     y = c(0, 0, 3, 3, 1, 1, 3, 3),
+#' label="bracket"
+#' )
+#' shape2 <- data.frame(
+#'     x = c(0, 3, 3, 0)+4,
+#'     y = c(0, 0, 3, 3),
+#'     label="square"
+#' )
+#' shape3 <- data.frame(
+#'     x = c(0, 1.5, 3, 1.5)+8,
+#'     y = c(1.5, 0, 1.5, 3),
+#'     label="diamond"
 #' )
 #' 
-#' ggplot(points, aes(x=x, y=y)) +
-#'     geom_point() +
-#'     geom_mark_shape(data=shape, color="red")
+#' ggplot(rbind(shape1, shape2, shape3), aes(x=x, y=y, label=label, color=label, fill=label)) +
+#'     geom_mark_shape() +
+#'     ylim(0, 5)
+#' 
 #'
 NULL
 
