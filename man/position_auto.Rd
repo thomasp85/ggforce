@@ -19,7 +19,7 @@ points in the group}
 }
 \description{
 This position adjustment is able to select a meaningful jitter of the data
-based on the combination of positional scale types. IT behaves differently
+based on the combination of positional scale types. It behaves differently
 depending on if none, one, or both the x and y scales are discrete. If both
 are discrete it will jitter the datapoints evenly inside a disc, if one of
 them is discrete it will jitter the discrete dimension to follow the density
