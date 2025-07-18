@@ -323,7 +323,12 @@ makeContent.hull_enc <- function(x) {
     if (length(unique0((yy[-1] - yy[1]) / (xx[-1] - xx[1]))) == 1) {
       return(mat[c(which.min(mat[, 1]), which.max(mat[, 1])), ])
     }
-    concaveman(mat, x$concavity, 0)
+    if (!is.na(x$concavity)) {
+        concaveman(mat, x$concavity, 0)    
+    } else {
+        unname(mat)
+    }
+    
   }, xx = x_new, yy = y_new)
   # ensure that all polygons have the same set of column names
   polygons <- lapply(polygons, function(x) {
