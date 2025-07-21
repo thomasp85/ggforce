@@ -67,7 +67,7 @@ place_labels <- function(rects, polygons, bounds, anchors, ghosts) {
     res[[i]] <- closest$proj
     rect$x <- rect$x + closest$proj[1]
     rect$y <- rect$y + closest$proj[2]
-    polygons[[length(polygons) + 1]] <- polyoffset(rect, 10)
+    polygons[[length(polygons) + 1]] <- rect
   }
   res
 }
