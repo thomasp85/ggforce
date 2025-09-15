@@ -219,7 +219,7 @@ display.</p></dd>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="https://ggplot2.tidyverse.org/reference/borders.html" class="external-link">borders()</a></code>.</p></dd>
+the default plot specification, e.g. <code><a href="https://ggplot2.tidyverse.org/reference/annotation_borders.html" class="external-link">borders()</a></code>.</p></dd>
 
 
 <dt id="arg-outline-type">outline.type<a class="anchor" aria-label="anchor" href="#arg-outline-type"></a></dt>
@@ -248,6 +248,12 @@ upper and lower lines, <code>"upper"</code>/<code>"lower"</code> draws the respe
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Diagonal histograms</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_autohistogram</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Computation failed in `stat_autobin()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by error in `compute_group()`:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> unused arguments (origin = NULL, right = NULL)</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Computation failed in `stat_autobin()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by error in `compute_group()`:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> unused arguments (origin = NULL, right = NULL)</span>
 <span class="r-plt img"><img src="geom_autohistogram-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Diagonal density distributions</span></span></span>
