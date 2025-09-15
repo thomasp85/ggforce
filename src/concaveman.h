@@ -21,10 +21,12 @@
 #include <queue>
 #include <assert.h>
 
-#include "robust_predicate/geompred.hpp"
-
 //#define DEBUG // uncomment to dump debug info to screen
 //#define DEBUG_2 // uncomment to dump second-level debug info to screen
+
+// From predicates.cpp
+void exactinit();
+double orient2d(double* pa, double* pb, double* pc);
 
 template<class T> class compare_first {
 public:
@@ -38,13 +40,18 @@ double orient_2d(const std::array<T, 2> &a,
                  const std::array<T, 2> &b,
                  const std::array<T, 2> &c) {
   static double coords[6] = {0,0,0,0,0,0};
+  static bool initialised = false;
+  if (!initialised) {
+    initialised = true;
+    exactinit();
+  }
   coords[0] = a[0];
   coords[1] = a[1];
   coords[2] = b[0];
   coords[3] = b[1];
   coords[4] = c[0];
   coords[5] = c[1];
-  return geompred::orient2d(coords, coords+2, coords+4);
+  return orient2d(coords, coords+2, coords+4);
 }
 
 
