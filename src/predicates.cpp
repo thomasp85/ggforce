@@ -30,8 +30,8 @@
 /*****************************************************************************/
 
 /*****************************************************************************/
-/*  This file has been adapted by Thomas Lin Pedersen to use C23 standards   */
-/*    only include code necessary to use orient2d()                          */
+/*  This file has been adapted by Thomas Lin Pedersen to use C23 and R       */
+/*    standards only include code necessary to use orient2d()                */
 /*****************************************************************************/
 
 /*****************************************************************************/
@@ -122,6 +122,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <sys/time.h>
+
+#include <R_ext/Random.h>
 
 /* On some machines, the exact arithmetic routines might be defeated by the  */
 /*   use of internal extended precision floating-point registers.  Sometimes */
@@ -505,9 +507,9 @@ double doublerand()
   long a, b, c;
   long i;
 
-  a = random();
-  b = random();
-  c = random();
+  a = unif_rand();
+  b = unif_rand();
+  c = unif_rand();
   result = (double) (a - 1073741824) * 8388608.0 + (double) (b >> 8);
   for (i = 512, expo = 2; i <= 131072; i *= 2, expo = expo * expo) {
     if (c & i) {
@@ -531,9 +533,9 @@ double narrowdoublerand()
   long a, b, c;
   long i;
 
-  a = random();
-  b = random();
-  c = random();
+  a = unif_rand();
+  b = unif_rand();
+  c = unif_rand();
   result = (double) (a - 1073741824) * 8388608.0 + (double) (b >> 8);
   for (i = 512, expo = 2; i <= 2048; i *= 2, expo = expo * expo) {
     if (c & i) {
@@ -554,8 +556,8 @@ double uniformdoublerand()
   double result;
   long a, b;
 
-  a = random();
-  b = random();
+  a = unif_rand();
+  b = unif_rand();
   result = (double) (a - 1073741824) * 8388608.0 + (double) (b >> 8);
   return result;
 }
@@ -574,8 +576,8 @@ float floatrand()
   long a, c;
   long i;
 
-  a = random();
-  c = random();
+  a = unif_rand();
+  c = unif_rand();
   result = (float) ((a - 1073741824) >> 6);
   for (i = 512, expo = 2; i <= 16384; i *= 2, expo = expo * expo) {
     if (c & i) {
@@ -599,8 +601,8 @@ float narrowfloatrand()
   long a, c;
   long i;
 
-  a = random();
-  c = random();
+  a = unif_rand();
+  c = unif_rand();
   result = (float) ((a - 1073741824) >> 6);
   for (i = 512, expo = 2; i <= 2048; i *= 2, expo = expo * expo) {
     if (c & i) {
@@ -621,7 +623,7 @@ float uniformfloatrand()
   float result;
   long a;
 
-  a = random();
+  a = unif_rand();
   result = (float) ((a - 1073741824) >> 6);
   return result;
 }
