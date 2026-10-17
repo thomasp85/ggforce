@@ -574,6 +574,7 @@ template<class T, int MAX_CHILDREN> std::vector<std::array<T, 2>> concaveman(
   // exit if hull includes all points already
   if (hull.size() == points.size()) {
     std::vector<point_type> res;
+    res.reserve(hull.size());
     for (auto &i : hull) res.push_back(points[i]);
     return res;
   }
