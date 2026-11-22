@@ -73,6 +73,7 @@ reference:
       - geom_mark_circle
       - geom_mark_ellipse
       - geom_mark_hull
+      - annotate_quadrants
   - title: "Facets"
     desc: >
       Facets are one of the greatest things in ggplot2, and ggforce comes with

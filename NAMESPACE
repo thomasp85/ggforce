@@ -16,6 +16,7 @@ export(FacetRow)
 export(FacetStereo)
 export(FacetWrapPaginate)
 export(FacetZoom)
+export(GeomAnnotateQuadrants)
 export(GeomArc)
 export(GeomArc0)
 export(GeomArcBar)
@@ -66,6 +67,7 @@ export(StatSina)
 export(StatSpiro)
 export(StatVoronoiSegment)
 export(StatVoronoiTile)
+export(annotate_quadrants)
 export(facet_col)
 export(facet_grid_paginate)
 export(facet_matrix)
@@ -161,80 +163,73 @@ import(ggplot2)
 import(rlang)
 import(vctrs)
 importFrom(MASS,fractions)
-importFrom(ggplot2,label_parsed)
-importFrom(ggplot2,layer)
+importFrom(ggplot2,
+  label_parsed,
+  layer
+)
 importFrom(grDevices,chull)
-importFrom(grid,addGrob)
-importFrom(grid,arcCurvature)
-importFrom(grid,bezierGrob)
-importFrom(grid,childNames)
-importFrom(grid,convertHeight)
-importFrom(grid,convertUnit)
-importFrom(grid,convertWidth)
-importFrom(grid,convertX)
-importFrom(grid,convertY)
-importFrom(grid,curveGrob)
-importFrom(grid,gList)
-importFrom(grid,gTree)
-importFrom(grid,gpar)
-importFrom(grid,grid.layout)
-importFrom(grid,grob)
-importFrom(grid,grobDescent)
-importFrom(grid,grobHeight)
-importFrom(grid,grobTree)
-importFrom(grid,grobWidth)
-importFrom(grid,heightDetails)
-importFrom(grid,is.unit)
-importFrom(grid,makeContent)
-importFrom(grid,nullGrob)
-importFrom(grid,polygonGrob)
-importFrom(grid,polylineGrob)
-importFrom(grid,rectGrob)
-importFrom(grid,segmentsGrob)
-importFrom(grid,setChildren)
-importFrom(grid,textGrob)
-importFrom(grid,unit)
-importFrom(grid,unit.c)
-importFrom(grid,valid.just)
-importFrom(grid,viewport)
-importFrom(grid,widthDetails)
-importFrom(grid,xsplineGrob)
-importFrom(gtable,gtable)
-importFrom(gtable,gtable_add_cols)
-importFrom(gtable,gtable_add_grob)
-importFrom(gtable,gtable_add_rows)
+importFrom(grid,
+  addGrob,
+  arcCurvature,
+  bezierGrob,
+  childNames,
+  convertHeight,
+  convertUnit,
+  convertWidth,
+  convertX,
+  convertY,
+  curveGrob,
+  gList,
+  gpar,
+  grob,
+  grobHeight,
+  grobWidth,
+  heightDetails,
+  is.unit,
+  makeContent,
+  nullGrob,
+  polygonGrob,
+  polylineGrob,
+  segmentsGrob,
+  setChildren,
+  textGrob,
+  unit,
+  unit.c,
+  valid.just,
+  viewport,
+  widthDetails,
+  xsplineGrob
+)
+importFrom(gtable,
+  gtable,
+  gtable_add_cols,
+  gtable_add_grob,
+  gtable_add_rows
+)
 importFrom(lifecycle,deprecated)
-importFrom(polyclip,polyclip)
-importFrom(polyclip,polylineoffset)
-importFrom(polyclip,polyminkowski)
-importFrom(polyclip,polyoffset)
-importFrom(scales,as.trans)
-importFrom(scales,asn_trans)
-importFrom(scales,atanh_trans)
-importFrom(scales,boxcox_trans)
-importFrom(scales,censor)
-importFrom(scales,date_trans)
-importFrom(scales,exp_trans)
-importFrom(scales,extended_breaks)
-importFrom(scales,format_format)
-importFrom(scales,identity_trans)
-importFrom(scales,log10_trans)
-importFrom(scales,log1p_trans)
-importFrom(scales,log2_trans)
-importFrom(scales,log_trans)
-importFrom(scales,logit_trans)
-importFrom(scales,probability_trans)
-importFrom(scales,probit_trans)
-importFrom(scales,reciprocal_trans)
-importFrom(scales,rescale)
-importFrom(scales,rescale_pal)
-importFrom(scales,reverse_trans)
-importFrom(scales,sqrt_trans)
-importFrom(scales,time_trans)
-importFrom(scales,trans_new)
-importFrom(stats,na.omit)
-importFrom(stats,runif)
-importFrom(stats,setNames)
+importFrom(polyclip,
+  polyclip,
+  polylineoffset,
+  polyminkowski,
+  polyoffset
+)
+importFrom(scales,
+  as.trans,
+  asn_trans,
+  atanh_trans,
+  boxcox_trans,
+  censor,
+  extended_breaks,
+  format_format,
+  rescale,
+  rescale_pal,
+  trans_new
+)
+importFrom(stats,
+  na.omit,
+  runif,
+  setNames
+)
 importFrom(tidyselect,eval_select)
 importFrom(tweenr,tween_t)
 importFrom(utils,packageVersion)
