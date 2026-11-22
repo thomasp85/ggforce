@@ -1,5 +1,7 @@
 # ggforce (development version)
 
+* Added `annotate_quadrants()` for colouring the panel background in two or our rectangular sections split at given cutoffs
+
 # ggforce 0.5.0
 
 * Fixed a bug that would cause reordering of data in some geoms (#314)

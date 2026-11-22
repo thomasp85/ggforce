@@ -88,6 +88,7 @@ Collate:
     'position-jitternormal.R'
     'position_auto.R'
     'position_floatstack.R'
+    'quadrants.R'
     'regon.R'
     'scale-depth.R'
     'scale-unit.R'
