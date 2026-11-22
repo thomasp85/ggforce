@@ -10,7 +10,7 @@ GeomAnnotateQuadrants <- ggproto(
     fill, alpha = 0.2, show_lines = FALSE, line_colour = 'grey40',
     line_width = 0.5, line_type = 'dashed'
   ) {
-    if (!inherits(coord, 'CoordCartesian')) {
+    if (!inherits(coord, 'CoordCartesian') || inherits(coord, 'CoordSf')) {
       cli::cli_abort('{.fn annotate_quadrants} requires a Cartesian coordinate system')
     }
     # Apply the scale transformation (log, reverse, ...) to the data-unit
@@ -44,9 +44,9 @@ GeomAnnotateQuadrants <- ggproto(
       just = c('left', 'bottom'), default.units = 'npc',
       gp = grid::gpar(fill = scales::alpha(fill, alpha), col = NA)
     )
-    if (!show_lines) return(rects)
     x <- x[!is.na(x) & x > 0 & x < 1]
     y <- y[!is.na(y) & y > 0 & y < 1]
+    if (!show_lines || length(x) + length(y) == 0) return(rects)
     lines <- grid::segmentsGrob(
       x0 = c(x, rep(0, length(y))), x1 = c(x, rep(1, length(y))),
       y0 = c(rep(0, length(x)), y), y1 = c(rep(1, length(x)), y),
@@ -69,8 +69,13 @@ GeomAnnotateQuadrants <- ggproto(
 #' the panel edge. The sections are drawn in the layer order so you should usually add this
 #' annotation before the layers that should be drawn on top of it.
 #'
+#' When faceting, the same cutoffs are applied to every panel and placed
+#' according to each panel's own scales, so with free scales a cutoff may fall
+#' outside some panels. It is not supported by [facet_matrix()].
+#'
 #' @param x_cutoff,y_cutoff The position, in data units, at which to split the
-#' panel along the x and y axis. At least one must be given.
+#' panel along the x and y axis. A single number, or a `Date`/`POSIXct` for
+#' date scales. At least one must be given.
 #' @param fill The fill colours of the sections. Must be two colours if only
 #' one cutoff is given and four if both are given. The colours are applied in
 #' the order the sections appear in the panel: left to right and then bottom to
@@ -104,8 +109,10 @@ annotate_quadrants <- function(
   line_type = 'dashed'
 ) {
   for (cutoff in list(x_cutoff, y_cutoff)) {
-    if (!is.null(cutoff) && !(is.numeric(cutoff) && length(cutoff) == 1 && is.finite(cutoff))) {
-      cli::cli_abort('{.arg x_cutoff} and {.arg y_cutoff} must be single finite numbers')
+    # Date/POSIXct keep their class so date scales can transform them
+    ok_type <- is.numeric(cutoff) || inherits(cutoff, c('Date', 'POSIXct'))
+    if (!is.null(cutoff) && !(ok_type && length(cutoff) == 1 && is.finite(cutoff))) {
+      cli::cli_abort('{.arg x_cutoff} and {.arg y_cutoff} must be single finite numbers or dates')
     }
   }
   if (is.null(x_cutoff) && is.null(y_cutoff)) {
@@ -116,7 +123,7 @@ annotate_quadrants <- function(
   if (length(fill) != n) {
     cli::cli_abort('{.arg fill} must contain exactly {n} colours')
   }
-  if (!(is.numeric(alpha) && length(alpha) == 1 && alpha >= 0 && alpha <= 1)) {
+  if (!(is.numeric(alpha) && length(alpha) == 1 && !is.na(alpha) && alpha >= 0 && alpha <= 1)) {
     cli::cli_abort('{.arg alpha} must be a number between 0 and 1')
   }
   if (!(is.logical(show_lines) && length(show_lines) == 1 && !is.na(show_lines))) {
