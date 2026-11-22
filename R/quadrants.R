@@ -123,7 +123,7 @@ annotate_quadrants <- function(
   if (length(fill) != n) {
     cli::cli_abort('{.arg fill} must contain exactly {n} colours')
   }
-  if (!(is.numeric(alpha) && length(alpha) == 1 && !is.na(alpha) && alpha >= 0 && alpha <= 1)) {
+  if (!(is.numeric(alpha) && length(alpha) == 1 && !is.na(alpha) && alpha >= 0 && alpha <= 1)) { 
     cli::cli_abort('{.arg alpha} must be a number between 0 and 1')
   }
   if (!(is.logical(show_lines) && length(show_lines) == 1 && !is.na(show_lines))) {
