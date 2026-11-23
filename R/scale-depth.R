@@ -23,7 +23,10 @@
 #'   scale_depth(range = c(-0.1, 0.25)) +
 #'   facet_stereo()
 scale_depth <- function(..., range = c(0, 0.3)) {
-  continuous_scale('depth', 'depth_c', rescale_pal(range), ...)
+  continuous_scale(
+    aesthetics = 'depth', palette = rescale_pal(range), ...,
+    scale_name = deprecated()
+  )
 }
 
 #' @rdname scale_depth
