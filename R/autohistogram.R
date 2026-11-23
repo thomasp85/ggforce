@@ -72,9 +72,9 @@ StatAutobin <- ggproto('StatAutobin', StatBin,
                            center = NULL, boundary = NULL,
                            closed = c("right", "left"), pad = FALSE,
                            breaks = NULL, panel_range = list(), panel_count = list(),
+                           drop = "none", 
                            # The following arguments are not used, but must
                            # be listed so parameters are computed correctly
-                           origin = NULL, right = NULL, drop = NULL,
                            width = NULL) {
     if (scales$x$is_discrete()) {
       binned <- lapply(split(data, data$x), function(d) {
@@ -94,7 +94,7 @@ StatAutobin <- ggproto('StatAutobin', StatBin,
       binned <- ggproto_parent(StatBin, self)$compute_group(
         data, scales, binwidth = binwidth, bins = bins, center = center,
         boundary = boundary, closed = closed, pad = pad, breaks = breaks,
-        origin = origin, right = right, drop = drop
+        drop = drop
       )
     }
 
