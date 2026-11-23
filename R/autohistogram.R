@@ -36,10 +36,7 @@ geom_autohistogram <- function(mapping = NULL, data = NULL,
                                na.rm = FALSE,
                                show.legend = NA,
                                inherit.aes = TRUE) {
-  extra_mapping <- aes(x = .panel_x, y = .panel_y)
-  if (is.null(mapping$x)) mapping$x <- extra_mapping$x
-  if (is.null(mapping$y)) mapping$y <- extra_mapping$y
-  class(mapping) <- 'uneval'
+mapping <- fallback_aes(mapping, aes(x = .panel_x, y = .panel_y))
 
   layer(
     data = data,

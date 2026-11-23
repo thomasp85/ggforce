@@ -23,6 +23,11 @@ combine_aes <- function(aes1, aes2) {
   aes_all
 }
 
+fallback_aes <- function(mapping, fallback) {
+  mapping <- c(mapping, fallback[setdiff(names(fallback), names(mapping))])
+  aes(!!!mapping)
+}
+
 empty_data <- function(x) {
   length(x) == 0 || nrow(x) == 0
 }
