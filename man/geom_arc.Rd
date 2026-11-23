@@ -255,7 +255,7 @@ ggplot(arcs) +
 # Use the calculated index to map values to position on the arc
 ggplot(arcs) +
   geom_arc(aes(x0 = 0, y0 = 0, r = r, start = start, end = end,
-               size = after_stat(index)), lineend = 'round')
+               linewidth = after_stat(index)), lineend = 'round')
 
 # The 0 version maps directly to curveGrob instead of calculating the points
 # itself
@@ -274,7 +274,7 @@ arcs2 <- data.frame(
 
 ggplot(arcs2) +
   geom_arc2(aes(x0 = 0, y0 = 0, r = r, end = angle, group = group,
-                colour = colour), size = 2)
+                colour = colour), lienwidth = 2)
 
 }
 \seealso{

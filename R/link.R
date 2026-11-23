@@ -65,10 +65,10 @@
 #'
 #' ggplot(lines) +
 #'   geom_link(aes(x = x, y = y, xend = xend, yend = yend, colour = colour,
-#'                 alpha = stat(index), size = after_stat(index)))
+#'                 alpha = after_stat(index), linewidth = after_stat(index)))
 #'
 #' ggplot(lines) +
-#'   geom_link2(aes(x = x, y = y, colour = colour, size = width, group = 1),
+#'   geom_link2(aes(x = x, y = y, colour = colour, linewidth = width, group = 1),
 #'              lineend = 'round', n = 500)
 #'
 #' # geom_link0 is simply an alias for geom_segment to put the link geoms in
