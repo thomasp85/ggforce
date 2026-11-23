@@ -245,6 +245,7 @@ geom_mark_rect <- function(mapping = NULL, data = NULL, stat = 'identity',
 
 # Helpers -----------------------------------------------------------------
 
+#' @importFrom grid gTree
 rectEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
                         id.lengths = NULL, expand = 0, radius = 0, label = NULL,
                         ghosts = NULL, default.units = 'npc', name = NULL,

@@ -241,6 +241,7 @@ geom_mark_ellipse <- function(mapping = NULL, data = NULL, stat = 'identity',
 # Helpers -----------------------------------------------------------------
 
 #' @importFrom grDevices chull
+#' @importFrom grid gTree
 ellipEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
                          id.lengths = NULL, expand = 0, radius = 0, n = 100,
                          tol = 0.01, label = NULL, ghosts = NULL,
@@ -319,8 +320,7 @@ ellipEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL
     vp = vp, cl = 'ellip_enc'
   )
 }
-#' @importFrom grid convertX convertY unit makeContent childNames addGrob
-#' setChildren gList
+#' @importFrom grid convertX convertY unit makeContent childNames addGrob setChildren gList
 #' @export
 makeContent.ellip_enc <- function(x) {
   mark <- x$mark

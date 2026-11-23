@@ -90,7 +90,7 @@ facet_zoom <- function(x, y, xy, zoom.data, xlim = NULL, ylim = NULL,
 #' @format NULL
 #' @usage NULL
 #' @importFrom grid convertUnit unit unit.c polygonGrob segmentsGrob gpar
-#' grobTree rectGrob
+#'   grobTree rectGrob
 #' @importFrom gtable gtable_add_cols gtable_add_rows gtable_add_grob
 #' @importFrom scales rescale
 #' @export
