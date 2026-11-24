@@ -5,6 +5,8 @@
 - **BREAKING** The `geom_mark_*()` family now uses marquee for the
   content of the text boxes. Use markdown to add titles etc rather than
   the previous label title and body.
+- [`geom_autohistogram()`](https://ggforce.data-imaginist.com/reference/geom_autohistogram.md)
+  draws continuous histograms with ggplot2 4.0.
 
 ## ggforce 0.5.0
 
