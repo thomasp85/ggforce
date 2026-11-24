@@ -12,10 +12,12 @@ element, but faceting over multiple factors entails multiple
 label variables.}
 
 \item{...}{
-  Arguments passed on to \code{\link[ggplot2:labellers]{ggplot2::label_parsed}}
+  Arguments passed on to \code{\link[ggplot2:label_parsed]{ggplot2::label_parsed}}
   \describe{
     \item{\code{multi_line}}{Whether to display the labels of multiple factors
 on separate lines.}
+    \item{\code{sep}}{String separating variables and values.}
+    \item{\code{width}}{Maximum number of characters before wrapping the strip.}
   }}
 }
 \description{

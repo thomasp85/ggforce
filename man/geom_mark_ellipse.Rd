@@ -13,17 +13,8 @@ geom_mark_ellipse(
   radius = expand,
   n = 100,
   tol = 0.01,
-  label.margin = margin(2, 2, 2, 2, "mm"),
-  label.width = NULL,
-  label.minwidth = unit(50, "mm"),
-  label.hjust = 0,
-  label.fontsize = 12,
-  label.family = "",
-  label.lineheight = 1,
-  label.fontface = c("bold", "plain"),
-  label.fill = "white",
-  label.colour = "black",
   label.buffer = unit(10, "mm"),
+  label.maxwidth = unit(50, "mm"),
   con.colour = "black",
   con.size = 0.5,
   con.type = "elbow",
@@ -34,7 +25,17 @@ geom_mark_ellipse(
   ...,
   na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE
+  inherit.aes = TRUE,
+  label.margin = deprecated(),
+  label.width = deprecated(),
+  label.minwidth = deprecated(),
+  label.hjust = deprecated(),
+  label.fontsize = deprecated(),
+  label.family = deprecated(),
+  label.lineheight = deprecated(),
+  label.fontface = deprecated(),
+  label.fill = deprecated(),
+  label.colour = deprecated()
 )
 }
 \arguments{
@@ -60,7 +61,7 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this layer.
 When using a \verb{geom_*()} function to construct a layer, the \code{stat}
-argument can be used the override the default coupling between geoms and
+argument can be used to override the default coupling between geoms and
 stats. The \code{stat} argument accepts the following:
 \itemize{
 \item A \code{Stat} ggproto subclass, for example \code{StatCount}.
@@ -96,47 +97,11 @@ plot area width.}
 \item{tol}{The tolerance cutoff. Lower values will result in ellipses closer
 to the optimal solution. Defaults to \code{0.01}.}
 
-\item{label.margin}{The margin around the annotation boxes, given by a call
-to \code{\link[ggplot2:element]{ggplot2::margin()}}.}
-
-\item{label.width}{A fixed width for the label. Set to \code{NULL} to let the text
-or \code{label.minwidth} decide.}
-
-\item{label.minwidth}{The minimum width to provide for the description. If
-the size of the label exceeds this, the description is allowed to fill as
-much as the label.}
-
-\item{label.hjust}{The horizontal justification for the annotation. If it
-contains two elements the first will be used for the label and the second for
-the description.}
-
-\item{label.fontsize}{The size of the text for the annotation. If it contains
-two elements the first will be used for the label and the second for the
-description.}
-
-\item{label.family}{The font family used for the annotation. If it contains
-two elements the first will be used for the label and the second for the
-description.}
-
-\item{label.lineheight}{The height of a line as a multipler of the fontsize.
-If it contains two elements the first will be used for the label and the
-second for the description.}
-
-\item{label.fontface}{The font face used for the annotation. If it contains
-two elements the first will be used for the label and the second for the
-description.}
-
-\item{label.fill}{The fill colour for the annotation box. Use \code{"inherit"} to
-use the fill from the enclosure or \code{"inherit_col"} to use the border colour
-of the enclosure.}
-
-\item{label.colour}{The text colour for the annotation. If it contains
-two elements the first will be used for the label and the second for the
-description. Use \code{"inherit"} to use the border colour of the enclosure or
-\code{"inherit_fill"} to use the fill colour from the enclosure.}
-
 \item{label.buffer}{The size of the region around the mark where labels
 cannot be placed.}
+
+\item{label.maxwidth}{The maximum width to allow before starting to wrap the
+text. If you set the \code{width} aesthetic then it will overwrite this.}
 
 \item{con.colour}{The colour for the line connecting the annotation to the
 mark. Use \code{"inherit"} to use the border colour of the enclosure or
@@ -195,12 +160,24 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[ggplot2:annotation_borders]{annotation_borders()}}.}
+
+\item{label.margin}{The margin around the annotation boxes, given by a call
+to \code{\link[ggplot2:margin]{ggplot2::margin()}}.}
+
+\item{label.width}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use the \code{width}
+aesthetic instead.}
+
+\item{label.minwidth}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} No longer in use.}
+
+\item{label.fontsize, label.family, label.fontface, label.lineheight, label.hjust, label.fill, label.colour}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use the \code{style} aesthetic instead and construct an appropriate style with \code{\link[=mark_style]{mark_style()}}}
 }
 \description{
 This geom lets you annotate sets of points via ellipses. The enclosing
@@ -304,9 +281,9 @@ ggplot(iris, aes(Petal.Length, Petal.Width)) +
   geom_point()
 }
 \seealso{
-Other mark geoms: 
-\code{\link{geom_mark_circle}()},
-\code{\link{geom_mark_hull}()},
-\code{\link{geom_mark_rect}()}
+Other mark geoms:
+\code{\link[=geom_mark_circle]{geom_mark_circle()}},
+\code{\link[=geom_mark_hull]{geom_mark_hull()}},
+\code{\link[=geom_mark_rect]{geom_mark_rect()}}
 }
 \concept{mark geoms}

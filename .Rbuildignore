@@ -17,3 +17,5 @@
 ^revdep
 ^CRAN-SUBMISSION$
 ^LICENSE.md$
+^compile_commands\.json$
+^\.cache$

@@ -150,9 +150,9 @@ radial_trans <- function(r.range, a.range, offset = pi / 2, pad = 0.5,
 #' @return A trans object
 #'
 #' @importFrom scales as.trans trans_new asn_trans atanh_trans boxcox_trans
-#' date_trans exp_trans identity_trans log10_trans log1p_trans log2_trans
-#' logit_trans log_trans probability_trans probit_trans reciprocal_trans
-#' reverse_trans sqrt_trans time_trans
+#'   date_trans exp_trans identity_trans log10_trans log1p_trans log2_trans
+#'   logit_trans log_trans probability_trans probit_trans reciprocal_trans
+#'   reverse_trans sqrt_trans time_trans
 #'
 #' @export
 #'
