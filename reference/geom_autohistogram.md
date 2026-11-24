@@ -234,12 +234,6 @@ p
 
 # Diagonal histograms
 p + geom_autohistogram()
-#> Warning: Computation failed in `stat_autobin()`.
-#> Caused by error in `compute_group()`:
-#> ! unused arguments (origin = NULL, right = NULL)
-#> Warning: Computation failed in `stat_autobin()`.
-#> Caused by error in `compute_group()`:
-#> ! unused arguments (origin = NULL, right = NULL)
 
 
 # Diagonal density distributions
@@ -249,6 +243,4 @@ p + geom_autodensity()
 # You can use them like regular layers with groupings etc
 p + geom_autodensity(aes(colour = drv, fill = drv),
                      alpha = 0.4)
-#> Error in geom_autodensity(aes(colour = drv, fill = drv), alpha = 0.4): `mapping` must be created by `aes()`.
-#> ✖ You've supplied an <uneval> object.
 ```

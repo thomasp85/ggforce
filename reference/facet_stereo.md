@@ -60,6 +60,4 @@ ggplot(mtcars) +
   geom_point(aes(mpg, disp, depth = cyl)) +
   facet_stereo()
 #> Warning: Ignoring unknown aesthetics: depth
-#> Warning: The `scale_name` argument of `continuous_scale()` is deprecated as of ggplot2
-#> 3.5.0.
 ```

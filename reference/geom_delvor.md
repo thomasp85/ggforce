@@ -441,7 +441,7 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
 
 # Use geom_delauney_segment2 to interpolate aestetics between end points
 ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
-  geom_delaunay_segment2(aes(colour = Species, group = -1), size = 2,
+  geom_delaunay_segment2(aes(colour = Species, group = -1), linewidth = 2,
                          lineend = 'round')
 #> Warning: `stat_delaunay_segment2()` is dropping duplicated points
 ```

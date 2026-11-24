@@ -162,18 +162,15 @@ for information about the position adjustments
 ``` r
 # Continuous vs continuous: No jitter
 ggplot(mpg) + geom_autopoint(aes(cty, hwy))
-#> Error in geom_autopoint(aes(cty, hwy)): `mapping` must be created by `aes()`.
-#> ✖ You've supplied an <uneval> object.
+
 
 # Continuous vs discrete: sina jitter
 ggplot(mpg) + geom_autopoint(aes(cty, drv))
-#> Error in geom_autopoint(aes(cty, drv)): `mapping` must be created by `aes()`.
-#> ✖ You've supplied an <uneval> object.
+
 
 # Discrete vs discrete: disc-jitter
 ggplot(mpg) + geom_autopoint(aes(fl, drv))
-#> Error in geom_autopoint(aes(fl, drv)): `mapping` must be created by `aes()`.
-#> ✖ You've supplied an <uneval> object.
+
 
 # Used with facet_matrix (x and y are automatically mapped)
 ggplot(mpg) +
