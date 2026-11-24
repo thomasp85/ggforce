@@ -274,7 +274,7 @@ arcs2 <- data.frame(
 
 ggplot(arcs2) +
   geom_arc2(aes(x0 = 0, y0 = 0, r = r, end = angle, group = group,
-                colour = colour), lienwidth = 2)
+                colour = colour), linewidth = 2)
 
 }
 \seealso{
