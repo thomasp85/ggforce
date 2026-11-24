@@ -143,6 +143,6 @@ ggplot(
   d,
   aes(x = x, y = y, xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, color = color)
 ) +
-  stat_err(size = 2)
+  stat_err(linewidth = 2)
 
 }
