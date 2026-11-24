@@ -4,6 +4,7 @@
 
 #include "concaveman.h"
 
+#include <memory>
 #include <vector>
 
 [[cpp11::register]]
