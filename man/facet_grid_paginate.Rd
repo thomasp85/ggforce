@@ -100,9 +100,9 @@ ggplot(diamonds) +
 \code{\link[=n_pages]{n_pages()}} to compute the total number of pages in a paginated
 faceted plot
 
-Other ggforce facets: 
-\code{\link{facet_stereo}()},
-\code{\link{facet_wrap_paginate}()},
-\code{\link{facet_zoom}()}
+Other ggforce facets:
+\code{\link[=facet_stereo]{facet_stereo()}},
+\code{\link[=facet_wrap_paginate]{facet_wrap_paginate()}},
+\code{\link[=facet_zoom]{facet_zoom()}}
 }
 \concept{ggforce facets}

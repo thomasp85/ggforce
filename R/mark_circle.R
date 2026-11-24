@@ -52,33 +52,12 @@
 #' @param n The number of points used to draw each circle. Defaults to `100`.
 #' @param label.margin The margin around the annotation boxes, given by a call
 #' to [ggplot2::margin()].
-#' @param label.width A fixed width for the label. Set to `NULL` to let the text
-#' or `label.minwidth` decide.
-#' @param label.minwidth The minimum width to provide for the description. If
-#' the size of the label exceeds this, the description is allowed to fill as
-#' much as the label.
-#' @param label.fontsize The size of the text for the annotation. If it contains
-#' two elements the first will be used for the label and the second for the
-#' description.
-#' @param label.family The font family used for the annotation. If it contains
-#' two elements the first will be used for the label and the second for the
-#' description.
-#' @param label.fontface The font face used for the annotation. If it contains
-#' two elements the first will be used for the label and the second for the
-#' description.
-#' @param label.lineheight The height of a line as a multipler of the fontsize.
-#' If it contains two elements the first will be used for the label and the
-#' second for the description.
-#' @param label.hjust The horizontal justification for the annotation. If it
-#' contains two elements the first will be used for the label and the second for
-#' the description.
-#' @param label.fill The fill colour for the annotation box. Use `"inherit"` to
-#' use the fill from the enclosure or `"inherit_col"` to use the border colour
-#' of the enclosure.
-#' @param label.colour The text colour for the annotation. If it contains
-#' two elements the first will be used for the label and the second for the
-#' description. Use `"inherit"` to use the border colour of the enclosure or
-#' `"inherit_fill"` to use the fill colour from the enclosure.
+#' @param label.maxwidth The maximum width to allow before starting to wrap the
+#' text. If you set the `width` aesthetic then it will overwrite this.
+#' @param label.width `r lifecycle::badge('deprecated')` Use the `width`
+#' aesthetic instead.
+#' @param label.minwidth `r lifecycle::badge('deprecated')` No longer in use.
+#' @param label.fontsize,label.family,label.fontface,label.lineheight,label.hjust,label.fill,label.colour `r lifecycle::badge('deprecated')` Use the `style` aesthetic instead and construct an appropriate style with [mark_style()]
 #' @param label.buffer The size of the region around the mark where labels
 #' cannot be placed.
 #' @param con.colour The colour for the line connecting the annotation to the
@@ -161,17 +140,11 @@ GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
     data
   },
   draw_panel = function(self, data, panel_params, coord, expand = unit(5, 'mm'),
-                        radius = expand, n = 100,
-                        label.margin = margin(2, 2, 2, 2, 'mm'),
-                        label.width = NULL, label.minwidth = unit(50, 'mm'),
-                        label.hjust = 0, label.buffer = unit(10, 'mm'),
-                        label.fontsize = 12, label.family = '',
-                        label.fontface = c('bold', 'plain'),
-                        label.fill = 'white', label.colour = 'black',
-                        label.lineheight = 1,
-                        con.colour = 'black', con.size = 0.5, con.type = 'elbow',
-                        con.linetype = 1, con.border = 'one',
-                        con.cap = unit(3, 'mm'), con.arrow = NULL) {
+                        radius = expand, n = 100, label.buffer = unit(10, 'mm'),
+                        label.maxwidth = unit(50, "mm"), con.colour = 'black',
+                        con.size = 0.5, con.type = 'elbow', con.linetype = 1,
+                        con.border = 'one', con.cap = unit(3, 'mm'),
+                        con.arrow = NULL) {
     if (nrow(data) == 0) return(zeroGrob())
 
     # As long as coord$transform() doesn't recognise x0/y0
@@ -214,23 +187,6 @@ GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
       id = coords$group, expand = expand, radius = radius, n = n,
       label = label, ghosts = ghosts,
       mark.gp = gp,
-      label.gp = inherit_gp(
-        col = label.colour[1],
-        fill = label.fill,
-        fontface = label.fontface[1],
-        fontfamily = label.family[1],
-        fontsize = label.fontsize[1],
-        lineheight = label.lineheight[1],
-        gp = gp
-      ),
-      desc.gp = inherit_gp(
-        col = rep_len(label.colour, 2)[2],
-        fontface = rep_len(label.fontface, 2)[2],
-        fontfamily = rep_len(label.family, 2)[2],
-        fontsize = rep_len(label.fontsize, 2)[2],
-        lineheight = rep_len(label.lineheight, 2)[2],
-        gp = gp
-      ),
       con.gp = inherit_gp(
         col = con.colour,
         fill = con.colour,
@@ -238,11 +194,8 @@ GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
         lty = con.linetype,
         gp = gp
       ),
-      label.margin = label.margin,
-      label.width = label.width,
-      label.minwidth = label.minwidth,
-      label.hjust = label.hjust,
       label.buffer = label.buffer,
+      label.maxwidth = label.maxwidth,
       con.type = con.type,
       con.border = con.border,
       con.cap = con.cap,
@@ -254,7 +207,7 @@ GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
   default_aes = combine_aes(
     GeomShape$default_aes,
     aes(fill = NA, colour = 'black', alpha = 0.3, filter = NULL, label = NULL,
-        description = NULL, x0 = NULL, y0 = NULL)
+        description = NULL, x0 = NULL, y0 = NULL, style = mark_style(), width = NA)
   ),
   handle_na = function(self, data, params) {
     remove_missing(data, params$na.rm,
@@ -269,19 +222,54 @@ GeomMarkCircle <- ggproto('GeomMarkCircle', GeomShape,
 #' @export
 geom_mark_circle <- function(mapping = NULL, data = NULL, stat = 'identity',
                              position = 'identity', expand = unit(5, 'mm'),
-                             radius = expand, n = 100,
-                             label.margin = margin(2, 2, 2, 2, 'mm'),
-                             label.width = NULL, label.minwidth = unit(50, 'mm'),
-                             label.hjust = 0, label.fontsize = 12,
-                             label.family = '', label.lineheight = 1,
-                             label.fontface = c('bold', 'plain'),
-                             label.fill = 'white', label.colour = 'black',
+                             radius = expand, n = 100, label.maxwidth = unit(50, 'mm'),
                              label.buffer = unit(10, 'mm'), con.colour = 'black',
                              con.size = 0.5, con.type = 'elbow',
                              con.linetype = 1, con.border = 'one',
                              con.cap = unit(3, 'mm'), con.arrow = NULL, ...,
                              na.rm = FALSE, show.legend = NA,
-                             inherit.aes = TRUE) {
+                             inherit.aes = TRUE,
+                             label.margin = deprecated(),
+                             label.width = deprecated(),
+                             label.minwidth = deprecated(),
+                             label.hjust = deprecated(),
+                             label.fontsize = deprecated(),
+                             label.family = deprecated(),
+                             label.lineheight = deprecated(),
+                             label.fontface = deprecated(),
+                             label.fill = deprecated(),
+                             label.colour = deprecated()
+                            ) {
+  if (lifecycle::is_present(label.margin)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_circle(label.margin)", I("the `style` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.width)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_circle(label.width)", I("the `width` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.minwidth)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_circle(label.minwidth)")
+  }
+  if (lifecycle::is_present(label.hjust)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_circle(label.hjust)", I("the `style` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.fontsize)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_circle(label.fontsize)", I("the `style` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.family)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_circle(label.family)", I("the `style` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.lineheight)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_circle(label.lineheight)", I("the `style` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.fontface)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_circle(label.fontface)", I("the `style` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.fill)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_circle(label.fill)", I("the `style` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.colour)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_circle(label.colour)", I("the `style` aesthetic instead"))
+  }
   layer(
     data = data,
     mapping = mapping,
@@ -295,16 +283,7 @@ geom_mark_circle <- function(mapping = NULL, data = NULL, stat = 'identity',
       expand = expand,
       radius = radius,
       n = n,
-      label.margin = label.margin,
-      label.width = label.width,
-      label.minwidth = label.minwidth,
-      label.fontsize = label.fontsize,
-      label.family = label.family,
-      label.lineheight = label.lineheight,
-      label.fontface = label.fontface,
-      label.hjust = label.hjust,
-      label.fill = label.fill,
-      label.colour = label.colour,
+      label.maxwidth = label.maxwidth,
       label.buffer = label.buffer,
       con.colour = con.colour,
       con.size = con.size,
@@ -325,10 +304,8 @@ geom_mark_circle <- function(mapping = NULL, data = NULL, stat = 'identity',
 circEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
                         id.lengths = NULL, expand = 0, radius = 0, n = 100,
                         label = NULL, ghosts = NULL, default.units = 'npc',
-                        name = NULL, mark.gp = gpar(), label.gp = gpar(), desc.gp = gpar(),
-                        con.gp = gpar(), label.margin = margin(),
-                        label.width = NULL, label.minwidth = unit(50, 'mm'),
-                        label.hjust = 0, label.buffer = unit(10, 'mm'),
+                        name = NULL, mark.gp = gpar(), con.gp = gpar(),
+                        label.buffer = unit(10, 'mm'), label.maxwidth = unit(50, "mm"),
                         con.type = 'elbow', con.border = 'one',
                         con.cap = unit(3, 'mm'), con.arrow = NULL,
                         anchor.x = NULL, anchor.y = NULL, vp = NULL) {
@@ -360,18 +337,29 @@ circEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL,
     vp = vp
   )
   if (!is.null(label)) {
+    label_width <- as_mm(label$width, "mm")
+    max_width <- as_mm(label.maxwidth)
     label <- lapply(seq_len(nrow(label)), function(i) {
-      if (is.na(label$label[i] %||% NA) && is.na(label$description[i] %||% NA)) return(zeroGrob())
-      grob <- labelboxGrob(label$label[i], 0, 0, label$description[i],
-        gp = subset_gp(label.gp, i), desc.gp = subset_gp(desc.gp, i),
-        pad = label.margin, width = label.width,
-        min.width = label.minwidth, hjust = label.hjust
-      )
+      style <- label$style[i]
       if (con.border == 'all') {
         con.gp <- subset_gp(con.gp, i)
-        grob$children[[1]]$gp$col <- con.gp$col
-        grob$children[[1]]$gp$lwd <- con.gp$lwd
-        grob$children[[1]]$gp$lty <- con.gp$lty
+        style <- marquee::modify_style(
+          style,
+          "body",
+          border = con.gp$col,
+          border_width = marquee::trbl(grid::unit(con.gp$lwd, "pt")),
+          border_type = con.gp$lty
+        )
+      }
+      desc <- as.character(label$description[i] %||% "") %|% ""
+      if (!is.null(label$label) && !is.na(label$label[i])) {
+        desc <- sub("\n$", "", paste0("##### ", as.character(label$label[i]) %|% "", "\n", desc))
+      }
+
+      if (nchar(desc) == 0) return(zeroGrob())
+      grob <- marquee::marquee_grob(desc, style, force_body_margin = TRUE, x = 0, y = 0, width = grid::unit(label_width[i], "mm"), hjust = 0.5, vjust = 0.5)
+      if (is.na(label$width[i]) && as_mm(grobWidth(grob)) > max_width) {
+        grob <- marquee::marquee_grob(desc, style, force_body_margin = TRUE, x = 0, y = 0, width = grid::unit(max_width, "mm"), hjust = 0.5, vjust = 0.5)
       }
       grob
     })
