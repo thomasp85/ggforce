@@ -91,6 +91,7 @@ StatAutobin <- ggproto('StatAutobin', StatBin,
       binned$ncount <- binned$count / max(binned$count)
       binned$ndensity <- binned$density / max(binned$density)
     } else {
+      if (is.logical(drop)) drop <- if (isTRUE(drop)) "all" else "none"
       binned <- ggproto_parent(StatBin, self)$compute_group(
         data, scales, binwidth = binwidth, bins = bins, center = center,
         boundary = boundary, closed = closed, pad = pad, breaks = breaks,
