@@ -23,12 +23,26 @@
   keyword, by being mapped onto the `style` aesthetic
   ([\#331](https://github.com/thomasp85/ggforce/issues/331))
 
+- [`geom_link2()`](https://ggforce.data-imaginist.com/reference/geom_link.md)
+  now works with single-observation groups instead of erroring
+  ([\#328](https://github.com/thomasp85/ggforce/issues/328))
+
 - **BREAKING** The `geom_mark_*()` family now uses marquee for the
   content of the text boxes. Use markdown to add titles etc rather than
   the previous label title and body.
 
 - [`geom_autohistogram()`](https://ggforce.data-imaginist.com/reference/geom_autohistogram.md)
   draws continuous histograms with ggplot2 4.0.
+
+- The vendored `robust_predicates` C++ library has been replaced with a
+  new in-house implementation, making the package lighter and faster to
+  install, and the additional license restrictions in `LICENSE.note`
+  have been removed
+  ([\#348](https://github.com/thomasp85/ggforce/issues/348),
+  [\#349](https://github.com/thomasp85/ggforce/issues/349))
+
+- Compatibility with the S7-based ggplot2
+  ([\#359](https://github.com/thomasp85/ggforce/issues/359))
 
 ## ggforce 0.5.0
 

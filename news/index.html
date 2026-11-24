@@ -48,8 +48,11 @@
 <li><p>The <code>geom_mark_*()</code> family now gracefully ignores non-finite positions arising during coordinate transformation instead of corrupting the mark and label placement (<a href="https://github.com/thomasp85/ggforce/issues/347" class="external-link">#347</a>)</p></li>
 <li><p>Fixed a bug in <code><a href="../reference/geom_mark_hull.html">geom_mark_hull()</a></code> where near-collinear groups with duplicated points would produce hugely oversized hulls due to unbounded miter joins (<a href="https://github.com/thomasp85/ggforce/issues/345" class="external-link">#345</a>)</p></li>
 <li><p>The deprecated <code>label.fill</code> and <code>label.colour</code> arguments in the <code>geom_mark_*()</code> family now work again, including the <code>"inherit"</code> keyword, by being mapped onto the <code>style</code> aesthetic (<a href="https://github.com/thomasp85/ggforce/issues/331" class="external-link">#331</a>)</p></li>
+<li><p><code><a href="../reference/geom_link.html">geom_link2()</a></code> now works with single-observation groups instead of erroring (<a href="https://github.com/thomasp85/ggforce/issues/328" class="external-link">#328</a>)</p></li>
 <li><p><strong>BREAKING</strong> The <code>geom_mark_*()</code> family now uses marquee for the content of the text boxes. Use markdown to add titles etc rather than the previous label title and body.</p></li>
 <li><p><code><a href="../reference/geom_autohistogram.html">geom_autohistogram()</a></code> draws continuous histograms with ggplot2 4.0.</p></li>
+<li><p>The vendored <code>robust_predicates</code> C++ library has been replaced with a new in-house implementation, making the package lighter and faster to install, and the additional license restrictions in <code>LICENSE.note</code> have been removed (<a href="https://github.com/thomasp85/ggforce/issues/348" class="external-link">#348</a>, <a href="https://github.com/thomasp85/ggforce/issues/349" class="external-link">#349</a>)</p></li>
+<li><p>Compatibility with the S7-based ggplot2 (<a href="https://github.com/thomasp85/ggforce/issues/359" class="external-link">#359</a>)</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0" id="ggforce-050">ggforce 0.5.0<a class="anchor" aria-label="anchor" href="#ggforce-050"></a></h2><p class="text-muted">CRAN release: 2025-06-18</p>
