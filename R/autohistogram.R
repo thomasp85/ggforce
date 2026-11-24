@@ -36,10 +36,7 @@ geom_autohistogram <- function(mapping = NULL, data = NULL,
                                na.rm = FALSE,
                                show.legend = NA,
                                inherit.aes = TRUE) {
-  extra_mapping <- aes(x = .panel_x, y = .panel_y)
-  if (is.null(mapping$x)) mapping$x <- extra_mapping$x
-  if (is.null(mapping$y)) mapping$y <- extra_mapping$y
-  class(mapping) <- 'uneval'
+  mapping <- fallback_aes(mapping, aes(x = .panel_x, y = .panel_y))
 
   layer(
     data = data,
@@ -75,7 +72,10 @@ StatAutobin <- ggproto('StatAutobin', StatBin,
                            center = NULL, boundary = NULL,
                            closed = c("right", "left"), pad = FALSE,
                            breaks = NULL, panel_range = list(), panel_count = list(),
-                           drop = "none", width = NULL) {
+                           drop = "none",
+                           # The following arguments are not used, but must
+                           # be listed so parameters are computed correctly
+                           width = NULL) {
     if (scales$x$is_discrete()) {
       binned <- lapply(split(data, data$x), function(d) {
         data_frame0(
