@@ -196,6 +196,12 @@ makeContent.shape <- function(x) {
   poly <- split(polygons, type)
   expand <- convertWidth(x$expand, 'mm', TRUE)
   radius <- convertWidth(x$radius, 'mm', TRUE)
+  if (expand == 0 && radius == 0) {
+    return(polygonGrob(
+      x$x, x$y, id = x$id[order(x$id)], name = x$name, gp = x$gp, vp = x$vp
+    ))
+  }
+
   expand <- expand - radius
   if (expand != 0) {
     if (!is.null(poly$polygon)) {
