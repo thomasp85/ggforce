@@ -48,7 +48,9 @@ Suggests:
     latex2exp,
     reshape2,
     units (>= 0.8.0),
-    covr
+    covr,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
 Collate:
     'aaa.R'
     'shape.R'

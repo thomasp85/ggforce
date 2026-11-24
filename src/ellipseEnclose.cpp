@@ -38,13 +38,38 @@ bool points_on_line(const cpp11::doubles_matrix<>& points, Ellipse &enc) {
   } else {
     double x0 = xmin = xmax = points(0, 0);
     double y0 = ymin = ymax = points(0, 1);
-    double xdiff = points(1, 0) - x0;
+    // Establish the line from the first point distinct from points(0) —
+    // leading duplicates would otherwise trick the vertical-line detection
+    R_xlen_t second = 1;
+    while (second < n && points(second, 0) == x0 && points(second, 1) == y0) {
+      second++;
+    }
+    if (second == n) {
+      // All points are identical
+      enc.x = x0;
+      enc.y = y0;
+      enc.a = 0;
+      enc.b = 0;
+      enc.rad = 0;
+      return true;
+    }
+    double xdiff = points(second, 0) - x0;
     bool vert = xdiff == 0;
     double slope = std::numeric_limits<double>::infinity();
     if (!vert) {
-      slope = (points(1, 1) - y0) / xdiff;
+      slope = (points(second, 1) - y0) / xdiff;
     }
-    for (int i = 2; i < n; i++) {
+    if (points(second, 0) < xmin) {
+      xmin = points(second, 0);
+      ymin = points(second, 1);
+    } else if (points(second, 0) > xmax) {
+      xmax = points(second, 0);
+      ymax = points(second, 1);
+    } else {
+      ymin = std::min(ymin, points(second, 1));
+      ymax = std::max(ymax, points(second, 1));
+    }
+    for (R_xlen_t i = second + 1; i < n; i++) {
       xdiff = points(i, 0) - x0;
       if (vert && xdiff == 0) {
         ymin = std::min(ymin, points(i, 1));
@@ -55,7 +80,7 @@ bool points_on_line(const cpp11::doubles_matrix<>& points, Ellipse &enc) {
         if (points(i, 0) < xmin) {
           xmin = points(i, 0);
           ymin = points(i, 1);
-        } else if (points(i, 0) > xmin) {
+        } else if (points(i, 0) > xmax) {
           xmax = points(i, 0);
           ymax = points(i, 1);
         }
@@ -206,13 +231,18 @@ Ellipse solve_enc(const cpp11::doubles_matrix<>& A) {
 
   enc.a = 1.0/std::sqrt(d[1]);
   enc.b = 1.0/std::sqrt(d[0]);
-  if (v(0, 1) == v(1, 0)) {
-    enc.rad = std::asin(v(1, 1));
-  } else if (v(0, 1) < v(1, 0)) {
-    enc.rad = std::asin(-v(0, 0));
-  } else {
-    enc.rad = std::asin(v(0, 0));
+  // The major semi-axis (a) lies along the eigenvector of the smallest
+  // eigenvalue, i.e. the second column of v (d is sorted in descending
+  // order). Recover the angle robustly with atan2; eigenvector sign is
+  // arbitrary, so canonicalise to a non-negative x component (flipping the
+  // sign yields the same ellipse).
+  double vx = v(0, 1);
+  double vy = v(1, 1);
+  if (vx < 0) {
+    vx = -vx;
+    vy = -vy;
   }
+  enc.rad = std::atan2(vy, vx);
   return enc;
 }
 

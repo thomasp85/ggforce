@@ -107,13 +107,19 @@ GeomMarkHull <- ggproto('GeomMarkHull', GeomMarkCircle,
                         label.maxwidth = unit(50, 'mm'),
                         con.colour = 'black', con.size = 0.5, con.type = 'elbow',
                         con.linetype = 1, con.border = 'one',
-                        con.cap = unit(3, 'mm'), con.arrow = NULL) {
+                        con.cap = unit(3, 'mm'), con.arrow = NULL,
+                        label.fill = NULL, label.colour = NULL) {
     if (nrow(data) == 0) return(zeroGrob())
 
     # As long as coord$transform() doesn't recognise x0/y0
     data$xmin <- data$x0
     data$ymin <- data$y0
     coords <- coord$transform(data, panel_params)
+    # coord transforms can produce non-finite positions (e.g. out-of-range
+    # values under transformed coords) which would poison the enclosing-shape
+    # and label-placement geometry
+    coords <- coords[is.finite(coords$x) & is.finite(coords$y), ]
+    if (nrow(coords) == 0) return(zeroGrob())
     if (!is.integer(coords$group)) {
       coords$group <- match(coords$group, unique0(coords$group))
     }
@@ -128,12 +134,13 @@ GeomMarkHull <- ggproto('GeomMarkHull', GeomMarkCircle,
     label <- NULL
     ghosts <- NULL
     if (!is.null(coords$label) || !is.null(coords$description)) {
-      label <- first_rows
+      label <- apply_label_style(first_rows, label.fill, label.colour)
       is_ghost <- which(self$removed$PANEL == coords$PANEL[1])
       if (length(is_ghost) > 0) {
         ghosts <- self$removed[is_ghost, ]
         ghosts <- coord$transform(ghosts, panel_params)
-        ghosts <- list(x = ghosts$x, y = ghosts$y)
+        ghost_keep <- is.finite(ghosts$x) & is.finite(ghosts$y)
+        ghosts <- list(x = ghosts$x[ghost_keep], y = ghosts$y[ghost_keep])
       }
     }
 
@@ -242,6 +249,8 @@ geom_mark_hull <- function(mapping = NULL, data = NULL, stat = 'identity',
       con.border = con.border,
       con.cap = con.cap,
       con.arrow = con.arrow,
+      label.fill = if (lifecycle::is_present(label.fill)) label.fill else NULL,
+      label.colour = if (lifecycle::is_present(label.colour)) label.colour else NULL,
       ...
     )
   )
@@ -331,7 +340,10 @@ makeContent.hull_enc <- function(x) {
     if (length(unique0(xx)) == 1) {
       return(mat[c(which.min(mat[, 2]), which.max(mat[, 2])), ])
     }
-    if (length(unique0((yy[-1] - yy[1]) / (xx[-1] - xx[1]))) == 1) {
+    # Collinearity check on the deduplicated points — duplicates would
+    # produce 0/0 (NaN) slopes and mask collinearity (#345)
+    slopes <- (mat[-1, 2] - mat[1, 2]) / (mat[-1, 1] - mat[1, 1])
+    if (length(unique0(slopes)) == 1) {
       return(mat[c(which.min(mat[, 1]), which.max(mat[, 1])), ])
     }
     concaveman(mat, x$concavity, 0)

@@ -283,6 +283,43 @@ vswitch <- function(x, ...) {
   cases[cbind(seq_along(x), match(x, colnames(cases)))]
 }
 
+# Applies the deprecated `label.fill`/`label.colour` arguments on top of the
+# `style` aesthetic, resolving the `"inherit"` keyword family against the
+# mark's own fill/colour (#331)
+apply_label_style <- function(label, label.fill, label.colour) {
+  if (is.null(label) || is.null(label$style) ||
+      (is.null(label.fill) && is.null(label.colour))) {
+    return(label)
+  }
+  styles <- lapply(seq_len(nrow(label)), function(i) {
+    style <- label$style[i]
+    if (!is.null(label.fill)) {
+      style <- marquee::modify_style(
+        style, "body",
+        background = resolve_label_inherit(label.fill, label$fill[i], label$colour[i], 'fill')
+      )
+    }
+    if (!is.null(label.colour)) {
+      style <- marquee::modify_style(
+        style, "body",
+        color = resolve_label_inherit(label.colour, label$fill[i], label$colour[i], 'colour')
+      )
+    }
+    style
+  })
+  label$style <- do.call(c, styles)
+  label
+}
+resolve_label_inherit <- function(value, fill, colour, field) {
+  if (!is.character(value)) return(value)
+  if (value == 'inherit') {
+    return(if (field == 'fill') fill else colour)
+  }
+  if (value == 'inherit_fill') return(fill)
+  if (grepl('inherit_col', value)) return(colour)
+  value
+}
+
 #' A marquee styleset for geom_mark_*()
 #'
 #' This function constructs stylesets with defaults appropriate for the text

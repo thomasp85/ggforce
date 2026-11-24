@@ -199,8 +199,10 @@ makeContent.shape <- function(x) {
   expand <- expand - radius
   if (expand != 0) {
     if (!is.null(poly$polygon)) {
+      # miterlim must be kept sane: near-degenerate (razor-thin) polygons
+      # produce miter spikes proportional to miterlim * delta (#345)
       poly$polygon <- lapply(poly$polygon, polyoffset, delta = expand,
-                             jointype = 'miter', miterlim = 1000)
+                             jointype = 'miter', miterlim = 10)
     }
     if (expand > 0) {
       if (!is.null(poly$line)) {
