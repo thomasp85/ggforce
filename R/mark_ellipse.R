@@ -91,13 +91,7 @@ NULL
 GeomMarkEllipse <- ggproto('GeomMarkEllipse', GeomMarkCircle,
   draw_panel = function(self, data, panel_params, coord, expand = unit(5, 'mm'),
                         radius = expand, n = 100, tol = 0.01,
-                        label.margin = margin(2, 2, 2, 2, 'mm'),
-                        label.width = NULL, label.minwidth = unit(50, 'mm'),
-                        label.hjust = 0, label.buffer = unit(10, 'mm'),
-                        label.fontsize = 12, label.family = '',
-                        label.fontface = c('bold', 'plain'),
-                        label.lineheight = 1,
-                        label.fill = 'white', label.colour = 'black',
+                        label.buffer = unit(10, 'mm'), label.maxwidth = unit(50, 'mm'),
                         con.colour = 'black', con.size = 0.5, con.type = 'elbow',
                         con.linetype = 1, con.border = 'one',
                         con.cap = unit(3, 'mm'), con.arrow = NULL) {
@@ -143,23 +137,6 @@ GeomMarkEllipse <- ggproto('GeomMarkEllipse', GeomMarkCircle,
       id = coords$group, expand = expand, radius = radius, n = n,
       tol = tol, label = label, ghosts = ghosts,
       mark.gp = gp,
-      label.gp = inherit_gp(
-        col = label.colour[1],
-        fill = label.fill,
-        fontface = label.fontface[1],
-        fontfamily = label.family[1],
-        fontsize = label.fontsize[1],
-        lineheight = label.lineheight[1],
-        gp = gp
-      ),
-      desc.gp = inherit_gp(
-        col = rep_len(label.colour, 2)[2],
-        fontface = rep_len(label.fontface, 2)[2],
-        fontfamily = rep_len(label.family, 2)[2],
-        fontsize = rep_len(label.fontsize, 2)[2],
-        lineheight = rep_len(label.lineheight, 2)[2],
-        gp = gp
-      ),
       con.gp = inherit_gp(
         col = con.colour,
         fill = con.colour,
@@ -167,11 +144,8 @@ GeomMarkEllipse <- ggproto('GeomMarkEllipse', GeomMarkCircle,
         lty = con.linetype,
         gp = gp
       ),
-      label.margin = label.margin,
-      label.width = label.width,
-      label.minwidth = label.minwidth,
-      label.hjust = label.hjust,
       label.buffer = label.buffer,
+      label.maxwidth = label.maxwidth,
       con.type = con.type,
       con.border = con.border,
       con.cap = con.cap,
@@ -187,20 +161,53 @@ GeomMarkEllipse <- ggproto('GeomMarkEllipse', GeomMarkCircle,
 geom_mark_ellipse <- function(mapping = NULL, data = NULL, stat = 'identity',
                               position = 'identity', expand = unit(5, 'mm'),
                               radius = expand, n = 100, tol = 0.01,
-                              label.margin = margin(2, 2, 2, 2, 'mm'),
-                              label.width = NULL,
-                              label.minwidth = unit(50, 'mm'),
-                              label.hjust = 0, label.fontsize = 12,
-                              label.family = '', label.lineheight = 1,
-                              label.fontface = c('bold', 'plain'),
-                              label.fill = 'white',
-                              label.colour = 'black',
                               label.buffer = unit(10, 'mm'),
+                              label.maxwidth = unit(50, "mm"),
                               con.colour = 'black', con.size = 0.5,
                               con.type = 'elbow', con.linetype = 1,
                               con.border = 'one', con.cap = unit(3, 'mm'),
                               con.arrow = NULL, ..., na.rm = FALSE,
-                              show.legend = NA, inherit.aes = TRUE) {
+                              show.legend = NA, inherit.aes = TRUE,
+                              label.margin = deprecated(),
+                              label.width = deprecated(),
+                              label.minwidth = deprecated(),
+                              label.hjust = deprecated(),
+                              label.fontsize = deprecated(),
+                              label.family = deprecated(),
+                              label.lineheight = deprecated(),
+                              label.fontface = deprecated(),
+                              label.fill = deprecated(),
+                              label.colour = deprecated()) {
+  if (lifecycle::is_present(label.margin)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_ellipse(label.margin)", I("the `style` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.width)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_ellipse(label.width)", I("the `width` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.minwidth)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_ellipse(label.minwidth)")
+  }
+  if (lifecycle::is_present(label.hjust)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_ellipse(label.hjust)", I("the `style` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.fontsize)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_ellipse(label.fontsize)", I("the `style` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.family)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_ellipse(label.family)", I("the `style` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.lineheight)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_ellipse(label.lineheight)", I("the `style` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.fontface)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_ellipse(label.fontface)", I("the `style` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.fill)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_ellipse(label.fill)", I("the `style` aesthetic instead"))
+  }
+  if (lifecycle::is_present(label.colour)) {
+    lifecycle::deprecate_soft("0.6.0", "geom_mark_ellipse(label.colour)", I("the `style` aesthetic instead"))
+  }
   layer(
     data = data,
     mapping = mapping,
@@ -215,16 +222,7 @@ geom_mark_ellipse <- function(mapping = NULL, data = NULL, stat = 'identity',
       radius = radius,
       n = n,
       tol = tol,
-      label.margin = label.margin,
-      label.width = label.width,
-      label.minwidth = label.minwidth,
-      label.fontsize = label.fontsize,
-      label.family = label.family,
-      label.lineheight = label.lineheight,
-      label.fontface = label.fontface,
-      label.hjust = label.hjust,
-      label.fill = label.fill,
-      label.colour = label.colour,
+      label.maxwidth = label.maxwidth,
       label.buffer = label.buffer,
       con.colour = con.colour,
       con.size = con.size,
@@ -245,10 +243,8 @@ ellipEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL
                          id.lengths = NULL, expand = 0, radius = 0, n = 100,
                          tol = 0.01, label = NULL, ghosts = NULL,
                          default.units = 'npc', name = NULL, mark.gp = gpar(),
-                         label.gp = gpar(), desc.gp = gpar(), con.gp = gpar(),
-                         label.margin = margin(), label.width = NULL,
-                         label.minwidth = unit(50, 'mm'), label.hjust = 0,
-                         label.buffer = unit(10, 'mm'), con.type = 'elbow',
+                         con.gp = gpar(), label.buffer = unit(10, 'mm'),
+                         label.maxwidth = unit(50, 'mm'), con.type = 'elbow',
                          con.border = 'one', con.cap = unit(3, 'mm'),
                          con.arrow = NULL, anchor.x = NULL, anchor.y = NULL,
                          vp = NULL) {
@@ -280,18 +276,29 @@ ellipEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL
     vp = vp
   )
   if (!is.null(label)) {
+    label_width <- as_mm(label$width, "mm")
+    max_width <- as_mm(label.maxwidth)
     label <- lapply(seq_len(nrow(label)), function(i) {
-      if (is.na(label$label[i] %||% NA) && is.na(label$description[i] %||% NA)) return(zeroGrob())
-      grob <- labelboxGrob(label$label[i], 0, 0, label$description[i],
-        gp = subset_gp(label.gp, i), desc.gp = subset_gp(desc.gp, i),
-        pad = label.margin, width = label.width,
-        min.width = label.minwidth, hjust = label.hjust
-      )
+      style <- label$style[i]
       if (con.border == 'all') {
         con.gp <- subset_gp(con.gp, i)
-        grob$children[[1]]$gp$col <- con.gp$col
-        grob$children[[1]]$gp$lwd <- con.gp$lwd
-        grob$children[[1]]$gp$lty <- con.gp$lty
+        style <- marquee::modify_style(
+          style,
+          "body",
+          border = con.gp$col,
+          border_width = marquee::trbl(grid::unit(con.gp$lwd, "pt")),
+          border_type = con.gp$lty
+        )
+      }
+      desc <- as.character(label$description[i] %||% "") %|% ""
+      if (!is.null(label$label) && !is.na(label$label[i])) {
+        desc <- sub("\n$", "", paste0("##### ", as.character(label$label[i]) %|% "", "\n", desc))
+      }
+
+      if (nchar(desc) == 0) return(zeroGrob())
+      grob <- marquee::marquee_grob(desc, style, force_body_margin = TRUE, x = 0, y = 0, width = grid::unit(label_width[i], "mm"), hjust = 0.5, vjust = 0.5)
+      if (is.na(label$width[i]) && as_mm(grobWidth(grob)) > max_width) {
+        grob <- marquee::marquee_grob(desc, style, force_body_margin = TRUE, x = 0, y = 0, width = grid::unit(max_width, "mm"), hjust = 0.5, vjust = 0.5)
       }
       grob
     })
@@ -320,7 +327,7 @@ ellipEncGrob <- function(x = c(0, 0.5, 1, 0.5), y = c(0.5, 1, 0.5, 0), id = NULL
   )
 }
 #' @importFrom grid convertX convertY unit makeContent childNames addGrob
-#' setChildren gList
+#'   setChildren gList
 #' @export
 makeContent.ellip_enc <- function(x) {
   mark <- x$mark

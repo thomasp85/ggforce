@@ -37,20 +37,23 @@ place_labels <- function(rects, polygons, bounds, anchors, ghosts) {
     x = c(0, bounds[1], bounds[1], 0),
     y = c(0, 0, bounds[2], bounds[2])
   )
-  if (!is.null(ghosts) && length(ghosts$x) > 0) {
-    ghosts$x <- convertX(ghosts$x, 'mm', TRUE)
-    ghosts$y <- convertY(ghosts$y, 'mm', TRUE)
-    ghosts <- Map(
-      function(xmin, xmax, ymin, ymax) {
-        list(x = c(xmin, xmax, xmax, xmin), y = c(ymin, ymin, ymax, ymax))
-      },
-      xmin = ghosts$x - 2,
-      xmax = ghosts$x + 2,
-      ymin = ghosts$y - 2,
-      ymax = ghosts$y + 2
-    )
-    ghosts <- polyoffset(ghosts, 0)
-    polygons <- c(polygons, ghosts)
+  if (!is.null(ghosts)) {
+    keep <- !is.na(ghosts$x) & !is.na(ghosts$y)
+    if (sum(keep) > 0) {
+      ghosts$x <- convertX(ghosts$x[keep], 'mm', TRUE)
+      ghosts$y <- convertY(ghosts$y[keep], 'mm', TRUE)
+      ghosts <- Map(
+        function(xmin, xmax, ymin, ymax) {
+          list(x = c(xmin, xmax, xmax, xmin), y = c(ymin, ymin, ymax, ymax))
+        },
+        xmin = ghosts$x - 2,
+        xmax = ghosts$x + 2,
+        ymin = ghosts$y - 2,
+        ymax = ghosts$y + 2
+      )
+      ghosts <- polyoffset(ghosts, 0)
+      polygons <- c(polygons, ghosts)
+    }
   }
   for (i in seq_along(rects)) {
     if (all(rects[[i]] == 0)) next()
@@ -111,8 +114,8 @@ make_label <- function(labels, dims, polygons, ghosts, buffer, con_type,
   labels_drawn <- which(!vapply(labelpos, is.null, logical(1)))
   labels <- Map(function(lab, pos) {
     if (is.null(pos) || inherits(lab, 'null')) return(nullGrob())
-    lab$vp$x <- unit(pos[1], 'mm')
-    lab$vp$y <- unit(pos[2], 'mm')
+    lab$x <- unit(pos[1], 'mm')
+    lab$y <- unit(pos[2], 'mm')
     lab
   }, lab = labels, pos = labelpos)
   connect <- inject(rbind(!!!Map(function(pol, pos, dim) {
@@ -154,107 +157,6 @@ make_label <- function(labels, dims, polygons, ghosts, buffer, con_type,
   c(labels, list(connect))
 }
 
-#' @importFrom grid valid.just textGrob nullGrob viewport grobWidth grobHeight
-#' rectGrob gpar grid.layout unit gTree gList grobDescent
-labelboxGrob <- function(label, x = unit(0.5, 'npc'), y = unit(0.5, 'npc'),
-                         description = NULL, width = NULL, min.width = 50,
-                         default.units = 'mm', hjust = 0,
-                         pad = margin(2, 2, 2, 2, 'mm'), gp = gpar(), desc.gp = gpar(),
-                         vp = NULL) {
-  width <- as_mm(width, default.units)
-  min.width <- as_mm(min.width, default.units)
-  pad <- as_mm(pad, default.units)
-  pad[c(1, 3)] <- as_mm(pad[c(1, 3)], default.units, FALSE)
-  if (!is.null(label) && !is.na(label)) {
-    if (!is.null(width)) {
-      label <- wrap_text(label, gp, width - pad[2] - pad[4])
-    }
-    just <- c(hjust[1], 0.5)
-    lab_grob <- textGrob(label, x = just[1], y = just[2], just = just,
-                         gp = gp)
-  } else {
-    lab_grob <- nullGrob()
-  }
-  if (!is.null(width)) {
-    final_width <- max(width, min.width) - pad[2] - pad[4]
-  } else {
-    if (as_mm(grobWidth(lab_grob)) > (min.width - pad[2] - pad[4])) {
-      final_width <- as_mm(grobWidth(lab_grob)) + pad[2] + pad[4]
-    } else {
-      final_width <- max(as_mm(grobWidth(lab_grob)), min.width) - pad[2] - pad[4]
-    }
-  }
-  if (!is.null(description) && !is.na(description)) {
-    description <- wrap_text(description, desc.gp, final_width)
-    just <- c(rep_len(hjust, 2)[2], 0.5)
-    desc_grob <- textGrob(description, x = just[1], y = just[2], just = just,
-                          gp = desc.gp)
-    if (is.null(width)) {
-      final_width_desc <- min(final_width, as_mm(grobWidth(desc_grob)))
-      final_width <- as_mm(grobWidth(lab_grob))
-      if (final_width < final_width_desc) {
-        final_width <- final_width_desc
-      }
-    }
-  } else {
-    desc_grob <- nullGrob()
-    if (is.null(width)) final_width <- as_mm(grobWidth(lab_grob))
-  }
-  bg_grob <- rectGrob(gp = gpar(col = NA, fill = gp$fill))
-  lab_height <- as_mm(grobHeight(lab_grob), width = FALSE)
-  desc_height <- as_mm(grobHeight(desc_grob), width = FALSE)
-  sep_height <- if (lab_height > 0 && desc_height > 0) {
-    pad[1]
-  } else if (lab_height > 0) {
-    font_descent(gp$fontfamily, gp$fontface, gp$fontsize, gp$cex)
-  } else {
-    0
-  }
-  vp <- viewport(
-    x = x,
-    y = y,
-    width = unit(final_width + pad[2] + pad[4], 'mm'),
-    height = unit(pad[1] + pad[3] + lab_height + desc_height + sep_height,
-                  'mm'),
-    layout = grid.layout(
-      5, 3,
-      widths = unit(c(pad[2], final_width, pad[4]), 'mm'),
-      heights = unit(c(pad[1], lab_height, sep_height, desc_height, pad[3]),
-                     'mm')
-    )
-  )
-  lab_grob$vp <- viewport(layout.pos.col = 2, layout.pos.row = 2)
-  desc_grob$vp <- viewport(layout.pos.col = 2, layout.pos.row = 4)
-  gTree(children = gList(bg_grob, lab_grob, desc_grob), vp = vp,
-        cl = 'mark_label')
-}
-#' @export
-#' @importFrom grid widthDetails
-widthDetails.mark_label <- function(x) {
-  x$vp$width
-}
-#' @export
-#' @importFrom grid heightDetails
-heightDetails.mark_label <- function(x) {
-  x$vp$height
-}
-#' @importFrom grid textGrob grobWidth
-wrap_text <- function(text, gp, width) {
-  text <- gsub('-', '- ', text)
-  text <- strsplit(text, split = ' ', fixed = TRUE)[[1]]
-  text <- paste0(text, ' ')
-  text <- sub('- ', '-', text)
-  txt <- ''
-  for (i in text) {
-    oldlab <- txt
-    txt <- paste0(txt, i)
-    tmpGrob <- textGrob(txt, gp = gp)
-    if (as_mm(grobWidth(tmpGrob)) > width) {
-      txt <- paste(trimws(oldlab), i, sep = '\n')
-    }
-  }
-  trimws(txt)
-}
 #' @importFrom grid unit is.unit convertWidth convertHeight
 as_mm <- function(x, def, width = TRUE) {
   if (is.null(x)) return(x)
@@ -381,9 +283,48 @@ vswitch <- function(x, ...) {
   cases[cbind(seq_along(x), match(x, colnames(cases)))]
 }
 
-font_descent <- function(fontfamily, fontface, fontsize, cex) {
-  italic <- fontface >= 3
-  bold <- fontface == 2 | fontface == 4
-  info <- systemfonts::font_info(fontfamily, italic, bold, fontsize * (cex %||% 1), res = 300)
-  as_mm(abs(info$max_descend)*72/300, 'pt', FALSE)
+#' A marquee styleset for geom_mark_*()
+#'
+#' This function constructs stylesets with defaults appropriate for the text
+#' boxes in the geom_mark_*() family of geoms.
+#'
+#' @param base_size The base size for the text (depending on the style, some
+#' text may be larger, e.g. headings)
+#' @param background The background color of the textbox
+#' @param color The text color in the textbox
+#' @param header_color The text color for headings in the textbox
+#' @param lineheight The base lineheight for the text in the textbox
+#' @param margin The margin around the text in the textbox
+#' @param ... Further arguments to pass on to [marquee::classic_style()]
+#'
+#' @return A marquee style_set object with a length corresponding to the length
+#' of the input
+#'
+#' @export
+mark_style <- function(
+  base_size = 10,
+  background = "white",
+  color = "black",
+  header_color = color,
+  lineheight = 1,
+  margin = marquee::trbl(grid::unit(2, "mm")),
+  ...) {
+  mark_style <- marquee::modify_style(
+    marquee::classic_style(base_size = base_size, color = color, margin = marquee::trbl(0), lineheight = lineheight, ...),
+    "body",
+    lineheight = NULL,
+    padding = marquee::skip_inherit(margin),
+    background = background
+  )
+  for (tag in paste0("h", 1:6)) {
+    mark_style <- marquee::modify_style(
+      mark_style,
+      tag,
+      lineheight = NULL,
+      color = header_color,
+      margin = marquee::trbl(0, 0, marquee::em(0.2))
+    )
+  }
+  mark_style
 }
+

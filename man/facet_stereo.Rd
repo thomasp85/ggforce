@@ -43,9 +43,9 @@ ggplot(mtcars) +
   facet_stereo()
 }
 \seealso{
-Other ggforce facets: 
-\code{\link{facet_grid_paginate}()},
-\code{\link{facet_wrap_paginate}()},
-\code{\link{facet_zoom}()}
+Other ggforce facets:
+\code{\link[=facet_grid_paginate]{facet_grid_paginate()}},
+\code{\link[=facet_wrap_paginate]{facet_wrap_paginate()}},
+\code{\link[=facet_zoom]{facet_zoom()}}
 }
 \concept{ggforce facets}

@@ -86,9 +86,9 @@ ggplot(iris, aes(Petal.Length, Petal.Width, colour = Species)) +
   facet_zoom(x = Species == 'versicolor', zoom.data = Species == 'versicolor')
 }
 \seealso{
-Other ggforce facets: 
-\code{\link{facet_grid_paginate}()},
-\code{\link{facet_stereo}()},
-\code{\link{facet_wrap_paginate}()}
+Other ggforce facets:
+\code{\link[=facet_grid_paginate]{facet_grid_paginate()}},
+\code{\link[=facet_stereo]{facet_stereo()}},
+\code{\link[=facet_wrap_paginate]{facet_wrap_paginate()}}
 }
 \concept{ggforce facets}
