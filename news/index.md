@@ -2,9 +2,31 @@
 
 ## ggforce (development version)
 
+- Fixed a bug in the enclosing ellipse calculation that could return a
+  mirrored (wrongly oriented) ellipse for some point configurations, and
+  could error on input with leading duplicate points
+  ([\#354](https://github.com/thomasp85/ggforce/issues/354))
+
+- The `geom_mark_*()` family now gracefully ignores non-finite positions
+  arising during coordinate transformation instead of corrupting the
+  mark and label placement
+  ([\#347](https://github.com/thomasp85/ggforce/issues/347))
+
+- Fixed a bug in
+  [`geom_mark_hull()`](https://ggforce.data-imaginist.com/reference/geom_mark_hull.md)
+  where near-collinear groups with duplicated points would produce
+  hugely oversized hulls due to unbounded miter joins
+  ([\#345](https://github.com/thomasp85/ggforce/issues/345))
+
+- The deprecated `label.fill` and `label.colour` arguments in the
+  `geom_mark_*()` family now work again, including the `"inherit"`
+  keyword, by being mapped onto the `style` aesthetic
+  ([\#331](https://github.com/thomasp85/ggforce/issues/331))
+
 - **BREAKING** The `geom_mark_*()` family now uses marquee for the
   content of the text boxes. Use markdown to add titles etc rather than
   the previous label title and body.
+
 - [`geom_autohistogram()`](https://ggforce.data-imaginist.com/reference/geom_autohistogram.md)
   draws continuous histograms with ggplot2 4.0.
 
