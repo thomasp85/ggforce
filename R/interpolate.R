@@ -95,7 +95,18 @@ interpolateDataFrame <- function(data) {
       next
     }
     interpValues <- split(data[[i]][!data$.interp], data$group[!data$.interp])
-    data[[i]] <- unlist(tween_t(interpValues, interpLengths))
+    # Single-observation groups cannot be interpolated; keep their values
+    # as-is rather than feeding them to tween_t (#328)
+    singles <- lengths(interpValues) == 1
+    if (all(singles)) next
+    if (any(singles)) {
+      multi <- !data$group %in% names(interpValues)[singles]
+      data[[i]][multi] <- unlist(tween_t(
+        interpValues[!singles], interpLengths[!singles]
+      ))
+    } else {
+      data[[i]] <- unlist(tween_t(interpValues, interpLengths))
+    }
   }
   data[, names(data) != '.interp']
 }

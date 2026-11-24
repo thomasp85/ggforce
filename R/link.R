@@ -120,6 +120,19 @@ StatLink2 <- ggproto('StatLink2', Stat,
     extraCols <- !names(data) %in% c('x', 'y', 'group', 'PANEL', 'frame')
     extraCols <- names(data)[extraCols]
     data <- dapply(data, 'group', function(df) {
+      # A single-observation group cannot be interpolated — emit the point
+      # as-is (#328)
+      if (nrow(df) == 1) {
+        interp <- data_frame0(
+          x = df$x, y = df$y, index = 0, group = df$group[1],
+          PANEL = df$PANEL[1]
+        )
+        if ('frame' %in% names(df)) interp$frame <- df$frame[1]
+        if (length(extraCols) > 0) {
+          return(cbind(interp, df[1, extraCols, drop = FALSE], .interp = FALSE))
+        }
+        return(cbind(interp, .interp = FALSE))
+      }
       n_group <- n * (nrow(df) - 1) + 1
       interp <- tween_t(list(df$x, df$y), n_group)
       interp <- data_frame0(x = interp[[1]], y = interp[[2]])
