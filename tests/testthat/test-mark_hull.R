@@ -1,12 +1,10 @@
 draw_plot <- function(p) {
-  grDevices::pdf(NULL)
-  on.exit(grDevices::dev.off())
+  local_pdf_device()
   suppressWarnings(grid::grid.draw(ggplotGrob(p)))
 }
 
 hull_polygons <- function(p) {
-  grDevices::pdf(NULL)
-  on.exit(grDevices::dev.off())
+  local_pdf_device()
   gt <- ggplotGrob(p)
   panel <- gt$grobs[[which(gt$layout$name == "panel")]]
   hull_grob <- panel$children[[grep("hull_enc", names(panel$children))[1]]]

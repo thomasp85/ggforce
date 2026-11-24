@@ -22,8 +22,7 @@ mark_df <- function() {
 }
 
 expect_draws <- function(p) {
-  grDevices::pdf(NULL)
-  on.exit(grDevices::dev.off())
+  local_pdf_device()
   # suppressWarnings: mark geoms trigger a pre-existing, unrelated
   # "Group definition failed" fallback warning from grid
   expect_no_error(suppressWarnings(grid::grid.draw(ggplotGrob(p))))

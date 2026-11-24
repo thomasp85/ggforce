@@ -13,8 +13,7 @@ test_that("geom_link2 handles single-observation groups (#328)", {
   # The singleton group is kept as a single uninterpolated row
   expect_equal(sum(dat$group == 3), 1)
 
-  grDevices::pdf(NULL)
-  on.exit(grDevices::dev.off())
+  local_pdf_device()
   expect_no_error(suppressWarnings(grid::grid.draw(ggplotGrob(p))))
 })
 

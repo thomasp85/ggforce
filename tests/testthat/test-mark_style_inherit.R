@@ -28,8 +28,7 @@ test_that("apply_label_style applies plain values and leaves NULL alone", {
 })
 
 draw_quiet <- function(p) {
-  grDevices::pdf(NULL)
-  on.exit(grDevices::dev.off())
+  local_pdf_device()
   withr::with_options(
     list(lifecycle_verbosity = "quiet"),
     expect_no_error(suppressWarnings(grid::grid.draw(ggplotGrob(p))))
