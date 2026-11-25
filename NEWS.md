@@ -1,3 +1,5 @@
+# ggforce (development version)
+
 # ggforce 0.6.0
 
 * Fixed a bug in the enclosing ellipse calculation that could return a mirrored
