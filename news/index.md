@@ -1,5 +1,7 @@
 # Changelog
 
+## ggforce (development version)
+
 ## ggforce 0.6.0
 
 CRAN release: 2026-11-25
