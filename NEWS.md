@@ -1,5 +1,7 @@
 # ggforce (development version)
 
+* `shapeGrob()` now draws a regular polygon when the expansion and corner
+  radius both resolve to zero at draw time (#318)
 * Fixed a bug in the enclosing ellipse calculation that could return a mirrored
   (wrongly oriented) ellipse for some point configurations, and could error on
   input with leading duplicate points (#354)
