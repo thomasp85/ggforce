@@ -14,7 +14,6 @@
   by being mapped onto the `style` aesthetic (#331)
 * `geom_link2()` now works with single-observation groups instead of erroring
   (#328)
-
 * **BREAKING** The `geom_mark_*()` family now uses marquee for the content of
   the text boxes. Use markdown to add titles etc rather than the previous label
   title and body.

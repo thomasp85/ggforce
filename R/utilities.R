@@ -252,7 +252,7 @@ with_ordered_restart <- function(expr, .call) {
         ")"
       )
 
-      deprecate_soft0(
+      deprecate_warn0(
         "3.4.0",
         I(msg),
         details = desc
@@ -283,7 +283,7 @@ with_ordered_restart <- function(expr, .call) {
     }
   )
 }
-deprecate_soft0 <- function(..., user_env = NULL) {
+deprecate_warn0 <- function(..., user_env = NULL) {
   user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
-  lifecycle::deprecate_soft(..., user_env = user_env)
+  lifecycle::deprecate_warn(..., user_env = user_env)
 }

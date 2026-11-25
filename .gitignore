@@ -9,3 +9,4 @@ src/*.dll
 inst/doc
 compile_commands.json
 .cache
+revdep/cloud.noindex
