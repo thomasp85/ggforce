@@ -1,6 +1,8 @@
 # Changelog
 
-## ggforce (development version)
+## ggforce 0.6.0
+
+CRAN release: 2026-11-25
 
 - Fixed a bug in the enclosing ellipse calculation that could return a
   mirrored (wrongly oriented) ellipse for some point configurations, and
